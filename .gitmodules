@@ -1,0 +1,4 @@
+[submodule "doc_exaNBody"]
+	path = doc_exaNBody
+	url = git@github.com:Collab4exaNBody/doc_exaNBody.git
+	branch = main
