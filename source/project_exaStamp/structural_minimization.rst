@@ -1,0 +1,6 @@
+Minimization Algorithms
+-----------------------
+
+Gradient Descent
+^^^^^^^^^^^^^^^^
+

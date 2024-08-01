@@ -1,8 +1,72 @@
-Introduction to ExaSTAMP
-========================
+ExaStamp Software
+=================
 
-ExaSTAMP stands for "Simulations Temporelles Atomistiques et Moléculaires en Parallèle à l'Exascale" or Exascale Atomistic and Molecular Simulations in Parallel.
+Overview of ExaStamp
+^^^^^^^^^^^^^^^^^^^^
 
-ExaSTAMP is a classical molecular dynamics simulation code dedicated to the modeing of materials behavior at extreme conditions. The code integrates in the ExaNBody platform and is specifically designed to run on HPC platforms. It beneficiates from MPI + OpenMP parallelization as well as from GPU acceleration features. The code is developed at the Military Division of the French Atomic Energy Commision (CEA DAM DIF). ExaSTAMP is an open-source software distributed under the terms of the Apache License, Version 2.0.
+``ExaStamp`` is a software solution in the field of computational simulations of particle-based systems. It stands for "Simulations Temporelles Atomistiques et Moléculaires en Parallèle à l'Exascale" or Exascale Atomistic and Molecular Simulations in Parallel. ``ExaStamp`` is a classical molecular dynamics (``MD``) simulation code developed within the ``exaNBody framework`` and it is dedicated to the modeling of materials behavior at extreme conditions at the microscopic scale. It adopts a hybrid parallelization approach, combining the use of ``MPI`` (Message Passing Interface) and Threads (``OpenMP``). This combination aims at optimizing computational cost for simulations, making them more efficient and manageable.
 
-Various informations can be found on this documentation. The latter includes an installation guide, some test-cases examples, a list of available plugins and a full list of operators that can be used to build input decks for highly modulable simulation scenarios.
+Additionally, ``ExaStamp`` offers combatibility with ``MPI`` + ``GPUs``, using the ``CUDA`` programming model integrated as the ``Onika`` layer. This feature provides the option to leverage ``GPU`` processing power for potential performance gains in simulations. Written in ``C++17``, ``ExaStamp`` is built on a contemporary codebase and aims at providing researchers and engineers with a tool for adressing ``MD`` simulations.
+
+Default Execution Graph With ExaStamp
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ExaStamp`` is based on the operator execution system implemented by the ``exaNBody`` framework. In particular, this allows us to define a set of default operators for ``ExaStamp`` to run an ``MD`` simulation using the Velocity-Verlet integration scheme. ``ExaStamp`` offers multiple variants, depending on whether the user wants to simulate monoatomic or polyatomic systems or even a set of flexible/rigid molecules. To choose between these two variants, the user will need to include either one of these configuration files:
+
+- **config_species.msp** for both monoatomic and polyatomic systems
+- **config_species_rigidmol.msp** for rigid molecules systems
+- **config_molecule.msp** for flexible molecules systems
+
+at the beginning of the input file. If neither is included, the simulation will not launch. Including these files allows the user to override specific operators left at *nop* (for no operation). The graph below shows the sequence of ``exaStamp``'s main operators.
+
+TODO : Ajout du graphe comme pour exaDEM.
+
+Current capabilities of ExaStamp
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following tables provide a glossary of features supported by ``ExaStamp``, categorized by their computational platform (``CPU`` or ``GPU``). Please note that this information is indicative and may be subject to change based on updates or modifications to the ``ExaStamp`` framework.
+
+.. list-table:: Input/Output Features
+  :widths: 40 40 40
+  :header-rows: 1
+  :align: center
+
+  * - Denomination
+    - CPU
+    - GPU
+  * - Field Set Plugin
+    - YES
+    - YES
+  * - Reader : XYZ files
+    - YES
+    - X
+  * - Reader : LAMMPS
+    - YES
+    - X
+  * - Reader : ExaStamp binary restart 
+    - YES
+    - X
+  * - Geometric Regions
+    - YES
+    - YES
+  * - Particles Generator
+    - YES
+    - X
+  * - Writer : XYZ files (extended)
+    - YES
+    - X
+  * - Writer : ParaView files
+    - YES
+    - X
+  * - Particle Migration (MPI)
+    - YES
+    - X
+  * - Load Balancing (RCB)
+    - YES
+    - X
+  * - Numerical Scheme Plugin
+    - YES
+    - YES
+  * - Hooke Law
+    - YES
+    - YES

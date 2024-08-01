@@ -1,5 +1,5 @@
-List of ExaSTAMP Operators
-==========================
+Exhaustive List of ExaSTAMP Operators
+=====================================
 
 In the present section, we describe the main ExaSTAMP operators and the ones used from ExaNBody by inheritance. Each operator's description is accompanied by a general description, a slot description and YAML example that can directly be included in your simulation's input file.
 

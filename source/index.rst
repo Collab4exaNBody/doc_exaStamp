@@ -18,15 +18,20 @@ ExaNB stands for **Exa**\ scale **N**\ -**B**\ ody simulations.
 
 .. toctree::
    :name: exastamp_variant
-   :numbered:
-   :maxdepth: 2      
+   :numbered: 2
+   :maxdepth: 2
    :caption: ExaSTAMP Variant
 
    project_exaStamp/Introduction.rst
    project_exaStamp/Installation.rst
    project_exaStamp/Test_cases.rst
+   project_exaStamp/Flavors.rst
+   project_exaStamp/Boundary.rst
+   project_exaStamp/Particles.rst   
+   project_exaStamp/Interactions.rst
+   project_exaStamp/Constraints.rst   
+   project_exaStamp/Analysis.rst
    project_exaStamp/Operators.rst
-   project_exaStamp/Analysis.rst   
              
 .. _adastra:
 

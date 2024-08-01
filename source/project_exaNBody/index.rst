@@ -16,6 +16,9 @@
    ../../doc_exaNBody/sources/PerfomanceAndPortability.rst
 
 .. include::
+   ../../doc_exaNBody/sources/AlgorithmPatterns.rst
+   
+.. include::
    ../../doc_exaNBody/sources/Plugins.rst
 
 .. include::
@@ -29,3 +32,4 @@
 
 .. include::
    ../../doc_exaNBody/sources/ExampleRST.rst
+   
