@@ -1,0 +1,9 @@
+furo
+sphinxcontrib-gtagjs
+sphinx_rtd_theme
+sphinxcontrib-bibtex
+myst-parser
+myst_nb
+nbsphinx
+commonmark
+recommonmark
