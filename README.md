@@ -24,5 +24,8 @@ evince doc.pdf
 ```
 
 ## Install prerequisites on Ubuntu
+
+```
 sudo apt install sphinx sphinx-doc sphinx-rtd-theme-common python3-pip texlive-full latexmk
 pip install sphinx_rtd_theme
+```

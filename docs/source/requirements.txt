@@ -7,3 +7,4 @@ myst_nb
 nbsphinx
 commonmark
 recommonmark
+sphinx-gallery

@@ -1,10 +1,74 @@
-I/O and Analysis
-================
+Input operators
+===============
 
 The present section describes in details the different operators used for simulation's setup, post-analysis, visualization and I/O operations in Molecular Dynamics simulations using exaStamp.
 
-Input Operators
+.. code-block:: yaml
+                
+   input_data:
+     - domain
+     - init_rcb_grid
+     - particle_regions
+     - lattice
+
+Simulation domain
+-----------------
+
+.. code-block:: yaml
+                
+   domain:
+      cell_size: 5.0 ang
+      grid_dims: [20,20,20]
+      bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+      xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
+      periodic: [true,true,true]
+      expandable: false
+                
+Spatial regions
 ---------------
+
+quadric or box
+
+.. code-block:: yaml
+
+   example_box:
+     - bounds: [ [ 250 ang , 0 ang , 0 ang ] , [ 300 ang , 300 ang , 300 ang ] ]
+       
+.. code-block:: yaml
+
+   example_quadric:
+     - quadric:
+         - shape: cylx # or cyly or cylz or sphere or conex or coney or conez or plane
+         - transform:
+             - scale: [ 15 ang , 15 ang , 15 ang ]
+             - xrot: pi/4
+             - yrot: pi/3
+             - zrot: pi/6             
+             - translate: [ 85 ang , 85 ang , 0 ang ]      
+
+.. code-block:: yaml
+
+   CYL9:
+     - quadric:
+         - shape: cylz
+         - transform:
+             - scale: [ 15 ang , 15 ang , 15 ang ]
+             - xrot: pi/4
+             - yrot: pi/3
+             - zrot: pi/6             
+             - translate: [ 85 ang , 85 ang , 0 ang ]      
+
+Built-in generators
+-------------------
+
+Lattice generator
+^^^^^^^^^^^^^^^^^
+
+Bulk lattice generator
+^^^^^^^^^^^^^^^^^^^^^^
+
+External file readers
+---------------------
 
 Readers of xyz File
 ^^^^^^^^^^^^^^^^^^^
@@ -16,6 +80,9 @@ Readers of xyz File
    * `enlarge_bounds` : Define a layer around the volume size in the xyz file. Default size is 0.
    * `file` : File name, this parameter is required.
    * `pbc_adjust_xform` : Ajust the form.
+
+Output operators
+================
 
 Discrete output operators
 -------------------------

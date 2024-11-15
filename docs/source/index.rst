@@ -2,18 +2,6 @@
 ExaStamp & ExaNBody Documentation
 #################################
 
-ExaNB stands for **Exa**\ scale **N**\ -**B**\ ody simulations.
-
-.. _exanb:
-
-.. toctree::
-   :name: exanb_framework
-   :numbered:
-   :maxdepth: 2
-   :caption: ExaNB Framework
-
-   project_exaNBody/index.rst
-
 .. _exastamp:
 
 .. toctree::
@@ -32,6 +20,17 @@ ExaNB stands for **Exa**\ scale **N**\ -**B**\ ody simulations.
    project_exaStamp/Constraints.rst   
    project_exaStamp/Analysis.rst
    project_exaStamp/Operators.rst
+
+.. _exanb:
+
+.. toctree::
+   :name: exanb_framework
+   :numbered:
+   :maxdepth: 2
+   :caption: ExaNB Framework
+
+   project_exaNBody/index.rst
+
              
 .. _adastra:
 
