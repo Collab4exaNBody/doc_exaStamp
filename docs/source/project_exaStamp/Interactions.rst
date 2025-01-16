@@ -1,7 +1,19 @@
 Interatomic Potentials
 ======================
 
-The general formalism to compute forces and energies from an interatomic potential is through the use of the YAML block ``compute_force`` as follows:
+Defining the interatomic potential
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In ``ExaStamp``, the integration of the dynamics of the system uses the velocity verlet numerical scheme in which the YAML block ``compute_all_forces_energy``:
+
+.. code-block:: yaml
+
+   compute_all_forces_energy:
+     - compute_force_prolog: zero_force_energy
+     - compute_force: { here lies the operator associated with the interatomic potential }
+     - compute_force_epilog: force_to_accel
+
+In order to compute forces and energies, the interatomic potential must be defined by the ``compute_force`` YAML block which can be a sequence of multiple operators, in the case of hybrid potential where multiple usual forms are additively considered:
 
 .. code-block:: yaml
 
@@ -17,7 +29,7 @@ The general formalism to compute forces and energies from an interatomic potenti
      - thermostat
      - external_force
 
-which is called at every timestep during the integration loop. Multiple force operators can be stacked under the ``compute_force`` block. Spefici force operators corresponding to different interatomic potentials are defined hereafter. In addition, thermostats can also be appended to the ``compute_force`` block and the latter are defined in the :ref:`nvt` section. Finally, external forces coming from a repulsive wall for example can also be appended to the ``compute_force`` block. Such operators are defined in the :ref:`external_forces` section.
+which is called at every timestep during the integration loop. As explained above, multiple force operators can be stacked under the ``compute_force`` block. Specific force operators corresponding to different interatomic potentials are defined hereafter. In addition, thermostats (that do not need a modification of the numerical scheme) can also be appended to the ``compute_force`` block and the latter are defined in the :ref:`thermostats` section. Finally, external forces coming from a repulsive wall for example can also be appended to the ``compute_force`` block. Such operators are defined in the :ref:`external_forces` section.
 
 .. include::
    pair_potentials.rst

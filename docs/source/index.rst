@@ -14,9 +14,12 @@ ExaStamp & ExaNBody Documentation
    project_exaStamp/Installation.rst
    project_exaStamp/Test_cases.rst
    project_exaStamp/Flavors.rst
-   project_exaStamp/Boundary.rst
-   project_exaStamp/Particles.rst   
+   project_exaStamp/Domain.rst
+   project_exaStamp/Regions.rst
+   project_exaStamp/Particles.rst
    project_exaStamp/Interactions.rst
+   project_exaStamp/Thermodynamics.rst
+   project_exaStamp/Thermostats.rst   
    project_exaStamp/Constraints.rst   
    project_exaStamp/Analysis.rst
    project_exaStamp/Operators.rst

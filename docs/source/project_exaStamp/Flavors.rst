@@ -3,7 +3,7 @@
 Grid Flavors
 ============
 
-In ``ExaStamp``, the grid flavor pre-defines the data attached to particles during the simulation, meaning that such data is stored anyway along the entire trajectory. Some fields can evolve with time such as positions or velocity while some can be fixed such as the particle identifiers.
+In ``ExaStamp``, the grid flavor pre-defines the data attached to particles during the simulation, meaning that such data is stored anyway along the entire trajectory. Some fields can evolve with time such as positions or velocity while some can be fixed such as the particle identifiers or partial charges.
 
 General Concept
 ---------------
@@ -29,7 +29,11 @@ To define the grid flavor to be used in the simulation, a ``YAML`` block can be 
 
    # Rigid Molecules
    grid_flavor: grid_flavor_rigidmol
-   
+
+.. warning::
+
+   Depending on the grid flavor chosen by the user, some fields won't be available for output. For example if one needs the global stress tensor computed by the `thermodynamic_state` operator, an appropriate `grid_flavor` to use would be the `grid_flavor_full`.
+                
 
 Amongst these grid flavors, mutliple fields are attached to particles. The following table lists the fields common to all grid flavors
 

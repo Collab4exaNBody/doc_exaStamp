@@ -5,3 +5,9 @@
     float: right;
 }
 p { text-align: justify; }
+table.list-table td {
+    vertical-align: middle;
+}
+.div.code-block .caption {
+    color: blue;
+}

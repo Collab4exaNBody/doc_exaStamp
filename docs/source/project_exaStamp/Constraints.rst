@@ -1,5 +1,5 @@
-Thermodynamic Ensembles and Constraints
-=======================================
+External forces
+===============
 
 .. toctree::
    :name: ensembles_constraints
