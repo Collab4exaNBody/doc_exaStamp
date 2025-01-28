@@ -1,7 +1,7 @@
-ExaStamp Software
+exaStamp Software
 =================
 
-Overview of ExaStamp
+Overview of exaStamp
 ^^^^^^^^^^^^^^^^^^^^
 
 ``ExaStamp`` is a software solution in the field of computational simulations of particle-based systems. It stands for "Simulations Temporelles Atomistiques et Moléculaires en Parallèle à l'Exascale" or Exascale Atomistic and Molecular Simulations in Parallel. ``ExaStamp`` is a classical molecular dynamics (``MD``) simulation code developed within the ``exaNBody framework`` and it is dedicated to the modeling of materials behavior at extreme conditions at the microscopic scale. It adopts a hybrid parallelization approach, combining the use of ``MPI`` (Message Passing Interface) and Threads (``OpenMP``). This combination aims at optimizing computational cost for simulations, making them more efficient and manageable.

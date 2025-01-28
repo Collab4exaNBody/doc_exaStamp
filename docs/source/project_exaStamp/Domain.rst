@@ -1,4 +1,4 @@
-Domain Definition
+Simulation Domain
 =================
 
 Defining all domain parameters

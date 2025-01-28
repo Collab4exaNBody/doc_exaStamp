@@ -11,3 +11,6 @@ table.list-table td {
 .div.code-block .caption {
     color: blue;
 }
+.wy-nav-content {
+    max-width: 1200px !important;
+}

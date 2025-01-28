@@ -8,7 +8,7 @@ ExaStamp & ExaNBody Documentation
    :name: exastamp_variant
    :numbered: 2
    :maxdepth: 2
-   :caption: ExaSTAMP Variant
+   :caption: exaStamp Application
 
    project_exaStamp/Introduction.rst
    project_exaStamp/Installation.rst
