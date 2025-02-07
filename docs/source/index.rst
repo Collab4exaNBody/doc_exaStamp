@@ -12,6 +12,7 @@ ExaStamp & ExaNBody Documentation
 
    project_exaStamp/Introduction.rst
    project_exaStamp/Installation.rst
+   project_exaStamp/Installation_2.rst   
    project_exaStamp/Test_cases.rst
    project_exaStamp/Flavors.rst
    project_exaStamp/Domain.rst
