@@ -130,3 +130,56 @@ Now that you have installed the ``ExaStamp`` and ``exaNBody`` packages, you can 
    export N_MPI=2
    export OMP_NUM_THREADS=$N_OMP
    mpirun -n $N_MPI ./exaStamp test-case.msp
+
+Installation 2.0
+================
+
+``exaSTAMP`` installation 2.0 consists in first building both the ``ONIKA`` HPC platform and the ``exaNBody`` (version 2.0) particle simulation platform. Below are instructions for building both as well as final instruction for building ``exaSTAMP``.
+
+For all three codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
+
+Building YAML from sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All platforms extensively use the YAML Library. To build YAML from sources, read the following instructions.
+
+.. code-block:: bash
+
+   # Common instructions
+   mkdir yaml-cpp-4-onika
+   cd yaml-cpp-4-onika
+   git clone -b yaml-cpp-0.6.3 git@github.com:jbeder/yaml-cpp.git
+   *OR* git clone -b yaml-cpp-0.6.3 https://github.com/jbeder/yaml-cpp.git
+   
+   YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3 # adapt this to your environment
+   mkdir build
+   cd build
+
+   # Ubuntu-22.04 X g++-11.4 X CMake 3.26.6
+   cmake -DCMAKE_BUILD_TYPE=Debug \
+         -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
+         -DYAML_BUILD_SHARED_LIBS=OFF \
+         -DYAML_CPP_BUILD_CONTRIB=ON \
+         -DYAML_CPP_BUILD_TESTS=OFF \
+         -DYAML_CPP_BUILD_TOOLS=OFF \
+         -DYAML_CPP_INSTALL=ON \
+         -DCMAKE_CXX_FLAGS=-fPIC \
+         ../yaml-cpp
+
+   # Rhel_8__x86_64 X gcc-11.2.0
+   module purge ; module load gnu/11.2.0 cmake/3.26.4
+   cmake -DCMAKE_BUILD_TYPE=Debug \
+         -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
+         -DYAML_BUILD_SHARED_LIBS=OFF \
+         -DYAML_CPP_BUILD_CONTRIB=ON \
+         -DYAML_CPP_BUILD_TESTS=OFF \
+         -DYAML_CPP_BUILD_TOOLS=OFF \
+         -DYAML_CPP_INSTALL=ON \
+         -DCMAKE_CXX_FLAGS="-fPIC" \
+         ../yaml-cpp
+
+   # Common build, install and cleanup commands
+   make -j4 install
+   cd ../..
+   rm -fr yaml-cpp-4-onika
+

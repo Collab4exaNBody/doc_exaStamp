@@ -29,7 +29,7 @@ Parallelepiped
    :header-rows: 0
 
    * - .. code-block:: yaml
-             
+
           particle_regions:  
             - B1:
                 bounds: [ [ 10, 10, 5], [30, 50, 15] ]
@@ -180,20 +180,6 @@ Matrix4d
              - zrot: pi/6             
              - translate: [ 85 ang , 85 ang , 0 ang ]      
 
-User-defined function
-%%%%%%%%%%%%%%%%%%%%%
-
-Mask on a 3D grid
-%%%%%%%%%%%%%%%%%
-
-Based on Particles' ids
-%%%%%%%%%%%%%%%%%%%%%%%
-
-.. code-block:: yaml
-
-   REGID1:
-     - id_range: [1, 1300]
-
 Assigning Regions to Grid
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -205,5 +191,52 @@ Assigning Regions to Grid
      value: [0,1]
      grid_subdiv: 10
 
+Using the Grid as a mask
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+User-defined function
+%%%%%%%%%%%%%%%%%%%%%
+
+.. code-block:: yaml
+
+   user_function:
+     # WaveFrontSourceTerm
+     wavefront:
+       # first 3 values are interface plane (Pi)'s normal vector (X,Y,Z) , last one is plane offset (position of origin relative to the plane).     
+       plane: [ -1 , 0 , 0 , 125.0 ang ]
+       # wave plane (normal and offset). Oriented distance to the plane, Pw(r), is used to add a sinusoid function sin(P(r))*amplitude to the plane function above
+       wave: [ 0 , 0.1 , 0 , 0 ]
+       # User function is F(r) = Pi(r)+sin(Pw(r))*amplitude , interface is implicit surface F(r)=0, atoms are placed everywhere where F(r)>=0
+       amplitude: 10.0 ang
+   user_threshold: 0.0
+
+   user_function:
+     # SphericalTemporalSourceTerm   
+     sphere:
+       center: [30, 30, 30]
+       amplitude: 10.
+       radius_mean:
+       radius_dev:
+       time_mean:
+       time_dev:
+       
+   user_function:
+     # ConstantSourceTerm   
+     constant: 10.
+
+Based on Particles' ids
+%%%%%%%%%%%%%%%%%%%%%%%
+
+.. code-block:: yaml
+
+   REGID1:
+     - id_range: [1, 1300]
+
 Tracking Particles
 %%%%%%%%%%%%%%%%%%
+
+.. code-block:: yaml
+
+   track_region_particles:
+     expr: PLANE1
+     name: "PISTON"
