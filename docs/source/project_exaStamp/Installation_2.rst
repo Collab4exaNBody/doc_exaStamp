@@ -1,4 +1,3 @@
-
 Installation 2.0
 ================
 
@@ -6,19 +5,15 @@ Installation 2.0
 
 For all three codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
 
-Prerequisistes
-^^^^^^^^^^^^^^^^^^^^^^^
+Build YAML-cpp from sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-CMake from sources
-------------------
+All three platforms extensively use the YAML Library. To build YAML from sources, read the following instructions. Installations procedures for both Ubuntu-22.04 and Rhel_8__x86_64 architectures are provided. The first step is to retrieve the YAML sources from the corresponding GitHub repository.
 
-YAML from sources
------------------
-
-All three platforms extensively use the YAML Library. To build YAML from sources, read the following instructions. Installations procedures for both Ubuntu-22.04 and Rhel_8__x86_64 architectures are provided.
+Retrieve YAML sources
+---------------------
 
 .. code-block:: bash
-   :caption: **Retrieve YAML from GitHub repository**
 
    # Common instructions
    YAMLTMPFOLDER=${path_to_yaml_for_build_from_sources}
@@ -31,43 +26,50 @@ All three platforms extensively use the YAML Library. To build YAML from sources
    mkdir build
    cd build
 
-.. code-block:: bash
-   :caption: **Building on Ubuntu-22.04 X g++-11.4 X CMake 3.26.6**
+Build and install YAML
+----------------------
+   
+.. tabs::
 
-   cmake -DCMAKE_BUILD_TYPE=Debug \
-         -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
-         -DYAML_BUILD_SHARED_LIBS=OFF \
-         -DYAML_CPP_BUILD_CONTRIB=ON \
-         -DYAML_CPP_BUILD_TESTS=OFF \
-         -DYAML_CPP_BUILD_TOOLS=OFF \
-         -DYAML_CPP_INSTALL=ON \
-         -DCMAKE_CXX_FLAGS=-fPIC \
-         ../yaml-cpp
+   .. tab:: **UBUNTU-22.04 | GCC-11.4 | CMake 3.26.6**
+   
+      .. code-block:: bash
 
-.. code-block:: bash
-   :caption: **Building on Rhel_8__x86_64 X gcc-11.2.0**
+         cmake -DCMAKE_BUILD_TYPE=Debug \
+               -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
+               -DYAML_BUILD_SHARED_LIBS=OFF \
+               -DYAML_CPP_BUILD_CONTRIB=ON \
+               -DYAML_CPP_BUILD_TESTS=OFF \
+               -DYAML_CPP_BUILD_TOOLS=OFF \
+               -DYAML_CPP_INSTALL=ON \
+               -DCMAKE_CXX_FLAGS=-fPIC \
+               ../yaml-cpp
 
-   module purge ; module load gnu/11.2.0 cmake/3.26.4
-   cmake -DCMAKE_BUILD_TYPE=Debug \
-         -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
-         -DYAML_BUILD_SHARED_LIBS=OFF \
-         -DYAML_CPP_BUILD_CONTRIB=ON \
-         -DYAML_CPP_BUILD_TESTS=OFF \
-         -DYAML_CPP_BUILD_TOOLS=OFF \
-         -DYAML_CPP_INSTALL=ON \
-         -DCMAKE_CXX_FLAGS="-fPIC" \
-         ../yaml-cpp
+         make -j4 install
+         cd ../..
+         rm -fr ${YAMLTMPFOLDER}
+               
+   .. tab:: **Rhel_8__x86_64 | GCC-11.2.0 | CMake 3.26.4**
+                  
+      .. code-block:: bash
 
-.. code-block:: bash
-   :caption: **Build and install**
+         module purge ; module load gnu/11.2.0 cmake/3.26.4
+         cmake -DCMAKE_BUILD_TYPE=Debug \
+               -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
+               -DYAML_BUILD_SHARED_LIBS=OFF \
+               -DYAML_CPP_BUILD_CONTRIB=ON \
+               -DYAML_CPP_BUILD_TESTS=OFF \
+               -DYAML_CPP_BUILD_TOOLS=OFF \
+               -DYAML_CPP_INSTALL=ON \
+               -DCMAKE_CXX_FLAGS="-fPIC" \
+               ../yaml-cpp
          
-   # Common build, install and cleanup commands
-   make -j4 install
-   cd ../..
-   rm -fr ${YAMLTMPFOLDER}
+         make -j4 install
+         cd ../..
+         rm -fr ${YAMLTMPFOLDER}
 
-Building ONIKA from sources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Build ONIKA from sources
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description
 -----------
@@ -225,8 +227,8 @@ Build and install Onika on Rhel architectures
                -DONIKA_SETUP_ENV_COMMANDS="${ONIKA_SETUP_ENV_COMMANDS}" \
                ${ONIKA_SRC_DIR}
 
-Building exaNBody from sources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Build exaNBody from sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description
 -----------
