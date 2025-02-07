@@ -2,6 +2,7 @@ furo
 sphinxcontrib-gtagjs
 sphinx_rtd_theme
 sphinxcontrib-bibtex
+sphinx_tabs.tabs  
 myst-parser
 myst_nb
 nbsphinx
