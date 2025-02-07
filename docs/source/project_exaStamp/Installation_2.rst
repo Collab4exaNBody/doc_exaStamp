@@ -245,7 +245,7 @@ First step is to retrieve the ``exaNBody`` sources fro the GitHub repository.
 .. code-block:: bash
 
    cd ${HOME}/dev #Adapt depending on where you want to download ``exaNBody``
-   git clone git@github.com:Collab4exaNBody/exaNBody.git
+   git clone -b release-2.0 git@github.com:Collab4exaNBody/exaNBody.git
    cd exaNBody
    XNB_SRC_DIR=${PWD}
    cd ../
