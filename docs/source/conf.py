@@ -26,7 +26,7 @@ author = 'Thierry Carrard, Raphaël Prat, Jean-Philippe Perlat, Paul Lafourcade'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx_rtd_theme', 'sphinxcontrib.bibtex','myst_parser']
+extensions = ['sphinx_rtd_theme', 'sphinxcontrib.bibtex','myst_parser','sphinx_tabs.tabs']
 
 bibtex_bibfiles= ["../doc_exaNBody/sources/bibliography.bib"]
 
