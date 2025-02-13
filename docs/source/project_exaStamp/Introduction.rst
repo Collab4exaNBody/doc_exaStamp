@@ -1,4 +1,4 @@
-exaStamp Software
+ExaStamp Software
 =================
 
 Overview of exaStamp

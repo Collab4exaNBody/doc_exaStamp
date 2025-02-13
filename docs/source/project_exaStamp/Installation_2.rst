@@ -1,6 +1,10 @@
 Installation 2.0
 ================
 
+.. warning::
+
+   This section concerns the installation procedure for ``exaStamp`` with a version of ``exaNBody`` >= 2.0. Another installation procedure for version < 2.0 is provided in the previous section.
+
 ``exaSTAMP`` installation 2.0 consists in first building both the ``ONIKA`` HPC platform and the ``exaNBody`` (version 2.0) particle simulation platform. Below are instructions for building both as well as final instruction for building ``exaSTAMP``.
 
 For all three codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
@@ -68,7 +72,7 @@ Build and install YAML
          cd ../..
          rm -fr ${YAMLTMPFOLDER}
 
-Build ONIKA from sources
+Build Onika from sources
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 Description
@@ -99,13 +103,11 @@ Build and install Onika on Ubuntu 22.04
          
 .. tabs::
 
-   .. tab:: **UBUNTU 22.04 | GCC 11.4.0 | CUDA 12**
+   .. tab:: **UBUNTU 22.04 | GCC 12.3.0 | CUDA 12**
             
       .. code-block:: bash
 
          ONIKA_INSTALL_DIR=${HOME}/local/onika
-         ONIKA_SRC_DIR=${HOME}/dev/onika
-         YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3/lib/cmake/yaml-cpp
          ONIKA_SETUP_ENV_COMMANDS=""
          eval ${ONIKA_SETUP_ENV_COMMANDS}
          cmake -DCMAKE_BUILD_TYPE=Release \
@@ -123,10 +125,7 @@ Build and install Onika on Ubuntu 22.04
             
       .. code-block:: bash
 
-         # Works also for GCC 12.3.0 | 10.5.0 | 9.5.0
          ONIKA_INSTALL_DIR=${HOME}/local/onika
-         ONIKA_SRC_DIR=${HOME}/dev/onika
-         YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3/lib/cmake/yaml-cpp
          ONIKA_SETUP_ENV_COMMANDS=""
          eval ${ONIKA_SETUP_ENV_COMMANDS}
          cmake -DCMAKE_BUILD_TYPE=Release \
@@ -237,8 +236,8 @@ Description
 Typical applications include Molecular Dynamics, particle based fluid simulations using methods such as Smooth Particle Hydrodynamics (SPH) or rigid body simulations using methods such as Discrete Element Method (DEM).
 It uses standard and widely adopted technologies such as C++17, YAML, OpenMP , Cuda or HIP.
 
-Retrieve Onika sources
-----------------------
+Retrieve exaNBody sources
+-------------------------
    
 First step is to retrieve the ``exaNBody`` sources fro the GitHub repository.
 
@@ -306,3 +305,73 @@ Build and install exaNBody on Ubuntu 22.04
                ${XNB_SRC_DIR}
 
          make -j4 install
+
+Build exaStamp from sources
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Retrieve exaStamp sources
+-------------------------
+   
+First step is to retrieve the ``exaStamp`` sources fro the GitHub repository.
+
+.. code-block:: bash
+
+   cd ${HOME}/dev #Adapt depending on where you want to download ``exaNBody``
+   git clone -b exaNBody-release-2.0 git@github.com:Collab4exaNBody/exaStamp.git
+   cd exaStamp && EXASTAMP_SRC_DIR=${PWD} && cd ../
+   mkdir build_exaStamp && build_exaStamp
+
+Build and install exaStamp
+--------------------------
+         
+.. tabs::
+
+   .. tab:: **Ubuntu 22.04 | GCC 11.4.0**
+            
+      .. code-block:: bash
+
+         # Works also for GCC 12.3.0
+         # Sourcing the EXANBODY environment will automatically update whether CUDA is needed or not
+         XNB_INSTALL_DIR=${HOME}/local/exaNBody
+         source ${XNB_INSTALL_DIR}/bin/setup-env.sh
+         cmake -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_INSTALL_PREFIX=${EXASTAMP_INSTALL_DIR} \
+               -DexaNBody_DIR=${XNB_INSTALL_DIR} \
+	             ${EXASTAMP_SRC_DIR}
+
+         make -j4 install
+         
+   .. tab:: **Rhel_8__x86_64 | INTEL-24.2.0**
+            
+      .. code-block:: bash
+
+         XNB_INSTALL_DIR=${HOME}/local/exaNBody
+         source ${XNB_INSTALL_DIR}/bin/setup-env.sh
+         CXX_COMPILER=`which icpx`
+         C_COMPILER=`which icx`
+         cmake -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_INSTALL_PREFIX=${EXASTAMP_INSTALL_DIR} \
+               -DCMAKE_C_COMPILER=${C_COMPILER} \
+               -DCMAKE_CXX_COMPILER=${CXX_COMPILER} \
+               -DCMAKE_CXX_FLAGS=-diag-disable=15518,15552 \
+               -DexaNBody_DIR=${XNB_INSTALL_DIR} \
+               ${EXASTAMP_SRC_DIR}
+               
+         make -j4 install
+         
+   .. tab:: **Rhel_8__x86_64 | GCC-12.3.0**
+            
+      .. code-block:: bash
+                      
+         # Works also with gcc-11.2.0
+         XNB_INSTALL_DIR=${HOME}/local/exaNBody
+         source ${XNB_INSTALL_DIR}/bin/setup-env.sh
+         cmake -DCMAKE_BUILD_TYPE=Release \
+               -DCMAKE_INSTALL_PREFIX=${XNB_INSTALL_DIR} \
+               -DexaNBody_DIR=${ONIKA_INSTALL_DIR} \
+               ${EXASTAMP_SRC_DIR}
+
+         make -j4 install
+
+
+         
