@@ -1,5 +1,5 @@
-ExaStamp Software
-=================
+Background
+==========
 
 Overview of exaStamp
 ^^^^^^^^^^^^^^^^^^^^

@@ -6,14 +6,14 @@ ExaStamp & ExaNBody Documentation
 
 .. toctree::
    :name: exastamp_variant
-   :numbered: 2
-   :maxdepth: 2
-   :caption: exaStamp Application
+   :numbered: 3
+   :maxdepth: 3
+   :caption: exaStamp
 
-   project_exaStamp/Introduction.rst
-   project_exaStamp/Installation.rst
-   project_exaStamp/Installation_2.rst   
-   project_exaStamp/Test_cases.rst
+   project_exaStamp/Background.rst
+   project_exaStamp/Build_install.rst
+   project_exaStamp/Contributing.rst
+   project_exaStamp/How_to_exaStamp.rst
    project_exaStamp/Flavors.rst
    project_exaStamp/Domain.rst
    project_exaStamp/Regions.rst
@@ -23,6 +23,7 @@ ExaStamp & ExaNBody Documentation
    project_exaStamp/Thermostats.rst   
    project_exaStamp/Constraints.rst   
    project_exaStamp/Analysis.rst
+   project_exaStamp/Examples.rst
    project_exaStamp/Operators.rst
 
 .. _exanb:

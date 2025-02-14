@@ -9,3 +9,4 @@ nbsphinx
 commonmark
 recommonmark
 sphinx-gallery
+renku-sphinx-theme
