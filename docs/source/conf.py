@@ -54,11 +54,18 @@ exclude_patterns = []
 #
 #html_theme = 'sphinx_rtd_theme'
 html_theme = 'renku'
+html_logo = "_static/xsp_logo.png"
+html_theme_options = {
+    'logo_only': False,
+    'display_version': True,
+    }
+version = "version 0.0.0"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+#html_css_files = ['css/custom.css']
 
 def setup(app):
-    app.add_css_file('css/custom.css')
+   app.add_css_file('css/custom.css')

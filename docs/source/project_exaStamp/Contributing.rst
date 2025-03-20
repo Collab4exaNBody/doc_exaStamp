@@ -1,5 +1,5 @@
-Contributing
-============
+Contributing to the code
+========================
 
 .. warning::
    
