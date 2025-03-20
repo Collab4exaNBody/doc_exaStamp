@@ -20,9 +20,10 @@ ExaStamp & ExaNBody Documentation
    project_exaStamp/Particles.rst
    project_exaStamp/Interactions.rst
    project_exaStamp/Thermodynamics.rst
-   project_exaStamp/Thermostats.rst   
+   project_exaStamp/Thermostats.rst
    project_exaStamp/Constraints.rst   
    project_exaStamp/Analysis.rst
+   project_exaStamp/IO.rst
    project_exaStamp/Examples.rst
    project_exaStamp/Operators.rst
 
