@@ -12,6 +12,7 @@ ExaStamp & ExaNBody Documentation
 
    project_exaStamp/Background.rst
    project_exaStamp/Build_install.rst
+   project_exaStamp/Microstamp.rst   
    project_exaStamp/Contributing.rst
    project_exaStamp/How_to_exaStamp.rst
    project_exaStamp/Flavors.rst
