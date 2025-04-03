@@ -123,3 +123,63 @@ Readers of xyz File
    * `pbc_adjust_xform` : Ajust the form.
 
 
+Reading external file formats
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning::
+   Only for supported atomic systems
+
+In addition to :ref:`builtin-particles creation <builtin-particles>` and :ref:`restart files<input-read-dump-atoms>`, ``ExaStamp`` can read external file formats though the ``read_external_file_format`` operator.
+
+.. code-block:: yaml
+
+   read_external_file_format:
+     file: path/to/file
+     format: xyz
+     compression: gz
+     units: xsp
+     style: full
+
+* ``bounds_mode`` : default mode corresponde to ReadBoundsSelectionMode.
+* `enlarge_bounds` : Define a layer around the volume size in the xyz file. Default size is 0.
+* `file` : File name, this parameter is required.
+* `pbc_adjust_xform` : Ajust the form.
+
+Supported file formats
+----------------------
+
+Currently ``ExaStamp`` support the following file formats:
+
+.. list-table::
+   :widths: 40 40 40
+   :header-rows: 1
+
+   * - Name
+     - Description
+     - Extension
+
+   * - :ref:`LAMMPS Data <input-lammps-data-format>`
+     - File format used by `LAMMPS <https://docs.lammps.org/Run_formats.html#input-file>`_
+     - ``lmp``, ``lmp-data``, ``data``
+
+   * - LAMMPS Dump
+     - File format used by `LAMMPS <https://docs.lammps.org/Run_formats.html#input-file>`_
+     - ``dump``, ``lmp-dump``
+
+   * - XYZ
+     - `Extended XYZ <https://github.com/libAtoms/extxyz?tab=readme-ov-file#xyz-file>`_ format.
+     - ``dump``, ``lmp-dump``
+
+
+
+.. _input-lammps-data-format:
+
+LAMMPS Data
+~~~~~~~~~~~
+
+LAMMPS Dump
+~~~~~~~~~~~
+
+Extented XYZ
+~~~~~~~~~~~~
+
