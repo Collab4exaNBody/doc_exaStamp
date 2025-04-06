@@ -127,28 +127,53 @@ Reading external file formats
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. warning::
-   Only for supported atomic systems
+    Only supported for atomic systems
+
+.. warning::
+    If multiple structures are present in the file, the operator will always read the first one.
 
 In addition to :ref:`builtin-particles creation <builtin-particles>` and :ref:`restart files<input-read-dump-atoms>`, ``ExaStamp`` can read external file formats though the ``read_external_file_format`` operator.
 
 .. code-block:: yaml
 
    read_external_file_format:
-     file: path/to/file
+     file: /path/to/example-file.xyz.gz
      format: xyz
      compression: gz
-     units: xsp
-     style: full
+     units_style: metal
+     style_style: full
 
-* ``bounds_mode`` : default mode corresponde to ReadBoundsSelectionMode.
-* `enlarge_bounds` : Define a layer around the volume size in the xyz file. Default size is 0.
-* `file` : File name, this parameter is required.
-* `pbc_adjust_xform` : Ajust the form.
+.. list-table::
+   :widths: 10 40 10
+   :header-rows: 1
 
-Supported file formats
-----------------------
+   * - Property
+     - Description
+     - Data Type
+   * - ``file``
+     - File name
+     - string
+   * - ``format``
+     - File format extension (see :ref:`supported format<input-supported-ext-format>`)
+     - string
+   * - ``compression``
+     - File compression extension (``gz`` , ``bz2`` , ``xz``)
+     - string
+   * - ``units_style``
+     - LAMMPS units style (only used for LAMMPS format)
+     - string
+   * - ``atom_style``
+     - LAMMPS atom style (only used for LAMMPS format)
+     - string
 
-Currently ``ExaStamp`` support the following file formats:
+Only the ``file`` parameters is required. By default, ``format`` and ``compression`` are deduced from the file's extension. The ``units_style`` and ``atom_style`` parametyers are used only with LAMMPS format to define the unit system and the atom style.
+
+.. _input-supported-ext-format:
+
+**Supported file formats**
+
+
+Currently ``ExaStamp`` support the following external file formats:
 
 .. list-table::
    :widths: 40 40 40
@@ -168,18 +193,18 @@ Currently ``ExaStamp`` support the following file formats:
 
    * - XYZ
      - `Extended XYZ <https://github.com/libAtoms/extxyz?tab=readme-ov-file#xyz-file>`_ format.
-     - ``dump``, ``lmp-dump``
+     - ``xyz``
 
 
 
 .. _input-lammps-data-format:
 
-LAMMPS Data
-~~~~~~~~~~~
+**LAMMPS Data**
 
-LAMMPS Dump
-~~~~~~~~~~~
 
-Extented XYZ
-~~~~~~~~~~~~
+**LAMMPS Dump**
+
+
+**Extented XYZ**
+
 
