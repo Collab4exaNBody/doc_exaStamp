@@ -1,5 +1,3 @@
-.. _flavors:
-
 Grid Flavors
 ============
 
@@ -144,7 +142,7 @@ Recommendations
 Below are some recommendations on using the different grid flavors, depending on the particle types involved in your simulation.
 
 Mono-specy and Multi-species Atomic Systems
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------------------------
 
 For mono-species and multi-species atomic systems, the different grid flavors that can be used are the following:
 
@@ -153,12 +151,12 @@ For mono-species and multi-species atomic systems, the different grid flavors th
 - ``grid_flavor_full`` to model multi-species systems with per-particle charges and virial.
   
 Rigid Molecules Systems
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 For rigid molecules system, the only grid flavor that can be used is the ``grid_flavor_rigidmol``.  
 
 Flexible Molecules Systems
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
 For systems containing fully flexible molecules, the only grid flavor that can be used is the ``grid_flavor_full``.
 

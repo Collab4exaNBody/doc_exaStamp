@@ -1,11 +1,8 @@
 Analysis
 ========
 
-Per-particle analysis
----------------------
-
-Per-atom entropy
-^^^^^^^^^^^^^^^^
+Local entropy
+-------------
 
 The ``compute_local_entropy`` operator computes the per-atom entropy as define in ref.
 
@@ -59,10 +56,13 @@ where \\( g^i_m(r) \\) is a mollified version of the radial distribution functio
 
 where \\( r_{ij} \\) is the distance between central atom \\( i \\) and its neighbour \\( j \\), and \\( \\sigma \\) is the smoothing parameter.
 
+Local centrosymmetry
+--------------------
 
+The ``compute_local_centrosymmetry`` operator computes the per-atom entropy as define in ref.
 
+.. code-block:: yaml
 
-
-
-Coarse-grained analysis
------------------------
+   compute_local_centrosymmetry:
+     rcut: 5.0 ang
+     nnn:  8

@@ -1,5 +1,5 @@
 Interatomic Potentials
-======================
+$$$$$$$$$$$$$$$$$$$$$$
 
 Defining the interatomic potential
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

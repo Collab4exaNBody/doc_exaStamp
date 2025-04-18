@@ -1,6 +1,5 @@
-  
-Mini app microStamp
-*******************
+microStamp miniApp
+==================
 
 At the ``exaNBody`` level, a mini MD app is avaiable for benchmark and optimization purposes. That mini app only contains the Lennard-Jones and the SNAP potentials. Below are the minimal instructions to build that mini app.
 
@@ -9,10 +8,10 @@ The following installation consists in first building both the ``ONIKA`` HPC pla
 For all the codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
 
 Build YAML from sources
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 Retrieve YAML sources
----------------------
+*********************
 
 .. code-block:: bash
 
@@ -28,7 +27,7 @@ Retrieve YAML sources
    cd build
 
 Build and install YAML
-----------------------
+**********************
    
 .. tabs::
 
@@ -52,10 +51,10 @@ Build and install YAML
                
 
 Build Onika from sources
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
 Description
------------
+***********
 
 ``Onika`` (Object Network Interface for Knit Applications), is a component based HPC software platform to build numerical simulation codes.
 ``Onika`` is the foundation for the ``exaNBody`` particle simulation platform but is not bound to N-Body problems nor other domain specific simulation code.
@@ -63,7 +62,7 @@ Existing applications based on its building blocks include Molecular Dynamics, p
 It uses industry grade standards and widely adopted technologies such as CMake and C++20 for development and build, YAML for user input files, MPI and OpenMP for parallel programming, Cuda and HIP for GPU acceleration. To build ``Onika`` from sources, read the following instructions.
 
 Retrieve Onika sources
-----------------------
+**********************
    
 First step is to retrieve the ``Onika`` sources fro the GitHub repository.
 
@@ -77,7 +76,7 @@ First step is to retrieve the ``Onika`` sources fro the GitHub repository.
    cd build_onika
 
 Build and install Onika on Ubuntu 22.04
----------------------------------------
+***************************************
          
 .. tabs::
 
@@ -114,17 +113,17 @@ Build and install Onika on Ubuntu 22.04
         make -j20 install
 
 Build exaNBody from sources
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
 Description
------------
+***********
 
 ``exaNBody`` is a software platform to build-up numerical simulations solving N-Body like problems.
 Typical applications include Molecular Dynamics, particle based fluid simulations using methods such as Smooth Particle Hydrodynamics (SPH) or rigid body simulations using methods such as Discrete Element Method (DEM).
 It uses standard and widely adopted technologies such as C++17, YAML, OpenMP , Cuda or HIP.
 
 Retrieve exaNBody sources
--------------------------
+*************************
    
 First step is to retrieve the ``exaNBody`` sources fro the GitHub repository.
 
@@ -138,7 +137,7 @@ First step is to retrieve the ``exaNBody`` sources fro the GitHub repository.
    cd build_exaNBody
 
 Build and install exaNBody on Ubuntu 22.04
-------------------------------------------
+******************************************
          
 .. tabs::
 
@@ -162,7 +161,7 @@ Build and install exaNBody on Ubuntu 22.04
          source ./exaNBody
          
 Run the SNAP benchmark
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 .. code-block:: bash
 
@@ -176,3 +175,4 @@ Run the SNAP benchmark
    
    # Example for replicating 8 times (2 in each direction):
    ${ONIKA_INSTALL_DIR}/bin/onika-exec snap_from_dump.msp --set-replicate_domain-repeat "[2,2,2]"
+

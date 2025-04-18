@@ -10,23 +10,16 @@ ExaStamp & ExaNBody Documentation
    :maxdepth: 3
    :caption: exaStamp
 
-   project_exaStamp/Background.rst
-   project_exaStamp/Build_install.rst
-   project_exaStamp/Microstamp.rst   
-   project_exaStamp/Contributing.rst
-   project_exaStamp/How_to_exaStamp.rst
-   project_exaStamp/Flavors.rst
-   project_exaStamp/Domain.rst
-   project_exaStamp/Regions.rst
-   project_exaStamp/Particles.rst
-   project_exaStamp/Interactions.rst
-   project_exaStamp/Thermodynamics.rst
-   project_exaStamp/Thermostats.rst
-   project_exaStamp/Constraints.rst   
-   project_exaStamp/Analysis.rst
-   project_exaStamp/IO.rst
-   project_exaStamp/Examples.rst
-   project_exaStamp/Operators.rst
+   project_exaStamp/1_Background.rst
+   project_exaStamp/2_Build_and_Install.rst
+   project_exaStamp/3_Hands_On_exaStamp.rst
+   project_exaStamp/4_Domain_Regions.rst
+   project_exaStamp/5_Grids.rst   
+   project_exaStamp/6_Particles.rst
+..   
+   project_exaStamp/7_Interactions.rst
+   project_exaStamp/8_Constraints.rst
+   project_exaStamp/9_Contributing.rst
 
 .. _exanb:
 

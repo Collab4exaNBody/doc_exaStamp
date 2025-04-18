@@ -1,11 +1,11 @@
-Simulation Domain
-=================
+Domain
+======
 
 Defining all domain parameters
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 Domain parameters description
------------------------------
+*****************************
 
 The simulation domain properties can be fully specified using the domain structure that holds information about the simulation domain size, shape and additional properties. It is initialized by the `domain` operator that can be appended in the YAML input file:
    
@@ -80,7 +80,7 @@ We provide a detailed explanation of what the properties enumerated above corres
 - ``expandable``: this boolean allows for the simulation box to automatically expand itself if particles are created or move off the domain boundaries.
 
 Usage examples
---------------
+**************
   
 Multiple examples of domain definitions are provided below.
 
@@ -97,7 +97,7 @@ Multiple examples of domain definitions are provided below.
             xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
             periodic: [true,true,true]
             expandable: false
-     - .. image:: ../_static/cubic_domain.png
+     - .. image:: /_static/cubic_domain.png
          :width: 300pt
 
 .. list-table:: **Non expandable 3D-periodic orthorhombic domain with 80, 100 and 120 ang side lengths**
@@ -123,7 +123,7 @@ Multiple examples of domain definitions are provided below.
            xform: [[0.8,0.,0.],[0.,1.,0.],[0.,0.,1.2]]
            periodic: [true,true,true]
            expandable: false
-     - .. image:: ../_static/orthorhombic_domain.png
+     - .. image:: /_static/orthorhombic_domain.png
          :width: 300pt
 
 .. list-table:: **Non expandable 3D-periodic restricted triclinic domain**
@@ -143,7 +143,7 @@ Multiple examples of domain definitions are provided below.
             periodic: [true,true,true]
             expandable: false
 
-     - .. image:: ../_static/triclinic_domain.png
+     - .. image:: /_static/triclinic_domain.png
          :width: 300pt
 
 .. list-table:: **Non expandable 3D-periodic general triclinic domain**
@@ -162,11 +162,11 @@ Multiple examples of domain definitions are provided below.
             periodic: [true,true,true]
             expandable: false
 
-     - .. image:: ../_static/general_triclinic_domain.png
+     - .. image:: /_static/general_triclinic_domain.png
          :width: 300pt
 
 Alternative ways for defining the domain
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 In some cases, the simulation domain does not need to be fully defined as explained above. Indeed, the domain information can sometimes already be contained in external files or fully defined by the material the user needs to model. Below is a list of situations where the domain is fully or partially defined. Additional details can be found in the corresponding documentation sections.
 

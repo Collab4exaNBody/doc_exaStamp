@@ -1,5 +1,5 @@
 Spatial Regions
----------------
+===============
 
 Spatial regions can be very usefull in order to define areas in the simulation domain that are subsequently used to populate with particles or perform analysis on a subdomain for example. The regions can be defined using the ``particle_regions`` YAML block, defined as follows:
 
@@ -13,16 +13,16 @@ Spatial regions can be very usefull in order to define areas in the simulation d
 
 where `REG1`, `REG2` and `REG3` can be regions defined using different ways. Indeed, a region can be defined using either:
 
-- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3^{rd} order 3D function
+- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3*{rd} order 3D function
 - A user-defined analytical function evaluated on the 3D domain grid
 - A mask read on an external file with dimensions equal to the 3D domain grid
 - A range of particles ids
 
 Geometrical Definition
-%%%%%%%%%%%%%%%%%%%%%%
+----------------------
 
 Parallelepiped
-^^^^^^^^^^^^^^
+**************
 
 .. list-table:: **Parallelepiped regions** 
    :widths: 50 50
@@ -37,14 +37,14 @@ Parallelepiped
                 bounds: [ [ 15, 10, 25], [65,30,40] ]
             - B3:
                 bounds: [ [ 30, 70, 10], [50, 90, 95] ]
-     - .. image:: ../_static/boxes.png
+     - .. image:: /_static/boxes.png
          :width: 400px
 
 Quadrics
-^^^^^^^^
+********
 
 Planes
-======
+******
 
 .. list-table:: **Planes from quadrics** 
    :widths: 50 50
@@ -65,11 +65,11 @@ Planes
                 quadric:
                   shape: { plane: [ 0, 0, 1, 0 ] }
                   transform: { translate: [ 0, 0, 20 ] }
-     - .. image:: ../_static/planes.png
+     - .. image:: /_static/planes.png
          :width: 400px
 
 Cylinders
-=========
+*********
 
 .. list-table:: **Cylinders from quadrics**
    :widths: 50 50
@@ -99,11 +99,11 @@ Cylinders
                     scale: [ 15, 15, -1 ]
                     yrot: -pi/4.
                     translate: [ 50, 50, 50 ]
-     - .. image:: ../_static/cylinders.png
+     - .. image:: /_static/cylinders.png
          :width: 400px
 
 Spheres/Ellipsoïds
-==================
+******************
 
 .. list-table:: **Spheres/Ellipsoids from quadrics**
    :widths: 50 50
@@ -131,11 +131,11 @@ Spheres/Ellipsoïds
                     scale: [ 50, 10, 10 ]
                     yrot: pi/6.
                     translate: [ 50, 30, 50 ]
-     - .. image:: ../_static/spheres.png
+     - .. image:: /_static/spheres.png
          :width: 400px
 
 Cones
-=====
+*****
 
 .. list-table:: **Cones from quadrics**
    :widths: 50 50
@@ -162,11 +162,11 @@ Cones
                   transform:
                     scale: [ 1, 1, 3 ]
                     translate: [ 50, 50, 50 ]
-     - .. image:: ../_static/cones.png
+     - .. image:: /_static/cones.png
          :width: 400px
 
 Matrix4d
-========
+********
 
 .. code-block:: yaml
 
@@ -181,7 +181,7 @@ Matrix4d
              - translate: [ 85 ang , 85 ang , 0 ang ]      
 
 Assigning Regions to Grid
-%%%%%%%%%%%%%%%%%%%%%%%%%
+*************************
 
 .. code-block:: yaml
 
@@ -192,10 +192,10 @@ Assigning Regions to Grid
      grid_subdiv: 10
 
 Using the Grid as a mask
-%%%%%%%%%%%%%%%%%%%%%%%%
+************************
 
 User-defined function
-%%%%%%%%%%%%%%%%%%%%%
+*********************
 
 .. code-block:: yaml
 
@@ -225,7 +225,7 @@ User-defined function
      constant: 10.
 
 Based on Particles' ids
-%%%%%%%%%%%%%%%%%%%%%%%
+***********************
 
 .. code-block:: yaml
 
@@ -233,7 +233,7 @@ Based on Particles' ids
      - id_range: [1, 1300]
 
 Tracking Particles
-%%%%%%%%%%%%%%%%%%
+******************
 
 .. code-block:: yaml
 
