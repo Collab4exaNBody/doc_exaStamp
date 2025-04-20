@@ -1,5 +1,5 @@
 Pair Potentials
----------------
+===============
 
 In the presence of multiple types in the simulated sample, and when applicable, the potentials defined hereafter may be used using the following formalism:
 
@@ -12,7 +12,7 @@ In the presence of multiple types in the simulated sample, and when applicable, 
        - { type_a: Si , type_b: Si  , potential: pp_1 , parameters: { pp_2_parameters } }
 
 Lennard-Jones
-^^^^^^^^^^^^^
+-------------
 
 The Lennard-Jones pair potential computes the standard 12/6 formulation given by
 
@@ -68,7 +68,7 @@ In the case of a system with multiple species, the force operator can be defined
        - { type_a: Cu , type_b: Zn , potential: lj , rcut: 5.89 ang , parameters: { epsilon: 4.853E-20 J , sigma: 0.236E-09 m } }
 
 Buckingham
-^^^^^^^^^^
+----------
 
 The Buckingham pair potential computes the standard 12/6 formulation given by
 
@@ -120,7 +120,7 @@ In the case of a system with multiple species, the force operator can be defined
 
 
 Exponential-6
-^^^^^^^^^^^^^
+-------------
 
 Analogous to the Buckingham pair potential, the Exponential-6 potential has an extra term and reads
 
@@ -187,11 +187,8 @@ In the case of a system with multiple species, the force operator can be defined
    * - \\(r_c\\)
      - distance
 
-Relaxation
-^^^^^^^^^^
-
 Ziegler-Biersack-Littmark
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 The Ziegler-Biersack-Littmark pair potential computes the screened nuclear repulstion that describes high-enery collisions between atoms. Energy, forces and curvature are smoothly rapmed to zero between and inner and an outer cutoff thanks to a switch function. The energy contribution for to atoms \\(i\\) and \\(j\\) at a idstance \\(r_{ij}\\) from each other reads
 
@@ -243,7 +240,7 @@ Below is a usage example for a system containing one single atomic specy
    compute_force:
      - zbl_compute_force
 
-The atomic charges are not passed as parameters of the potential since they are already attached to particle species and defined in the ``YAML`` block ``species`` defined in the :ref:`species` section. In the case of a system with multiple species, the force operator can be defined as follows
+The atomic charges are not passed as parameters of the potential since they are already attached to particle species and defined in the ``YAML`` block ``species`` defined in the :ref:`particles-species` section. In the case of a system with multiple species, the force operator can be defined as follows
 
 .. code-block:: yaml
 
@@ -254,7 +251,7 @@ The atomic charges are not passed as parameters of the potential since they are 
        - { type_a: Si , type_b: O  , potential: zbl , rcut: 5.4 ang , parameters: { r1: 5.1 ang, rc: 5.4 ang } }
 
 Zero
-^^^^
+----
 
 The Zero pair potential zeros out the energy and forces contribution between two atoms.
 

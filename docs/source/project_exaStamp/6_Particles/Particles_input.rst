@@ -1,5 +1,7 @@
-Input operators
-===============
+.. _particles-input:
+
+Input
+=====
 
 The present section describes in details the different operators used for simulation's setup, post-analysis, visualization and I/O operations in Molecular Dynamics simulations using exaStamp.
 
@@ -119,7 +121,7 @@ Currently ``ExaStamp`` support the following external file formats:
      - Description
      - Extension
 
-   * - :ref:`LAMMPS Data <input-lammps-data-format>`
+   * - LAMMPS data
      - File format used by `LAMMPS <https://docs.lammps.org/Run_formats.html#input-file>`_
      - ``lmp``, ``lmp-data``, ``data``
 

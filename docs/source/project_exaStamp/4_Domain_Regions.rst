@@ -1,9 +1,8 @@
 Domain & Spatial Regions
 $$$$$$$$$$$$$$$$$$$$$$$$
 
-.. include::
-   4_Domain_Regions/Domain.rst
+.. toctree::
 
-.. include::
+   4_Domain_Regions/Domain.rst
    4_Domain_Regions/Regions.rst
    

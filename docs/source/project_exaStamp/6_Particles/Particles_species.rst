@@ -1,10 +1,7 @@
-.. _species:
+.. _particles-species:
 
-Particle Species
-================
-
-Particle Types
---------------
+Species
+=======
 
 Multiple particle types can be used in ``ExaStamp`` such as atoms, rigid molecules or fully-flexible molecules. These three formalisms have an influence on the way the interactions are computed which will be explained in detail below. However, the common basis for all particle types is the definition of a ``YAML`` block containing information about the atoms themselves. The particles properties are initialized by the ``species`` operator that must be appended in the YAML input file:
 

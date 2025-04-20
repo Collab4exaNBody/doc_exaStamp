@@ -1,5 +1,8 @@
-Output operators
-================
+.. _particles-output:
+
+Output
+======
+
 
 In order to post-process or visualize the particles with time, multiple solutions exist in ExaSTAMP. The general operator that defines the output is named `dump_analysis` and can be added as a general YAML block in the simulation input file. In this block, the name of the output files can be defined as well as some log message if needed. These properties are then passed as input to the desired output operator:
 

@@ -1,3 +1,5 @@
+.. _particles-analysis:
+
 Analysis
 ========
 
@@ -23,7 +25,7 @@ The ``compute_local_entropy`` operator computes the per-atom entropy as define i
      - Data Type
      - Default
    * - ``rcut``
-     - Upper integration limit of Eq. :eq:`per_atom_entropy`. Distance unit.
+     - Upper integration limit of Eq. :eq:`eq_per_atom_entropy`. Distance unit.
      - float
      - \\( r_c^{max} \\)
    * - ``sigma``
@@ -43,7 +45,7 @@ The ``compute_local_entropy`` operator computes the per-atom entropy as define i
 The per-atom entropy \\( s^{i}_{S} \\) is computed using the following formula:
 
 .. math::
-   :label: per_atom_entropy
+   :label: eq_per_atom_entropy
 
     s^{i}_{S} = -2 \pi \rho k_{B} \int_{0}^{r_{m}} \left[ g^i_m(r) \ln g^i_m(r) - g^i_m(r) + 1 \right] r^2 dr
 

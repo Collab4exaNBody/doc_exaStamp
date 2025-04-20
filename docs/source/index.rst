@@ -16,7 +16,6 @@ ExaStamp & ExaNBody Documentation
    project_exaStamp/4_Domain_Regions.rst
    project_exaStamp/5_Grids.rst   
    project_exaStamp/6_Particles.rst
-..   
    project_exaStamp/7_Interactions.rst
    project_exaStamp/8_Constraints.rst
    project_exaStamp/9_Contributing.rst
