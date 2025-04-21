@@ -10,3 +10,4 @@ commonmark
 recommonmark
 sphinx-gallery
 renku-sphinx-theme
+sphinx-copybutton
