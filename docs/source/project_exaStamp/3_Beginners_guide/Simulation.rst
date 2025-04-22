@@ -7,7 +7,7 @@ The default simulation sequence of ``exaStamp`` is defined in the ``main-config.
    :caption: **Default YAML block for an exaStamp simulation**
 
    simulation:
-     name: MyFirstSimulation
+     name: MySimulation
      body:
        - print_logo_banner                                   # Print the exaStamp banner
        - hw_device_init                                      # Default communicator + CUDA initialization
@@ -39,7 +39,7 @@ The default simulation sequence of ``exaStamp`` is defined in the ``main-config.
        - simulation_epilog                                   # Simulation finalization
        - hw_device_finalize                                  # CUDA finalization
 
-In this YAML block, some operators are mandatory. We provide in the next section a input deck example. In addition, some of the YAML operators defined in the `simulation` block are defined in other configuration files located in ``exaStamp/data/config``. However, the mandatory blocks to be defined by the user to build a minimal input deck for exaStamp are:
+In this YAML block, some operators are mandatory. We provide in the next section a input deck example with the minimal information required. In addition, some of the YAML operators defined in the `simulation` block are defined in other configuration files located in ``exaStamp/data/config``. However, the mandatory blocks to be defined by the user to build a minimal input deck for exaStamp are:
 
 .. code-block:: bash
                 
@@ -48,3 +48,5 @@ In this YAML block, some operators are mandatory. We provide in the next section
      - compute_force  # Choice of the interatomic potential
      - domain         # Definition of the simulation's domain
      - input_data     # Population of the domain with particles
+
+The next section provides a basic example on how to build an ``exaStamp`` input deck with the minimal information required.

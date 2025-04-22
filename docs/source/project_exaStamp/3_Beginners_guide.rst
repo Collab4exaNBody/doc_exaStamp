@@ -7,5 +7,6 @@ This section aims at providing a step-by-step tutorial on how to create and desi
 
    3_Beginners_guide/Simulation.rst
    3_Beginners_guide/Example_input_deck.rst   
+   3_Beginners_guide/Default_yaml.rst   
    
    

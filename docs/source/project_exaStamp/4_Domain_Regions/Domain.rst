@@ -1,16 +1,71 @@
+.. _domain:
+
 Domain
 ======
 
-Defining all domain parameters
-------------------------------
+Physical space vs Grid space
+----------------------------
 
-Domain parameters description
-*****************************
+In ``exaStamp``, all the operations concerning parallelism are actually done in a denominated **Grid space** which is fully defined by the ``domain`` operator described hereafter. Before going into details about this operator, we need to describe how the simulation domain is defined. The 3D simulation box can be represented by its **3x3** frame matrix :math:`\mathbf{H_P}` (with the subscript :math:`(\cdot)_P` for physical space) built on the 3 periodicity vectors :math:`\mathbf{a}`, :math:`\mathbf{b}` and :math:`\mathbf{c}`:
 
-The simulation domain properties can be fully specified using the domain structure that holds information about the simulation domain size, shape and additional properties. It is initialized by the `domain` operator that can be appended in the YAML input file:
+.. math::
+
+   \mathbf{H_P} = \begin{pmatrix} \mathbf{a} | \mathbf{b} | \mathbf{c} \end{pmatrix} = \begin{pmatrix} a_x & b_x & c_x \\ a_y & b_y & c_y \\ a_z & b_z & c_z\end{pmatrix}
+
+without any constraints on the periodicity vectors :math:`\mathbf{a}`, :math:`\mathbf{b}` and :math:`\mathbf{c}` w.r.t the orthonormal frame. From this, we assume that the :math:`\mathbf{H_P}` matrix can be decomposed as:
+
+.. math::
+
+   \mathbf{H_P} = \mathbf{F_1} \cdot \mathbf{D} = \mathbf{F_1} \cdot \begin{pmatrix} || \mathbf{a} || & 0 & 0 \\ 0 & || \mathbf{b} || & 0 \\ 0 & 0 & || \mathbf{c} || \end{pmatrix}
+
+where :math:`\mathbf{D}` is a diagonal matrix with components equal to the norm of each periodicity vector and :math:`\mathbf{F_1}` a transformation matrix that allows to transform the general (triclinic) physical domain to a pure orthorhombic unphysical one. :math:`\mathbf{F_1}` can be trivially calculated as:
+
+.. math::
+
+   \mathbf{F_1} = \mathbf{H_P} \cdot \mathbf{D}^{-1} = \mathbf{H_P} \cdot \begin{pmatrix} \frac{1}{ || \mathbf{a} || } & 0 & 0 \\ 0 & \frac{1}{|| \mathbf{b} ||} & 0 \\ 0 & 0 & \frac{1}{ || \mathbf{c} || } \end{pmatrix}
+
+In the Grid space, the domain needs to be defined through a diagonal matrix :math:`\mathbf{H_G}` (with the subscript :math:`(\cdot)_G` for grid space) where each diagonal component equals an integer multiple :math:`(n_x, n_y, n_z)`  of the cell_size :math:`c_s`:
+
+.. math::
+
+   \mathbf{H_G} = \begin{pmatrix} n_x \cdot c_s & 0 & 0 \\ 0 & n_y \cdot c_s & 0 \\ 0 & 0 & n_z \cdot c_s \end{pmatrix}
+
+Finally, both physical space and grid space meet through the following equality:
+
+.. math::
+
+   \mathbf{H_G} = \mathbf{X_f} \cdot \mathbf{H_P}
+
+which adds an additional constraint on the compatibility between the physical space and grid space. Indeed, for the compatibility to be satisfied, the diagonal matrix :math:`mathbf{D}` is mapped to the :math:`\mathbf{H_G}` matrix through the following operation:
+
+.. math::
+
+   \mathbf{D} = \mathbf{F_2} \cdot \mathbf{H_G}
+
+leading to:
+
+.. math::
+
+   \mathbf{F_2} = \mathbf{D} \cdot \mathbf{H_G}^{-1} = \begin{pmatrix} \frac{||\mathbf{a}||}{n_x \cdot c_s} & 0 & 0 \\ 0 & \frac{||\mathbf{b}||}{n_y \cdot c_s} & 0 \\ 0 & 0 & \frac{||\mathbf{c}||}{n_z \cdot c_s} \end{pmatrix}
+
+where :math:`(n_x,n_y,n_z)` and :math:`c_s` are fixed by the user as explained hereafter. If the user requires a specific cell size :math:`c_s`, then the number of cells and the appropriate :math:`\mathbf{X_f}` are automatically calculated and vice versa. The final expression of the :math:`\mathbf{X_f` reads:
+
+.. math::
+
+   \mathbf{X_f} = \mathbf{F_1} \cdot \mathbf{F_2} = \mathbf{H_P} \cdot \mathbf{D}^{-1} \cdot \mathbf{D} \cdot \mathbf{H_G}^{-1} 
+
+which simplifies to:
+
+.. math::
+
+   \mathbf{X_f} = \mathbf{H_P} \cdot \mathbf{H_G}^{-1} = \begin{pmatrix} \mathbf{a} | \mathbf{b} | \mathbf{c} \end{pmatrix} = \begin{pmatrix} a_x & b_x & c_x \\ a_y & b_y & c_y \\ a_z & b_z & c_z\end{pmatrix} \cdot \begin{pmatrix} n_x \cdot c_s & 0 & 0 \\ 0 & n_y \cdot c_s & 0 \\ 0 & 0 & n_z \cdot c_s \end{pmatrix}^{-1}
+   
+Defining the domain
+-------------------
+
+The ``domain`` operator allows to fully define the simulation domain.
    
 .. code-block:: yaml
-   :caption: **YAML block for simulation domain definition**
 
    domain:
      cell_size: 5.0 ang
@@ -20,67 +75,48 @@ The simulation domain properties can be fully specified using the domain structu
      periodic: [true,true,true]
      expandable: false
 
-.. warning::
-
-   If the user decides to fully define the simulaton domain through this operator, all properties must be consistent with each other. Especially, ``cell_size`` multiplied by ``grid_dims`` must be equal to max(``bounds``) - min(``bounds``).
-
-Below are displayed the different parameters of ``domain`` as well as their types and corresponding examples.
-
-.. list-table:: **Properties for domain definition**
-   :widths: 40 40 40
+.. list-table::
    :header-rows: 1
 
    * - Property
+     - Description
      - Data Type
-     - Example
+     - Default
    * - ``cell_size``
+     - Grid cell size in grid space.
      - float
-     - .. code-block:: yaml
-             
-          cell_size: 3.5 ang
+     - 0.
    * - ``grid_dims``
+     - 3D Grid dimensions.
      - IJK
-     - .. code-block:: yaml
-             
-          grid_dims: [20, 20, 20]
+     - [0,0,0]
    * - ``bounds``
+     - Domain bounds in grid space.
      - AABB
-     - .. code-block:: yaml
-             
-          bounds: [ [0 ang,0 ang,0 ang], [100 ang, 100 ang, 100 ang] ]
+     - [[0,0,0], [0,0,0]]
    * - ``xform``
+     - Grid space to real space transformation matrix.
      - Mat3d
-     - .. code-block:: yaml
-             
-          xform: [ [1.,0.,0.], [0.,1.,0.], [0.,0.,1.] ]
+     - [[1,0,0],[0,1,0],[0,0,1]]
    * - ``periodic``
+     - Periodic boundary conditions.
      - sequence
-     - .. code-block:: yaml
-             
-          periodic: [true, true, false]
+     - [true, true, false]
    * - ``mirror``
+     - Mirror boundary conditions.
      - sequence
-     - .. code-block:: yaml
-             
-          mirror: [Z-, Z+]
+     - []
    * - ``expandable``
+     - Domain expandability.
      - bool
-     - .. code-block:: yaml
-             
-          expandable: true
+     - true
 
-We provide a detailed explanation of what the properties enumerated above correspond to:
+.. warning::
 
-- ``cell size``: the entire domain is split in multiple cells on which particles are distributed. These cells are then attributed to MPI domains and fed to threads for further calculation,
-- ``grid_dims``: this corresponds to the total number of cells in each boundary directions of the simulation domain,
-- ``bounds``: this corresponds to the simulation domain bounds. The difference between maximum and minimum values of bounds should strictly be equal to cell_size*grid_dims. If this is not the case, an error will be displayed. 
-- ``xform``: this will translate the above information in term of domain physical size and shape. If xform equals the identity matrix, then the physical domain equals the one defined in terms of cells and is perfectly orthorhombic (e.g. if grid_dims: [10,20,30]) or cubic (e.g. if grid_dims: [20,20,20]). If xform is diagonal, then the physical domain equals the one defined in terms of cells scaled by the diagonal components of xform. Finally, if xform contains off-diagonal components, this will generate a non-orthorhombic simulation domain.
-- ``periodic``: this property specifies if the three simulation domain directions are associated with periodic of free boundary conditions. Setting a periodic direction to ``true`` indicates that particles passing through the boundary in that direction will be wrapped into the box on the other side and that particles at the boundary interact with the periodic image of the simulation box through the ghost atoms.
-- ``mirror``: this property specifies whether a mirror boundary conditions is applied to what side of the simulation domain and in what direction. Setting a boundary using the ``mirror`` property will assign the corresponding reflective boundary conditions. A reflective mirror side can be applied on any side of the domain box. A direction with at least one mirror boundary cannot be periodic, and vice-versa. As an example, if the X direction is not periodic, it can have mirror conditions atboth lower end (X-) and upper end (X+). If the user sets X to be periodic and add a X-/X+ mirror condition, the X periodicity is automatically disabled. The sequence can contain the following values : X-,X+,X,Y-,Y+,Y,Z-,Z+,Z.
-- ``expandable``: this boolean allows for the simulation box to automatically expand itself if particles are created or move off the domain boundaries.
+   When defining the simulaton domain through this operator, all properties must be consistent with each other. In particular, ``cell_size`` multiplied by ``grid_dims`` must be equal to max(``bounds``) - min(``bounds``).
 
 Usage examples
-**************
+--------------
   
 Multiple examples of domain definitions are provided below.
 

@@ -180,3 +180,6 @@ Copy-pasting the above YAML structure into a file named ``tantalum_nve.msp``, yo
    source ${XSP_INSTALL_DIR}/bin/setup-env.sh
    OMP_NUM_THREADS=20
    onika-exec input_deck.msp
+
+When running this case, you'll notice that multiple files are created. First, a ``thermodynamic_state.csv`` file is written to disk with information every 10 steps. This is because in the ``global`` clock, the default value for ``simulation_dump_thermo_frequency`` is se to 10. In addition, multiple ``*.MpiIO`` files have been created and are the consequence of the ``simulation_dump_frequency`` set to 1000. The later triggers the ``dump_data`` operation that outputs by default a restart file in the ``exaStamp`` format. A detailed explanation of YAML configuration and default parameters is provided in the next section.
+
