@@ -48,7 +48,7 @@ leading to:
 
    \mathbf{F_2} = \mathbf{D} \cdot \mathbf{H_G}^{-1} = \begin{pmatrix} \frac{||\mathbf{a}||}{n_x \cdot c_s} & 0 & 0 \\ 0 & \frac{||\mathbf{b}||}{n_y \cdot c_s} & 0 \\ 0 & 0 & \frac{||\mathbf{c}||}{n_z \cdot c_s} \end{pmatrix}
 
-where :math:`(n_x,n_y,n_z)` and :math:`c_s` are fixed by the user as explained hereafter. If the user requires a specific cell size :math:`c_s`, then the number of cells and the appropriate :math:`\mathbf{X_f}` are automatically calculated and vice versa. The final expression of the :math:`\mathbf{X_f` reads:
+where :math:`(n_x,n_y,n_z)` and :math:`c_s` are fixed by the user as explained hereafter. If the user requires a specific cell size :math:`c_s`, then the number of cells and the appropriate :math:`\mathbf{X_f}` are automatically calculated and vice versa. The final expression of the :math:`\mathbf{X_f}` reads:
 
 .. math::
 
@@ -59,11 +59,13 @@ which simplifies to:
 .. math::
 
    \mathbf{X_f} = \mathbf{H_P} \cdot \mathbf{H_G}^{-1} = \begin{pmatrix} \mathbf{a} | \mathbf{b} | \mathbf{c} \end{pmatrix} = \begin{pmatrix} a_x & b_x & c_x \\ a_y & b_y & c_y \\ a_z & b_z & c_z\end{pmatrix} \cdot \begin{pmatrix} n_x \cdot c_s & 0 & 0 \\ 0 & n_y \cdot c_s & 0 \\ 0 & 0 & n_z \cdot c_s \end{pmatrix}^{-1}
-   
+
+which can lead to very simple expression of :math:`\mathbf{X_f}` when for example the physical domain is a cubic domain with lengths exactly set to a multiple of cell size. The next section explains in detail how to fully define the domain.
+
 Defining the domain
 -------------------
 
-The ``domain`` operator allows to fully define the simulation domain.
+The ``domain`` operator allows to fully define the simulation domain as follows:
    
 .. code-block:: yaml
 
@@ -74,6 +76,8 @@ The ``domain`` operator allows to fully define the simulation domain.
      xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
      periodic: [true,true,true]
      expandable: false
+
+where all properties of the ``domain`` block are described below.
 
 .. list-table::
    :header-rows: 1
@@ -113,94 +117,114 @@ The ``domain`` operator allows to fully define the simulation domain.
 
 .. warning::
 
-   When defining the simulaton domain through this operator, all properties must be consistent with each other. In particular, ``cell_size`` multiplied by ``grid_dims`` must be equal to max(``bounds``) - min(``bounds``).
+   When defining the simulation domain through this operator, all properties must be consistent with each other. In particular, ``cell_size`` multiplied by ``grid_dims`` must be equal to max(``bounds``) - min(``bounds``).
 
 Usage examples
 --------------
   
-Multiple examples of domain definitions are provided below.
+Multiple examples of domain definitions are provided below with, for each case, an example of the ``domain`` YAML block, a visualization of the physical space and another visualization of the grid space.
 
-.. list-table:: **Non expandable 3D-periodic cubic domain with 100 ang side lengths** 
-   :widths: 50 50
-   :header-rows: 0
+Cubic domain
+************
 
-   * - .. code-block:: yaml
-             
-          domain:
-            cell_size: 5.0 ang
-            grid_dims: [20,20,20]
-            bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
-            xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
-            periodic: [true,true,true]
-            expandable: false
-     - .. image:: /_static/cubic_domain.png
-         :width: 300pt
+The first example creates a cubic physical domain with 100 :math:`\AA` side length, with 20 cells in each direction. In grid space, the domain also is cubic with the same dimensions.
 
-.. list-table:: **Non expandable 3D-periodic orthorhombic domain with 80, 100 and 120 ang side lengths**
-   :widths: 50 50
-   :header-rows: 0
+.. code-block:: YAML
 
-   * - .. code-block:: yaml
+   domain:
+     cell_size: 5.0 ang
+     grid_dims: [20,20,20]
+     bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+     xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
+     periodic: [true,true,true]
+     expandable: false   
+
+In that case, the :math:`\mathbf{X_f}` matrix equal the identity matrix and the grid space domain is exactly equal to the physical space domain. Below are displayed the 3D physical (left) and grid (right) domains look like:
+
+.. figure:: /_static/cubic_both_spaces.png
+   :width: 600pt
+   :align: center
+                 
+Orthorhombic domain
+*******************
+
+In that second example, an orthorhombic physical domain with 80 :math:`\AA`, 100 :math:`\AA` and 120 :math:`\AA` side lengths is created, with 16, 20 and 25 cells in each direction. In grid space, the domain is also orthorhombic with the same dimensions since the physical size exactly equals a finite number of cells in each direction.
+
+.. code-block:: yaml
      
-          # 1st solution
-          domain:
-           cell_size: 5.0 ang
-           grid_dims: [16,20,24]
-           bounds: [[0 ang ,0 ang,0 ang],[80 ang, 100 ang, 120 ang]]
-           xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
-           periodic: [true,true,true]
-           expandable: false
+   # 1st solution
+   domain:
+   cell_size: 5.0 ang
+   grid_dims: [16,20,24]
+   bounds: [[0 ang ,0 ang,0 ang],[80 ang, 100 ang, 120 ang]]
+   xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
+   periodic: [true,true,true]
+   expandable: false
 
-         # 2nd solution
-         domain:
-           cell_size: 5.0 ang
-           grid_dims: [20,20,20]
-           bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
-           xform: [[0.8,0.,0.],[0.,1.,0.],[0.,0.,1.2]]
-           periodic: [true,true,true]
-           expandable: false
-     - .. image:: /_static/orthorhombic_domain.png
-         :width: 300pt
+As before, since the physical domain exactly equals (in each direction), a finite number of cells, the grid domain has the exact same dimensions.
 
-.. list-table:: **Non expandable 3D-periodic restricted triclinic domain**
-   :widths: 50 50
-   :header-rows: 0
+.. figure:: /_static/ortho1_both_spaces.png
+   :width: 600pt
+   :align: center
 
-   * - .. code-block:: yaml
+If for some reasons the user needs to have the same grid dimensions in each direction, it is possible to define an orthorhombic physical domain by modifying the :math:`\mathbf{X_f}` matrix as follows:
+
+.. code-block:: yaml
+
+   # 2nd solution
+   domain:
+   cell_size: 5.0 ang
+   grid_dims: [20,20,20]
+   bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+   xform: [[0.8,0.,0.],[0.,1.,0.],[0.,0.,1.2]]
+   periodic: [true,true,true]
+   expandable: false
+
+This way, the physical domain has the exact same dimensions as before, but the grid domain is now cubic with 20 cells in each direction.
+
+.. figure:: /_static/ortho2_both_spaces.png
+   :width: 600pt
+   :align: center
+   
+Restricted triclinic domain
+***************************
                  
-          # 1st solution: restricted triclinic
-          # (e.g. **a** is parallel to x and
-          # **b** is in the (x,y) plane)
-          domain:
-            cell_size: 5.0 ang
-            grid_dims: [20,20,20]
-            bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
-            xform: [[1.,0.1,0.2],[0.,1.,0.2],[0.,0.,1.]]
-            periodic: [true,true,true]
-            expandable: false
-
-     - .. image:: /_static/triclinic_domain.png
-         :width: 300pt
-
-.. list-table:: **Non expandable 3D-periodic general triclinic domain**
-   :widths: 50 50
-   :header-rows: 0
-
-   * - .. code-block:: yaml
+.. code-block:: yaml
                  
-          # 2nd solution: general triclinic
-          # (e.g. no constraints on **a** or **b**)          
-          domain:
-            cell_size: 5.0 ang
-            grid_dims: [20,20,20]
-            bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
-            xform: [[1.,0.05,0.1],[0.05,1.,0.1],[0.1,0.1,1.2]]
-            periodic: [true,true,true]
-            expandable: false
+   # 1st solution: restricted triclinic
+   # (e.g. **a** is parallel to x and
+   # **b** is in the (x,y) plane)
+   domain:
+     cell_size: 5.0 ang
+     grid_dims: [20,20,20]
+     bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+     xform: [[1.,0.1,0.2],[0.,1.,0.2],[0.,0.,1.]]
+     periodic: [true,true,true]
+     expandable: false
 
-     - .. image:: /_static/general_triclinic_domain.png
-         :width: 300pt
+.. figure:: /_static/restricted_tri_both_spaces.png
+   :width: 600pt
+   :align: center
+                 
+Generalized triclinic domain
+****************************
 
+.. code-block:: yaml
+                 
+   # 2nd solution: general triclinic
+   # (e.g. no constraints on **a** or **b**)          
+   domain:
+     cell_size: 5.0 ang
+     grid_dims: [20,20,20]
+     bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+     xform: [[1.,0.05,0.1],[0.05,1.,0.1],[0.1,0.1,1.2]]
+     periodic: [true,true,true]
+     expandable: false
+
+.. figure:: /_static/generalized_tri_both_spaces.png
+   :width: 600pt
+   :align: center
+                                  
 Alternative ways for defining the domain
 ----------------------------------------
 
