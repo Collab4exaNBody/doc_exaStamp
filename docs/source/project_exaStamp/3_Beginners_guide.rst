@@ -6,7 +6,12 @@ This section aims at providing a step-by-step tutorial on how to create and desi
 .. toctree::
 
    3_Beginners_guide/Simulation.rst
-   3_Beginners_guide/Example_input_deck.rst   
+   3_Beginners_guide/1_global_parameters.rst
+   3_Beginners_guide/2_domain_grid_definition.rst
+   3_Beginners_guide/3_particles_creation.rst
+   3_Beginners_guide/4_interatomic_potential.rst
+   3_Beginners_guide/5_analysis_output.rst
+   3_Beginners_guide/Example_input_deck.rst  
    3_Beginners_guide/Default_yaml.rst   
    
    

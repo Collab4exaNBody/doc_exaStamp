@@ -65,6 +65,9 @@ which can lead to very simple expression of :math:`\mathbf{X_f}` when for exampl
 Defining the domain
 -------------------
 
+The ``domain`` operator
+***********************
+
 The ``domain`` operator allows to fully define the simulation domain as follows:
    
 .. code-block:: yaml
@@ -120,12 +123,12 @@ where all properties of the ``domain`` block are described below.
    When defining the simulation domain through this operator, all properties must be consistent with each other. In particular, ``cell_size`` multiplied by ``grid_dims`` must be equal to max(``bounds``) - min(``bounds``).
 
 Usage examples
---------------
+**************
   
 Multiple examples of domain definitions are provided below with, for each case, an example of the ``domain`` YAML block, a visualization of the physical space and another visualization of the grid space.
 
 Cubic domain
-************
+^^^^^^^^^^^^
 
 The first example creates a cubic physical domain with 100 :math:`\AA` side length, with 20 cells in each direction. In grid space, the domain also is cubic with the same dimensions.
 
@@ -146,7 +149,7 @@ In that case, the :math:`\mathbf{X_f}` matrix equal the identity matrix and the 
    :align: center
                  
 Orthorhombic domain
-*******************
+^^^^^^^^^^^^^^^^^^^
 
 In that second example, an orthorhombic physical domain with 80 :math:`\AA`, 100 :math:`\AA` and 120 :math:`\AA` side lengths is created, with 16, 20 and 25 cells in each direction. In grid space, the domain is also orthorhombic with the same dimensions since the physical size exactly equals a finite number of cells in each direction.
 
@@ -154,13 +157,13 @@ In that second example, an orthorhombic physical domain with 80 :math:`\AA`, 100
      
    # 1st solution
    domain:
-   cell_size: 5.0 ang
-   grid_dims: [16,20,24]
-   bounds: [[0 ang ,0 ang,0 ang],[80 ang, 100 ang, 120 ang]]
-   xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
-   periodic: [true,true,true]
-   expandable: false
-
+     cell_size: 5.0 ang
+     grid_dims: [16,20,24]
+     bounds: [[0 ang ,0 ang,0 ang],[80 ang, 100 ang, 120 ang]]
+     xform: [[1.,0.,0.],[0.,1.,0.],[0.,0.,1.]]
+     periodic: [true,true,true]
+     expandable: false
+  
 As before, since the physical domain exactly equals (in each direction), a finite number of cells, the grid domain has the exact same dimensions.
 
 .. figure:: /_static/ortho1_both_spaces.png
@@ -173,13 +176,13 @@ If for some reasons the user needs to have the same grid dimensions in each dire
 
    # 2nd solution
    domain:
-   cell_size: 5.0 ang
-   grid_dims: [20,20,20]
-   bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
-   xform: [[0.8,0.,0.],[0.,1.,0.],[0.,0.,1.2]]
-   periodic: [true,true,true]
-   expandable: false
-
+     cell_size: 5.0 ang
+     grid_dims: [20,20,20]
+     bounds: [[0 ang ,0 ang,0 ang],[100 ang, 100 ang, 100 ang]]
+     xform: [[0.8,0.,0.],[0.,1.,0.],[0.,0.,1.2]]
+     periodic: [true,true,true]
+     expandable: false
+  
 This way, the physical domain has the exact same dimensions as before, but the grid domain is now cubic with 20 cells in each direction.
 
 .. figure:: /_static/ortho2_both_spaces.png
@@ -187,7 +190,7 @@ This way, the physical domain has the exact same dimensions as before, but the g
    :align: center
    
 Restricted triclinic domain
-***************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
                  
 .. code-block:: yaml
                  
@@ -207,7 +210,7 @@ Restricted triclinic domain
    :align: center
                  
 Generalized triclinic domain
-****************************
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: yaml
                  
@@ -227,6 +230,15 @@ Generalized triclinic domain
                                   
 Alternative ways for defining the domain
 ----------------------------------------
+
+The ``domain_from_lengths_angles`` operator
+*******************************************
+
+Built-in particles creators
+***************************
+
+External file readers
+*********************
 
 In some cases, the simulation domain does not need to be fully defined as explained above. Indeed, the domain information can sometimes already be contained in external files or fully defined by the material the user needs to model. Below is a list of situations where the domain is fully or partially defined. Additional details can be found in the corresponding documentation sections.
 

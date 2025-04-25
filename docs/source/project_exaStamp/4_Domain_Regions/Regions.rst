@@ -1,28 +1,34 @@
+.. _regions:
+
 Spatial Regions
 ===============
 
-Spatial regions can be very usefull in order to define areas in the simulation domain that are subsequently used to populate with particles or perform analysis on a subdomain for example. The regions can be defined using the ``particle_regions`` YAML block, defined as follows:
+Geometrically defined regions
+-----------------------------
+
+The ``particle_regions`` operator
+*********************************
+
+Spatial regions can be very usefull in order to define areas in the simulation physical domain that are subsequently used to populate with particles or perform analysis on a subdomain for example. One or multiple regions can be defined using the ``particle_regions`` YAML block:
 
 .. code-block:: yaml
-   :caption: **YAML block for regions definition**
-
+                
    particles_regions:
      - REG1
      - REG2
      - REG3
 
-where `REG1`, `REG2` and `REG3` can be regions defined using different ways. Indeed, a region can be defined using either:
+where ``REG1``, ``REG2`` and ``REG3`` can be regions defined using different ways. The next section presents a list of different ways that can be used to define a spatial region.
 
-- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3*{rd} order 3D function
-- A user-defined analytical function evaluated on the 3D domain grid
-- A mask read on an external file with dimensions equal to the 3D domain grid
-- A range of particles ids
+.. warning::
 
-Geometrical Definition
-----------------------
+   All regions are defined in the physical space, not in the grid space. This is to be taken into account when creating regions, especially when dealing with triclinic physical domains.
 
+Individual regions
+******************
+   
 Parallelepiped
-**************
+^^^^^^^^^^^^^^
 
 .. list-table:: **Parallelepiped regions** 
    :widths: 50 50
@@ -40,11 +46,8 @@ Parallelepiped
      - .. image:: /_static/boxes.png
          :width: 400px
 
-Quadrics
-********
-
-Planes
-******
+Plane-quadrics
+^^^^^^^^^^^^^^
 
 .. list-table:: **Planes from quadrics** 
    :widths: 50 50
@@ -68,8 +71,8 @@ Planes
      - .. image:: /_static/planes.png
          :width: 400px
 
-Cylinders
-*********
+Cylinder-quadrics
+^^^^^^^^^^^^^^^^^
 
 .. list-table:: **Cylinders from quadrics**
    :widths: 50 50
@@ -102,8 +105,8 @@ Cylinders
      - .. image:: /_static/cylinders.png
          :width: 400px
 
-Spheres/Ellipsoïds
-******************
+Ellipsoïd-quadrics
+^^^^^^^^^^^^^^^^^^
 
 .. list-table:: **Spheres/Ellipsoids from quadrics**
    :widths: 50 50
@@ -134,8 +137,8 @@ Spheres/Ellipsoïds
      - .. image:: /_static/spheres.png
          :width: 400px
 
-Cones
-*****
+Cone-quadric
+^^^^^^^^^^^^
 
 .. list-table:: **Cones from quadrics**
    :widths: 50 50
@@ -166,7 +169,7 @@ Cones
          :width: 400px
 
 Matrix4d
-********
+^^^^^^^^
 
 .. code-block:: yaml
 
@@ -180,22 +183,16 @@ Matrix4d
              - zrot: pi/6             
              - translate: [ 85 ang , 85 ang , 0 ang ]      
 
-Assigning Regions to Grid
-*************************
+Range of Particles' ids
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: yaml
 
-   set_cell_values:
-     field_name: "region"
-     region: CYLX or CYLY or CYLZ
-     value: [0,1]
-     grid_subdiv: 10
-
-Using the Grid as a mask
-************************
-
+   REGID1:
+     - id_range: [1, 1300]
+               
 User-defined function
-*********************
+---------------------
 
 .. code-block:: yaml
 
@@ -224,19 +221,41 @@ User-defined function
      # ConstantSourceTerm   
      constant: 10.
 
-Based on Particles' ids
-***********************
 
-.. code-block:: yaml
-
-   REGID1:
-     - id_range: [1, 1300]
-
-Tracking Particles
-******************
+Using the grid as a mask
+------------------------
 
 .. code-block:: yaml
 
    track_region_particles:
      expr: PLANE1
      name: "PISTON"
+
+     
+Regions-related operations
+--------------------------
+
+Tracking particles inside a region
+**********************************
+
+.. code-block:: yaml
+
+   track_region_particles:
+     expr: PLANE1
+     name: "PISTON"
+
+- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3*{rd} order 3D function
+- A user-defined analytical function evaluated on the 3D domain grid
+- A mask read on an external file with dimensions equal to the 3D domain grid
+- A range of particles ids
+
+Assigning regions to grid
+*************************
+
+.. code-block:: yaml
+
+   set_cell_values:
+     field_name: "region"
+     region: CYLX or CYLY or CYLZ
+     value: [0,1]
+     grid_subdiv: 10
