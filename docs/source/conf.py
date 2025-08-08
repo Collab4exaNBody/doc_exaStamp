@@ -16,7 +16,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'ExaStamp & ExaNBody'
+project = 'exaStamp documentation'
 copyright = '2023-2024, Thierry Carrard, Raphaël Prat, Jean-Philippe Perlat, Paul Lafourcade'
 author = 'Thierry Carrard, Raphaël Prat, Jean-Philippe Perlat, Paul Lafourcade'
 
@@ -25,7 +25,50 @@ author = 'Thierry Carrard, Raphaël Prat, Jean-Philippe Perlat, Paul Lafourcade'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx_rtd_theme', 'sphinxcontrib.bibtex','myst_parser','sphinx_tabs.tabs', 'sphinx.ext.mathjax', 'sphinx_copybutton']
+# extensions = ['sphinx_book_theme',
+#               'sphinx_rtd_theme',
+fontawesome_included = True
+
+extensions = [
+#   "sphinx_book_theme",
+   "sphinx_rtd_theme",   
+   "ablog",
+   "myst_nb",
+#   "myst_parser",
+   #    "numpydoc",
+   #    "sphinx.ext.autodoc",
+   #    "sphinx.ext.intersphinx",
+   "sphinx.ext.viewcode",
+   #    "sphinxcontrib.youtube",
+   "sphinx.ext.mathjax",
+   "sphinx_copybutton",
+   "sphinx_design",
+   "sphinx_examples",
+   "sphinx_tabs.tabs",
+   "sphinx_thebe",
+   "sphinx_togglebutton",
+   "sphinxcontrib.bibtex",
+   #    "sphinxext.opengraph",
+   "sphinx.ext.todo",
+]
+# source_suffix = {
+#    '.rst': 'restructuredtext',
+#    '.txt': 'markdown',
+#    '.md': 'markdown',
+# }
+
+myst_enable_extensions = [
+    "dollarmath",
+    "amsmath",
+    "deflist",
+    # "html_admonition",
+    # "html_image",
+    "colon_fence",
+    # "smartquotes",
+    # "replacements",
+    # "linkify",
+    # "substitution",
+]
 
 mathjax3_config = {
     "tex": {
@@ -35,15 +78,13 @@ mathjax3_config = {
     }
 }
 
+html_js_files = [
+    'https://kit.fontawesome.com/##########.js',
+]
+
 bibtex_bibfiles= ["../doc_exaNBody/sources/bibliography.bib"]
 
 bibtex_default_style = "plain"
-
-source_suffix = {
-    '.rst': 'restructuredtext',
-    '.txt': 'markdown',
-    '.md': 'markdown',
-}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -66,7 +107,7 @@ html_theme_options = {
     'logo_only': False,
     'display_version': True,
     }
-version = "version 0.0.0"
+version = "Release 3.7.2"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
