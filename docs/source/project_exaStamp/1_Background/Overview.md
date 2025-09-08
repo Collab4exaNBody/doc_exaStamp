@@ -1,70 +1,10 @@
 # Overview
 
-``ExaStamp`` is a software solution in the field of computational simulations of particle-based systems. It stands for "Simulations Temporelles Atomistiques et Moléculaires en Parallèle à l'Exascale" or Exascale Atomistic and Molecular Simulations in Parallel. ``ExaStamp`` is a classical molecular dynamics (``MD``) simulation code developed within the ``exaNBody framework`` and it is dedicated to the modeling of materials behavior at extreme conditions at the microscopic scale. It adopts a hybrid parallelization approach, combining the use of ``MPI`` (Message Passing Interface) and Threads (``OpenMP``). This combination aims at optimizing computational cost for simulations, making them more efficient and manageable.
+**exaStamp** is a software package for particle-based computational simulations. It stands for “Simulations Temporelles Atomistiques et Moléculaires Parallèle à l’Exascale” (French) or “exascale Simulations of Time-dependent Atomistic and Molecular systems in Parallel” (English). **exaStamp** is a classical molecular dynamics (**MD**) code developed within the `exaNBody` framework, allowing users to model systems of particles in any state (liquid, solid, or gas). For example, polymers, molecular crystals, and dense crystalline materials such as metals, ceramics, and oxides can be simulated with **exaStamp**. A wide range of force fields and boundary conditions is available, enabling complex simulations with up to a few billion particles.
 
-Additionally, ``ExaStamp`` offers combatibility with ``MPI`` + ``GPUs``, using the ``CUDA`` programming model integrated as the ``Onika`` layer. This feature provides the option to leverage ``GPU`` processing power for potential performance gains in simulations. Written in ``C++17``, ``ExaStamp`` is built on a contemporary codebase and aims at providing researchers and engineers with a tool for adressing ``MD`` simulations.
+In general terms, **exaStamp** integrates Newton’s equations of motion for collections of interacting particles. Each particle can represent an atom or a molecule. Most interaction models in **exaStamp** are short-ranged, with some long-range models also available. **exaStamp** uses neighbor cells to track nearby particles; these cell lists are optimized for systems with strong short-range repulsion, so local particle density remains manageable. On parallel machines, **exaStamp** employs the RCB (Recursive Coordinate Bisection) spatial-decomposition technique with `MPI` parallelization to partition the simulation domain into subdomains of roughly equal computational cost (i.e. similar number of particles), each assigned to a processor. Processes communicate and store “ghost” data for atoms near subdomain boundaries. The code targets microscopic-scale modeling of material behavior under extreme conditions, with an emphasis on high strain rates, shock physics, and small-scale mechanics.
 
+**exaStamp** can be built and run on a single laptop or desktop, but it is primarily designed for parallel computers. It adopts a hybrid parallelization approach combining `MPI` (Message Passing Interface) and threads (`OpenMP`) to optimize computational cost and improve efficiency. Additionally, **exaStamp** supports `MPI` + GPUs via the `CUDA` programming model integrated through the `Onika` layer, enabling GPU acceleration for substantial performance gains. Written in `C++20`, **exaStamp** provides researchers and engineers with a modern tool for **MD** simulations in physics and mechanics.
 
-## ExaStamp Capabilities
+At first glance, **exaStamp** may seem difficult to modify or extend with new features—such as additional interatomic potentials, thermodynamic conditions, or on-the-fly analysis tools. However, a developer’s guide will soon be made available for those who wish to contribute.
 
-The following tables provide a glossary of features supported by ``ExaStamp``, categorized by their computational platform (``CPU`` or ``GPU``). Please note that this information is indicative and may be subject to change based on updates or modifications to the ``ExaStamp`` framework.
-
-.. list-table:: Input/Output Features
-  :widths: 40 40 40
-  :header-rows: 1
-  :align: center
-
-  * - Denomination
-    - CPU
-    - GPU
-  * - Field Set Plugin
-    - YES
-    - YES
-  * - Particles Generator
-    - YES
-    - X
-  * - Reader : XYZ files
-    - YES
-    - X
-  * - Reader : LAMMPS
-    - YES
-    - X
-  * - Reader : ExaStamp binary restart 
-    - YES
-    - X
-  * - Writer : XYZ files (extended)
-    - YES
-    - X
-  * - Writer : ParaView files
-    - YES
-    - X
-  * - Particle Migration (MPI)
-    - YES
-    - X
-  * - Load Balancing (RCB)
-    - YES
-    - X
-  * - Numerical Scheme Plugin
-    - YES
-    - YES
-  * - Regions
-    - YES
-    - YES
-  * - Potential : LJ
-    - YES
-    - YES
-  * - Potential : EAM
-    - YES
-    - YES
-  * - Potential : MEAM
-    - YES
-    - X
-  * - Potential : SNAP
-    - YES
-    - YES
-  * - Potential : N2P2
-    - YES
-    - X
-
-GitHub repository
------------------

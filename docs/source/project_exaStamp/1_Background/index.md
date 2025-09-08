@@ -1,14 +1,13 @@
-# Generalities
+# Background
 
 ```{toctree}
+:name: background
+:maxdepth: 2
 Overview.md
-Versioning.rst
-Features.md
 Distribution.md
-License.md
+Versioning.md
+Features.md
 Authors.md
-References.md      
-Execution_graph.rst
-Compatibility.rst
-Release_notes.rst
+References.md
+License.md
 ```

@@ -1,7 +1,7 @@
 <div style="display: flex; align-items: center; justify-content: center; height: 400px;">
   <div style="text-align: center; width: 75%;">
     <p style="margin: 0; font-size: 2em; line-height: 1.5;">
-      Welcome to the <strong>exaStamp</strong> code documentation. exaStamp stands for <strong>exa</strong>scale <strong>S</strong>imulation of <strong>T</strong>ime-dependent <strong>A</strong>tomic and <strong>M</strong>olecular systems in <strong>P</strong>arallel.
+      Welcome to the <strong>exaStamp</strong> code documentation. <strong>exaStamp</strong> stands for <strong>exa</strong>scale <strong>S</strong>imulation of <strong>T</strong>ime-dependent <strong>A</strong>tomic and <strong>M</strong>olecular systems in <strong>P</strong>arallel.
     </p>
   </div>
   <div style="text-align: center; width: 25%;">
@@ -63,7 +63,7 @@
 :maxdepth: 2
 :caption: exaStamp
 project_exaStamp/1_Background/index.md
-project_exaStamp/2_Build_and_Install.rst
+project_exaStamp/2_Build_and_Install/index.md
 project_exaStamp/3_Beginners_guide.rst
 project_exaStamp/4_Domain_Regions.rst
 project_exaStamp/5_Grids.rst   
