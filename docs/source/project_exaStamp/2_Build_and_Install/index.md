@@ -3,8 +3,7 @@
 ```{toctree}
 :name: installation
 :maxdepth: 2
-CMake_installation.rst
-Spack_installation.rst
-Docker_installation.rst
-Running.rst
-```   
+Spack_installation.md
+CMake_installation.md
+Running.md
+```
