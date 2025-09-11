@@ -1,5 +1,5 @@
 ---
-icon: material/graph
+icon: material/grid
 ---
 
 # **Simulation's graph**

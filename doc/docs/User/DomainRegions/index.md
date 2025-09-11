@@ -1,5 +1,5 @@
 ---
-icon: material/graph
+icon: fontawesome/solid/shapes
 ---
 
 # **Simulation's graph**

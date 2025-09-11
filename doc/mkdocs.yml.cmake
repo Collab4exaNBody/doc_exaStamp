@@ -78,21 +78,21 @@ theme:
     - content.tooltips
     # - header.autohide
     # - navigation.expand
-    - navigation.footer
+#    - navigation.footer
     - navigation.indexes
     # - navigation.instant
     # - navigation.instant.prefetch
     # - navigation.instant.progress
     # - navigation.prune
-    - navigation.sections
+    #- navigation.sections
     - navigation.tabs
-    # - navigation.tabs.sticky
+    - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
     # - search.share
-    - search.suggest
-    - toc.follow
+    # - search.suggest
+    #- toc.follow
   palette:
     primary: black
     accent: black
@@ -140,19 +140,58 @@ nav:
     - BuildInstall/spack_installation.md
     - BuildInstall/cmake_installation.md
     - BuildInstall/running.md
+  - User guide:
+    - User/index.md
+    - Simulation Graph:
+      - User/SimulationGraph/index.md
+    - Simulation Control:
+      - User/SimulationControl/index.md
+    - Domain and Spatial Regions:
+      - User/DomainRegions/index.md
+      - User/DomainRegions/domain.md
+      - User/DomainRegions/regions.md
+    - Grids:
+      - User/Grids/index.md
+      - User/Grids/flavors.md
+      - User/Grids/input.md
+      - User/Grids/analysis.md
+      - User/Grids/output.md
+    - Particles:
+      - User/Particles/index.md
+      - User/Particles/species.md
+      - User/Particles/input.md
+      - User/Particles/analysis.md
+      - User/Particles/output.md
+    - Force Fields:
+      - User/ForceFields/index.md
+      - User/ForceFields/pair.md
+      - User/ForceFields/eam.md
+      - User/ForceFields/meam.md
+      - User/ForceFields/reactive.md
+      - User/ForceFields/mlips.md
+      - User/ForceFields/electrostatic.md
+      - User/ForceFields/bonds.md
+      - User/ForceFields/torsions.md
+      - User/ForceFields/dihedrals.md
+      - User/ForceFields/impropers.md
+    - Ensembles and Constraints:
+      - User/EnsemblesConstraints/index.md
+      - User/EnsemblesConstraints/nve_ensemble.md
+      - User/EnsemblesConstraints/thermostats.md
+      - User/EnsemblesConstraints/nvt_ensemble.md
+      - User/EnsemblesConstraints/pistons.md
+      - User/EnsemblesConstraints/deformation.md
+      - User/EnsemblesConstraints/minimization.md
+    # - User/HowToSimulation/GlobalParameters.md      
+    # - User/HowToSimulation/DomainGrid.md
+    # - User/HowToSimulation/ParticlesCreation.md
+    # - User/HowToSimulation/ForceField.md
+    # - User/HowToSimulation/Constraints.md
+    # - User/HowToSimulation/AnalysisOutput.md
+    # - User/HowToSimulation/ExampleInputDeck.md
+    # - User/HowToSimulation/DefaultYAML.md      
   - Beginner's guide:
     - Beginner/index.md
-    - Setup a simulation:
-      - Beginner/HowToSimulation/index.md
-      - Beginner/HowToSimulation/SimulationGraph.md
-      - Beginner/HowToSimulation/GlobalParameters.md      
-      - Beginner/HowToSimulation/DomainGrid.md
-      - Beginner/HowToSimulation/ParticlesCreation.md
-      - Beginner/HowToSimulation/ForceField.md
-      - Beginner/HowToSimulation/Constraints.md
-      - Beginner/HowToSimulation/AnalysisOutput.md
-      - Beginner/HowToSimulation/ExampleInputDeck.md
-      - Beginner/HowToSimulation/DefaultYAML.md      
     - Tutorials:
       - Beginner/Tutorials/index.md
       - Beginner/Tutorials/Tutorial1.md

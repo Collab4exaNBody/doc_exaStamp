@@ -1,5 +1,5 @@
 ---
-icon: material/graph
+icon: simple/moleculer
 ---
 
 # **Simulation's graph**

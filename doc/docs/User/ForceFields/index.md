@@ -1,5 +1,5 @@
 ---
-icon: material/graph
+icon: material/function-variant
 ---
 
 # **Simulation's graph**

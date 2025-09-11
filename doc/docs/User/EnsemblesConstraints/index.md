@@ -1,5 +1,5 @@
 ---
-icon: material/graph
+icon: fontawesome/solid/chain
 ---
 
 # **Simulation's graph**
