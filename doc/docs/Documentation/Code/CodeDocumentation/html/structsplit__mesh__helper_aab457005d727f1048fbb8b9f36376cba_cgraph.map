@@ -1,0 +1,4 @@
+<map id="split_mesh_helper::operator()" name="split_mesh_helper::operator()">
+<area shape="rect" id="node1" title="Checks whether the number of mesh files matches the expected count." alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node2" href="$structsplit__mesh__helper.html#a4c1f903b1534823f3be4a7cdf26ddc56" title="Counts the number of files in the current directory matching the given prefix." alt="" coords="208,5,363,47"/>
+</map>

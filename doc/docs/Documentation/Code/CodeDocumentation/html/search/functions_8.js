@@ -1,0 +1,10 @@
+var searchData=
+[
+  ['implicitsolve_1269',['ImplicitSolve',['../classTransientOperatorBase.html#a863beb508f0cf9dece93b3d1218f5da9',1,'TransientOperatorBase']]],
+  ['initialize_1270',['initialize',['../classAnalyticalIdealSolution.html#ad479e4c3115b7124ba658eb2d3358417',1,'AnalyticalIdealSolution::initialize()'],['../classProperty__problem.html#abdd901a7e12a01be3c399f65735da4c2',1,'Property_problem::initialize()'],['../classProblemBase.html#acc31575aa948739d12b14ebc3ebfd455',1,'ProblemBase::initialize()'],['../classProblem.html#aa3a125071d65915326f21d8898d9321f',1,'Problem::initialize()'],['../classCalphad__Problem.html#ab62afe9de2a1eb5589f459bb710d3876',1,'Calphad_Problem::initialize()'],['../classTransientOperatorBase.html#a3cf55d9efdfe06f6f5bd29b282b6b34b',1,'TransientOperatorBase::initialize()'],['../classSteadyOperatorBase.html#a73bf80a16acb0b54cdd94a91ed1bd6c4',1,'SteadyOperatorBase::initialize()'],['../classOperatorBase.html#ab610e1c53fc27ec56ecab45c226be49c',1,'OperatorBase::initialize()'],['../classCoupling.html#aac932c229284cd61451c9014ff690ba8',1,'Coupling::initialize()'],['../classCalphadInformedNeuralNetwork.html#ab06f17b3e62dc920518fc54ce90b6aaf',1,'CalphadInformedNeuralNetwork::initialize()'],['../classCalphadBase.html#a4264ca0e77c9d9f8a5f2d9fc62800966',1,'CalphadBase::initialize()']]],
+  ['interdiffusioncoefficient_1271',['InterDiffusionCoefficient',['../classInterDiffusionCoefficient.html#a9539e97cca32bd9d570872eef5f43983',1,'InterDiffusionCoefficient']]],
+  ['is_5fessential_5fboundary_1272',['is_essential_boundary',['../classBoundary.html#ab367015ba9c9fc55528032cb5b9eca95',1,'Boundary']]],
+  ['is_5fperiodic_1273',['is_periodic',['../classSpatialDiscretization.html#a503f95d7a41ea96afcc31413320995e6',1,'SpatialDiscretization']]],
+  ['is_5fperiodic_5fboundary_1274',['is_periodic_boundary',['../classBoundary.html#a3050c65c13641207ee776309baec08ff',1,'Boundary']]],
+  ['iterationkey_1275',['IterationKey',['../structIterationKey.html#aef04b4c51c1a0f449d96dadd172d15fb',1,'IterationKey']]]
+];

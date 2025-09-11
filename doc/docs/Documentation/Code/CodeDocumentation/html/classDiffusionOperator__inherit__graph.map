@@ -1,0 +1,7 @@
+<map id="DiffusionOperator&lt; T, DIM, NLFI, DENS, LHS_NLFI &gt;" name="DiffusionOperator&lt; T, DIM, NLFI, DENS, LHS_NLFI &gt;">
+<area shape="rect" id="node1" title="Class DiffusionOperator." alt="" coords="987,47,1155,103"/>
+<area shape="rect" id="node2" href="$classDiffusionOperatorBase.html" title=" " alt="" coords="728,47,937,103"/>
+<area shape="rect" id="node3" href="$classTransientOperatorBase.html" title="TransientOperatorBase class." alt="" coords="235,5,455,47"/>
+<area shape="rect" id="node4" href="$classOperatorBase.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node5" href="$classDiffusionOperatorBase.html" title="Base class for Mass Diffusion." alt="" coords="240,71,449,127"/>
+</map>

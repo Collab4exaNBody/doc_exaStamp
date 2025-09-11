@@ -1,0 +1,4 @@
+<map id="PotentialFunctions::getPotentialFunction" name="PotentialFunctions::getPotentialFunction">
+<area shape="rect" id="node1" title="return the function associated with the POTENTIAL, its ORDER of derivative and its time discretizatio..." alt="" coords="304,5,475,47"/>
+<area shape="rect" id="node2" href="$classHomogeneousEnergyCoefficient.html#abf0102a4cd2ca8a50542d0448c6a115b" title="Construct a new HomogeneousEnergyCoefficient&lt; ENERGY&gt;::HomogeneousEnergyCoefficient object." alt="" coords="5,5,256,47"/>
+</map>

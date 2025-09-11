@@ -1,0 +1,10 @@
+<map id="Variables.hpp" name="Variables.hpp">
+<area shape="rect" id="node1" title="Variables class used to build and manage variables." alt="" coords="92,5,206,32"/>
+<area shape="rect" id="node2" href="$OperatorBase_8hpp.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="21,80,168,107"/>
+<area shape="rect" id="node3" href="$SteadyOperatorBase_8hpp.html" title="Steady Operator base." alt="" coords="54,155,249,181"/>
+<area shape="rect" id="node5" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="130,304,216,331"/>
+<area shape="rect" id="node8" href="$TransientOperatorBase_8hpp.html" title="Transient Operator base." alt="" coords="274,155,486,181"/>
+<area shape="rect" id="node4" href="$DiffusionOperator_8hpp.html" title="Diffusion operator (Base, Steady and TimeDependent)" alt="" coords="86,229,260,256"/>
+<area shape="rect" id="node6" href="$HeatOperator_8hpp.html" title="Heat operator (Base, Steady and TimeDependent)" alt="" coords="285,229,432,256"/>
+<area shape="rect" id="node7" href="$PhaseFieldOperator_8hpp.html" title="AllenCahn operator (Base, Steady and TimeDependent)" alt="" coords="456,229,644,256"/>
+</map>

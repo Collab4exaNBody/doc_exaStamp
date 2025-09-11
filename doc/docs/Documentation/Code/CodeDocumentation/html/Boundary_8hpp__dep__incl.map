@@ -1,0 +1,20 @@
+<map id="Boundary.hpp" name="Boundary.hpp">
+<area shape="rect" id="node1" title="Boundary class used to build a boundary with a name, an index, a type and, if needed,..." alt="" coords="154,5,273,32"/>
+<area shape="rect" id="node2" href="$BoundaryConditions_8hpp.html" title="BoundaryConditions class used to build and manage boundary conditions." alt="" coords="838,80,1031,107"/>
+<area shape="rect" id="node6" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="627,528,714,555"/>
+<area shape="rect" id="node3" href="$OperatorBase_8hpp.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="1081,304,1228,331"/>
+<area shape="rect" id="node10" href="$Variable_8hpp.html" title="Variable class used to build and manage variables of model." alt="" coords="367,155,475,181"/>
+<area shape="rect" id="node4" href="$SteadyOperatorBase_8hpp.html" title="Steady Operator base." alt="" coords="1057,379,1252,405"/>
+<area shape="rect" id="node9" href="$TransientOperatorBase_8hpp.html" title="Transient Operator base." alt="" coords="821,379,1033,405"/>
+<area shape="rect" id="node5" href="$DiffusionOperator_8hpp.html" title="Diffusion operator (Base, Steady and TimeDependent)" alt="" coords="1142,453,1317,480"/>
+<area shape="rect" id="node7" href="$HeatOperator_8hpp.html" title="Heat operator (Base, Steady and TimeDependent)" alt="" coords="759,453,905,480"/>
+<area shape="rect" id="node8" href="$PhaseFieldOperator_8hpp.html" title="AllenCahn operator (Base, Steady and TimeDependent)" alt="" coords="930,453,1118,480"/>
+<area shape="rect" id="node11" href="$postprocessing_8hpp.html" title="Post&#45;processing features." alt="" coords="118,229,274,256"/>
+<area shape="rect" id="node12" href="$MPIProblem_8hpp.html" title="Class used to defined a MPI_Problem objet." alt="" coords="93,379,232,405"/>
+<area shape="rect" id="node13" href="$Problem_8hpp.html" title="Class used to defined a Problem objet." alt="" coords="257,379,367,405"/>
+<area shape="rect" id="node15" href="$ProblemBase_8hpp.html" title="Base class for building Problems." alt="" coords="350,304,493,331"/>
+<area shape="rect" id="node18" href="$Variables_8hpp.html" title="Variables class used to build and manage variables." alt="" coords="869,229,984,256"/>
+<area shape="rect" id="node14" href="$Time_8hpp.html" title="Main time loop." alt="" coords="194,453,281,480"/>
+<area shape="rect" id="node16" href="$Calphad__problem_8hpp.html" title="Class used to defined a Calphad_Problem objet." alt="" coords="407,453,582,480"/>
+<area shape="rect" id="node17" href="$PropertyProblem_8hpp.html" title="Class used to compute primary variables as a function of auxialiary variables." alt="" coords="494,379,663,405"/>
+</map>

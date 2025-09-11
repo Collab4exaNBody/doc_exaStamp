@@ -1,0 +1,5 @@
+<map id="Variable::Variable" name="Variable::Variable">
+<area shape="rect" id="node1" title="Construct a new Variable:: Variable object." alt="" coords="5,46,145,73"/>
+<area shape="rect" id="node2" href="$classSpatialDiscretization.html#a785f5fc5d0d3b48fc13b78ffa2404876" title="get the dimension of the problem" alt="" coords="213,5,376,47"/>
+<area shape="rect" id="node3" href="$classSpatialDiscretization.html#a1f29ce5ce231196955f27214bff5b15b" title="return a pointer toward the finite element space" alt="" coords="193,71,396,112"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="Variables::get_variables_number" name="Variables::get_variables_number">
+<area shape="rect" id="node1" title="Return the number of variables." alt="" coords="464,39,647,80"/>
+<area shape="rect" id="node2" href="$classOperatorBase.html#ab610e1c53fc27ec56ecab45c226be49c" title="Initialization stage (call by imeDiscretization&lt;PST, OPE, VAR&gt;::initialize())" alt="" coords="235,46,416,73"/>
+<area shape="rect" id="node3" href="$classSteadyOperatorBase.html#a73bf80a16acb0b54cdd94a91ed1bd6c4" title="Initialization stage (call by imeDiscretization&lt;PST, OPE, VAR&gt;::initialize())" alt="" coords="15,5,177,47"/>
+<area shape="rect" id="node4" href="$classTransientOperatorBase.html#a3cf55d9efdfe06f6f5bd29b282b6b34b" title="Initialization stage (call by imeDiscretization&lt;PST, OPE, VAR&gt;::initialize())" alt="" coords="5,71,187,112"/>
+</map>

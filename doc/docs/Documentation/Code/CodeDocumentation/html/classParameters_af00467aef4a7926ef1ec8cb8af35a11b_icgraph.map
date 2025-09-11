@@ -1,0 +1,5 @@
+<map id="Parameters::get_vector" name="Parameters::get_vector">
+<area shape="rect" id="node1" title="Return a vector of Parameter." alt="" coords="229,31,408,57"/>
+<area shape="rect" id="node2" href="$classParameters.html#acbdca27088ed24bd41b70c7773e44050" title="Add two Parameters with a priority given to the second Parameters to overwrite Parameter objets in th..." alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node3" href="$classParameters.html#ac6fe41c4d864f6e68216e9cd62506c70" title="Remove a parameter inside a Parameters if exists." alt="" coords="8,56,179,83"/>
+</map>

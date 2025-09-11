@@ -1,0 +1,5 @@
+<map id="Parameters::operator+" name="Parameters::operator+">
+<area shape="rect" id="node1" title="Add a parameter inside a Parameters. If param already exists, the given parameters overwrites the exi..." alt="" coords="5,31,181,57"/>
+<area shape="rect" id="node2" href="$classParameters.html#af00467aef4a7926ef1ec8cb8af35a11b" title="Return a vector of Parameter." alt="" coords="232,5,411,32"/>
+<area shape="rect" id="node3" href="$classParameters.html#ab225509d2205e6fb8a8a5a2b2ed47baf" title="Construct a new Parameters:: Parameters object." alt="" coords="229,56,413,83"/>
+</map>

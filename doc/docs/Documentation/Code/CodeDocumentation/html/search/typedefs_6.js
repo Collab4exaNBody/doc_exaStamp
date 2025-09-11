@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['vdirectsolver_1623',['VDirectSolver',['../SlothSolver_8hpp.html#ab6f08271a3a56d1c444d230433906ea1',1,'SlothSolver.hpp']]],
+  ['vdouble_1624',['vDouble',['../UtilsForData_8hpp.html#a7deb81f32b7381fb0458768353e72f27',1,'UtilsForData.hpp']]],
+  ['vhypreprecond_1625',['VHyprePrecond',['../SlothSolver_8hpp.html#a485306bb9649f51769529ecad70d7bcd',1,'SlothSolver.hpp']]],
+  ['vhypresolver_1626',['VHypreSolver',['../SlothSolver_8hpp.html#af1a62a71233b80b491b9bba7aa725407',1,'SlothSolver.hpp']]],
+  ['vint_1627',['vInt',['../UtilsForData_8hpp.html#a5ed3b52120ea537e449a5be5d13a657a',1,'UtilsForData.hpp']]],
+  ['viterativeprecond_1628',['VIterativePrecond',['../SlothSolver_8hpp.html#aad1bb345718b0ca2dd9e82c61e06b20d',1,'SlothSolver.hpp']]],
+  ['viterativesolver_1629',['VIterativeSolver',['../SlothSolver_8hpp.html#aa3e0c8e1892e4a7cd4de8c74ca0850f0',1,'SlothSolver.hpp']]],
+  ['vpreconds_1630',['VPreconds',['../SlothSolver_8hpp.html#af8976791a778dfa71c7825f4223fd3db',1,'SlothSolver.hpp']]],
+  ['vsharedmfemsolver_1631',['VSharedMFEMSolver',['../SlothSolver_8hpp.html#a5fd53bd11fd909fc958b103a29186a8b',1,'SlothSolver.hpp']]],
+  ['vsolvers_1632',['VSolvers',['../SlothSolver_8hpp.html#a1bb3d98a6b89372464210853f7c7a20a',1,'SlothSolver.hpp']]],
+  ['vsolvertype_1633',['VSolverType',['../SlothSolver_8hpp.html#a2a746321a69b40843a1ad2b71c46fea4',1,'SlothSolver.hpp']]],
+  ['vstring_1634',['vString',['../UtilsForData_8hpp.html#ac972eddc157682f963c86230ecbde42f',1,'UtilsForData.hpp']]],
+  ['vtriplet_1635',['vtriplet',['../UtilsForData_8hpp.html#a141bd8d13361e184db9a8a667210b3c7',1,'UtilsForData.hpp']]],
+  ['vtuple2stringdouble_1636',['vTuple2StringDouble',['../UtilsForData_8hpp.html#af60e5e7e97cee1fb8874b29f5ca9b5c1',1,'UtilsForData.hpp']]],
+  ['vtuplestringint_1637',['vTupleStringInt',['../UtilsForData_8hpp.html#a3385f2e8c2a85a1c1e623b6a8501d773',1,'UtilsForData.hpp']]],
+  ['vtuplestringstring_1638',['vTupleStringString',['../UtilsForData_8hpp.html#aa68cd526195041e67334ac408e72c3fc',1,'UtilsForData.hpp']]]
+];

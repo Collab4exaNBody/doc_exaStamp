@@ -1,0 +1,6 @@
+<map id="DiffusionNLFormIntegrator::DiffusionNLFormIntegrator" name="DiffusionNLFormIntegrator::DiffusionNLFormIntegrator">
+<area shape="rect" id="node1" title="Construct a new DiffusionNLFormIntegrator&lt;SCHEME, COEFFICIENT&gt;::DiffusionNLFormIntegrator object." alt="" coords="5,71,223,112"/>
+<area shape="rect" id="node2" href="$classSlothNLFormIntegrator.html#a31d58b855462a8fb4e93f191b426b07c" title="Return a vector of GridFunction associated with auxiliary variables." alt="" coords="271,5,453,47"/>
+<area shape="rect" id="node3" href="$classSlothNLFormIntegrator.html#a33910e73d9230438602936dade46e458" title="Return a vector of the additional information (vector of string) associated with auxiliary variables." alt="" coords="271,71,453,112"/>
+<area shape="rect" id="node4" href="$classSlothNLFormIntegrator.html#abfe86f09f35b0f9b279ed0ea0e66a205" title="Return a vector of GridFunction associated with auxiliary variables at the previous time&#45;step." alt="" coords="271,136,453,177"/>
+</map>

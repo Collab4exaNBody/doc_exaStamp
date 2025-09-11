@@ -1,0 +1,4 @@
+<map id="PropertyBase::check_variables_consistency" name="PropertyBase::check_variables_consistency">
+<area shape="rect" id="node1" title="Check the consistency of the inputs and outputs of the property problem." alt="" coords="235,5,412,47"/>
+<area shape="rect" id="node2" href="$classPropertyBase.html#adcd21ad3b4a73d1fe6d14edca1501629" title="Compute the variables (properties) as functions of auxiliary variables." alt="" coords="5,13,187,39"/>
+</map>

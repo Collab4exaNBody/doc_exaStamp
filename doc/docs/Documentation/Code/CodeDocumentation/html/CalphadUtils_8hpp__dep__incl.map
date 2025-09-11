@@ -1,0 +1,8 @@
+<map id="CalphadUtils.hpp" name="CalphadUtils.hpp">
+<area shape="rect" id="node1" title="Class of methods usefull for to compute equilibrium state object." alt="" coords="209,5,350,32"/>
+<area shape="rect" id="node2" href="$AnalyticalIdealSolution_8hpp.html" title="Analytical thermodynamic description for an ideal solution." alt="" coords="32,155,242,181"/>
+<area shape="rect" id="node3" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="236,229,323,256"/>
+<area shape="rect" id="node4" href="$CalphadBase_8hpp.html" title="Base class for Calphad objets." alt="" coords="208,80,351,107"/>
+<area shape="rect" id="node5" href="$CalphadInformedNeuralNetwork_8hpp.html" title="Calphad&#45;informed neuronal network used to predict Calphad contributions." alt="" coords="318,155,596,181"/>
+<area shape="rect" id="node6" href="$KKS_8hpp.html" title="All needed for Calphad calculation including KKS model." alt="" coords="526,80,609,107"/>
+</map>

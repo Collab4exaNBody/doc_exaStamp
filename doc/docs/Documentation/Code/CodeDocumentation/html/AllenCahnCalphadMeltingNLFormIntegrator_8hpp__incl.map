@@ -1,0 +1,57 @@
+<map id="AllenCahnCalphadMeltingNLFormIntegrator.hpp" name="AllenCahnCalphadMeltingNLFormIntegrator.hpp">
+<area shape="rect" id="node1" title="Compute the enthalpy of phase change based on two driving forces defined as auxiliary variables." alt="" coords="5513,5,5773,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="683,900,746,927"/>
+<area shape="rect" id="node3" title=" " alt="" coords="4889,900,4953,927"/>
+<area shape="rect" id="node4" href="$AllenCahnMeltingBaseNLFormIntegrator_8hpp.html" title="Base integrator for melting." alt="" coords="4907,95,5133,136"/>
+<area shape="rect" id="node14" href="$Utils_8hpp.html" title="List of all Utils files." alt="" coords="2926,751,3045,777"/>
+<area shape="rect" id="node23" title=" " alt="" coords="5458,900,5550,927"/>
+<area shape="rect" id="node55" title=" " alt="" coords="5490,423,5702,464"/>
+<area shape="rect" id="node5" title=" " alt="" coords="4345,900,4433,927"/>
+<area shape="rect" id="node6" title=" " alt="" coords="314,900,371,927"/>
+<area shape="rect" id="node7" href="$MobilityCoefficient_8hpp.html" title="Class dedicated to Mobility coefficient." alt="" coords="4268,273,4532,300"/>
+<area shape="rect" id="node48" href="$PhaseFieldPotentials_8hpp.html" title="Analytical potentials and derivatives used by phase&#45;field models." alt="" coords="2192,669,2469,695"/>
+<area shape="rect" id="node49" href="$AllenCahnNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation." alt="" coords="4285,184,4515,225"/>
+<area shape="rect" id="node8" title=" " alt="" coords="4208,900,4267,927"/>
+<area shape="rect" id="node9" title=" " alt="" coords="4291,348,4370,375"/>
+<area shape="rect" id="node10" href="$MobilityFunctions_8hpp.html" title="Mobility functions." alt="" coords="3611,348,3869,375"/>
+<area shape="rect" id="node12" href="$Options_8hpp.html" title="List of all Options files." alt="" coords="2761,587,2924,613"/>
+<area shape="rect" id="node42" href="$Parameter_8hpp.html" title="Parameter class." alt="" coords="895,512,1097,539"/>
+<area shape="rect" id="node44" href="$Parameters_8hpp.html" title="Parameter class used to build and manage calculation parameter." alt="" coords="3801,430,4012,457"/>
+<area shape="rect" id="node11" title=" " alt="" coords="2285,900,2376,927"/>
+<area shape="rect" id="node13" href="$AnalyticalFunctionOptions_8hpp.html" title="Options for Analytical functions." alt="" coords="1662,661,1869,703"/>
+<area shape="rect" id="node33" href="$CalphadOptions_8hpp.html" title="Options for Calphad problems." alt="" coords="3878,669,4098,695"/>
+<area shape="rect" id="node34" href="$DiffusionOptions_8hpp.html" title="Option for Mass Diffusion problems." alt="" coords="2747,669,2971,695"/>
+<area shape="rect" id="node35" href="$PhaseFieldOptions_8hpp.html" title="Options for PhaseField problems." alt="" coords="2995,669,3234,695"/>
+<area shape="rect" id="node36" href="$PhysicalConvergenceOptions_8hpp.html" title="Options for PhysicalConvergence objects." alt="" coords="1893,661,2118,703"/>
+<area shape="rect" id="node37" href="$PhysicalPropertiesOptions_8hpp.html" title="Options for physical properties." alt="" coords="3259,661,3464,703"/>
+<area shape="rect" id="node38" href="$ProblemsOptions_8hpp.html" title="Options for Problem objects." alt="" coords="955,669,1181,695"/>
+<area shape="rect" id="node39" href="$SolversOptions_8hpp.html" title="Options for solvers and preconditioners." alt="" coords="3488,669,3701,695"/>
+<area shape="rect" id="node40" href="$SpatialOptions_8hpp.html" title="Options for Spatial discretization." alt="" coords="1205,669,1416,695"/>
+<area shape="rect" id="node41" href="$TimeOptions_8hpp.html" title="Options for Time discretization." alt="" coords="1440,669,1637,695"/>
+<area shape="rect" id="node15" href="$UtilsForData_8hpp.html" title="Usefull methods for data." alt="" coords="3323,825,3498,852"/>
+<area shape="rect" id="node24" href="$UtilsForDebug_8hpp.html" title="Usefull methods for debug." alt="" coords="2891,825,3079,852"/>
+<area shape="rect" id="node27" href="$UtilsForOptions_8hpp.html" title="Usefull methods for Options." alt="" coords="3104,825,3299,852"/>
+<area shape="rect" id="node29" href="$UtilsForPostProcessing_8hpp.html" title="Usefull methods for post&#45;processing." alt="" coords="3702,825,3946,852"/>
+<area shape="rect" id="node30" href="$UtilsForVariants_8hpp.html" title="manage std::Variants" alt="" coords="1259,825,1456,852"/>
+<area shape="rect" id="node16" title=" " alt="" coords="3070,900,3149,927"/>
+<area shape="rect" id="node17" title=" " alt="" coords="3365,900,3432,927"/>
+<area shape="rect" id="node18" title=" " alt="" coords="3173,900,3235,927"/>
+<area shape="rect" id="node19" title=" " alt="" coords="3456,900,3547,927"/>
+<area shape="rect" id="node20" title=" " alt="" coords="3259,900,3341,927"/>
+<area shape="rect" id="node21" title=" " alt="" coords="3571,900,3623,927"/>
+<area shape="rect" id="node22" title=" " alt="" coords="3648,900,3709,927"/>
+<area shape="rect" id="node25" title=" " alt="" coords="2925,900,3045,927"/>
+<area shape="rect" id="node26" title=" " alt="" coords="2827,900,2901,927"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1322,900,1393,927"/>
+<area shape="rect" id="node31" title=" " alt="" coords="207,900,286,927"/>
+<area shape="rect" id="node32" title=" " alt="" coords="1446,900,1541,927"/>
+<area shape="rect" id="node43" title=" " alt="" coords="957,587,1035,613"/>
+<area shape="rect" id="node45" title=" " alt="" coords="3950,512,3997,539"/>
+<area shape="rect" id="node46" title=" " alt="" coords="4021,512,4099,539"/>
+<area shape="rect" id="node47" title=" " alt="" coords="3883,512,3925,539"/>
+<area shape="rect" id="node50" href="$LambdaCoefficient_8hpp.html" title="Class dedicated to Lambda coefficient." alt="" coords="3980,273,4244,300"/>
+<area shape="rect" id="node52" href="$OmegaCoefficient_8hpp.html" title="Class dedicated to Omega coefficient." alt="" coords="3698,273,3955,300"/>
+<area shape="rect" id="node54" href="$SlothNLFormIntegrator_8hpp.html" title="Class prodiving common methods to all NLFormIntegrators." alt="" coords="4657,348,4951,375"/>
+<area shape="rect" id="node51" href="$LambdaFunctions_8hpp.html" title="Lambda functions." alt="" coords="2929,348,3188,375"/>
+<area shape="rect" id="node53" href="$OmegaFunctions_8hpp.html" title="Omega functions." alt="" coords="2482,348,2734,375"/>
+</map>

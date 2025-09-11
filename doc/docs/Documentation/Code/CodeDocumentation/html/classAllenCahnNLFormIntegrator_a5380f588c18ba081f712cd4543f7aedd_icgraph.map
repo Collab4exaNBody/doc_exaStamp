@@ -1,0 +1,4 @@
+<map id="AllenCahnNLFormIntegrator::energy_derivatives" name="AllenCahnNLFormIntegrator::energy_derivatives">
+<area shape="rect" id="node1" title="Energy derivatives contribution." alt="" coords="289,5,508,47"/>
+<area shape="rect" id="node2" href="$classAllenCahnMeltingBaseNLFormIntegrator.html#ab118066fae2156125ed7693d5747af35" title="Overload energy derivatives to account for enthalpy of melting derivatives." alt="" coords="5,5,241,47"/>
+</map>

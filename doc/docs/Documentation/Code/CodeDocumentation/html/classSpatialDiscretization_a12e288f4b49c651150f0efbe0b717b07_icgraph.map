@@ -1,0 +1,4 @@
+<map id="SpatialDiscretization::get_max_bdr_attributes" name="SpatialDiscretization::get_max_bdr_attributes">
+<area shape="rect" id="node1" title="get the maximum number of boundaries" alt="" coords="224,5,416,47"/>
+<area shape="rect" id="node2" href="$classBoundaryConditions.html#aac17dc96feda7fc3c08c0f0308493693" title="Construct a new Boundary Conditions:: Boundary Conditions object." alt="" coords="5,5,176,47"/>
+</map>

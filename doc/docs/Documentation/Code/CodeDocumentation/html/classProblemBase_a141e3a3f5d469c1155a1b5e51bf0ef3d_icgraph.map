@@ -1,0 +1,5 @@
+<map id="ProblemBase::post_processing" name="ProblemBase::post_processing">
+<area shape="rect" id="node1" title="Save variables of the problem (see save method for other actions)" alt="" coords="251,42,481,69"/>
+<area shape="rect" id="node2" href="$classCalphad__Problem.html#a94346f426fd9bbb3754c5e22e7b87f57" title=" " alt="" coords="14,5,194,47"/>
+<area shape="rect" id="node3" href="$classProblem.html#aa480b2e5678aae55a426078ba16dfa29" title="Call the post_execute method of the given problem and saves variables according with PST." alt="" coords="5,71,203,98"/>
+</map>

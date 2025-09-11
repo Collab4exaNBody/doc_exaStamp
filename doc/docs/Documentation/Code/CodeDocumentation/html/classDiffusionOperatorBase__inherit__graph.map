@@ -1,0 +1,7 @@
+<map id="DiffusionOperatorBase&lt; T, DIM, NLFI, LHS_NLFI, OPEBASE &gt;" name="DiffusionOperatorBase&lt; T, DIM, NLFI, LHS_NLFI, OPEBASE &gt;">
+<area shape="rect" id="node1" title="Base class for Mass Diffusion." alt="" coords="5,58,215,114"/>
+<area shape="rect" id="node2" href="$classDiffusionOperatorBase.html" title=" " alt="" coords="488,5,731,76"/>
+<area shape="rect" id="node4" href="$classDiffusionOperatorBase.html" title=" " alt="" coords="505,101,714,157"/>
+<area shape="rect" id="node3" href="$classSteadyDiffusionOperator.html" title="Class SteadyDiffusionOperator." alt="" coords="780,20,1000,61"/>
+<area shape="rect" id="node5" href="$classDiffusionOperator.html" title="Class DiffusionOperator." alt="" coords="806,101,974,157"/>
+</map>

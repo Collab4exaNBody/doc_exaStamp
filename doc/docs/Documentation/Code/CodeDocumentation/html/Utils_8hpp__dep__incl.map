@@ -1,0 +1,87 @@
+<map id="Utils.hpp" name="Utils.hpp">
+<area shape="rect" id="node1" title="List of all Utils files." alt="" coords="2943,5,3027,32"/>
+<area shape="rect" id="node2" href="$AnalyticalFunctions_8hpp.html" title="List of Analytical functions used by phase&#45;field models." alt="" coords="1844,379,2031,405"/>
+<area shape="rect" id="node3" href="$OperatorBase_8hpp.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="2584,617,2731,644"/>
+<area shape="rect" id="node4" href="$SteadyOperatorBase_8hpp.html" title="Steady Operator base." alt="" coords="2560,699,2755,726"/>
+<area shape="rect" id="node5" href="$DiffusionOperator_8hpp.html" title="Diffusion operator (Base, Steady and TimeDependent)" alt="" coords="3230,789,3405,815"/>
+<area shape="rect" id="node6" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="4071,871,4158,897"/>
+<area shape="rect" id="node7" href="$HeatOperator_8hpp.html" title="Heat operator (Base, Steady and TimeDependent)" alt="" coords="2649,789,2796,815"/>
+<area shape="rect" id="node8" href="$PhaseFieldOperator_8hpp.html" title="AllenCahn operator (Base, Steady and TimeDependent)" alt="" coords="2386,789,2574,815"/>
+<area shape="rect" id="node9" href="$TransientOperatorBase_8hpp.html" title="Transient Operator base." alt="" coords="2274,699,2486,726"/>
+<area shape="rect" id="node10" href="$Variable_8hpp.html" title="Variable class used to build and manage variables of model." alt="" coords="1306,461,1414,487"/>
+<area shape="rect" id="node11" href="$postprocessing_8hpp.html" title="Post&#45;processing features." alt="" coords="1170,543,1326,569"/>
+<area shape="rect" id="node14" href="$Time_8hpp.html" title="Main time loop." alt="" coords="517,789,603,815"/>
+<area shape="rect" id="node19" href="$Boundary_8hpp.html" title="Boundary class used to build a boundary with a name, an index, a type and, if needed,..." alt="" coords="1346,304,1465,331"/>
+<area shape="rect" id="node20" href="$BoundaryConditions_8hpp.html" title="BoundaryConditions class used to build and manage boundary conditions." alt="" coords="1271,379,1465,405"/>
+<area shape="rect" id="node21" href="$ConductivityFunctions_8hpp.html" title="Conductivity functions." alt="" coords="8845,461,9051,487"/>
+<area shape="rect" id="node23" href="$HeatNLFormIntegrator_8hpp.html" title="FV for the heat transfer equation." alt="" coords="7552,617,7763,644"/>
+<area shape="rect" id="node24" href="$DensityFunctions_8hpp.html" title="Density functions." alt="" coords="8290,461,8462,487"/>
+<area shape="rect" id="node26" href="$DiffusionFunctions_8hpp.html" title="Diffusion functions." alt="" coords="8537,461,8719,487"/>
+<area shape="rect" id="node28" href="$DiffusionNLFormIntegrator_8hpp.html" title="FV for the mass diffusion equation." alt="" coords="7186,617,7425,644"/>
+<area shape="rect" id="node29" href="$HeatCapacityFunctions_8hpp.html" title="Heat Capacity functions." alt="" coords="9177,461,9389,487"/>
+<area shape="rect" id="node31" href="$LambdaFunctions_8hpp.html" title="Lambda functions." alt="" coords="8089,461,8265,487"/>
+<area shape="rect" id="node33" href="$AllenCahnGrainsNLFormIntegrator_8hpp.html" title="VF for Allen&#45;Cahn equation solved in a polycrystal." alt="" coords="6143,617,6438,644"/>
+<area shape="rect" id="node34" href="$AllenCahnNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation." alt="" coords="5066,617,5315,644"/>
+<area shape="rect" id="node35" href="$AllenCahnMeltingBaseNLFormIntegrator_8hpp.html" title="Base integrator for melting." alt="" coords="2829,692,3065,733"/>
+<area shape="rect" id="node36" href="$AllenCahnCalphadMeltingNLFormIntegrator_8hpp.html" title="Compute the enthalpy of phase change based on two driving forces defined as auxiliary variables." alt="" coords="1217,781,1477,823"/>
+<area shape="rect" id="node37" href="$AllenCahnConstantMeltingNLFormIntegrator_8hpp.html" title="AllenCahn integrator for constant melting." alt="" coords="1845,781,2051,823"/>
+<area shape="rect" id="node38" href="$AllenCahnTemperatureMeltingNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation with ad&#45;hoc melting controled by temperature and a given melting tempe..." alt="" coords="2127,781,2361,823"/>
+<area shape="rect" id="node39" href="$BlockAllenCahnNLFormIntegrator_8hpp.html" title="VF of the AllenCahn equations (splitting version)" alt="" coords="5390,617,5677,644"/>
+<area shape="rect" id="node40" href="$CahnHilliardNLFormIntegrator_8hpp.html" title="VF of the CahnHilliard equations." alt="" coords="5854,617,6119,644"/>
+<area shape="rect" id="node41" href="$MobilityFunctions_8hpp.html" title="Mobility functions." alt="" coords="4692,461,4868,487"/>
+<area shape="rect" id="node43" href="$OmegaFunctions_8hpp.html" title="Omega functions." alt="" coords="5602,461,5771,487"/>
+<area shape="rect" id="node45" href="$PhaseChangeFunction_8hpp.html" title="PhaseChange Functions." alt="" coords="43,155,250,181"/>
+<area shape="rect" id="node46" href="$PhaseFieldPotentials_8hpp.html" title="Analytical potentials and derivatives used by phase&#45;field models." alt="" coords="9543,379,9737,405"/>
+<area shape="rect" id="node52" href="$Convergence_8hpp.html" title="Class used to build and manage PhysicalConvergence." alt="" coords="343,617,486,644"/>
+<area shape="rect" id="node53" href="$PhysicalConvergence_8hpp.html" title="Class used to define a PhysicalConvergence criterion (physical increment allowed per time&#45;step)" alt="" coords="441,543,639,569"/>
+<area shape="rect" id="node54" href="$SlothNLFormIntegrator_8hpp.html" title="Class prodiving common methods to all NLFormIntegrators." alt="" coords="5300,543,5513,569"/>
+<area shape="rect" id="node56" href="$TimeCHNLFormIntegrator_8hpp.html" title="VF of the time derivative for CH equations." alt="" coords="4513,617,4748,644"/>
+<area shape="rect" id="node57" href="$TimeNLFormIntegrator_8hpp.html" title="VF of the time derivative." alt="" coords="4177,617,4389,644"/>
+<area shape="rect" id="node58" href="$AnalyticalFunctionOptions_8hpp.html" title="Options for Analytical functions." alt="" coords="2663,80,2897,107"/>
+<area shape="rect" id="node59" href="$Options_8hpp.html" title="List of all Options files." alt="" coords="4625,155,4732,181"/>
+<area shape="rect" id="node66" href="$LSolver_8hpp.html" title="Class used to manage Linear Solver objet." alt="" coords="3441,543,3545,569"/>
+<area shape="rect" id="node67" href="$SlothSolver_8hpp.html" title="Class to define a SlothSolver objet." alt="" coords="3271,461,3401,487"/>
+<area shape="rect" id="node68" href="$NLSolver_8hpp.html" title="Class used to manage a NonLinear Solver( Newton type)" alt="" coords="3047,543,3163,569"/>
+<area shape="rect" id="node69" href="$DSolverBase_8hpp.html" title="Direct solvers." alt="" coords="3037,379,3177,405"/>
+<area shape="rect" id="node70" href="$HPrecondBase_8hpp.html" title="Base class for hypre preconditionners used in linear system involved in non linear algorithm." alt="" coords="3360,379,3515,405"/>
+<area shape="rect" id="node71" href="$HSolverBase_8hpp.html" title="Base class for Hypre solvers." alt="" coords="3640,379,3781,405"/>
+<area shape="rect" id="node72" href="$IPrecondBase_8hpp.html" title="Base class for preconditionners used in linear system involved in non linear algorithm." alt="" coords="2865,379,3012,405"/>
+<area shape="rect" id="node73" href="$ISolverBase_8hpp.html" title="Base class for iterative solvers." alt="" coords="3201,379,3335,405"/>
+<area shape="rect" id="node74" href="$NLSolverBase_8hpp.html" title="ase class for non linear solvers" alt="" coords="3806,379,3957,405"/>
+<area shape="rect" id="node75" href="$SolverBase_8hpp.html" title="Base class for Hypre, Iterative, Direct and Non Linear Solvers." alt="" coords="3382,304,3511,331"/>
+<area shape="rect" id="node76" href="$Spatial_8hpp.html" title="Spatial discretization." alt="" coords="1946,229,2046,256"/>
+<area shape="rect" id="node77" href="$CalphadOptions_8hpp.html" title="Options for Calphad problems." alt="" coords="3175,80,3337,107"/>
+<area shape="rect" id="node78" href="$DiffusionOptions_8hpp.html" title="Option for Mass Diffusion problems." alt="" coords="3463,80,3630,107"/>
+<area shape="rect" id="node79" href="$PhaseFieldOptions_8hpp.html" title="Options for PhaseField problems." alt="" coords="3655,80,3836,107"/>
+<area shape="rect" id="node80" href="$PhysicalConvergenceOptions_8hpp.html" title="Options for PhysicalConvergence objects." alt="" coords="3962,80,4214,107"/>
+<area shape="rect" id="node81" href="$PhysicalPropertiesOptions_8hpp.html" title="Options for physical properties." alt="" coords="4337,80,4569,107"/>
+<area shape="rect" id="node82" href="$ProblemsOptions_8hpp.html" title="Options for Problem objects." alt="" coords="4593,80,4764,107"/>
+<area shape="rect" id="node83" href="$SolversOptions_8hpp.html" title="Options for solvers and preconditioners." alt="" coords="4789,80,4945,107"/>
+<area shape="rect" id="node84" href="$SpatialOptions_8hpp.html" title="Options for Spatial discretization." alt="" coords="8049,80,8202,107"/>
+<area shape="rect" id="node85" href="$TimeOptions_8hpp.html" title="Options for Time discretization." alt="" coords="9046,80,9186,107"/>
+<area shape="rect" id="node12" href="$MPIProblem_8hpp.html" title="Class used to defined a MPI_Problem objet." alt="" coords="1388,699,1527,726"/>
+<area shape="rect" id="node13" href="$Problem_8hpp.html" title="Class used to defined a Problem objet." alt="" coords="882,699,993,726"/>
+<area shape="rect" id="node15" href="$ProblemBase_8hpp.html" title="Base class for building Problems." alt="" coords="866,617,1009,644"/>
+<area shape="rect" id="node18" href="$Variables_8hpp.html" title="Variables class used to build and manage variables." alt="" coords="1793,543,1908,569"/>
+<area shape="rect" id="node16" href="$Calphad__problem_8hpp.html" title="Class used to defined a Calphad_Problem objet." alt="" coords="286,699,461,726"/>
+<area shape="rect" id="node17" href="$PropertyProblem_8hpp.html" title="Class used to compute primary variables as a function of auxialiary variables." alt="" coords="485,699,654,726"/>
+<area shape="rect" id="node22" href="$ConductivityCoefficient_8hpp.html" title="Class dedicated to Conductivity coefficient." alt="" coords="8304,543,8515,569"/>
+<area shape="rect" id="node25" href="$DensityCoefficient_8hpp.html" title="Class dedicated to Density coefficient." alt="" coords="6298,543,6475,569"/>
+<area shape="rect" id="node27" href="$DiffusionCoefficient_8hpp.html" title="Class dedicated to Diffusion coefficient." alt="" coords="7343,543,7529,569"/>
+<area shape="rect" id="node30" href="$HeatCapacityCoefficient_8hpp.html" title="Class dedicated to HeatCapacity coefficient." alt="" coords="8981,543,9198,569"/>
+<area shape="rect" id="node32" href="$LambdaCoefficient_8hpp.html" title="Class dedicated to Lambda coefficient." alt="" coords="5889,543,6071,569"/>
+<area shape="rect" id="node42" href="$MobilityCoefficient_8hpp.html" title="Class dedicated to Mobility coefficient." alt="" coords="4943,543,5124,569"/>
+<area shape="rect" id="node44" href="$OmegaCoefficient_8hpp.html" title="Class dedicated to Omega coefficient." alt="" coords="5538,543,5713,569"/>
+<area shape="rect" id="node47" href="$CalphadBase_8hpp.html" title="Base class for Calphad objets." alt="" coords="7018,461,7161,487"/>
+<area shape="rect" id="node50" href="$KKS_8hpp.html" title="All needed for Calphad calculation including KKS model." alt="" coords="6759,461,6841,487"/>
+<area shape="rect" id="node51" href="$EnergyCoefficient_8hpp.html" title="Energy coefficients." alt="" coords="9821,699,9995,726"/>
+<area shape="rect" id="node48" href="$AnalyticalIdealSolution_8hpp.html" title="Analytical thermodynamic description for an ideal solution." alt="" coords="6703,543,6913,569"/>
+<area shape="rect" id="node49" href="$CalphadInformedNeuralNetwork_8hpp.html" title="Calphad&#45;informed neuronal network used to predict Calphad contributions." alt="" coords="6938,543,7217,569"/>
+<area shape="rect" id="node55" href="$DiffusionFluxNLFormIntegrator_8hpp.html" title="inter&#45;diffusion integrator" alt="" coords="4772,617,5041,644"/>
+<area shape="rect" id="node60" href="$MassDiffusionFluxNLFormIntegrator_8hpp.html" title="Class dedicated to the VF of diffusion flux (gradient of chemical potential) used in mass balance equ..." alt="" coords="7458,461,7763,487"/>
+<area shape="rect" id="node61" href="$ThermalDiffusionFluxNLFormIntegrator_8hpp.html" title="Class dedicated to the VF of thermal diffusion flux used in energy balance equation." alt="" coords="7839,453,8065,495"/>
+<area shape="rect" id="node62" href="$Parameter_8hpp.html" title="Parameter class." alt="" coords="6280,304,6403,331"/>
+<area shape="rect" id="node64" href="$InterDiffusionCoefficient_8hpp.html" title="Class used to compute inter&#45;diffusion coefficients." alt="" coords="7604,543,7823,569"/>
+<area shape="rect" id="node65" href="$PropertyBase_8hpp.html" title="Base class for Property objects." alt="" coords="7237,461,7382,487"/>
+<area shape="rect" id="node63" href="$Parameters_8hpp.html" title="Parameter class used to build and manage calculation parameter." alt="" coords="6124,379,6255,405"/>
+</map>

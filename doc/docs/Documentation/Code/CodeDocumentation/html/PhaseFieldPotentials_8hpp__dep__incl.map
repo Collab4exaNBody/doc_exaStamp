@@ -1,0 +1,18 @@
+<map id="PhaseFieldPotentials.hpp" name="PhaseFieldPotentials.hpp">
+<area shape="rect" id="node1" title="Analytical potentials and derivatives used by phase&#45;field models." alt="" coords="860,5,1055,32"/>
+<area shape="rect" id="node2" href="$CalphadBase_8hpp.html" title="Base class for Calphad objets." alt="" coords="271,162,414,189"/>
+<area shape="rect" id="node4" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="767,333,854,360"/>
+<area shape="rect" id="node6" href="$KKS_8hpp.html" title="All needed for Calphad calculation including KKS model." alt="" coords="617,162,700,189"/>
+<area shape="rect" id="node7" href="$EnergyCoefficient_8hpp.html" title="Energy coefficients." alt="" coords="725,162,899,189"/>
+<area shape="rect" id="node8" href="$AllenCahnGrainsNLFormIntegrator_8hpp.html" title="VF for Allen&#45;Cahn equation solved in a polycrystal." alt="" coords="923,162,1218,189"/>
+<area shape="rect" id="node9" href="$AllenCahnMeltingBaseNLFormIntegrator_8hpp.html" title="Base integrator for melting." alt="" coords="1242,155,1478,196"/>
+<area shape="rect" id="node13" href="$AllenCahnNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation." alt="" coords="1019,80,1269,107"/>
+<area shape="rect" id="node14" href="$BlockAllenCahnNLFormIntegrator_8hpp.html" title="VF of the AllenCahn equations (splitting version)" alt="" coords="1293,80,1579,107"/>
+<area shape="rect" id="node15" href="$CahnHilliardNLFormIntegrator_8hpp.html" title="VF of the CahnHilliard equations." alt="" coords="1603,80,1869,107"/>
+<area shape="rect" id="node16" href="$DiffusionNLFormIntegrator_8hpp.html" title="FV for the mass diffusion equation." alt="" coords="1893,80,2131,107"/>
+<area shape="rect" id="node3" href="$AnalyticalIdealSolution_8hpp.html" title="Analytical thermodynamic description for an ideal solution." alt="" coords="5,251,216,278"/>
+<area shape="rect" id="node5" href="$CalphadInformedNeuralNetwork_8hpp.html" title="Calphad&#45;informed neuronal network used to predict Calphad contributions." alt="" coords="291,251,570,278"/>
+<area shape="rect" id="node10" href="$AllenCahnCalphadMeltingNLFormIntegrator_8hpp.html" title="Compute the enthalpy of phase change based on two driving forces defined as auxiliary variables." alt="" coords="847,244,1107,285"/>
+<area shape="rect" id="node11" href="$AllenCahnConstantMeltingNLFormIntegrator_8hpp.html" title="AllenCahn integrator for constant melting." alt="" coords="1131,244,1338,285"/>
+<area shape="rect" id="node12" href="$AllenCahnTemperatureMeltingNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation with ad&#45;hoc melting controled by temperature and a given melting tempe..." alt="" coords="1363,244,1597,285"/>
+</map>

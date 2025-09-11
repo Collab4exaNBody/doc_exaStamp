@@ -1,0 +1,13 @@
+<map id="OmegaFunctions.hpp" name="OmegaFunctions.hpp">
+<area shape="rect" id="node1" title="Omega functions." alt="" coords="1011,5,1180,32"/>
+<area shape="rect" id="node2" href="$OmegaCoefficient_8hpp.html" title="Class dedicated to Omega coefficient." alt="" coords="837,80,1012,107"/>
+<area shape="rect" id="node4" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="691,408,777,435"/>
+<area shape="rect" id="node3" href="$AllenCahnGrainsNLFormIntegrator_8hpp.html" title="VF for Allen&#45;Cahn equation solved in a polycrystal." alt="" coords="5,237,300,263"/>
+<area shape="rect" id="node5" href="$AllenCahnNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation." alt="" coords="543,155,792,181"/>
+<area shape="rect" id="node10" href="$BlockAllenCahnNLFormIntegrator_8hpp.html" title="VF of the AllenCahn equations (splitting version)" alt="" coords="929,237,1216,263"/>
+<area shape="rect" id="node11" href="$CahnHilliardNLFormIntegrator_8hpp.html" title="VF of the CahnHilliard equations." alt="" coords="1057,155,1323,181"/>
+<area shape="rect" id="node6" href="$AllenCahnMeltingBaseNLFormIntegrator_8hpp.html" title="Base integrator for melting." alt="" coords="549,229,785,271"/>
+<area shape="rect" id="node7" href="$AllenCahnCalphadMeltingNLFormIntegrator_8hpp.html" title="Compute the enthalpy of phase change based on two driving forces defined as auxiliary variables." alt="" coords="476,319,736,360"/>
+<area shape="rect" id="node8" href="$AllenCahnConstantMeltingNLFormIntegrator_8hpp.html" title="AllenCahn integrator for constant melting." alt="" coords="760,319,967,360"/>
+<area shape="rect" id="node9" href="$AllenCahnTemperatureMeltingNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation with ad&#45;hoc melting controled by temperature and a given melting tempe..." alt="" coords="991,319,1226,360"/>
+</map>

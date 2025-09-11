@@ -1,0 +1,5 @@
+<map id="SpatialDiscretization::get_finite_element_space" name="SpatialDiscretization::get_finite_element_space">
+<area shape="rect" id="node1" title="return a pointer toward the finite element space" alt="" coords="224,35,427,76"/>
+<area shape="rect" id="node2" href="$classBoundaryConditions.html#aac17dc96feda7fc3c08c0f0308493693" title="Construct a new Boundary Conditions:: Boundary Conditions object." alt="" coords="5,5,176,47"/>
+<area shape="rect" id="node3" href="$classVariable.html#ae6ccb444b073d7b81927a0b17b8b4763" title="Construct a new Variable:: Variable object." alt="" coords="21,71,161,98"/>
+</map>

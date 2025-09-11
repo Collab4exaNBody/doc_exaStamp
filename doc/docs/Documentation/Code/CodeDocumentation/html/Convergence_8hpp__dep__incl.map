@@ -1,0 +1,8 @@
+<map id="Convergence.hpp" name="Convergence.hpp">
+<area shape="rect" id="node1" title="Class used to build and manage PhysicalConvergence." alt="" coords="193,5,336,32"/>
+<area shape="rect" id="node2" href="$Calphad__problem_8hpp.html" title="Class used to defined a Calphad_Problem objet." alt="" coords="5,155,180,181"/>
+<area shape="rect" id="node3" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="225,229,312,256"/>
+<area shape="rect" id="node4" href="$Problem_8hpp.html" title="Class used to defined a Problem objet." alt="" coords="256,80,367,107"/>
+<area shape="rect" id="node6" href="$PropertyProblem_8hpp.html" title="Class used to compute primary variables as a function of auxialiary variables." alt="" coords="391,80,560,107"/>
+<area shape="rect" id="node5" href="$Time_8hpp.html" title="Main time loop." alt="" coords="307,155,393,181"/>
+</map>

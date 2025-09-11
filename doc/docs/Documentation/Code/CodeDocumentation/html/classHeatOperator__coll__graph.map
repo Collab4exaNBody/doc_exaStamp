@@ -1,0 +1,11 @@
+<map id="HeatOperator&lt; T, DIM, NLFI, LHS_NLFI, RHO, CP &gt;" name="HeatOperator&lt; T, DIM, NLFI, LHS_NLFI, RHO, CP &gt;">
+<area shape="rect" id="node1" title="Class HeatOperator." alt="" coords="1279,53,1501,94"/>
+<area shape="rect" id="node2" href="$classHeatOperatorBase.html" title=" " alt="" coords="1029,84,1229,140"/>
+<area shape="rect" id="node3" href="$classTransientOperatorBase.html" title="TransientOperatorBase class." alt="" coords="757,165,977,206"/>
+<area shape="rect" id="node4" href="$classOperatorBase.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="325,165,505,206"/>
+<area shape="rect" id="node5" href="$classParameter.html" title=" " alt="" coords="9,177,101,204"/>
+<area shape="rect" id="node6" href="$classNLSolver.html" title=" " alt="" coords="11,228,98,255"/>
+<area shape="rect" id="node7" href="$classParameters.html" title=" " alt="" coords="5,72,104,99"/>
+<area shape="rect" id="node9" href="$classHeatOperatorBase.html" title="Base class for Mass Heat." alt="" coords="548,71,731,127"/>
+<area shape="rect" id="node8" href="$classPhaseFieldReducedOperator.html" title=" " alt="" coords="305,231,524,257"/>
+</map>

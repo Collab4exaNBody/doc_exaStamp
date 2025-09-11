@@ -1,0 +1,6 @@
+<map id="CalphadBase.hpp" name="CalphadBase.hpp">
+<area shape="rect" id="node1" title="Base class for Calphad objets." alt="" coords="182,5,325,32"/>
+<area shape="rect" id="node2" href="$AnalyticalIdealSolution_8hpp.html" title="Analytical thermodynamic description for an ideal solution." alt="" coords="5,80,216,107"/>
+<area shape="rect" id="node3" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="210,155,297,181"/>
+<area shape="rect" id="node4" href="$CalphadInformedNeuralNetwork_8hpp.html" title="Calphad&#45;informed neuronal network used to predict Calphad contributions." alt="" coords="291,80,570,107"/>
+</map>

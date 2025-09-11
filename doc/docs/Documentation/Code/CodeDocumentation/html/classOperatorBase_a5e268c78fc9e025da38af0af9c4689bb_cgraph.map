@@ -1,0 +1,4 @@
+<map id="OperatorBase::SetNewtonAlgorithm" name="OperatorBase::SetNewtonAlgorithm">
+<area shape="rect" id="node1" title="Configure the Newton solver." alt="" coords="5,5,272,32"/>
+<area shape="rect" id="node2" href="$classNLSolver.html#af272ee9ef43ff8ae809759e7345457e2" title="Return the Non Linear Solver." alt="" coords="320,5,504,32"/>
+</map>

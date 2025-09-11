@@ -1,0 +1,6 @@
+<map id="SpatialDiscretization::apply_uniform_refinement" name="SpatialDiscretization::apply_uniform_refinement">
+<area shape="rect" id="node1" title="Apply nb_ref uniform refinement." alt="" coords="212,93,423,134"/>
+<area shape="rect" id="node2" href="$structspecialized__spatial__constructor_3_01T_00_011_01_4.html#a0a8186789144df3cda3f131a9d766408" title="operator() specialized for a mesh built from MFEM methods" alt="" coords="5,5,164,61"/>
+<area shape="rect" id="node3" href="$structspecialized__spatial__constructor_3_01T_00_012_01_4.html#a367e7535f528d675144feb9ec420a28b" title="operator() specialized for a mesh built from GMSH file" alt="" coords="5,85,164,141"/>
+<area shape="rect" id="node4" href="$structspecialized__spatial__constructor_3_01T_00_013_01_4.html#ac2e4126ca21896e53bd7800cf989d462" title="operator() specialized for a mesh built from GMSH file" alt="" coords="5,165,164,221"/>
+</map>

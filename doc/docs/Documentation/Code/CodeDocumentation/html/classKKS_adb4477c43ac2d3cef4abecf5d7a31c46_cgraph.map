@@ -1,0 +1,7 @@
+<map id="KKS::execute_linearization" name="KKS::execute_linearization">
+<area shape="rect" id="node1" title="Compute Calphad contributions needed by KKS resolution." alt="" coords="5,85,208,112"/>
+<area shape="rect" id="node2" href="$classSlothInfo.html#a854d3cafdb9f5a77f1063a27d2a27e04" title="Print information on Debug mode." alt="" coords="284,5,420,32"/>
+<area shape="rect" id="node3" href="$classCalphadBase.html#a1c26c89e3cdc44b737f91aad07d42b25" title=" " alt="" coords="265,56,439,83"/>
+<area shape="rect" id="node4" href="$structKKS__nucleation__strategy.html#a9ced3346807daab7cef579de52e64602" title=" " alt="" coords="256,107,448,149"/>
+<area shape="rect" id="node5" href="$classSlothInfo.html#a0aeaca42d8222a8c25402f486db20193" title="Print information on Normal mode." alt="" coords="289,173,415,200"/>
+</map>

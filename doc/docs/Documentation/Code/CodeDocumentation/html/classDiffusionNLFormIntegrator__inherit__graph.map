@@ -1,0 +1,4 @@
+<map id="DiffusionNLFormIntegrator&lt; VARS, SCHEME, DIFFU_NAME &gt;" name="DiffusionNLFormIntegrator&lt; VARS, SCHEME, DIFFU_NAME &gt;">
+<area shape="rect" id="node1" title="Class dedicated to the FV of the mass diffusion equation." alt="" coords="5,95,275,136"/>
+<area shape="rect" id="node2" href="$classSlothNLFormIntegrator.html" title="Class prodiving common methods to all NLFormIntegrators." alt="" coords="49,5,231,47"/>
+</map>

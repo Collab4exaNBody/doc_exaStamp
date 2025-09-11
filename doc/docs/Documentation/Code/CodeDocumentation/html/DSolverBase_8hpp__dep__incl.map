@@ -1,0 +1,13 @@
+<map id="DSolverBase.hpp" name="DSolverBase.hpp">
+<area shape="rect" id="node1" title="Direct solvers." alt="" coords="155,5,295,32"/>
+<area shape="rect" id="node2" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="349,453,435,480"/>
+<area shape="rect" id="node3" href="$NLSolver_8hpp.html" title="Class used to manage a NonLinear Solver( Newton type)" alt="" coords="167,155,283,181"/>
+<area shape="rect" id="node10" href="$SlothSolver_8hpp.html" title="Class to define a SlothSolver objet." alt="" coords="321,80,452,107"/>
+<area shape="rect" id="node4" href="$OperatorBase_8hpp.html" title="Base class for building Steady and TimeDependent PhaseFieldOperators." alt="" coords="233,229,380,256"/>
+<area shape="rect" id="node5" href="$SteadyOperatorBase_8hpp.html" title="Steady Operator base." alt="" coords="192,304,387,331"/>
+<area shape="rect" id="node9" href="$TransientOperatorBase_8hpp.html" title="Transient Operator base." alt="" coords="411,304,623,331"/>
+<area shape="rect" id="node6" href="$DiffusionOperator_8hpp.html" title="Diffusion operator (Base, Steady and TimeDependent)" alt="" coords="407,379,582,405"/>
+<area shape="rect" id="node7" href="$HeatOperator_8hpp.html" title="Heat operator (Base, Steady and TimeDependent)" alt="" coords="607,379,753,405"/>
+<area shape="rect" id="node8" href="$PhaseFieldOperator_8hpp.html" title="AllenCahn operator (Base, Steady and TimeDependent)" alt="" coords="195,379,383,405"/>
+<area shape="rect" id="node11" href="$LSolver_8hpp.html" title="Class used to manage Linear Solver objet." alt="" coords="365,155,469,181"/>
+</map>

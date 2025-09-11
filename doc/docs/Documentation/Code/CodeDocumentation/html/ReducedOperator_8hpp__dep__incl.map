@@ -1,0 +1,8 @@
+<map id="ReducedOperator.hpp" name="ReducedOperator.hpp">
+<area shape="rect" id="node1" title="UnSteady version of the linear system resulting from the NonLinear algorithm." alt="" coords="403,5,577,32"/>
+<area shape="rect" id="node2" href="$TransientOperatorBase_8hpp.html" title="Transient Operator base." alt="" coords="223,80,435,107"/>
+<area shape="rect" id="node4" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="285,229,372,256"/>
+<area shape="rect" id="node3" href="$DiffusionOperator_8hpp.html" title="Diffusion operator (Base, Steady and TimeDependent)" alt="" coords="5,155,180,181"/>
+<area shape="rect" id="node5" href="$HeatOperator_8hpp.html" title="Heat operator (Base, Steady and TimeDependent)" alt="" coords="255,155,402,181"/>
+<area shape="rect" id="node6" href="$PhaseFieldOperator_8hpp.html" title="AllenCahn operator (Base, Steady and TimeDependent)" alt="" coords="427,155,615,181"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="TransientOperatorBase::initialize" name="TransientOperatorBase::initialize">
+<area shape="rect" id="node1" title="Initialization stage (call by imeDiscretization&lt;PST, OPE, VAR&gt;::initialize())" alt="" coords="5,35,187,76"/>
+<area shape="rect" id="node2" href="$classOperatorBase.html#ab610e1c53fc27ec56ecab45c226be49c" title="Initialization stage (call by imeDiscretization&lt;PST, OPE, VAR&gt;::initialize())" alt="" coords="235,42,416,69"/>
+<area shape="rect" id="node3" href="$classVariables.html#aadf815b64b6a43387f7f393d06b45887" title="Return the number of variables." alt="" coords="464,5,647,47"/>
+<area shape="rect" id="node4" href="$classVariables.html#a0fb59f4145974f7d284a5b6f906285a9" title="get i&#45;th variable" alt="" coords="468,71,643,98"/>
+</map>

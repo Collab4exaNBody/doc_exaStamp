@@ -1,0 +1,7 @@
+<map id="AllenCahnMeltingBaseNLFormIntegrator.hpp" name="AllenCahnMeltingBaseNLFormIntegrator.hpp">
+<area shape="rect" id="node1" title="Base integrator for melting." alt="" coords="255,5,491,47"/>
+<area shape="rect" id="node2" href="$AllenCahnCalphadMeltingNLFormIntegrator_8hpp.html" title="Compute the enthalpy of phase change based on two driving forces defined as auxiliary variables." alt="" coords="5,95,265,136"/>
+<area shape="rect" id="node3" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="329,184,416,211"/>
+<area shape="rect" id="node4" href="$AllenCahnConstantMeltingNLFormIntegrator_8hpp.html" title="AllenCahn integrator for constant melting." alt="" coords="340,95,547,136"/>
+<area shape="rect" id="node5" href="$AllenCahnTemperatureMeltingNLFormIntegrator_8hpp.html" title="FV for the Allen Cahn equation with ad&#45;hoc melting controled by temperature and a given melting tempe..." alt="" coords="571,95,806,136"/>
+</map>

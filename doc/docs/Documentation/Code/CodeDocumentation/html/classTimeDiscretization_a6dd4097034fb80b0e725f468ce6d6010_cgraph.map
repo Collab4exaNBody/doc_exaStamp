@@ -1,0 +1,4 @@
+<map id="TimeDiscretization::get_tree" name="TimeDiscretization::get_tree">
+<area shape="rect" id="node1" title="Return the numerical coupling tree (recursively over the couplings and the problems)" alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node2" href="$classSlothInfo.html#ad6fa3fa2789f2c6779ba9c6ec2712c31" title="Print information on Normal mode." alt="" coords="203,13,349,39"/>
+</map>

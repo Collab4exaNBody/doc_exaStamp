@@ -1,0 +1,4 @@
+<map id="Variables::get_map_gridfunction" name="Variables::get_map_gridfunction">
+<area shape="rect" id="node1" title="return a map of GridFunction for each variable name" alt="" coords="216,5,367,47"/>
+<area shape="rect" id="node2" href="$classPostProcessing.html#a5872fc7f3527be648339ec33e9536578" title="Save Variables at a given iteration/time." alt="" coords="5,5,168,47"/>
+</map>

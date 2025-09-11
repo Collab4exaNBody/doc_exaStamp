@@ -1,0 +1,5 @@
+<map id="UtilsSolvers::print_solver_name" name="UtilsSolvers::print_solver_name">
+<area shape="rect" id="node1" title="Print the name of the Solver." alt="" coords="272,27,416,69"/>
+<area shape="rect" id="node2" href="$structSetPrecondSolver.html#aa4e37e62a935fea0c1926352c0ecd1d2" title="Main function." alt="" coords="5,5,224,32"/>
+<area shape="rect" id="node3" href="$structSetPrecondNLSolver.html#a3579c089c95ed6ddc8ee6678327d2712" title="Main function." alt="" coords="33,57,197,98"/>
+</map>

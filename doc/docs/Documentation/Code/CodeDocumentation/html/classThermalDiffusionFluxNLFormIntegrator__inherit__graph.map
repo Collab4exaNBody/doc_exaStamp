@@ -1,0 +1,5 @@
+<map id="ThermalDiffusionFluxNLFormIntegrator&lt; VARS &gt;" name="ThermalDiffusionFluxNLFormIntegrator&lt; VARS &gt;">
+<area shape="rect" id="node1" title="Class dedicated to the VF of thermal diffusion flux used in energy balance equation." alt="" coords="11,184,238,225"/>
+<area shape="rect" id="node2" href="$classDiffusionFluxNLFormIntegrator.html" title="Class dedicated to the VF of an inter&#45;diffusion equation." alt="" coords="5,95,244,136"/>
+<area shape="rect" id="node3" href="$classSlothNLFormIntegrator.html" title="Class prodiving common methods to all NLFormIntegrators." alt="" coords="33,5,216,47"/>
+</map>

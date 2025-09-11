@@ -1,0 +1,6 @@
+<map id="BoundaryConditions::BoundaryConditions" name="BoundaryConditions::BoundaryConditions">
+<area shape="rect" id="node1" title="Construct a new Boundary Conditions:: Boundary Conditions object." alt="" coords="5,71,176,112"/>
+<area shape="rect" id="node2" href="$classSpatialDiscretization.html#a1f29ce5ce231196955f27214bff5b15b" title="return a pointer toward the finite element space" alt="" coords="224,5,427,47"/>
+<area shape="rect" id="node3" href="$classSpatialDiscretization.html#a12e288f4b49c651150f0efbe0b717b07" title="get the maximum number of boundaries" alt="" coords="229,71,421,112"/>
+<area shape="rect" id="node4" href="$classSpatialDiscretization.html#a503f95d7a41ea96afcc31413320995e6" title="Return the flag to know whether the mesh is periodic or not." alt="" coords="244,136,407,177"/>
+</map>

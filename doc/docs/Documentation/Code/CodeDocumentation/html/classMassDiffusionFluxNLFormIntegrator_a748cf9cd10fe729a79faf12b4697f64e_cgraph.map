@@ -1,0 +1,5 @@
+<map id="MassDiffusionFluxNLFormIntegrator::MassDiffusionFluxNLFormIntegrator" name="MassDiffusionFluxNLFormIntegrator::MassDiffusionFluxNLFormIntegrator">
+<area shape="rect" id="node1" title="Construct a new MassDiffusionFluxNLFormIntegrator&lt;VARS&gt;::MassDiffusionFluxNLFormIntegrator object." alt="" coords="5,5,288,47"/>
+<area shape="rect" id="node2" href="$classMassDiffusionFluxNLFormIntegrator.html#afd3cea7834b991ceeca0bbe4968838ea" title="Return parameters required by these integrators." alt="" coords="336,5,611,47"/>
+<area shape="rect" id="node3" href="$classDiffusionFluxNLFormIntegrator.html#a5027621500f571e2661507036f13edf5" title="Return parameters required by these integrators." alt="" coords="659,5,897,47"/>
+</map>

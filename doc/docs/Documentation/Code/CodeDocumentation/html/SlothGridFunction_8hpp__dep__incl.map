@@ -1,0 +1,7 @@
+<map id="SlothGridFunction.hpp" name="SlothGridFunction.hpp">
+<area shape="rect" id="node1" title="Class dedicated to the calculation of the gradient of a GridFunction." alt="" coords="317,5,496,32"/>
+<area shape="rect" id="node2" href="$DiffusionFluxNLFormIntegrator_8hpp.html" title="inter&#45;diffusion integrator" alt="" coords="5,87,275,114"/>
+<area shape="rect" id="node3" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="363,169,450,196"/>
+<area shape="rect" id="node4" href="$MassDiffusionFluxNLFormIntegrator_8hpp.html" title="Class dedicated to the VF of diffusion flux (gradient of chemical potential) used in mass balance equ..." alt="" coords="350,87,655,114"/>
+<area shape="rect" id="node5" href="$ThermalDiffusionFluxNLFormIntegrator_8hpp.html" title="Class dedicated to the VF of thermal diffusion flux used in energy balance equation." alt="" coords="680,80,907,121"/>
+</map>

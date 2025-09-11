@@ -1,31 +1,36 @@
-# README for exaStamp
+# Documentation
 
-## Get ExaNBody Documentation
+SLOTH documentation is made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
-```
-git submodule init
-git submodule update
-```
 
-## Build static html doc
+## How to build a static version?
 
-```
-make html
-cd build/html
-firefox index.html
-```
+### Prerequisities
 
-## Build pdf doc from auto-generated latex files 
+MkDocs, a number of plugins and extensions are required to create the documentation and to have the desired rendering in HTML.
 
-```
-make latexpdf
-cd build/latex
-evince doc.pdf
+All these requirements are listed in the file `requirements.txt`. Their installation is done using `pip`:
+
+```bash
+pip install -r requirements.txt
 ```
 
-## Install prerequisites on Ubuntu
+### Documentation 
 
+Once the prerequisites are installed, the documentation can be created by running the command:
+```bash
+bash install.sh
 ```
-sudo apt install sphinx sphinx-doc sphinx-rtd-theme-common python3-pip texlive-full latexmk
-pip install sphinx_rtd_theme
-```
+This will create a folder called `sloth_doc` in which users will find the `index.html` file needed 
+to open the documentation with their preferred browser. 
+
+
+
+
+
+
+
+
+
+
+

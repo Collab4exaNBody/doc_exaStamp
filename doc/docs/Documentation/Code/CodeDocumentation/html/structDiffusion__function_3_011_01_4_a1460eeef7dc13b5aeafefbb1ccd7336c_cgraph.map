@@ -1,0 +1,6 @@
+<map id="Diffusion_function&lt; 1 &gt;::getLinear" name="Diffusion_function&lt; 1 &gt;::getLinear">
+<area shape="rect" id="node1" title="Get the Linear Diffusion function (1st derivative)" alt="" coords="5,23,152,65"/>
+<area shape="rect" id="node2" href="$classParameters.html#ae3b314c5ebc3fde8684b0634b2406da6" title="Return the value of the parameter associated to the given name." alt="" coords="200,23,380,65"/>
+<area shape="rect" id="node3" href="$classParameters.html#aacf1a423c07aa2e63d2397fe903a1388" title="Return the parameter associated to the given name." alt="" coords="428,5,635,32"/>
+<area shape="rect" id="node4" href="$classParameter.html#a7874e1270fe62aecf3063a4f9edecb47" title="Return the value of the paramter." alt="" coords="448,56,615,83"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="CalphadInformedNeuralNetwork::get_parameters" name="CalphadInformedNeuralNetwork::get_parameters">
+<area shape="rect" id="node1" title="Get the parameters associated with the CalphadInformedNeuralNetwork object." alt="" coords="5,23,252,65"/>
+<area shape="rect" id="node2" href="$UtilsForData_8hpp.html#a00c16f753cc7812a3a97fb5a5ddd11d2" title="Check existence of a file." alt="" coords="333,5,493,32"/>
+<area shape="rect" id="node3" href="$classCalphadBase.html#acf1e5755a33921216777fbd78558a051" title="Get Calphad parameters." alt="" coords="300,56,527,83"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="PhysicalConvergence.hpp" name="PhysicalConvergence.hpp">
+<area shape="rect" id="node1" title="Class used to define a PhysicalConvergence criterion (physical increment allowed per time&#45;step)" alt="" coords="181,5,380,32"/>
+<area shape="rect" id="node2" href="$Convergence_8hpp.html" title="Class used to build and manage PhysicalConvergence." alt="" coords="155,80,297,107"/>
+<area shape="rect" id="node3" href="$Calphad__problem_8hpp.html" title="Class used to defined a Calphad_Problem objet." alt="" coords="29,155,204,181"/>
+<area shape="rect" id="node4" href="$sloth_8hpp.html" title="List of all header files contained in the kernel directory." alt="" coords="311,304,397,331"/>
+<area shape="rect" id="node5" href="$Problem_8hpp.html" title="Class used to defined a Problem objet." alt="" coords="280,155,391,181"/>
+<area shape="rect" id="node7" href="$PropertyProblem_8hpp.html" title="Class used to compute primary variables as a function of auxialiary variables." alt="" coords="415,155,584,181"/>
+<area shape="rect" id="node8" href="$ProblemBase_8hpp.html" title="Base class for building Problems." alt="" coords="373,80,516,107"/>
+<area shape="rect" id="node6" href="$Time_8hpp.html" title="Main time loop." alt="" coords="352,229,439,256"/>
+<area shape="rect" id="node9" href="$MPIProblem_8hpp.html" title="Class used to defined a MPI_Problem objet." alt="" coords="659,229,798,256"/>
+</map>

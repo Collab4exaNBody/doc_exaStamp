@@ -1,0 +1,8 @@
+<map id="CalphadBase::get_parameters" name="CalphadBase::get_parameters">
+<area shape="rect" id="node1" title="Get Calphad parameters." alt="" coords="603,64,829,91"/>
+<area shape="rect" id="node2" href="$classCalphadBase.html#aa1952e5548a0cbe9ffc68d86ef678a51" title="Construct a new CalphadBase object." alt="" coords="326,5,537,32"/>
+<area shape="rect" id="node3" href="$classAnalyticalIdealSolution.html#ac3a098f88d3a7889809f7118b9fcf10a" title="Get the parameters associated with the AnalyticalIdealSolution object." alt="" coords="342,57,521,98"/>
+<area shape="rect" id="node5" href="$classCalphadInformedNeuralNetwork.html#a65455151b7486c06d1b346c377468800" title="Get the parameters associated with the CalphadInformedNeuralNetwork object." alt="" coords="308,122,555,163"/>
+<area shape="rect" id="node4" href="$classAnalyticalIdealSolution.html#a9401722422b269f076357392f4919f92" title="Construct a new AnalyticalIdealSolution::AnalyticalIdealSolution object." alt="" coords="39,57,226,98"/>
+<area shape="rect" id="node6" href="$classCalphadInformedNeuralNetwork.html#a36b758dd30a42967cc6c46910e3ca9ae" title="Construct a new CalphadInformedNeuralNetwork::CalphadInformedNeuralNetwork object." alt="" coords="5,122,260,163"/>
+</map>

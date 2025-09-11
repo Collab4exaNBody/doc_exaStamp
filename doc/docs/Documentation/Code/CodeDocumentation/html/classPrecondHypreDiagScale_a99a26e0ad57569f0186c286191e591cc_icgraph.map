@@ -1,0 +1,4 @@
+<map id="PrecondHypreDiagScale::create_solver" name="PrecondHypreDiagScale::create_solver">
+<area shape="rect" id="node1" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="228,5,417,47"/>
+<area shape="rect" id="node2" href="$classSlothSolver.html#aa9c78d816c02f2d4ab70af64cb3f7791" title="Create the linear solver depending on SolverType." alt="" coords="5,13,180,39"/>
+</map>

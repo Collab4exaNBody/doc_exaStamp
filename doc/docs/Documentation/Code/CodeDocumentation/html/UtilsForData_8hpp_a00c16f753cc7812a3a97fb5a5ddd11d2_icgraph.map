@@ -1,0 +1,5 @@
+<map id="check_file_existence" name="check_file_existence">
+<area shape="rect" id="node1" title="Check existence of a file." alt="" coords="603,13,763,39"/>
+<area shape="rect" id="node2" href="$classCalphadInformedNeuralNetwork.html#a65455151b7486c06d1b346c377468800" title="Get the parameters associated with the CalphadInformedNeuralNetwork object." alt="" coords="308,5,555,47"/>
+<area shape="rect" id="node3" href="$classCalphadInformedNeuralNetwork.html#a36b758dd30a42967cc6c46910e3ca9ae" title="Construct a new CalphadInformedNeuralNetwork::CalphadInformedNeuralNetwork object." alt="" coords="5,5,260,47"/>
+</map>

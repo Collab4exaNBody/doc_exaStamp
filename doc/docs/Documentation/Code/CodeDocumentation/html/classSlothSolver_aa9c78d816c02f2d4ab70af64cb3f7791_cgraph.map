@@ -1,0 +1,22 @@
+<map id="SlothSolver::get_value" name="SlothSolver::get_value">
+<area shape="rect" id="node1" title="Create the linear solver depending on SolverType." alt="" coords="5,405,180,431"/>
+<area shape="rect" id="node2" href="$classSolverUMFPACK.html#a8a0cb7f36e9e9fa812fb45b23e39ab62" title="Create a direct solver based of the SolverType and a list of Parameters." alt="" coords="241,645,427,687"/>
+<area shape="rect" id="node9" href="$classPrecondHypreILU.html#a9747a2d4154f14a83fb87b1f398973ff" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="237,711,431,752"/>
+<area shape="rect" id="node10" href="$classPrecondHypreSmoother.html#a1d685276c8db4a0c7c3acd12662fffd1" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="241,776,427,817"/>
+<area shape="rect" id="node11" href="$classPrecondHypreBoomerAMG.html#ae9b8748901ee350584a1c8e3b33eb0a6" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="229,71,439,112"/>
+<area shape="rect" id="node12" href="$classPrecondHypreDiagScale.html#a99a26e0ad57569f0186c286191e591cc" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="239,5,429,47"/>
+<area shape="rect" id="node13" href="$classSolverHyprePCG.html#a2122f479fde910c6a27b6f74bf750324" title="Create a iterative solver based of the SolverType and a list of Parameters." alt="" coords="240,136,428,177"/>
+<area shape="rect" id="node14" href="$classSolverHypreGMRES.html#ae8cd627c6a9dddb56c4ac48a134de7e0" title="Create a iterative solver based of the SolverType and a list of Parameters." alt="" coords="228,201,440,243"/>
+<area shape="rect" id="node15" href="$classSolverHypreFGMRES.html#a59a039f5afb942d01777103bad40c300" title="Create a iterative solver based of the SolverType and a list of Parameters." alt="" coords="245,267,423,308"/>
+<area shape="rect" id="node16" href="$classSolverBICGSTAB.html#a555f9875dc6d8572bfc1ff0032635c6d" title="Create a iterative solver based of the SolverType and a list of Parameters." alt="" coords="240,332,428,373"/>
+<area shape="rect" id="node17" href="$classSolverMINRES.html#ae0ec160e28632f6538ec16fc476cd14b" title=" " alt="" coords="247,397,421,439"/>
+<area shape="rect" id="node18" href="$classSolverCG.html#abb8abcd3768a748ab1c4cc366799e146" title=" " alt="" coords="242,463,426,490"/>
+<area shape="rect" id="node19" href="$classSolverGMRES.html#a7416f84035ad3da9e20adbda9ffd8c22" title=" " alt="" coords="249,515,419,556"/>
+<area shape="rect" id="node20" href="$classPrecondDSmoother.html#a04b157c452b242897c2e7e2fbdda790c" title="Create preconditioner based of the PreconditionerType and a list of Parameters." alt="" coords="231,580,437,621"/>
+<area shape="rect" id="node3" href="$classSlothInfo.html#a854d3cafdb9f5a77f1063a27d2a27e04" title="Print information on Debug mode." alt="" coords="533,318,669,345"/>
+<area shape="rect" id="node4" href="$classSolverBase.html#a52edc30e08c2552f8ceb3d9ea928b059" title=" " alt="" coords="488,369,713,425"/>
+<area shape="rect" id="node5" href="$classParameters.html#ae3b314c5ebc3fde8684b0634b2406da6" title="Return the value of the parameter associated to the given name." alt="" coords="511,449,691,491"/>
+<area shape="rect" id="node8" href="$classParameters.html#a857c53fbe60d7bd2f91e91626f85b6d2" title="Return the value of the parameter associated to the given name or, use th edefault given,..." alt="" coords="511,515,691,556"/>
+<area shape="rect" id="node6" href="$classParameters.html#aacf1a423c07aa2e63d2397fe903a1388" title="Return the parameter associated to the given name." alt="" coords="761,461,968,487"/>
+<area shape="rect" id="node7" href="$classParameter.html#a7874e1270fe62aecf3063a4f9edecb47" title="Return the value of the paramter." alt="" coords="781,515,948,542"/>
+</map>
