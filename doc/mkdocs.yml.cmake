@@ -53,9 +53,11 @@ extra_css:
   - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
 
 extra_javascript:
-  - javascripts/katex.js
-  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
-  - https://cdn.jsdelivr.net/npm/katex@0.17.11/dist/contrib/auto-render.min.js
+#  - javascripts/katex.js
+#  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+#  - https://cdn.jsdelivr.net/npm/katex@0.17.11/dist/contrib/auto-render.min.js
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 theme: 
 #  name: readthedocs
@@ -144,9 +146,11 @@ nav:
     - User/index.md
     - Simulation Graph:
       - User/SimulationGraph/index.md
-    - Simulation Control:
-      - User/SimulationControl/index.md
-    - Domain and Spatial Regions:
+      - User/SimulationGraph/simulation_flowchart.md
+      - User/SimulationGraph/DefaultYAML.md      
+    - Global Setup:
+      - User/GlobalSetup/index.md
+    - Domain and Regions:
       - User/DomainRegions/index.md
       - User/DomainRegions/domain.md
       - User/DomainRegions/regions.md
@@ -164,34 +168,74 @@ nav:
       - User/Particles/output.md
     - Force Fields:
       - User/ForceFields/index.md
-      - User/ForceFields/pair.md
-      - User/ForceFields/eam.md
-      - User/ForceFields/meam.md
-      - User/ForceFields/reactive.md
-      - User/ForceFields/mlips.md
-      - User/ForceFields/electrostatic.md
-      - User/ForceFields/bonds.md
-      - User/ForceFields/torsions.md
-      - User/ForceFields/dihedrals.md
-      - User/ForceFields/impropers.md
+      - User/ForceFields/general.md
+      - Pair Potentials:
+        - User/ForceFields/Pair/index.md
+        - Strategies:
+          - User/ForceFields/Pair/Strategies/index.md
+        - Styles:
+          - User/ForceFields/Pair/Models/index.md
+          - User/ForceFields/Pair/Models/buckingham.md
+          - User/ForceFields/Pair/Models/coul_cut.md
+          - User/ForceFields/Pair/Models/coul_wolf_pair.md
+          - User/ForceFields/Pair/Models/exp6.md
+          - User/ForceFields/Pair/Models/exp6rf.md
+          - User/ForceFields/Pair/Models/lj.md
+          - User/ForceFields/Pair/Models/ljexp6rf_exp6.md
+          - User/ForceFields/Pair/Models/ljexp6rf_lj.md
+          - User/ForceFields/Pair/Models/ljrf.md
+          - User/ForceFields/Pair/Models/ljwolf.md
+          - User/ForceFields/Pair/Models/reaction_field.md
+          - User/ForceFields/Pair/Models/relax.md
+          - User/ForceFields/Pair/Models/tabpair.md
+          - User/ForceFields/Pair/Models/zbl.md
+          - User/ForceFields/Pair/Models/zero.md
+      - EAM Potentials:
+        - User/ForceFields/EAM/index.md
+        - User/ForceFields/EAM/alloy.md
+        - User/ForceFields/EAM/johnson.md
+        - User/ForceFields/EAM/ravelo.md
+        - User/ForceFields/EAM/sutton_chen.md
+        - User/ForceFields/EAM/vniitf.md        
+        - User/ForceFields/EAM/tab.md
+      - MEAM Potentials:
+        - User/ForceFields/MEAM/index.md
+        - User/ForceFields/MEAM/meam.md
+        - User/ForceFields/MEAM/meam_lj.md
+      - Reactive Potentials:
+        - User/ForceFields/Reactive/index.md
+        - User/ForceFields/Reactive/lchbop.md
+        - User/ForceFields/Reactive/rebo.md      
+      - ML Potentials:
+        - User/ForceFields/MLIP/index.md
+        - User/ForceFields/MLIP/snap.md
+        - User/ForceFields/MLIP/nnp.md
+        - User/ForceFields/MLIP/ace.md
+      - Electrostatics Potentials:
+        - User/ForceFields/Electrostatics/index.md
+        - User/ForceFields/Electrostatics/short.md
+        - User/ForceFields/Electrostatics/long.md
+      - Intramolecular Potentials:
+        - User/ForceFields/Intramolecular/index.md
+        - User/ForceFields/Intramolecular/bonds.md
+        - User/ForceFields/Intramolecular/torsions.md
+        - User/ForceFields/Intramolecular/dihedrals.md
+        - User/ForceFields/Intramolecular/impropers.md
     - Ensembles and Constraints:
       - User/EnsemblesConstraints/index.md
       - User/EnsemblesConstraints/nve_ensemble.md
-      - User/EnsemblesConstraints/thermostats.md
+      - Thermostats:
+         - User/EnsemblesConstraints/Thermostats/index.md
+         - User/EnsemblesConstraints/Thermostats/langevin.md
+         - User/EnsemblesConstraints/Thermostats/berendsen.md
       - User/EnsemblesConstraints/nvt_ensemble.md
+      - User/EnsemblesConstraints/npt_ensemble.md
       - User/EnsemblesConstraints/pistons.md
       - User/EnsemblesConstraints/deformation.md
       - User/EnsemblesConstraints/minimization.md
-    # - User/HowToSimulation/GlobalParameters.md      
-    # - User/HowToSimulation/DomainGrid.md
-    # - User/HowToSimulation/ParticlesCreation.md
-    # - User/HowToSimulation/ForceField.md
-    # - User/HowToSimulation/Constraints.md
-    # - User/HowToSimulation/AnalysisOutput.md
-    # - User/HowToSimulation/ExampleInputDeck.md
-    # - User/HowToSimulation/DefaultYAML.md      
   - Beginner's guide:
     - Beginner/index.md
+    - Beginner/Basics/ExampleInputDeck.md
     - Tutorials:
       - Beginner/Tutorials/index.md
       - Beginner/Tutorials/Tutorial1.md
@@ -202,72 +246,14 @@ nav:
       - Beginner/Examples/Example1.md
       - Beginner/Examples/Example2.md
       - Beginner/Examples/Example3.md
-  - Getting Started:
-    - Started/index.md
-    - Installation guide:
-      - Started/Installation/index.md
-      - Started/Installation/linux.md
-      - Started/Installation/sources.md
-      - Started/Installation/mac.md
-      - Started/Installation/cluster.md
-      - Started/Installation/cluster_source.md
-      - Started/Installation/libtorch.md
-    - HowTo: 
-      - Started/HowTo/index.md
-      - Basic features:
-        - Started/HowTo/Simple/index.md
-      - Tutorials:
-        - Started/HowTo/Tutorials/index.md
-    - Examples:
-      - Started/Examples/index.md
-      - Cahn-Hilliard: 
-        - Started/Examples/CahnHilliard/index.md
-        - Example 1:
-          - Started/Examples/CahnHilliard/example1/index.md
-        - Example 2:
-          - Started/Examples/CahnHilliard/example2/index.md
-        - Example 3:
-          - Started/Examples/CahnHilliard/example3/index.md
-        - Example 4:
-          - Started/Examples/CahnHilliard/example4/index.md
-        - Example 5:
-          - Started/Examples/CahnHilliard/example5/index.md
-      - Allen-Cahn:
-        - Started/Examples/AllenCahn/index.md
-      - Mass Diffusion:
-        - Started/Examples/MassDiffusion/index.md
-      - Thermal Diffusion:
-        - Started/Examples/ThermalDiffusion/index.md
-      - CALPHAD:
-        - Started/Examples/Calphad/index.md
-    - Code quality: Started/Quality/quality.md
-  # - User Manual: 
-  #   - Documentation/User/index.md
-  #   - Documentation/User/Parameters/index.md
-  #   - Documentation/User/Variables/index.md
-  #   - Spatial discretization:
-  #     - Documentation/User/SpatialDiscretization/index.md
-  #     - Documentation/User/SpatialDiscretization/Meshing/index.md
-  #     - Documentation/User/SpatialDiscretization/BoundaryConditions/index.md
-  #   - Multiphysics Coupling Scheme:
-  #     - Documentation/User/MultiPhysicsCouplingScheme/index.md
-  #     - Documentation/User/MultiPhysicsCouplingScheme/Time/index.md
-  #     - Documentation/User/MultiPhysicsCouplingScheme/Couplings/index.md
-  #     - Problems:
-  #       - Documentation/User/MultiPhysicsCouplingScheme/Problems/index.md
-  #       - Partial Differential Equations:
-  #         - Documentation/User/MultiPhysicsCouplingScheme/Problems/PDEs/index.md
-  #       - Documentation/User/MultiPhysicsCouplingScheme/Problems/0D/index.md
-  #       - Documentation/User/MultiPhysicsCouplingScheme/Problems/Remainder/index.md
-  #     - Documentation/User/MultiPhysicsCouplingScheme/Convergence/index.md
-  #   - Documentation/User/PostProcessing/index.md
-  # - Modelling Description: 
-  #   - Documentation/Physical/index.md
-  # - Code Documentation: 
-  #   - Documentation/Code/index.md
-  # - Applications:
-  #   - Applications/index.md
+  - microStamp MiniApp:
+    - microStamp/index.md
+    - microStamp/cmake_installation.md
+    - microStamp/spack_installation.md
+    - microStamp/running.md
   - References: 
     - References/index.md
+    - References/reference.md
+    - References/contributions.md
   - About: 
     - About/index.md

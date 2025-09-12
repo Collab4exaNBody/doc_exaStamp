@@ -15,4 +15,31 @@ pages="342--354",
 abstract="Increasing heterogeneity among Hpc platforms requires applications to be frequently ported and tuned, adding burden to developers. Fast evolution of hardware mandates adaptation of algorithms and data structures to get higher performance, while application complexity constantly grows accordingly. Ensuring portability while preserving high performance at large scale along with minimal changes to an already existing application is an actual challenge. Separation of concerns to decouple performance from semantics in simulation codes are typically required. We describe a specialized programming framework for N-Body simulations that provides such separation. It allows one to develop computation kernels in the form of sequential-looking functions, while self-generating multi-level parallelism. exaNBody possesses both an application layer with its own input data format, a way to define specific computation kernels and a separate runtime system that can address both Cpus and Gpus. The framework enables performance portability for N-Body simulations, bringing both flexibility and a set of handy tools. Performance results and speedups up to 32k cores with two distinct applications based on exaNBody are discussed.",
 isbn="978-3-031-50684-0"
 }
-  
+
+@article{slipsystems,
+title = {Extraction of slip systems and twinning variants from a Lagrangian analysis of molecular dynamics simulations},
+journal = {Mechanics of Materials},
+volume = {200},
+pages = {105189},
+year = {2025},
+issn = {0167-6636},
+doi = {https://doi.org/10.1016/j.mechmat.2024.105189},
+url = {https://www.sciencedirect.com/science/article/pii/S0167663624002813},
+author = {Paul Lafourcade and Guillaume Ewald and Thierry Carrard and Christophe Denoual},
+keywords = {Molecular dynamics, Crystal plasticity, Twinning, In-Situ, Lagrangian mechanics},
+abstract = {The definition of multiscale constitutive laws for metals under extreme conditions requires a detailed understanding of the irreversible deformation mechanisms, e.g., dislocation motion and their interaction with obstacles: other dislocations, twin boundaries, etc. We propose to study the signature of dislocation-mediated plasticity and twinning deformation in large-scale molecular dynamics simulations with Lagrangian deformation measures. Through the computation of the deformation gradient tensor, we are able to discriminate, e.g., the slip/twinning directions and slip/twinning planes. The effectiveness of the developed method is demonstrated on two applications. We first study the identification of activated slip systems during the dynamic uniaxial deformation of a single-crystal copper containing voids, operating as dislocation nucleation sources. An application on a single crystal tantalum under high strain-rate loading demonstrates the accuracy of the presented method to extract statistics related to the activation of twinning variants and the details of their interaction with slip systems. The developed tool is entitled S2TXA for Slip System and Twinning eXtraction Algorithm and will be made available publicly.}
+}
+
+@article{ccl,
+title = {On-the-fly clustering for exascale molecular dynamics simulations},
+journal = {Computer Physics Communications},
+volume = {307},
+pages = {109427},
+year = {2025},
+issn = {0010-4655},
+doi = {https://doi.org/10.1016/j.cpc.2024.109427},
+url = {https://www.sciencedirect.com/science/article/pii/S0010465524003503},
+author = {Killian Babilotte and Alizée Dubois and Thierry Carrard and Paul Lafourcade and Laurent Videau and Jean-François Molinari and Laurent Soulard},
+keywords = {In-situ analysis, Large scale molecular dynamics, Connected components labeling, Visualization, Splashing, Spall fracture},
+abstract = {Computational resources have experienced exponential growth in the last decades enabling the simulation of complex physical problems at the cost of a massive increase in data storage. This is especially true for N-body simulations now reaching billions or trillions particles in certain cases. To overcome the drawbacks of data storage on disk for post-processing purposes, on-the-fly analysis has gained momentum but still represents a challenge in both its implementation and efficiency without impacting the simulation engine performances. This work provides a new in-situ procedure for features detection in massive N-body simulations, leveraging state-of-the-art techniques from various fields. Based on a discrete-to-continuum paradigm shift, particles and their respective physical quantities are projected onto a 3D regular grid before applying image analysis algorithms to group voxels based on specific user-defined criteria. A significant extension to the hybrid parallelism of connected component analysis within the image processing community is also introduced in the present study. Traditionally operating in shared memory parallelism, this extension now incorporates both distributed and shared memory approaches. The implementation is carried out within the exaStamp classical Molecular Dynamics code, a variant of the open-source exaNBody platform [39]. This adaptation allows for the on-the-fly analysis of multi-billion atoms samples with at most a 1.3% overhead. In addition, the entire framework is benchmarked up to 32768 cores. The applicability of the present approach is demonstrated on the case of a spall fracture in a tantalum sample as well as high velocity impact of a tin droplets on a rigid surface.}
+}

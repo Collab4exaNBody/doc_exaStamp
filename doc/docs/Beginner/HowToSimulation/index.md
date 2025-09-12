@@ -1,1 +1,0 @@
-# **How to setup an exaStamp simulation**

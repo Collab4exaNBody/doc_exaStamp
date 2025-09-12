@@ -136,3 +136,31 @@
   --md-code-hl-variable-color: #0E8070;     /* teal */
   
 }
+
+/* Center the table block */
+.center-table { text-align: center; }                /* centers inline content */
+.center-table table { display: inline-table; }       /* make the table inline so it can center */
+
+/* If your theme forces tables to 100% width (e.g., Material), override it */
+.center-table table { width: auto; }                 /* let the table shrink to fit */
+
+/* Optional: center text inside cells too */
+.center-table th,
+.center-table td { text-align: center; }
+
+
+/* Caroussel */
+
+.blinker {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    margin-left: 42%;
+}
+
+.blink_me {
+    opacity: 1;
+    animation: fadeInOut 2s linear infinite;
+    margin-right: 10px; /* Adjust margin between "New :" and the link */
+}
+
+
