@@ -179,17 +179,17 @@ nav:
           - User/ForceFields/Pair/Models/coul_cut.md
           - User/ForceFields/Pair/Models/coul_wolf_pair.md
           - User/ForceFields/Pair/Models/exp6.md
-          - User/ForceFields/Pair/Models/exp6rf.md
+#          - User/ForceFields/Pair/Models/exp6rf.md
           - User/ForceFields/Pair/Models/lj.md
-          - User/ForceFields/Pair/Models/ljexp6rf_exp6.md
-          - User/ForceFields/Pair/Models/ljexp6rf_lj.md
-          - User/ForceFields/Pair/Models/ljrf.md
-          - User/ForceFields/Pair/Models/ljwolf.md
+#          - User/ForceFields/Pair/Models/ljexp6rf_exp6.md
+#          - User/ForceFields/Pair/Models/ljexp6rf_lj.md
+#          - User/ForceFields/Pair/Models/ljrf.md
+#          - User/ForceFields/Pair/Models/ljwolf.md
           - User/ForceFields/Pair/Models/reaction_field.md
-          - User/ForceFields/Pair/Models/relax.md
-          - User/ForceFields/Pair/Models/tabpair.md
+#          - User/ForceFields/Pair/Models/relax.md
+#          - User/ForceFields/Pair/Models/tabpair.md
           - User/ForceFields/Pair/Models/zbl.md
-          - User/ForceFields/Pair/Models/zero.md
+#          - User/ForceFields/Pair/Models/zero.md
       - EAM Potentials:
         - User/ForceFields/EAM/index.md
         - User/ForceFields/EAM/alloy.md

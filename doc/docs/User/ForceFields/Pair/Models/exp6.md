@@ -1,66 +1,61 @@
-# Exponential-6
+# **Exponential-6**
 
-Analogous to the Buckingham pair potential, the Exponential-6 potential has an extra term and reads
+## **Description**
 
-.. math::
+The `exp6_compute_force` operator calculates the normalized exponential-6 pair potential parameterized by well depth, equilibrium distance, and hardness:
 
-   E = A e^{-Br} - \frac{C}{r^6} + D \left( \frac{12}{Br} \right)^{12} \quad \text{for} \quad r<r_c
+$$
+E(r) = \varepsilon \left[ \frac{6}{\alpha-6}\,\exp\!\big(\alpha(1 - r/r_m)\big) - \frac{\alpha}{\alpha-6}\left(\frac{r_m}{r}\right)^{6} \right] \quad \text{for} \quad r<r_c
+$$
 
+with $r_c$ the cutoff and $(\varepsilon,r_m,\alpha)$ as defined below.
 
-where $ D \\left( \\frac{12}{Br} \\right)^{12} $ is the additional term compared to Buckingham.
+<div class="center-table" markdown>
 
-.. list-table:: Exponential-6 Parameters
-   :widths: 40 40
-   :header-rows: 1
-   :align: center
+| Parameter     | Units    | Description                                              |
+| :------------ | :------: | :------------------------------------------------------- |
+| $\varepsilon$ | energy   | Well depth                                               |
+| $r_m$         | distance | Distance at potential minimum                            |
+| $\alpha$      | —        | Repulsion steepness (dimensionless)                      |
+| $r_c$         | distance | Cutoff radius                                            |
 
-   * - Denomination
-     - Units
-   * - A
-     - energy
-   * - B
-     - distance$^{-1}$
-   * - C
-     - energy $\\cdot$distance$^6$
-   * - D
-     - energy
+</div>
 
-Below is a usage example in the case of a monoatomic system
+## **YAML syntax**
 
-.. code-block:: yaml
+```yaml
+exp6_compute_force:
+  rcut: VALUE UNITS
+  parameters: { epsilon: VALUE UNITS , r_m: VALUE UNITS , alpha: VALUE }
+```
 
-   # Basic force computation
-   exp6_compute_force:
-     parameters: { A: 1.0 eV, B: 1.0 ang^-1, C: 1.0 eV*ang^6, D: 1.0 eV }
-     rcut: 6.0 ang
-     
-   # General force calculation block called in the integration scheme
-   compute_force:
-     - exp6_compute_force   
+- [x] VALUE = Physical value of the intended parameter.
+- [x] UNITS = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 
-In the case of a system with multiple species, the force operator can be defined as follows
+## **Usage examples**
 
-.. code-block:: yaml
+!!! example "**Systems with a single atomic specy**"
+    ```yaml
+    # Default variant
+    exp6_compute_force:
+      parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 }
+      rcut: 8.0 ang
 
-   # Basic force computation
-   compute_force_pair_multimat:
-     potentials:
-       - { type_a: Zn , type_b: Zn , potential: exp6 , rcut: 6.10 ang , parameters: { A: 1.0 eV, B: 1.0 ang^-1, C: 1.0 eV*ang^6, D: 0.5 eV } }
-       - { type_a: Zn , type_b: Cu , potential: exp6 , rcut: 7.10 ang , parameters: { A: 1.3 eV, B: 1.2 ang^-1, C: 1.5 eV*ang^6, D: 0.6 eV } }
-         
+    # Symetric variant
+    exp6_compute_force_symetric:
+      parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 }
+      rcut: 8.0 ang  
+    ```
 
-.. list-table:: Exponential-6 Parameters
-   :widths: 40 40
-   :header-rows: 1
-   :align: center
+!!! example "**Systems with multiple atomic species**"
 
-   * - Denomination
-     - Units
-   * - A
-     - energy
-   * - $\\rho$
-     - distance
-   * - C
-     - energy $\\cdot$distance$^6$
-   * - $r_c$
-     - distance
+    ```yaml
+    exp6_multi_force:
+      rcut: 8.0 ang
+      common_parameters: { epsilon: 0.0 , r_m: 0.0 , alpha: 0.0 }
+      parameters:
+        - { type_a: Ar , type_b: Ar , rcut: 8.0 ang , parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 } }
+        - { type_a: Kr , type_b: Ar , rcut: 8.0 ang , parameters: { epsilon: 0.0120 eV , r_m: 4.00 ang , alpha: 12.5 } }
+    ```
+
+  

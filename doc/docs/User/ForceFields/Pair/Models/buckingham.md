@@ -1,52 +1,59 @@
 # **Buckingham**
 
-The Buckingham pair potential computes the standard 12/6 formulation given by
+## **Description**
+
+The `buckingham_compute_force` operator calculates the Buckingham (exp-6) pair potential given by
 
 $$
-E = A e^{-r/\rho} - \frac{C}{r^6} \quad \text{for} \quad r<r_c
+E(r) = A \, e^{-r/\rho} - \frac{C}{r^{6}} \quad \text{for} \quad r<r_c
 $$
+  
+with $r_c$ the cutoff and $(A,\rho,C)$ the potential parameters described in the following table.
 
-where $\\rho$ represents a ionic-pair dependent length parameter and $r_c$ is the cutoff radius for computing the interaction between two particles.
+<div class="center-table" markdown>
 
-.. list-table:: Buckingham Parameters
-   :widths: 40 40
-   :header-rows: 1
-   :align: center
+| Parameter | Units                | Description                                      |
+| :-------- | :------------------: | :----------------------------------------------- |
+| $A$       | energy               | Short-range repulsive amplitude                  |
+| $\rho$    | distance             | Repulsive decay length                           |
+| $C$       | energy·distance$^6$  | Dispersion (attractive) coefficient              |
+| $r_c$     | distance             | Cutoff radius                                    |
 
-   * - Denomination
-     - Units
-   * - A
-     - energy
-   * - $\\rho$
-     - distance
-   * - C
-     - energy $\\cdot$distance$^6$
-   * - $r_c$
-     - distance
+</div>
 
-Below is a usage example in the case of a monoatomic system
+## **YAML syntax**
 
-.. code-block:: yaml
+```yaml
+buckingham_compute_force:
+  rcut: VALUE UNITS
+  parameters: { A: VALUE UNITS , rho: VALUE UNITS , C: VALUE UNITS }
+```
 
-   # Basic force computation
-   buckingham_compute_force:
-     parameters: { A: 1.0 eV, Rho: 1.0 ang, C: 1.0 eV*ang^6 }
-     rcut: 5.68 ang
-     
-   # General force calculation block called in the integration scheme
-   compute_force:
-     - buckingham_compute_force   
+- [x] VALUE = Physical value of the intended parameter.
+- [x] UNITS = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 
-In the case of a system with multiple species, the force operator can be defined as follows
+## **Usage examples**
 
-.. code-block:: yaml
+!!! example "**Systems with a single atomic specy**"
+    ```yaml
+    # Default variant
+    buckingham_compute_force:
+      parameters: { A: 1000.0 eV , rho: 0.30 ang , C: 1200.0 eV*ang^6 }
+      rcut: 8.0 ang
 
-   # Basic force computation
-   compute_force_pair_multimat:
-     potentials:
-       - { type_a: Zn , type_b: Zn , potential: buckingham , rcut: 6.10 ang , parameters: { A: 1.0 eV, Rho: 1.0 ang, C: 1.0 eV*ang^6} }
-       - { type_a: Zn , type_b: Cu , potential: buckingham , rcut: 7.10 ang , parameters: { A: 1.3 eV, Rho: 1.2 ang, C: 1.5 eV*ang^6} }
+    # Symetric variant
+    buckingham_compute_force_symetric:
+      parameters: { A: 1000.0 eV , rho: 0.30 ang , C: 1200.0 eV*ang^6 }
+      rcut: 8.0 ang  
+    ```
 
+!!! example "**Systems with multiple atomic species**"
 
-
-
+    ```yaml
+    buckingham_multi_force:
+      rcut: 8.0 ang
+      common_parameters: { A: 0.0 , rho: 0.0 , C: 0.0 }
+      parameters:
+        - { type_a: O , type_b: O , rcut: 8.0 ang , parameters: { A: 9547.96 eV , rho: 0.21916 ang , C: 32.0 eV*ang^6 } }
+        - { type_a: Si , type_b: O , rcut: 8.0 ang , parameters: { A: 18003.7572 eV , rho: 0.2052 ang , C: 133.5381 eV*ang^6 } }
+    ```
