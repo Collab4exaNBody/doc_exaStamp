@@ -1,7 +1,6 @@
 # Documentation
 
-SLOTH documentation is made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
-
+exaStamp documentation is made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
 ## How to build a static version?
 
@@ -21,7 +20,7 @@ Once the prerequisites are installed, the documentation can be created by runnin
 ```bash
 bash install.sh
 ```
-This will create a folder called `sloth_doc` in which users will find the `index.html` file needed 
+This will create a folder called `exaStamp_doc` in which users will find the `index.html` file needed 
 to open the documentation with their preferred browser. 
 
 
