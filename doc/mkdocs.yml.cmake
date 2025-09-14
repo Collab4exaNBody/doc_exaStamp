@@ -1,0 +1,259 @@
+site_name: exaStamp
+repo_url: https://github.com/Collab4exaNBody/exaNBody
+repo_name: Collab4exaNBody/exaStamp
+use_directory_urls: false
+copyright: Copyright &copy; 2025 P. Lafourcade, T. Carrard, R. Prat
+generate: true
+markdown_extensions:
+  - toc:
+      toc_depth: 6
+      permalink: true
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - md_in_html
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      use_pygments: true
+#      auto_title: true
+#      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path: $relative
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format      
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.arithmatex:
+      generic: true
+  - footnotes
+  - markdown_katex:
+      no_inline_svg: True
+      insert_fonts_css: False
+
+edit_uri: edit/main/docs/
+plugins:
+  - search
+  - bibtex:
+      bib_file: "docs/References/biblio.bib"
+
+extra_css:
+  - styles/extra.css
+  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css
+
+extra_javascript:
+#  - javascripts/katex.js
+#  - https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js
+#  - https://cdn.jsdelivr.net/npm/katex@0.17.11/dist/contrib/auto-render.min.js
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+theme: 
+#  name: readthedocs
+  name: material
+  logo: img/xsp_logo.png
+  icon:
+#    repo: fontawesome/brands/github
+    repo: fontawesome/brands/git-alt
+    previous: fontawesome/solid/angle-left
+    next: fontawesome/solid/angle-right
+    edit: material/pencil 
+    view: material/eye
+  features:
+    - announce.dismiss
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    # - content.footnote.tooltips
+    # - content.tabs.link
+    - content.tooltips
+    # - header.autohide
+    # - navigation.expand
+#    - navigation.footer
+    - navigation.indexes
+    # - navigation.instant
+    # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.prune
+    #- navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    # - search.share
+    # - search.suggest
+    #- toc.follow
+  palette:
+    primary: black
+    accent: black
+  # palette:
+  #   - media: "(prefers-color-scheme)"
+  #     toggle:
+  #       icon: material/link
+  #       name: Switch to light mode
+  #   - media: "(prefers-color-scheme: light)"
+  #     scheme: default
+  #     primary: red
+  #     accent: red
+  #     toggle:
+  #       icon: material/toggle-switch
+  #       name: Switch to dark mode
+  #   - media: "(prefers-color-scheme: dark)"
+  #     scheme: slate
+  #     primary: black
+  #     accent: black
+  #     toggle:
+  #       icon: material/toggle-switch-off
+  #       name: Switch to system preference    
+########################################
+########################################
+docs_dir: '@DOCS_DIR@'
+########################################
+########################################
+nav:
+  - Home: 
+    - index.md
+  - Background:
+    - Background/index.md
+    - Overview:
+      - Background/Overview/index.md
+    - Distribution:
+      - Background/Distribution/index.md
+    - Code Versioning:
+      - Background/Releases/index.md
+      - Background/Releases/Release_3.7.2.md
+      - Background/Releases/Release_3.7.3.md
+    - Main Features:
+      - Background/Features/index.md
+  - Build & Install:
+    - BuildInstall/index.md
+    - BuildInstall/spack_installation.md
+    - BuildInstall/cmake_installation.md
+    - BuildInstall/running.md
+  - User guide:
+    - User/index.md
+    - Simulation Graph:
+      - User/SimulationGraph/index.md
+      - User/SimulationGraph/simulation_flowchart.md
+      - User/SimulationGraph/DefaultYAML.md      
+    - Global Setup:
+      - User/GlobalSetup/index.md
+    - Domain and Regions:
+      - User/DomainRegions/index.md
+      - User/DomainRegions/domain.md
+      - User/DomainRegions/regions.md
+    - Grids:
+      - User/Grids/index.md
+      - User/Grids/flavors.md
+      - User/Grids/input.md
+      - User/Grids/analysis.md
+      - User/Grids/output.md
+    - Particles:
+      - User/Particles/index.md
+      - User/Particles/species.md
+      - User/Particles/input.md
+      - User/Particles/analysis.md
+      - User/Particles/output.md
+    - Force Fields:
+      - User/ForceFields/index.md
+      - User/ForceFields/general.md
+      - Pair Potentials:
+        - User/ForceFields/Pair/index.md
+        - Strategies:
+          - User/ForceFields/Pair/Strategies/index.md
+        - Styles:
+          - User/ForceFields/Pair/Models/index.md
+          - User/ForceFields/Pair/Models/buckingham.md
+          - User/ForceFields/Pair/Models/coul_cut.md
+          - User/ForceFields/Pair/Models/coul_wolf_pair.md
+          - User/ForceFields/Pair/Models/exp6.md
+#          - User/ForceFields/Pair/Models/exp6rf.md
+          - User/ForceFields/Pair/Models/lj.md
+#          - User/ForceFields/Pair/Models/ljexp6rf_exp6.md
+#          - User/ForceFields/Pair/Models/ljexp6rf_lj.md
+#          - User/ForceFields/Pair/Models/ljrf.md
+#          - User/ForceFields/Pair/Models/ljwolf.md
+          - User/ForceFields/Pair/Models/reaction_field.md
+#          - User/ForceFields/Pair/Models/relax.md
+#          - User/ForceFields/Pair/Models/tabpair.md
+          - User/ForceFields/Pair/Models/zbl.md
+#          - User/ForceFields/Pair/Models/zero.md
+      - EAM Potentials:
+        - User/ForceFields/EAM/index.md
+        - User/ForceFields/EAM/alloy.md
+        - User/ForceFields/EAM/johnson.md
+        - User/ForceFields/EAM/ravelo.md
+        - User/ForceFields/EAM/sutton_chen.md
+        - User/ForceFields/EAM/vniitf.md        
+        - User/ForceFields/EAM/tab.md
+      - MEAM Potentials:
+        - User/ForceFields/MEAM/index.md
+        - User/ForceFields/MEAM/meam.md
+        - User/ForceFields/MEAM/meam_lj.md
+      - Reactive Potentials:
+        - User/ForceFields/Reactive/index.md
+        - User/ForceFields/Reactive/lchbop.md
+        - User/ForceFields/Reactive/rebo.md      
+      - ML Potentials:
+        - User/ForceFields/MLIP/index.md
+        - User/ForceFields/MLIP/snap.md
+        - User/ForceFields/MLIP/nnp.md
+        - User/ForceFields/MLIP/ace.md
+      - Electrostatics Potentials:
+        - User/ForceFields/Electrostatics/index.md
+        - User/ForceFields/Electrostatics/short.md
+        - User/ForceFields/Electrostatics/long.md
+      - Intramolecular Potentials:
+        - User/ForceFields/Intramolecular/index.md
+        - User/ForceFields/Intramolecular/bonds.md
+        - User/ForceFields/Intramolecular/torsions.md
+        - User/ForceFields/Intramolecular/dihedrals.md
+        - User/ForceFields/Intramolecular/impropers.md
+    - Ensembles and Constraints:
+      - User/EnsemblesConstraints/index.md
+      - User/EnsemblesConstraints/nve_ensemble.md
+      - Thermostats:
+         - User/EnsemblesConstraints/Thermostats/index.md
+         - User/EnsemblesConstraints/Thermostats/langevin.md
+         - User/EnsemblesConstraints/Thermostats/berendsen.md
+      - User/EnsemblesConstraints/nvt_ensemble.md
+      - User/EnsemblesConstraints/npt_ensemble.md
+      - User/EnsemblesConstraints/pistons.md
+      - User/EnsemblesConstraints/deformation.md
+      - User/EnsemblesConstraints/minimization.md
+  - Beginner's guide:
+    - Beginner/index.md
+    - Beginner/Basics/ExampleInputDeck.md
+    - Tutorials:
+      - Beginner/Tutorials/index.md
+      - Beginner/Tutorials/Tutorial1.md
+      - Beginner/Tutorials/Tutorial2.md
+      - Beginner/Tutorials/Tutorial3.md
+    - Examples:
+      - Beginner/Examples/index.md
+      - Beginner/Examples/Example1.md
+      - Beginner/Examples/Example2.md
+      - Beginner/Examples/Example3.md
+  - microStamp MiniApp:
+    - microStamp/index.md
+    - microStamp/cmake_installation.md
+    - microStamp/spack_installation.md
+    - microStamp/running.md
+  - References: 
+    - References/index.md
+    - References/reference.md
+    - References/contributions.md
+  - About: 
+    - About/index.md

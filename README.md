@@ -1,31 +1,35 @@
-# README for exaStamp
+# Documentation
 
-## Get ExaNBody Documentation
+exaStamp documentation is made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
-```
-git submodule init
-git submodule update
-```
+## How to build a static version?
 
-## Build static html doc
+### Prerequisities
 
-```
-make html
-cd build/html
-firefox index.html
-```
+MkDocs, a number of plugins and extensions are required to create the documentation and to have the desired rendering in HTML.
 
-## Build pdf doc from auto-generated latex files 
+All these requirements are listed in the file `requirements.txt`. Their installation is done using `pip`:
 
-```
-make latexpdf
-cd build/latex
-evince doc.pdf
+```bash
+pip install -r requirements.txt
 ```
 
-## Install prerequisites on Ubuntu
+### Documentation 
 
+Once the prerequisites are installed, the documentation can be created by running the command:
+```bash
+bash install.sh
 ```
-sudo apt install sphinx sphinx-doc sphinx-rtd-theme-common python3-pip texlive-full latexmk
-pip install sphinx_rtd_theme
-```
+This will create a folder called `exaStamp_doc` in which users will find the `index.html` file needed 
+to open the documentation with their preferred browser. 
+
+
+
+
+
+
+
+
+
+
+
