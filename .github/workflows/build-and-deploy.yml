@@ -1,20 +1,18 @@
 name: Build GitHub Pages
+
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches: [ "main" ]
-permissions:
-  contents: write
-  pages: write
-  id-token: write
+    branches: [main]
  
 jobs:
-  build_mkdocs:
+  pages:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.head.repo.full_name == github.repository
- 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
