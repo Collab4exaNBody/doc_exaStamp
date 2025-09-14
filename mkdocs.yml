@@ -3,7 +3,7 @@ repo_url: https://github.com/Collab4exaNBody/exaNBody
 repo_name: Collab4exaNBody/exaStamp
 use_directory_urls: false
 copyright: Copyright &copy; 2025 P. Lafourcade, T. Carrard, R. Prat
-generate: true
+#generate: true
 markdown_extensions:
   - toc:
       toc_depth: 6
@@ -119,7 +119,7 @@ theme:
   #       name: Switch to system preference    
 ########################################
 ########################################
-docs_dir: '@DOCS_DIR@'
+docs_dir: docs
 ########################################
 ########################################
 nav:

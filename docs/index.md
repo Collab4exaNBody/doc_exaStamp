@@ -54,7 +54,7 @@ icon: material/shield-home
 
     exaStamp is the result of a long-time and collaborative effort at CEA, France. It is an open-source code, distributed under the terms of the Apache Public License version 2.0.
 
-    [:octicons-arrow-right-24: License](img/LICENSE)
+    [:octicons-arrow-right-24: License](About/img/LICENSE)
 
 
 -   :fontawesome-solid-people-carry:{ .lg .middle } __Team__
