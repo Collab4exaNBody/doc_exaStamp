@@ -1,0 +1,166 @@
+
+.md-typeset {
+   font-size: 14pt !important;
+}
+
+.md-grid {
+    max-width: 1500px; 
+}   
+
+/* Content tabs */
+.md-typeset .tabbed-labels label {
+    font-size: 13pt !important; /* Change la taille du texte des labels */
+}
+
+.md-typeset .tabbed-set .tabbed-content {
+    font-size: 12pt !important;
+}
+
+
+/* admonition */
+.md-typeset .admonition-title {
+    font-size: 13pt !important; /* Change la taille du titre */
+    font-weight: bold; /* Mettre en gras si besoin */
+}
+
+.md-typeset .admonition {
+    font-size: 12pt !important; /* Ajuste la taille du texte */
+    /* display: inline-block; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 1000px;
+}
+
+/* Change font size inside code blocks */
+.md-typeset pre code {
+    font-size: 11pt !important;  /* Adjust as needed */
+}
+
+/* Change font size for inline code */
+.md-typeset code {
+    font-size: 11pt !important;
+}
+
+:root {
+  --md-admonition-icon--equation_green: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M576 32.01c0-17.69-14.33-31.1-32-31.1l-224-.0049c-14.69 0-27.48 10-31.05 24.25L197.9 388.3L124.6 241.7C119.2 230.9 108.1 224 96 224L32 224c-17.67 0-32 14.31-32 31.1s14.33 32 32 32h44.22l103.2 206.3c5.469 10.91 16.6 17.68 28.61 17.68c1.172 0 2.323-.0576 3.495-.1826c13.31-1.469 24.31-11.06 27.56-24.06l105.9-423.8H544C561.7 64.01 576 49.7 576 32.01zM566.6 233.4c-12.5-12.5-32.75-12.5-45.25 0L480 274.8l-41.38-41.37c-12.5-12.5-32.75-12.5-45.25 0s-12.5 32.75 0 45.25l41.38 41.38l-41.38 41.38c-12.5 12.5-12.5 32.75 0 45.25C399.6 412.9 407.8 416 416 416s16.38-3.125 22.62-9.375L480 365.3l41.38 41.38C527.6 412.9 535.8 416 544 416s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-41.38-41.38L566.6 278.6C579.1 266.1 579.1 245.9 566.6 233.4z"/></svg>');
+}
+.md-typeset .admonition.equation_green,
+.md-typeset details.equation_green {
+  border-color: rgb(43, 155, 70);
+}
+.md-typeset .equation_green > .admonition-title,
+.md-typeset .equation_green > summary {
+  background-color: rgba(43, 155, 70, 0.1);
+}
+.md-typeset .equation_green > .admonition-title::before,
+.md-typeset .equation_green > summary::before {
+  background-color: rgb(43, 155, 70);
+  -webkit-mask-image: var(--md-admonition-icon--equation_green);
+          mask-image: var(--md-admonition-icon--equation_green);
+}
+
+
+:root {
+  --md-admonition-icon--equation_red: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M576 32.01c0-17.69-14.33-31.1-32-31.1l-224-.0049c-14.69 0-27.48 10-31.05 24.25L197.9 388.3L124.6 241.7C119.2 230.9 108.1 224 96 224L32 224c-17.67 0-32 14.31-32 31.1s14.33 32 32 32h44.22l103.2 206.3c5.469 10.91 16.6 17.68 28.61 17.68c1.172 0 2.323-.0576 3.495-.1826c13.31-1.469 24.31-11.06 27.56-24.06l105.9-423.8H544C561.7 64.01 576 49.7 576 32.01zM566.6 233.4c-12.5-12.5-32.75-12.5-45.25 0L480 274.8l-41.38-41.37c-12.5-12.5-32.75-12.5-45.25 0s-12.5 32.75 0 45.25l41.38 41.38l-41.38 41.38c-12.5 12.5-12.5 32.75 0 45.25C399.6 412.9 407.8 416 416 416s16.38-3.125 22.62-9.375L480 365.3l41.38 41.38C527.6 412.9 535.8 416 544 416s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-41.38-41.38L566.6 278.6C579.1 266.1 579.1 245.9 566.6 233.4z"/></svg>');
+}
+.md-typeset .admonition.equation_red,
+.md-typeset details.equation_red {
+  border-color: rgb(216, 14, 7);
+}
+.md-typeset .equation_red > .admonition-title,
+.md-typeset .equation_red > summary {
+  background-color: rgba(155, 62, 43, 0.1);
+}
+.md-typeset .equation_red > .admonition-title::before,
+.md-typeset .equation_red > summary::before {
+  background-color: rgb(216, 14, 7);
+  -webkit-mask-image: var(--md-admonition-icon--equation_red);
+          mask-image: var(--md-admonition-icon--equation_red);
+}
+
+:root {
+  --md-admonition-icon--equation_blue: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M576 32.01c0-17.69-14.33-31.1-32-31.1l-224-.0049c-14.69 0-27.48 10-31.05 24.25L197.9 388.3L124.6 241.7C119.2 230.9 108.1 224 96 224L32 224c-17.67 0-32 14.31-32 31.1s14.33 32 32 32h44.22l103.2 206.3c5.469 10.91 16.6 17.68 28.61 17.68c1.172 0 2.323-.0576 3.495-.1826c13.31-1.469 24.31-11.06 27.56-24.06l105.9-423.8H544C561.7 64.01 576 49.7 576 32.01zM566.6 233.4c-12.5-12.5-32.75-12.5-45.25 0L480 274.8l-41.38-41.37c-12.5-12.5-32.75-12.5-45.25 0s-12.5 32.75 0 45.25l41.38 41.38l-41.38 41.38c-12.5 12.5-12.5 32.75 0 45.25C399.6 412.9 407.8 416 416 416s16.38-3.125 22.62-9.375L480 365.3l41.38 41.38C527.6 412.9 535.8 416 544 416s16.38-3.125 22.62-9.375c12.5-12.5 12.5-32.75 0-45.25l-41.38-41.38L566.6 278.6C579.1 266.1 579.1 245.9 566.6 233.4z"/></svg>');
+}
+.md-typeset .admonition.equation_blue,
+.md-typeset details.equation_blue {
+  border-color: rgb(0, 229, 255);
+}
+.md-typeset .equation_blue > .admonition-title,
+.md-typeset .equation_blue > summary {
+  background-color: rgba(0, 204, 255, 0.1);
+}
+.md-typeset .equation_blue > .admonition-title::before,
+.md-typeset .equation_blue > summary::before {
+  background-color: rgb(0, 229, 255);
+  -webkit-mask-image: var(--md-admonition-icon--equation_blue);
+          mask-image: var(--md-admonition-icon--equation_blue);
+}
+
+:root > * {
+  /* Code block base */
+  /* --md-code-fg-color: #E6EDF3;   /\* soft off-white *\/ */
+  /* --md-code-bg-color: #0D1117;   /\* deep slate *\/ */
+  /* --md-code-hl-color: #1A2634;   /\* line highlight background *\/ */
+
+  /* /\* Syntax colors *\/ */
+  /* --md-code-hl-number-color: #E5C07B;      /\* warm amber *\/ */
+  /* --md-code-hl-special-color: #FF7AA2;     /\* bright pink *\/ */
+  /* --md-code-hl-function-color: #82AAFF;    /\* sky blue *\/ */
+  /* --md-code-hl-constant-color: #F78C6C;    /\* orange *\/ */
+  /* --md-code-hl-keyword-color: #C792EA;     /\* violet *\/ */
+  /* --md-code-hl-string-color: #0FF1CE;      /\* neon cyan (as requested) *\/ */
+  /* --md-code-hl-name-color: #CDD6F4;        /\* soft light *\/ */
+  /* --md-code-hl-operator-color: #89A1B1;    /\* blue-grey *\/ */
+  /* --md-code-hl-punctuation-color: #6E7C87; /\* muted grey *\/ */
+  /* --md-code-hl-comment-color: #6B778C;     /\* slate *\/ */
+  /* --md-code-hl-generic-color: #A6B3C5;     /\* neutral *\/ */
+  /* --md-code-hl-variable-color: #8CE1D3;    /\* subdued teal *\/ */
+
+  /* Code block base (light) */
+  --md-code-fg-color: #2B3440;    /* dark slate text */
+  --md-code-bg-color: #F8FAFC;    /* near-white background */
+  --md-code-hl-color: #EAF2FD;    /* subtle blue line highlight */
+
+  /* Syntax colors (light) */
+  --md-code-hl-number-color: #B36B00;       /* warm amber */
+  --md-code-hl-special-color: #D9317A;      /* rose/magenta */
+  --md-code-hl-function-color: #1E66F5;     /* clear blue */
+  --md-code-hl-constant-color: #E36414;     /* orange */
+  --md-code-hl-keyword-color: #7C3AED;      /* violet */
+  --md-code-hl-string-color: #0FF1CE;       /* neon cyan (as requested) */
+  --md-code-hl-name-color: #0F172A;         /* deep slate (identifiers) */
+  --md-code-hl-operator-color: #64748B;     /* slate 500 */
+  --md-code-hl-punctuation-color: #94A3B8;  /* slate 400 */
+  --md-code-hl-comment-color: #9AA4B2;      /* cool gray */
+  --md-code-hl-generic-color: #475569;      /* slate 600 */
+  --md-code-hl-variable-color: #0E8070;     /* teal */
+  
+}
+
+/* Center the table block */
+.center-table { text-align: center; }                /* centers inline content */
+.center-table table { display: inline-table; }       /* make the table inline so it can center */
+
+/* If your theme forces tables to 100% width (e.g., Material), override it */
+.center-table table { width: auto; }                 /* let the table shrink to fit */
+
+/* Optional: center text inside cells too */
+.center-table th,
+.center-table td { text-align: center; }
+
+
+/* Caroussel */
+
+.blinker {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    margin-left: 42%;
+}
+
+.blink_me {
+    opacity: 1;
+    animation: fadeInOut 2s linear infinite;
+    margin-right: 10px; /* Adjust margin between "New :" and the link */
+}
+
+
