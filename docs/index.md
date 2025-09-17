@@ -2,8 +2,8 @@
 icon: material/shield-home 
 ---
 
-#
-
+# **Welcome to the exaStamp online documentation!**
+  
 <div style="display:flex; justify-content: space-between; align-items: center;">
   <div style="text-align: left; width: 70%;">
     <div style="font-size: 1.8rem; font-weight: 700; line-height: 1.2;">
@@ -13,7 +13,7 @@ icon: material/shield-home
     </div>
   </div>
 
-  <div style="width: 30%; display: flex; justify-content: flex-end; align-items: center;">
+  <div style="width: 25%; display: flex; justify-content: flex-end; align-items: center;">
     <img src="img/xsp_logo.png" alt="XSP logo" style="width: 100%; height: auto;" />
   </div>
 </div>

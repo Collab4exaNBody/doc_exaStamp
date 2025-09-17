@@ -1,42 +1,36 @@
-.. _regions:
+# Spatial Regions
 
-Spatial Regions
-===============
+## Geometrically defined regions
 
-Geometrically defined regions
------------------------------
+### The `particle_regions` operator
 
-The ``particle_regions`` operator
-*********************************
+Spatial regions can be very usefull in order to define areas in the simulation physical domain that are subsequently used to populate with particles or perform analysis on a subdomain for example. One or multiple regions can be defined using the `particle_regions` YAML block:
 
-Spatial regions can be very usefull in order to define areas in the simulation physical domain that are subsequently used to populate with particles or perform analysis on a subdomain for example. One or multiple regions can be defined using the ``particle_regions`` YAML block:
+```yaml
+particles_regions:
+  - REG1
+  - REG2
+  - REG3
+```
 
-.. code-block:: yaml
-                
-   particles_regions:
-     - REG1
-     - REG2
-     - REG3
+where `REG1`, `REG2` and `REG3` can be regions defined using different ways. The next section presents a list of different ways that can be used to define a spatial region.
 
-where ``REG1``, ``REG2`` and ``REG3`` can be regions defined using different ways. The next section presents a list of different ways that can be used to define a spatial region.
+:::{warning}
+All regions are defined in the physical space, not in the grid space. This is to be taken into account when creating regions, especially when dealing with triclinic physical domains.
+:::
 
-.. warning::
+### Individual regions
 
-   All regions are defined in the physical space, not in the grid space. This is to be taken into account when creating regions, especially when dealing with triclinic physical domains.
+#### Parallelepiped
 
-Individual regions
-******************
-   
-Parallelepiped
-^^^^^^^^^^^^^^
-
-.. list-table:: **Parallelepiped regions** 
+```{eval-rst}
+.. list-table:: **Parallelepiped regions**
    :widths: 50 50
    :header-rows: 0
 
    * - .. code-block:: yaml
 
-          particle_regions:  
+          particle_regions:
             - B1:
                 bounds: [ [ 10, 10, 5], [30, 50, 15] ]
             - B2:
@@ -45,17 +39,18 @@ Parallelepiped
                 bounds: [ [ 30, 70, 10], [50, 90, 95] ]
      - .. image:: /_static/boxes.png
          :width: 400px
+```
 
-Plane-quadrics
-^^^^^^^^^^^^^^
+#### Plane-quadrics
 
-.. list-table:: **Planes from quadrics** 
+```{eval-rst}
+.. list-table:: **Planes from quadrics**
    :widths: 50 50
    :header-rows: 0
 
    * - .. code-block:: yaml
-             
-          particle_regions:  
+
+          particle_regions:
             - P1:
                 quadric:
                   shape: { plane: [ 1, 0, 0, 0 ] }
@@ -70,17 +65,18 @@ Plane-quadrics
                   transform: { translate: [ 0, 0, 20 ] }
      - .. image:: /_static/planes.png
          :width: 400px
+```
 
-Cylinder-quadrics
-^^^^^^^^^^^^^^^^^
+#### Cylinder-quadrics
 
+```{eval-rst}
 .. list-table:: **Cylinders from quadrics**
    :widths: 50 50
    :header-rows: 0
 
    * - .. code-block:: yaml
-             
-          particle_regions:  
+
+          particle_regions:
             - P1:
                 quadric:
                   shape: cylx
@@ -104,17 +100,18 @@ Cylinder-quadrics
                     translate: [ 50, 50, 50 ]
      - .. image:: /_static/cylinders.png
          :width: 400px
+```
 
-Ellipsoïd-quadrics
-^^^^^^^^^^^^^^^^^^
+#### Ellipsoïd-quadrics
 
+```{eval-rst}
 .. list-table:: **Spheres/Ellipsoids from quadrics**
    :widths: 50 50
    :header-rows: 0
 
    * - .. code-block:: yaml
-             
-          particle_regions:  
+
+          particle_regions:
             - S1:
                 quadric:
                   shape: sphere
@@ -136,17 +133,18 @@ Ellipsoïd-quadrics
                     translate: [ 50, 30, 50 ]
      - .. image:: /_static/spheres.png
          :width: 400px
+```
 
-Cone-quadric
-^^^^^^^^^^^^
+#### Cone-quadric
 
+```{eval-rst}
 .. list-table:: **Cones from quadrics**
    :widths: 50 50
    :header-rows: 0
 
    * - .. code-block:: yaml
-             
-          particle_regions:  
+
+          particle_regions:
             - CO1:
                 quadric:
                   shape: conex
@@ -167,95 +165,87 @@ Cone-quadric
                     translate: [ 50, 50, 50 ]
      - .. image:: /_static/cones.png
          :width: 400px
+```
 
-Matrix4d
-^^^^^^^^
+#### Matrix4d
 
-.. code-block:: yaml
+```yaml
+CYL9:
+  - quadric:
+      - shape: cylz
+      - transform:
+          - scale: [ 15 ang , 15 ang , 15 ang ]
+          - xrot: pi/4
+          - yrot: pi/3
+          - zrot: pi/6
+          - translate: [ 85 ang , 85 ang , 0 ang ]
+```
 
-   CYL9:
-     - quadric:
-         - shape: cylz
-         - transform:
-             - scale: [ 15 ang , 15 ang , 15 ang ]
-             - xrot: pi/4
-             - yrot: pi/3
-             - zrot: pi/6             
-             - translate: [ 85 ang , 85 ang , 0 ang ]      
+#### Range of Particles' ids
 
-Range of Particles' ids
-^^^^^^^^^^^^^^^^^^^^^^^
+```yaml
+REGID1:
+  - id_range: [1, 1300]
+```
 
-.. code-block:: yaml
+## User-defined function
 
-   REGID1:
-     - id_range: [1, 1300]
-               
-User-defined function
----------------------
+```yaml
+user_function:
+  # WaveFrontSourceTerm
+  wavefront:
+    # first 3 values are interface plane (Pi)'s normal vector (X,Y,Z) , last one is plane offset (position of origin relative to the plane).
+    plane: [ -1 , 0 , 0 , 125.0 ang ]
+    # wave plane (normal and offset). Oriented distance to the plane, Pw(r), is used to add a sinusoid function sin(P(r))*amplitude to the plane function above
+    wave: [ 0 , 0.1 , 0 , 0 ]
+    # User function is F(r) = Pi(r)+sin(Pw(r))*amplitude , interface is implicit surface F(r)=0, atoms are placed everywhere where F(r)>=0
+    amplitude: 10.0 ang
+user_threshold: 0.0
 
-.. code-block:: yaml
+user_function:
+  # SphericalTemporalSourceTerm
+  sphere:
+    center: [30, 30, 30]
+    amplitude: 10.
+    radius_mean:
+    radius_dev:
+    time_mean:
+    time_dev:
 
-   user_function:
-     # WaveFrontSourceTerm
-     wavefront:
-       # first 3 values are interface plane (Pi)'s normal vector (X,Y,Z) , last one is plane offset (position of origin relative to the plane).     
-       plane: [ -1 , 0 , 0 , 125.0 ang ]
-       # wave plane (normal and offset). Oriented distance to the plane, Pw(r), is used to add a sinusoid function sin(P(r))*amplitude to the plane function above
-       wave: [ 0 , 0.1 , 0 , 0 ]
-       # User function is F(r) = Pi(r)+sin(Pw(r))*amplitude , interface is implicit surface F(r)=0, atoms are placed everywhere where F(r)>=0
-       amplitude: 10.0 ang
-   user_threshold: 0.0
+user_function:
+  # ConstantSourceTerm
+  constant: 10.
+```
 
-   user_function:
-     # SphericalTemporalSourceTerm   
-     sphere:
-       center: [30, 30, 30]
-       amplitude: 10.
-       radius_mean:
-       radius_dev:
-       time_mean:
-       time_dev:
-       
-   user_function:
-     # ConstantSourceTerm   
-     constant: 10.
+## Using the grid as a mask
 
+```yaml
+track_region_particles:
+  expr: PLANE1
+  name: "PISTON"
+```
 
-Using the grid as a mask
-------------------------
+## Regions-related operations
 
-.. code-block:: yaml
+### Tracking particles inside a region
 
-   track_region_particles:
-     expr: PLANE1
-     name: "PISTON"
+```yaml
+track_region_particles:
+  expr: PLANE1
+  name: "PISTON"
+```
 
-     
-Regions-related operations
---------------------------
-
-Tracking particles inside a region
-**********************************
-
-.. code-block:: yaml
-
-   track_region_particles:
-     expr: PLANE1
-     name: "PISTON"
-
-- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3*{rd} order 3D function
+- A geometrical definition that can either be a parallelepiped or q quadric mathematical function that gives access to planes, spheres/ellipsoids, cones and any mathematical 3\*\{rd} order 3D function
 - A user-defined analytical function evaluated on the 3D domain grid
 - A mask read on an external file with dimensions equal to the 3D domain grid
 - A range of particles ids
 
-Assigning regions to grid
-*************************
+### Assigning regions to grid
 
-.. code-block:: yaml
-
-   set_cell_values:
-     field_name: "region"
-     region: CYLX or CYLY or CYLZ
-     value: [0,1]
-     grid_subdiv: 10
+```yaml
+set_cell_values:
+  field_name: "region"
+  region: CYLX or CYLY or CYLZ
+  value: [0,1]
+  grid_subdiv: 10
+```

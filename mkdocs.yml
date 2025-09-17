@@ -146,6 +146,7 @@ nav:
     - User/index.md
     - Simulation Graph:
       - User/SimulationGraph/index.md
+      - User/SimulationGraph/YAML_basics.md
       - User/SimulationGraph/simulation_flowchart.md
       - User/SimulationGraph/DefaultYAML.md      
     - Global Setup:

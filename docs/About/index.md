@@ -26,17 +26,30 @@ icon: octicons/info-16
 
     - [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao) Raphaël Prat
 
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Emmanuel Cieren
+  
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Estelle Dirand
+  
 -   :material-lightbulb-on:{ .lg} __Scientific team__
   
     ---
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) A
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) B
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Laurent Soulard  
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Claire Lemarchand
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Nicolas Pineau
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Jean-Bernard Maillet
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Christophe Denoual
 
 -   :fontawesome-solid-user-graduate:{ .lg }  __Students__
 
     ---
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) A
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) B
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Guillaume Ewald
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Eleonore Duval
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Eliott Dubois
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Killian Babilotte
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Aude Giard
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Gerome Faure
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Guillaume Chevrot
+    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) 
   
 </div>
 
