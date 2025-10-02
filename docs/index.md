@@ -22,8 +22,12 @@ icon: material/shield-home
   <img src="img/microjet.png" alt="microjet" style="width: 100%; height: auto;">
 </div>
 
+!!! info "Information"
+    
+    Direct access to general information about the code features, GitHub repositories and team information can be found below. To access the documentation related to build and install instruction, user guide, tutorials and so on, please use the top menu.
+  
 <div class="grid cards" markdown>
-
+  
 -   :material-feature-search-outline:{ .lg .middle } __Features__
 
     ---
@@ -61,9 +65,9 @@ icon: material/shield-home
 
     ---
   
-    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt)
-
     - Paul Lafourcade, CEA DAM DIF -  [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en)
+    
+    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt)
 
     - Raphaël Prat, CEA DES -  [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao)
   

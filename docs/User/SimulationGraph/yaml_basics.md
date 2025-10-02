@@ -1,5 +1,6 @@
 # **YAML basics**
 
+<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
 ## **Generalities about YAML**
     
 **YAML** is a human-readable data serialization often used for writing configuration files and in applications where data is being stored or transmitted by/between operators. Recursive definition of `YAML` document is pretty simple and a `YAML` document usually contains three types of elements:
@@ -61,6 +62,7 @@ dictA: { key1: { A: "value", B: 3 }, key2: [ "aaa", "bbb" ], key3: 4.67, key4: {
 
 Here, `key1` is bind to a value of type dictionary, `key2` is bind to a value of type list, `key3` is bind to a value of type scalar, key3 is bind to a value of type dictionary.
 
+<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
 ## **YAML extension**
   
 In the original **YAML** format, the entire document must be contained in a single file, which can make complex documents heavy. **exaNBody** uses **YAML** in a somewhat special way by adding the notions of **inclusion** and **overriding** to make the construction of complex structures more incremental.
@@ -107,6 +109,7 @@ Reserved keywords are: **configuration**, **includes** and **simulation**.
           file: output.xyz    
     ```
 
+<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
 ## **Definition of components or aggregates**
 
 Non-reserved keys can be used either to define default values for an existing component (available by default in the application), or to create a “batch” component — that is, an aggregate that groups together (and chains) several components (whether pre-existing or other batches defined elsewhere). There is no specific rule for declaring a batch: if a key is defined at the top level that is not recognized as a base component, the system assumes it is the definition of an aggregate (batch).
@@ -159,6 +162,7 @@ simulation:
       file : "output_named.vtk"
 ```
 
+<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
 ## Combining YAML files
 
 As discussed before, it is possible to include files using the `includes` key. The included files are merged with - and overriden by - the file that includes them, ultimately forming a single YAML document.
@@ -214,3 +218,5 @@ Usage example of files inclusion and operators overload:
       - langevin_thermostat
       - repulsive_wall
     ```
+
+----------------------------------------------------------------  

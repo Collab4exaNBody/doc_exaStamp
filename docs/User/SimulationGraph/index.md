@@ -10,8 +10,9 @@ The default simulation graph of an **exaStamp** simulation is defined in `data/c
 
 Below are links (you can also access them using the left table of contents) yo the subparts of the present section:
 
-- [**YAML basics**](YAML_basics.md)
-- [**Simulation's flowchart**](simulation_flowchart.md)
-- [**Default configuration**](DefaultYAML.md)
+- [**YAML basics**](yaml_basics.md)
+- [**Main configuration**](main_configuration_blocks.md)
+- [**Configuration files**](configuration_files.md)
+- [**Simulation flowchart**](simulation_flowchart.md)
     
   

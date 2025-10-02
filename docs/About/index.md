@@ -20,14 +20,10 @@ icon: octicons/info-16
 -   :material-developer-board:{ .lg } __Development team__
   
     ---
-    - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](#) Thierry Carrard
-
     - [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en) Paul Lafourcade
-
+    - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](#) Thierry Carrard
     - [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao) Raphaël Prat
-
     - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Emmanuel Cieren
-  
     - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Estelle Dirand
   
 -   :material-lightbulb-on:{ .lg} __Scientific team__
@@ -49,7 +45,6 @@ icon: octicons/info-16
     - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Aude Giard
     - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Gerome Faure
     - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Guillaume Chevrot
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) 
   
 </div>
 

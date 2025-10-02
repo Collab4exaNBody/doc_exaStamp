@@ -146,9 +146,10 @@ nav:
     - User/index.md
     - Simulation Graph:
       - User/SimulationGraph/index.md
-      - User/SimulationGraph/YAML_basics.md
+      - User/SimulationGraph/yaml_basics.md
+      - User/SimulationGraph/main_configuration_blocks.md
+      - User/SimulationGraph/configuration_files.md  
       - User/SimulationGraph/simulation_flowchart.md
-      - User/SimulationGraph/DefaultYAML.md      
     - Global Setup:
       - User/GlobalSetup/index.md
     - Domain and Regions:
