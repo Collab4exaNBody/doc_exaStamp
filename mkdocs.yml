@@ -31,7 +31,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format      
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -41,7 +41,8 @@ markdown_extensions:
   - markdown_katex:
       no_inline_svg: True
       insert_fonts_css: False
-
+#  - codehilite
+  
 edit_uri: edit/main/docs/
 plugins:
   - search
@@ -58,7 +59,7 @@ extra_javascript:
 #  - https://cdn.jsdelivr.net/npm/katex@0.17.11/dist/contrib/auto-render.min.js
   - javascripts/mathjax.js
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
-
+  
 theme: 
 #  name: readthedocs
   name: material
@@ -131,10 +132,10 @@ nav:
       - Background/Overview/index.md
     - Distribution:
       - Background/Distribution/index.md
-    - Code Versioning:
+    - Versioning & Releases:
       - Background/Releases/index.md
-      - Background/Releases/Release_3.7.2.md
       - Background/Releases/Release_3.7.3.md
+      - Background/Releases/Release_3.7.2.md
     - Main Features:
       - Background/Features/index.md
   - Build & Install:

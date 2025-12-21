@@ -2,9 +2,7 @@
 icon: octicons/versions-16
 ---  
 
-# **Versioning**
-
-## **Code releases**
+# **Code versioning and release notes**
 
 **exaStamp** releases can be directly accessed through the following **Releases** page as `.zip` or `.tar.gz` compressed files.
 
@@ -22,12 +20,13 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 | exaStamp | exaNBody | onika  |
 |:--------:|:--------:|:------:|
 | main     | main     | main   |
-| v3.7.0   | v2.0.0   | v1.0.0 |
+| v3.7.3   | v2.0.6   | v1.0.4 |
 | v3.7.2   | v2.0.5   | v1.0.4 |
+| v3.7.0   | v2.0.0   | v1.0.0 |
 
 ## **Release notes**
 
 Release notes for the following releases of **exaStamp** can be directly accessed through the links below.
     
-- [**Release 3.7.2**](Release_3.7.2.md) 
 - [**Release 3.7.3**](Release_3.7.3.md) 
+- [**Release 3.7.2**](Release_3.7.2.md) 

@@ -108,38 +108,38 @@
   /* --md-code-bg-color: #0D1117;   /\* deep slate *\/ */
   /* --md-code-hl-color: #1A2634;   /\* line highlight background *\/ */
 
-  /* /\* Syntax colors *\/ */
-  /* --md-code-hl-number-color: #E5C07B;      /\* warm amber *\/ */
-  /* --md-code-hl-special-color: #FF7AA2;     /\* bright pink *\/ */
-  /* --md-code-hl-function-color: #82AAFF;    /\* sky blue *\/ */
-  /* --md-code-hl-constant-color: #F78C6C;    /\* orange *\/ */
-  /* --md-code-hl-keyword-color: #C792EA;     /\* violet *\/ */
-  /* --md-code-hl-string-color: #0FF1CE;      /\* neon cyan (as requested) *\/ */
-  /* --md-code-hl-name-color: #CDD6F4;        /\* soft light *\/ */
-  /* --md-code-hl-operator-color: #89A1B1;    /\* blue-grey *\/ */
-  /* --md-code-hl-punctuation-color: #6E7C87; /\* muted grey *\/ */
-  /* --md-code-hl-comment-color: #6B778C;     /\* slate *\/ */
-  /* --md-code-hl-generic-color: #A6B3C5;     /\* neutral *\/ */
-  /* --md-code-hl-variable-color: #8CE1D3;    /\* subdued teal *\/ */
+  /* Syntax colors */
+  --md-code-hl-number-color: #E5C07B;      /* warm amber */
+  --md-code-hl-special-color: #FF7AA2;     /* bright pink */
+  --md-code-hl-function-color: #82AAFF;    /* sky blue */
+  --md-code-hl-constant-color: #F78C6C;    /* orange */
+  --md-code-hl-keyword-color: orange;     /* violet */
+  --md-code-hl-string-color: #0FF1CE;      /* neon cyan (as requested) */
+  --md-code-hl-name-color: #CDD6F4;        /* soft light */
+  --md-code-hl-operator-color: #89A1B1;    /* blue-grey */
+  --md-code-hl-punctuation-color: #6E7C87; /* muted grey */
+  --md-code-hl-comment-color: #6B778C;     /* slate */
+  --md-code-hl-generic-color: #A6B3C5;     /* neutral */
+  --md-code-hl-variable-color: #8CE1D3;    /* subdued teal */
 
   /* Code block base (light) */
-  --md-code-fg-color: #2B3440;    /* dark slate text */
-  --md-code-bg-color: #F8FAFC;    /* near-white background */
+  --md-code-fg-color: #CDD6F4;    /* dark slate text */
+  --md-code-bg-color: #282C34;    /* near-white background */
   --md-code-hl-color: #EAF2FD;    /* subtle blue line highlight */
 
-  /* Syntax colors (light) */
-  --md-code-hl-number-color: #B36B00;       /* warm amber */
-  --md-code-hl-special-color: #D9317A;      /* rose/magenta */
-  --md-code-hl-function-color: #1E66F5;     /* clear blue */
-  --md-code-hl-constant-color: #E36414;     /* orange */
-  --md-code-hl-keyword-color: #7C3AED;      /* violet */
-  --md-code-hl-string-color: #0FF1CE;       /* neon cyan (as requested) */
-  --md-code-hl-name-color: #0F172A;         /* deep slate (identifiers) */
-  --md-code-hl-operator-color: #64748B;     /* slate 500 */
-  --md-code-hl-punctuation-color: #94A3B8;  /* slate 400 */
-  --md-code-hl-comment-color: #9AA4B2;      /* cool gray */
-  --md-code-hl-generic-color: #475569;      /* slate 600 */
-  --md-code-hl-variable-color: #0E8070;     /* teal */
+  /* /\* Syntax colors (light) *\/ */
+  /* --md-code-hl-number-color: #B36B00;       /\* warm amber *\/ */
+  /* --md-code-hl-special-color: #D9317A;      /\* rose/magenta *\/ */
+  /* --md-code-hl-function-color: #1E66F5;     /\* clear blue *\/ */
+  /* --md-code-hl-constant-color: #E36414;     /\* orange *\/ */
+  /* --md-code-hl-keyword-color: #7C3AED;      /\* violet *\/ */
+  /* --md-code-hl-string-color: #0FF1CE;       /\* neon cyan (as requested) *\/ */
+  /* --md-code-hl-name-color: #0F172A;         /\* deep slate (identifiers) *\/ */
+  /* --md-code-hl-operator-color: #64748B;     /\* slate 500 *\/ */
+  /* --md-code-hl-punctuation-color: #94A3B8;  /\* slate 400 *\/ */
+  /* --md-code-hl-comment-color: #9AA4B2;      /\* cool gray *\/ */
+  /* --md-code-hl-generic-color: #475569;      /\* slate 600 *\/ */
+  /* --md-code-hl-variable-color: #0E8070;     /\* teal *\/ */
   
 }
 

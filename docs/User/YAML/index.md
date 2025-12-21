@@ -1,16 +1,18 @@
+---
+icon: simple/yaml
+---
+
 # **YAML basics**
 
-<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
-  
 ## **Generalities**
     
 **YAML** is a human-readable data serialization often used for writing configuration files and in applications where data is being stored or transmitted by/between operators. Recursive definition of `YAML` document is pretty simple and a `YAML` document usually contains three types of elements:
 
-- **scalars**: text, number, boolean
-- **lists**: an ensemble of ordered elements
-- **dictionaries**: an ensemble, ordered or not, of tuples each with a key and an associated value
+- **A scalar**: text, number, boolean
+- **A list**: an ensemble of ordered elements
+- **A dictionary**: an ensemble, ordered or not, of tuples each with a key and an associated value
 
-For more information about the `YAML` framework, please visit the following links:
+For more information, please visit the following links:
 
 - [**YAML Tutorials**](https://gettaurus.org/docs/YAMLTutorial/)
   
@@ -20,46 +22,34 @@ For more information about the `YAML` framework, please visit the following link
 
 
 Below are some examples of scalar, list or dictionary definitions in `YAML` format.
+      
+```yaml
+# Scalar definition examples
+val: "text only"
+val: 3.5
+val: true
 
-!!! note ""
+# List definition examples
+list: ["list", "with", 5, true, "elements"]
+list:
+  - "list"
+  - "with"
+  - 5
+  - true
+  - elements
 
-    === "Scalars"
-    
-        ```yaml
-        # Scalar definition examples
-        val: "text only"
-        val: 3.5
-        val: true
-        ```
+# Dictionary definition examples
+dict: {A: "value", B: 3, C: false}
+dict:
+  - A: "value"
+  - B: 3
+  - C: false
+```
 
-    === "Lists"
-    
-        ```yaml 
-        # List definition examples
-        list: ["list", "with", 5, true, "elements"]
-        list:
-          - "list"
-          - "with"
-          - 5
-          - true
-          - elements
-        ```
-
-    === "Dictionaries"
-    
-        ```yaml
-        # Dictionary definition examples
-        dict: {A: "value", B: 3, C: false}
-        dict:
-          - A: "value"
-          - B: 3
-          - C: false
-        ```
-    
 In addition, you can combine multiple types (scalar, list, dictionary):
 
 ```yaml
-# Multiple types combination in a dictionary
+# Multiple types combination in a list
 dictA:   
   key1: { A: "value", B: 3 }
   key2: [ "aaa", "bbb" ]
@@ -75,16 +65,28 @@ dictA: { key1: { A: "value", B: 3 }, key2: [ "aaa", "bbb" ], key3: 4.67, key4: {
 
 Here, `key1` is bind to a value of type dictionary, `key2` is bind to a value of type list, `key3` is bind to a value of type scalar, key3 is bind to a value of type dictionary.
 
-<hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
-
-## **Extended behavior**
+## **Augmented behavior**
   
-In the original **YAML** format, the entire document must be contained in a single file, which can make complex documents heavy. We use **YAML** in a somewhat special way by adding the notions of **inclusion** and **overriding** to make the construction of complex structures more incremental. In all **exaNBody** applications, the first level element in the **YAML** input file is a **dictionary** that contains two categories of keys:
+In the original **YAML** format, the entire document must be contained in a single file, which can make complex documents heavy. **exaNBody** uses **YAML** in a somewhat special way by adding the notions of **inclusion** and **overriding** to make the construction of complex structures more incremental.
 
-- Reserved keywords: **configuration**, **includes** and **simulation**
-- Free entreies defining default values of a component or an aggregate
+In all **exaNBody** applications, the first level element in the **YAML** input file is a **dictionary** that contains two categories of keys:
 
-**configuration** is a key associated to a dictionary whose keys correspond to execution, logging and debugging options for an **exaNBody**-based application:
+- Reserved keywords
+- Free entries defining default values of a component or an aggregate
+
+Reserved keywords are: **configuration**, **includes** and **simulation**.
+
+- **configuration** is a key associated to a dictionary whose keys correspond to execution options for an **exaNBody**-based application,
+- **includes** allows to merge the current document with additional documents contained in external files,
+- **simulation** key contains the actual course of the simulation, that is, the sequence of components or aggregates of components that make up the simulation as a whole.
+
+!!! note "Predefined aggregates, default values, simulation structure or pre-assembled numerical scheme, etc."
+  
+    ```yaml
+    includes:
+      - base.cfg
+      - model.cfg
+    ```
 
 !!! note "Application execution context configuration: debugging, parallelism, profiling, etc."
     
@@ -95,18 +97,6 @@ In the original **YAML** format, the entire document must be contained in a sing
       profiling:
         summary: true
     ```
-
-**includes** allows to merge the current document with additional documents contained in external files:
-  
-!!! note "Predefined aggregates, default values, simulation structure or pre-assembled numerical scheme, etc."
-  
-    ```yaml
-    includes:
-      - base.cfg
-      - model.cfg
-    ```
-
-**simulation** key contains the actual course of the simulation, that is, the sequence of components or aggregates of components that make up the simulation as a whole. See a short example below:
   
 !!! note "Simulation sequence, chaining of components or macro-components, etc."
   
@@ -118,11 +108,11 @@ In the original **YAML** format, the entire document must be contained in a sing
       - compute_force
       - integration_step
       - write_data:
-          file: "output.xyz"    
+          file: output.xyz    
     ```
 
 <hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
-## **Components/aggregates**
+## **Components or aggregates**
 
 Non-reserved keys can be used either to define default values for an existing component (available by default in the application), or to create a “batch” component — that is, an aggregate that groups together (and chains) several components (whether pre-existing or other batches defined elsewhere). There is no specific rule for declaring a batch: if a key is defined at the top level that is not recognized as a base component, the system assumes it is the definition of an aggregate (batch).
 
@@ -175,7 +165,7 @@ simulation:
 ```
 
 <hr style="height:4px;border:none;background: rgb(180, 180, 180) ;margin:50px 0;">
-## **Files combination**
+## Combining YAML files
 
 As discussed before, it is possible to include files using the `includes` key. The included files are merged with - and overriden by - the file that includes them, ultimately forming a single YAML document.
 
@@ -231,4 +221,4 @@ Usage example of files inclusion and operators overload:
       - repulsive_wall
     ```
 
-----------------------------------------------------------------  
+----------------------------------------------------------------      

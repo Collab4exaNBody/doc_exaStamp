@@ -9,5 +9,5 @@ This section provides users with a little background about the **exaStamp** mole
 
 - [**Overview**](Overview/index.md) Rapid overview of the **exaStamp** code.
 - [**Distribution**](Distribution/index.md) Practical information about the GitHub repository.
-- [**Release Notes**](Releases/index.md) Release notes for each available release.
+- [**Code versioning and release notes**](Releases/index.md) Release notes for each available release.
 - [**Main Features**](Features/index.md) General description of **exaStamp** main features.
