@@ -4,7 +4,7 @@ icon: simple/linux
 
 # **Installation with Spack**
 
-Installation with `Spack` is easy and preferable for users who don't want to develop in `exaStamp`. Only stable versions are added when you install `exaStamp` with `Spack`, meaning that it doesn't provide you access to the development branches. In addition, the main branch of `exaStamp` will never be directly accessible via this installation method.
+Installation with `Spack` is easy and preferable for users who don't want to develop in `exaStamp`. Only stable versions are added when you install `exaStamp` with `Spack` (version `1.1.0`), meaning that it doesn't provide you access to the development branches. In addition, the main branch of `exaStamp` will never be directly accessible via this installation method.
 
 ## **Minimal requirements**
 
@@ -16,7 +16,7 @@ Below are instructions to first retrieve spack sources and install it on your sy
   
     ```bash
     cd ${HOME}/dev
-    git clone https://github.com/spack/spack.git
+    git clone --depth=2 --branch=v1.1.0 https://github.com/spack/spack.git
     export SPACK_ROOT=${HOME}/dev/spack
     source ${SPACK_ROOT}/share/spack/setup-env.sh
     ```
@@ -103,6 +103,7 @@ The default version will be the latest stable release. However, you can also ask
 !!! note "Install exaStamp specific version"
   
     ```bash
+    spack install exastamp@3.7.4
     spack install exastamp@3.7.3
     spack install exastamp@3.7.2
     spack install exastamp@3.7.0
