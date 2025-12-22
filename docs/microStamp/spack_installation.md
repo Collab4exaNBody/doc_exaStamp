@@ -16,7 +16,7 @@ Below are instructions to first retrieve spack sources and install it on your sy
   
     ```bash
     cd ${HOME}/dev
-    git clone https://github.com/spack/spack.git
+    git clone --depth=2 --branch=v1.1.0 https://github.com/spack/spack.git
     export SPACK_ROOT=${HOME}/dev/spack
     source ${SPACK_ROOT}/share/spack/setup-env.sh
     ```
@@ -87,20 +87,20 @@ Then, simply install `exaNBody`. To get access to the `microStamp` mini applicat
 !!! note "Install exaNBody"
   
     ```bash
-    spack install exaNBody+contribs
+    spack install exanbody+contribs
     ```
 
 If you have a GPU on your machine, you can also ask for a CUDA installation through the following command:
   
-!!! note "Install exaStamp with CUDA support"
+!!! note "Install exaNBody + contribs with CUDA support"
 
     ```bash
-    spack install exastamp+contribs+cuda
+    spack install exanbody+contribs+cuda
     ```
 
 The default version will be the latest stable release. However, you can also ask for a specific branch as follow:
 
-Finally, the commands listed above will install the appropriate version of `cmake`, `yaml-cpp`, `onika` and `exaNBody` and additional required packages by the `exaStamp` recipe. Eventually, to run an `exaStamp` case, do the following:
+Finally, the commands listed above will install the appropriate version of `cmake`, `yaml-cpp`, `onika` and `exaNBody` and additional required packages allowing you to run MD simulations directly with `exaNBody`. Eventually, to run an `exaNBody` case, do the following:
 
 !!! note "Install exaStamp"
   

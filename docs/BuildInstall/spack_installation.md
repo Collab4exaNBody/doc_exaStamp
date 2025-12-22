@@ -103,6 +103,7 @@ The default version will be the latest stable release. However, you can also ask
 !!! note "Install exaStamp specific version"
   
     ```bash
+    spack install exastamp@3.7.4
     spack install exastamp@3.7.3
     spack install exastamp@3.7.2
     spack install exastamp@3.7.0
