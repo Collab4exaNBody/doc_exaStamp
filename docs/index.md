@@ -18,10 +18,12 @@ icon: material/shield-home
   </div>
 </div>
 
+<!--  
 <div style="display: flex; justify-content: center;">
   <img src="img/microjet.png" alt="microjet" style="width: 100%; height: auto;">
 </div>
-
+-->
+  
 !!! info "Information"
     
     Direct access to general information about the code features, GitHub repositories and team information can be found below. To access the documentation related to build and install instruction, user guide, tutorials and so on, please use the top menu.
@@ -49,8 +51,9 @@ icon: material/shield-home
 -   :simple-semanticrelease:{ .lg .middle } __Latest Releases__
 
     ---
+    - :octicons-tag-24: [__V3.7.3__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.3)
+  
     - :octicons-tag-24: [__V3.7.2__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.2)
-
     
 -   :material-scale-balance:{ .lg .middle } __Open Source, Apache 2.0__
 

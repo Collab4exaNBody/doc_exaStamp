@@ -98,14 +98,17 @@ If you have a GPU on your machine, you can also ask for a CUDA installation thro
     spack install exastamp+cuda
     ```
 
-The default version will be the latest stable release. However, you can also ask for a specific branch as follow:
+The default version will be the latest stable release. However, you can also ask for a specific release version as follows:
 
 !!! note "Install exaStamp specific version"
   
     ```bash
+    spack install exastamp@3.7.3
     spack install exastamp@3.7.2
     spack install exastamp@3.7.0
     ```
+
+In that case, the appropriate version of onika and exaNBody will be automatically installed.
 
 Finally, the commands listed above will install the appropriate version of `cmake`, `yaml-cpp`, `onika` and `exaNBody` and additional required packages by the `exaStamp` recipe. Eventually, to run an `exaStamp` case, do the following:
 
