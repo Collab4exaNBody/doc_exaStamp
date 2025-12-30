@@ -1,15 +1,15 @@
 ---
-icon: material/shield-home 
+icon: lucide/braces
 ---
 
-# **Welcome to the exaStamp online documentation!**
-  
+# Welcome to the exaStamp online documentation!
+
 <div style="display:flex; justify-content: space-between; align-items: center;">
   <div style="text-align: left; width: 70%;">
     <div style="font-size: 1.8rem; font-weight: 700; line-height: 1.2;">
-      <span style="color: blue;">exa</span>scale <span style="color: blue;">S</span>imulation of
-      <span style="color: blue;">T</span>ime-dependent <span style="color: blue;">A</span>tomic and
-      <span style="color: blue;">M</span>olecular systems in <span style="color: blue;">P</span>arallel.
+      <span style="color: teal;">exa</span>scale <span style="color: teal;">S</span>imulation of
+      <span style="color: teal;">T</span>ime-dependent <span style="color: teal;">A</span>tomic and
+      <span style="color: teal;">M</span>olecular systems in <span style="color: teal;">P</span>arallel.
     </div>
   </div>
 
@@ -51,8 +51,10 @@ icon: material/shield-home
 -   :simple-semanticrelease:{ .lg .middle } __Latest Releases__
 
     ---
+    - :octicons-tag-24: [__V3.7.4__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.4)
+
     - :octicons-tag-24: [__V3.7.3__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.3)
-  
+
     - :octicons-tag-24: [__V3.7.2__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.2)
     
 -   :material-scale-balance:{ .lg .middle } __Open Source, Apache 2.0__

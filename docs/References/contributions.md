@@ -1,3 +1,7 @@
+---
+icon: fontawesome/solid/people-carry
+---
+
 # Contribution papers
 
 **exaStamp** is the result of many years of co-development and contains previously published as well as independently developed methods and algorithms initially designed as post analysis tools for some of them. Below is a table of various methods available in **exaStamp** with corresponding paper that should be cited when used in the context of your work.

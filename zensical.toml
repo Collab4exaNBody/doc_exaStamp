@@ -1,0 +1,147 @@
+[project]
+site_name = "exaStamp"
+repo_url = "https://github.com/Collab4exaNBody/exaStamp"
+repo_name = "Collab4exaNBody/exaStamp"
+copyright = "Copyright &copy; 2025 P. Lafourcade, T. Carrard"
+use_directory_urls = false
+nav = [
+    {"Home" = "index.md"},
+    {"Overview" = ["Overview/overview.md",
+		   {"Distribution" = "Overview/distribution.md"},
+		   {"Code evolution" = "Overview/releases.md"},
+		   {"Features" = "Overview/features.md"}]},
+    {"Build & Install" = [
+    	      	       "BuildInstall/index.md",
+		       "BuildInstall/spack_installation.md",
+		       "BuildInstall/cmake_installation.md",
+		       "BuildInstall/running.md"
+    ] },
+    {"User Guide" = [
+    	   	  "User/A_index.md",
+		  {"Getting Started" = ["User/B_GettingStarted/building_blocks.md","User/B_GettingStarted/yaml_basics.md", "User/B_GettingStarted/configuration_files.md"] },
+#		  {"Domain & Regions" = ["User/DomainRegions/index.md", "User/DomainRegions/domain.md", "User/DomainRegions/regions.md"] },
+#		  {"Grids" = ["User/Grids/index.md", "User/Grids/flavors.md", "User/Grids/input.md", "User/Grids/analysis.md", "User/Grids/output.md"]},
+#		  {"Particles" = ["User/Particles/index.md","User/Particles/species.md","User/Particles/input.md","User/Particles/analysis.md","User/Particles/output.md"]},
+#		  {"Force Field" = "User/ForceFields/index.md"},
+#		  {"Ensemble & Constraints" = "User/EnsemblesConstraints/index.md"}
+		  
+    ] },
+    {"Tutorials" = [
+    		   "Tutorials/index.md",
+		   "Tutorials/tutorial1.md",
+		   "Tutorials/tutorial2.md",
+		   "Tutorials/tutorial3.md",		   
+		   ]},
+    {"microStamp MiniApp" = ["microStamp/index.md",
+			     "microStamp/cmake_installation.md",
+			     "microStamp/spack_installation.md",
+			     "microStamp/running.md"]},
+    {"References" = ["References/index.md",
+		     "References/contributions.md"]},
+    {"About" = "About/index.md"} 
+			
+			 
+]
+
+extra_javascript = [
+    "javascripts/katex.js",
+    "https://unpkg.com/katex@0/dist/katex.min.js",
+    "https://unpkg.com/katex@0/dist/contrib/auto-render.min.js",
+    "javascripts/mathjax.js",
+    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"
+]
+
+extra_css = [
+    "https://unpkg.com/katex@0/dist/katex.min.css",
+#    "styles/extra.css"
+]
+
+[project.theme]
+features = [
+    "annoce.dismiss",
+    "content.code.annotate",
+    "content.code.copy",
+    "content.code.select",
+    "content.tooltips",
+    "content.footnote.tooltips",
+    "search.highlight",
+    "navigation.footer",
+    "navigation.top",
+    "navigation.tabs",
+    "navigation.tabs.sticky",
+    "navigation.tracking",
+    "navigation.sections"
+#    "navigation.indexes"
+]
+logo = "img/xsp_logo.png"
+
+# Palette toggle for automatic mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme)"
+toggle.icon = "lucide/sun-moon"
+toggle.name = "Switch to light mode"
+
+# Palette toggle for light mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "pink"
+accent = "deep purple"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+# Palette toggle for dark mode
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "indigo"
+accent = "teal"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to system preference"
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+previous = "fontawesome/brands/git-alt"
+next = "fontawesome/solid/angle-right"
+edit = "material/pencil"
+view = "material/eye"
+
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.pymdownx.details]
+
+[project.markdown_extensions.pymdownx.superfences]
+custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
+
+[project.markdown_extensions.pymdownx.emoji]
+emoji_index = "zensical.extensions.emoji.twemoji" 
+emoji_generator = "zensical.extensions.emoji.to_svg"
+
+[project.markdown_extensions.pymdownx.tabbed]
+alternate_style = true
+
+[project.markdown_extensions.abbr]
+
+[project.markdown_extensions.pymdownx.inlinehilite]
+
+[project.markdown_extensions.pymdownx.highlight]
+anchor_linenums = true
+line_spans = "__span"
+use_pygments = true
+pygments_lang_class = true
+
+[project.markdown_extensions.pymdownx.tasklist]
+custom_checkbox = true
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
+[project.markdown_extensions.md_in_html]
+[project.markdown_extensions.footnotes]
+[project.markdown_extensions.def_list]
+
+[project.markdown_extensions.toc]
+toc_depth = 6
+permalink = true
