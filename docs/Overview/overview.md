@@ -4,7 +4,7 @@ icon: octicons/history-16
 
 # A little background
 
-`exaStamp` is a software package for molecular dynamics simulations. It stands for `Simulations Temporelles Atomistiques et Moléculaires Parallèle à l’Exascale` (in French) or `exascale Simulations of Time-dependent Atomistic and Molecular systems in Parallel` (in English).
+**exaStamp** is a software package for molecular dynamics simulations. It stands for `Simulations Temporelles Atomistiques et Moléculaires Parallèle à l’Exascale` (in French) or `exascale Simulations of Time-dependent Atomistic and Molecular systems in Parallel` (in English).
 
 `exaStamp` is a classical molecular dynamics (MD) code developed within the `exaNBody`[^exanbody] framework HTML, allowing users to model systems of particles in any state (liquid, solid, or gas). For example, polymers, molecular crystals, and dense crystalline materials such as metals, ceramics, and oxides can be simulated with `exaStamp`. A wide range of force fields and boundary conditions is available, enabling complex simulations with up to a few billion particles.
 

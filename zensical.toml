@@ -6,26 +6,105 @@ copyright = "Copyright &copy; 2025 P. Lafourcade, T. Carrard"
 use_directory_urls = false
 nav = [
     {"Home" = "index.md"},
-    {"Overview" = ["Overview/overview.md",
-		   {"Distribution" = "Overview/distribution.md"},
-		   {"Code evolution" = "Overview/releases.md"},
-		   {"Features" = "Overview/features.md"}]},
+    {"Overview" = [
+        "Overview/overview.md",
+		{"Distribution" = "Overview/distribution.md"},
+		{"Code evolution" = "Overview/releases.md"},
+		{"Features" = "Overview/features.md"}
+    ]},
     {"Build & Install" = [
-    	      	       "BuildInstall/index.md",
-		       "BuildInstall/spack_installation.md",
-		       "BuildInstall/cmake_installation.md",
-		       "BuildInstall/running.md"
-    ] },
+    	"BuildInstall/index.md",
+		"BuildInstall/spack_installation.md",
+		"BuildInstall/cmake_installation.md",
+		"BuildInstall/running.md"
+    ]},
     {"User Guide" = [
-    	   	  "User/A_index.md",
-		  {"Getting Started" = ["User/B_GettingStarted/building_blocks.md","User/B_GettingStarted/yaml_basics.md", "User/B_GettingStarted/configuration_files.md"] },
-#		  {"Domain & Regions" = ["User/DomainRegions/index.md", "User/DomainRegions/domain.md", "User/DomainRegions/regions.md"] },
-#		  {"Grids" = ["User/Grids/index.md", "User/Grids/flavors.md", "User/Grids/input.md", "User/Grids/analysis.md", "User/Grids/output.md"]},
-#		  {"Particles" = ["User/Particles/index.md","User/Particles/species.md","User/Particles/input.md","User/Particles/analysis.md","User/Particles/output.md"]},
-#		  {"Force Field" = "User/ForceFields/index.md"},
-#		  {"Ensemble & Constraints" = "User/EnsemblesConstraints/index.md"}
+    	"User/A_index.md",
+		{"Getting Started" = [
+            "User/B_GettingStarted/building_blocks.md",
+            "User/B_GettingStarted/configuration_files.md",
+            "User/B_GettingStarted/yaml_basics.md"
+        ]},
+        {"Simulation Starter Pack" = [
+            "User/C_StarterPack/index.md"
+        ]},
+        {"Domain & Regions" = [
+            "User/D_DomainRegions/domain.md",
+            "User/D_DomainRegions/regions.md"
+        ]},
+        {"Grids Features" = [
+            "User/E_Grids/flavors.md",
+            "User/E_Grids/input.md",
+            "User/E_Grids/output.md",            
+            "User/E_Grids/analysis.md"
+        ]},
+        {"Particles Features" = [
+            "User/F_Particles/species.md",
+            "User/F_Particles/input.md",
+            "User/F_Particles/output.md",            
+            "User/F_Particles/analysis.md",
+        ]},
+        {"Interatomic Potentials" =  [
+            "User/G_ForceFields/index.md",
+            "User/G_ForceFields/general.md",
+            {"Pair Potentials" = [
+                "User/G_ForceFields/Pair/index.md",
+                "User/G_ForceFields/Pair/Strategies/index.md",
+                {"Styles" = [
+                    "User/G_ForceFields/Pair/Models/index.md",
+                    "User/G_ForceFields/Pair/Models/buckingham.md",
+                    "User/G_ForceFields/Pair/Models/coul_cut.md",
+                    "User/G_ForceFields/Pair/Models/coul_wolf_pair.md",
+                    "User/G_ForceFields/Pair/Models/exp6.md",    
+                    "User/G_ForceFields/Pair/Models/exp6rf.md",
+                    "User/G_ForceFields/Pair/Models/lj.md",
+                    "User/G_ForceFields/Pair/Models/ljexp6rf_exp6.md",
+                    "User/G_ForceFields/Pair/Models/ljexp6rf_lj.md",
+                    "User/G_ForceFields/Pair/Models/ljrf.md",
+                    "User/G_ForceFields/Pair/Models/ljwolf.md",
+                    "User/G_ForceFields/Pair/Models/reaction_field.md",
+                    "User/G_ForceFields/Pair/Models/relax.md",
+                    "User/G_ForceFields/Pair/Models/tabpair.md",
+                    "User/G_ForceFields/Pair/Models/zbl.md",
+                    "User/G_ForceFields/Pair/Models/zero.md"                                   
+                ]}
+            ]},
+            {"EAM Potentials" = [
+                "User/G_ForceFields/EAM/index.md",
+                "User/G_ForceFields/EAM/alloy.md",
+                "User/G_ForceFields/EAM/johnson.md",
+                "User/G_ForceFields/EAM/ravelo.md",
+                "User/G_ForceFields/EAM/sutton_chen.md",
+                "User/G_ForceFields/EAM/vniitf.md",
+                "User/G_ForceFields/EAM/tab.md",
+            ]},
+            {"MEAM Potentials" = [
+                "User/G_ForceFields/MEAM/meam.md",
+                "User/G_ForceFields/MEAM/meam_lj.md",
+            ]},
+            {"Reactive Potentials" = [
+                "User/G_ForceFields/Reactive/lchbop.md",
+                "User/G_ForceFields/Reactive/rebo.md",
+            ]},
+            {"Machine Learning Potentials" = [
+                "User/G_ForceFields/MLIP/snap.md",
+                "User/G_ForceFields/MLIP/nnp.md",
+                "User/G_ForceFields/MLIP/ace.md",
+            ]},                 
+            {"Electrostatics Potentials" = [
+                "User/G_ForceFields/Electrostatics/short.md",
+                "User/G_ForceFields/Electrostatics/long.md",
+            ]},    
+            {"Intramolecular Potentials" = [
+                "User/G_ForceFields/Intramolecular/bonds.md",
+                "User/G_ForceFields/Intramolecular/torsions.md",
+                "User/G_ForceFields/Intramolecular/dihedrals.md",
+                "User/G_ForceFields/Intramolecular/impropers.md",                                
+            ]},                                                                 
+        ]}
+#        {"Ensemble & Constraints" = "User/EnsemblesConstraints/index.md"}
 		  
-    ] },
+    ]},
     {"Tutorials" = [
     		   "Tutorials/index.md",
 		   "Tutorials/tutorial1.md",
@@ -53,6 +132,7 @@ extra_javascript = [
 
 extra_css = [
     "https://unpkg.com/katex@0/dist/katex.min.css",
+    "styles/extra_styles.css"
 #    "styles/extra.css"
 ]
 

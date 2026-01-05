@@ -1,4 +1,8 @@
-# Domain
+---
+icon: lucide/cuboid
+---
+
+# Simulation Domain
 
 ## Physical space vs Grid space
 

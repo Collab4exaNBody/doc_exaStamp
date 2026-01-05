@@ -1,3 +1,7 @@
+---
+icon: material/export
+---
+
 .. _particles-output:
 
 Output

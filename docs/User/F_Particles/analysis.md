@@ -1,3 +1,7 @@
+---
+icon: simple/moleculer
+---
+
 .. _particles-analysis:
 
 Analysis

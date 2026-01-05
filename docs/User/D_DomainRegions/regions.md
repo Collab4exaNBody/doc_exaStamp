@@ -1,3 +1,7 @@
+---
+icon: lucide/shapes
+---
+
 # Spatial Regions
 
 ## Geometrically defined regions

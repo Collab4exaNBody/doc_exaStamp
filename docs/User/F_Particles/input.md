@@ -1,3 +1,8 @@
+---
+icon: material/import
+---
+
+
 .. _particles-input:
 
 Input

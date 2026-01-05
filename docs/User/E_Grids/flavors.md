@@ -1,5 +1,9 @@
-Grid Flavors
-============
+---
+icon: material/shaker-outline
+---
+
+Grid Flavor
+===========
 
 In ``ExaStamp``, the grid flavor pre-defines the data attached to particles during the simulation, meaning that such data is stored anyway along the entire trajectory. Some fields can evolve with time such as positions or velocity while some can be fixed such as the particle identifiers or partial charges.
 

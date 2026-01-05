@@ -1,5 +1,0 @@
-# **Electrostatic Potentials**
-
-
-
-
