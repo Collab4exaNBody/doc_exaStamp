@@ -8,6 +8,8 @@ exaStamp documentation is built using [Zensical](https://zensical.org/).
 python3 -m venv .venv
 source .venv/bin/activate
 pip install zensical
+# Inf SSL verification causes trouble:
+pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --proxy http://proxy.dam.intra.cea.fr:3128 zensical
 ```
 
 ## Preview as you write
