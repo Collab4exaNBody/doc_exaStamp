@@ -26,7 +26,14 @@ nav = [
             "User/B_GettingStarted/yaml_basics.md"
         ]},
         {"Simulation Starter Pack" = [
-            "User/C_StarterPack/index.md"
+            "User/C_StarterPack/0_index.md",            
+            "User/C_StarterPack/1_global.md",   
+            "User/C_StarterPack/2_species.md", 
+            "User/C_StarterPack/3_domain.md", 
+            "User/C_StarterPack/4_input.md", 
+            "User/C_StarterPack/5_force.md", 
+            "User/C_StarterPack/6_dump.md",
+            "User/C_StarterPack/7_example.md",                                
         ]},
         {"Domain & Regions" = [
             "User/D_DomainRegions/domain.md",
@@ -189,6 +196,7 @@ view = "material/eye"
 [project.markdown_extensions.attr_list]
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.tables]
 
 [project.markdown_extensions.pymdownx.superfences]
 custom_fences = [

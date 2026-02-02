@@ -1,35 +1,31 @@
 # Documentation
 
-exaStamp documentation is made with [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
+exaStamp documentation is built using [Zensical](https://zensical.org/).
 
-## How to build a static version?
-
-### Prerequisities
-
-MkDocs, a number of plugins and extensions are required to create the documentation and to have the desired rendering in HTML.
-
-All these requirements are listed in the file `requirements.txt`. Their installation is done using `pip`:
+## Prerequisities
 
 ```bash
-pip install -r requirements.txt
+python3 -m venv .venv
+source .venv/bin/activate
+pip install zensical
 ```
 
-### Documentation 
+## Preview as you write
+  
+Zensical includes a web server, so you can preview exaStamp documentation site as you write. The server will automatically rebuild the site when you make changes to source files. Start it with:
 
-Once the prerequisites are installed, the documentation can be created by running the command:
 ```bash
-bash install.sh
+zensical serve
 ```
-This will create a folder called `exaStamp_doc` in which users will find the `index.html` file needed 
-to open the documentation with their preferred browser. 
+  
+Point your browser to [localhost:8000](localhost:8000) and you should see it appear.
 
+## Build exaStamp site
 
+When you're finished editing, you can build a static site from your Markdown files with:
 
-
-
-
-
-
-
-
-
+```bash
+zensical build
+```
+  
+The contents of this directory make up your project documentation. There's no need for operating a database or server, as it is completely self-contained.
