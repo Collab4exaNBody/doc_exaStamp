@@ -13,4 +13,4 @@ In the present section, we explain in detail the different interatomic potential
 - [**Reactive potentials**](Reactive/index.md)
 - [**Machine Learning Interatomic potentials (MLIP)**](MLIP/index.md)
 - [**Electrostatic potentials**](Electrostatics/index.md)
-- [**Intramolecular potentials**](Intramolecular/index.md)
+- [**Bonding potentials**](Intramolecular/index.md)
