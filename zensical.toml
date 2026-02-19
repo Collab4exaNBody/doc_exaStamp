@@ -102,12 +102,44 @@ nav = [
                 "User/G_ForceFields/Electrostatics/short.md",
                 "User/G_ForceFields/Electrostatics/long.md",
             ]},    
-            {"Intramolecular Potentials" = [
-                "User/G_ForceFields/Intramolecular/bonds.md",
-                "User/G_ForceFields/Intramolecular/torsions.md",
-                "User/G_ForceFields/Intramolecular/dihedrals.md",
-                "User/G_ForceFields/Intramolecular/impropers.md",                                
-            ]},                                                                 
+            #{"Intramolecular Potentials" = [
+            #    "User/G_ForceFields/Intramolecular/bonds.md",
+            #    "User/G_ForceFields/Intramolecular/torsions.md",
+            #    "User/G_ForceFields/Intramolecular/dihedrals.md",
+            #    "User/G_ForceFields/Intramolecular/impropers.md",                                
+            #]},                                                                 
+        ]},
+        {"Bonding Potentials" = [
+            "User/G_ForceFields/Intramolecular/index.md",
+            {"Bond" = [
+                "User/G_ForceFields/Intramolecular/Bond/index.md",
+                "User/G_ForceFields/Intramolecular/Bond/harm_bond.md",
+                "User/G_ForceFields/Intramolecular/Bond/opls_bond.md",
+                "User/G_ForceFields/Intramolecular/Bond/quar_bond.md",
+                "User/G_ForceFields/Intramolecular/Bond/no_potential.md"
+            ]},
+            {"Bend" = [
+                "User/G_ForceFields/Intramolecular/Bend/index.md",
+                "User/G_ForceFields/Intramolecular/Bend/harm_bend.md",
+                "User/G_ForceFields/Intramolecular/Bend/opls_bend.md",
+                "User/G_ForceFields/Intramolecular/Bend/quar_bend.md",
+                "User/G_ForceFields/Intramolecular/Bend/no_potential.md"
+            ]},
+            {"Torsion" = [
+                "User/G_ForceFields/Intramolecular/Torsion/index.md",
+                "User/G_ForceFields/Intramolecular/Torsion/harm_torsion.md",
+                "User/G_ForceFields/Intramolecular/Torsion/opls_torsion.md",
+                "User/G_ForceFields/Intramolecular/Torsion/compass_torsion.md",
+                "User/G_ForceFields/Intramolecular/Torsion/0.5compass_torsion.md",
+                "User/G_ForceFields/Intramolecular/Torsion/cos_two.md",
+                "User/G_ForceFields/Intramolecular/Torsion/no_potential.md"
+            ]},
+            {"Improper" = [
+                "User/G_ForceFields/Intramolecular/Improper/index.md",
+                "User/G_ForceFields/Intramolecular/Improper/harm_improper.md",
+                "User/G_ForceFields/Intramolecular/Improper/opls_improper.md",
+                "User/G_ForceFields/Intramolecular/Improper/no_potential.md"
+            ]},
         ]}
 #        {"Ensemble & Constraints" = "User/EnsemblesConstraints/index.md"}
 		  

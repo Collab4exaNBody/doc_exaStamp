@@ -121,7 +121,7 @@ write_xyz:
   ![Image title](img/eam_rho.gif){ width="300" }
   <figcaption>Image caption</figcaption>
 </figure>
-  
+
 ### **Spatial average**
 
 Thanks to new functionalities added in exaNBody@v2.0.5, a spatial averaging function is now available in exaStamp. 
