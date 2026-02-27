@@ -16,7 +16,6 @@ For all the codes, a single installation method through the use of ``CMake`` is 
 
 All three platforms extensively use the ``YAML`` Library. To build ``YAML`` from sources, read the following instructions. Installations procedures using `spack`, `apt-get` or `CMake` are provided.
 
-
 === "`apt-get`"
 
     ```bash linenums="1"
