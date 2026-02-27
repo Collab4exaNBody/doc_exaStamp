@@ -151,9 +151,13 @@ nav = [
 		   "Tutorials/tutorial3.md",		   
 		   ]},
     {"microStamp MiniApp" = ["microStamp/index.md",
+           { "microStamp Installation" = [
 			     "microStamp/cmake_installation.md",
 			     "microStamp/spack_installation.md",
-			     "microStamp/running.md"]},
+			     "microStamp/running.md"] } ,
+           { "microStamp Examples" = [
+                "microStamp/lennard_jones.md",
+                "microStamp/snap.md"] } ] },
     {"References" = ["References/index.md",
 		     "References/contributions.md"]},
     {"About" = "About/index.md"} 

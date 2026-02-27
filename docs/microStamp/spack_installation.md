@@ -12,100 +12,86 @@ Installation with `Spack` is easy and preferable for users who don't want to dev
 
 Below are instructions to first retrieve spack sources and install it on your system. First, clone the corresponding git repository and source the appropriate environment.
 
-!!! note "Clone Spack"
-  
-    ```bash
-    cd ${HOME}/dev
-    git clone --depth=2 --branch=v1.1.0 https://github.com/spack/spack.git
-    export SPACK_ROOT=${HOME}/dev/spack
-    source ${SPACK_ROOT}/share/spack/setup-env.sh
-    ```
+```bash
+cd ${HOME}/dev
+git clone --depth=2 --branch=v1.1.0 https://github.com/spack/spack.git
+export SPACK_ROOT=${HOME}/dev/spack
+source ${SPACK_ROOT}/share/spack/setup-env.sh
+```
 
 ### **YAML library**
 
 All three platforms extensively use the ``YAML`` Library. To build ``YAML`` from sources, read the following instructions. Installations procedures using `spack`, `apt-get` or `CMake` are provided.
+    
+=== "`Spack`"
 
-!!! note "Installation procedure for YAML"
+    ```bash linenums="1"
+    spack install yaml-cpp@0.6.3
+    spack load yaml-cpp@0.6.3
+    ```
+  
+=== "`apt-get`"
 
-    === "Spack"
+    ```bash linenums="1"
+    sudo apt-get install libyaml-cpp-dev
+    ```
 
-        ``` bash
-        spack install yaml-cpp@0.6.3
-        spack load yaml-cpp@0.6.3
-        ```
+=== "`CMake`"
 
-    === "apt-get install"
+    ```bash linenums="1" hl_lines="1 7 11 25"
+    # 1. Retrieve yaml-cpp-0.6.3 sources into temporary folder
+    
+    YAMLTMPFOLDER=${path_to_tmp_yaml}
+    mkdir ${YAMLTMPFOLDER} && cd ${YAMLTMPFOLDER}
+    git clone --depth 1 --branch yaml-cpp-0.6.3 git@github.com:jbeder/yaml-cpp.git
 
-        ``` bash
-        sudo apt-get install libyaml-cpp-dev
-        ```  
+    # 2. Setup environment variable for installation directory (add this to your .bashrc)
+    
+    export YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3
 
-    === "CMake"
-
-        ``` bash
-        # Retrieve YAML sources into temporary folder
-        YAMLTMPFOLDER=${path_to_tmp_yaml}
-        mkdir ${YAMLTMPFOLDER} && cd ${YAMLTMPFOLDER}
-        git clone --depth 1 --branch yaml-cpp-0.6.3 git@github.com:jbeder/yaml-cpp.git
-
-        # Define installation directory
-        YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3
-
-        # Build and install YAML from sources using CMake 
-        cd ${YAMLTMPFOLDER} && mkdir build && cd build
-        cmake -DCMAKE_BUILD_TYPE=Debug \
-              -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
-              -DYAML_BUILD_SHARED_LIBS=OFF \
-              -DYAML_CPP_BUILD_CONTRIB=ON \
-              -DYAML_CPP_BUILD_TESTS=OFF \
-              -DYAML_CPP_BUILD_TOOLS=OFF \
-              -DYAML_CPP_INSTALL=ON \
-              -DCMAKE_CXX_FLAGS=-fPIC \
-              ../yaml-cpp
-        make -j4 install
-        export YAML_CPP_INSTALL_DIR=${YAML_CPP_INSTALL_DIR}/yaml-cpp-0.6.3
-        # Remove temporary folder
-        cd ../..
-        rm -r ${YAMLTMPFOLDER}            
-        ```  
+    # 3. Build and install using CMake
+    
+    cd ${YAMLTMPFOLDER} && mkdir build && cd build
+    cmake -DCMAKE_BUILD_TYPE=Debug \
+          -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
+          -DYAML_BUILD_SHARED_LIBS=OFF \
+          -DYAML_CPP_BUILD_CONTRIB=ON \
+          -DYAML_CPP_BUILD_TESTS=OFF \
+          -DYAML_CPP_BUILD_TOOLS=OFF \
+          -DYAML_CPP_INSTALL=ON \
+          -DCMAKE_CXX_FLAGS=-fPIC \
+          ../yaml-cpp
+    make -j4 install
+    
+    # 4. Remove the temporary folder
+    cd ../../
+    rm -r ${YAMLTMPFOLDER}
+    ```
     
 At this point, you should have YAML installed on your system. Please note that the installation procedure of YAML from sources using `CMake` also works on HPC clusters. In the following, remember to add the `-DCMAKE_PREFIX_PATH=${YAML_CPP_INSTALL_DIR} argument to your cmake command.
 
-## **microStamp in exaNBody**
+## **exaNBody x microStamp**
 
 First, clone the `spack-repos` GitHub repository on your computer and add this repository to spack. This repository contains `onika` and `exaNBody` recipes that allow for their installation.
 
-!!! note "Clone spack-repos"
-  
-    ```bash
-    git clone https://github.com/Collab4exaNBody/spack-repos.git
-    spack repo add spack-repos
-    ```
+```bash
+git clone https://github.com/Collab4exaNBody/spack-repos.git
+spack repo add spack-repos
+```
 
-Then, simply install `exaNBody`. To get access to the `microStamp` mini application, you need to require the variant `contribs` as follows:
+Then, simply install `exaNBody`. To get access to the `microStamp` mini application, you need to require the `contribs` variant as follows:
 
-!!! note "Install exaNBody"
-  
+=== "`Linux x GCC`"
+    
     ```bash
     spack install exanbody+contribs
     ```
 
-If you have a GPU on your machine, you can also ask for a CUDA installation through the following command:
+=== "`Linux x GCC x CUDA`"
   
-!!! note "Install exaNBody + contribs with CUDA support"
-
     ```bash
     spack install exanbody+contribs+cuda
     ```
 
-The default version will be the latest stable release. However, you can also ask for a specific branch as follow:
-
-Finally, the commands listed above will install the appropriate version of `cmake`, `yaml-cpp`, `onika` and `exaNBody` and additional required packages allowing you to run MD simulations directly with `exaNBody`. Eventually, to run an `exaNBody` case, do the following:
-
-!!! note "Install exaStamp"
-  
-    ```bash
-    spack load exanbdoy
-    exaNBody myinput.msp
-    ```
+The default version will be the latest stable release.
     

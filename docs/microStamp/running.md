@@ -4,6 +4,39 @@ icon: material/run
 
 # **Running microStamp**
 
+## **Placing the appropriate environment**
+
+Before running the application, you need to place the appropriate environment. Depending on whether you installed exaNBody with spack or through CMake, follow these steps
+    
+=== "`CMake Installation`"
+
+    ```bash linenums="1"
+    source ${XNB_INSTALL_DIR}/bin/exaNBody
+    ```
+
+=== "`Spack Installation`"
+
+    ```bash linenums="1"
+    spack load exanbody
+    ```
+
+The executable is pretty straigthforward in each case. Let's say your input file is named "myinput.msp" you can proceed as follows
+
+=== "`CMake Installation`"
+  
+    ```bash linenums="1" hl_lines="1 3"
+    # Run through exaNBody executable
+    ${XNB_INSTALL_DIR}/bin/exaNBody myinput.msp
+    # Or run through onika executable
+    ${ONIKA_INSTALL_DIR}/bin/onika-exec myinput.msp
+    ```
+
+=== "`Spack Installation`"
+
+    ```bash
+    exaNBody myinput.msp
+    ```
+        
 !!! note "Basic YAML example for exaStamp"
   
     ```bash
