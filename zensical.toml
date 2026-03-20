@@ -156,8 +156,7 @@ nav = [
 			     "microStamp/spack_installation.md",
 			     "microStamp/running.md"] } ,
            { "microStamp Examples" = [
-                "microStamp/lennard_jones.md",
-                "microStamp/snap.md"] } ] },
+                "microStamp/benchmarks.md" ] } ] },
     {"References" = ["References/index.md",
 		     "References/contributions.md"]},
     {"About" = "About/index.md"} 

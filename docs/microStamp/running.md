@@ -121,10 +121,10 @@ To run the above case, and depending if you installed `exaNBody` using `CMake` o
     === "CMake"
    
         ```bash
-        source ${XNB_BUILD_DIR}/exaNBody
+        source ${XNB_INSTALL_DIR}/bin/exaNBody
         export OMP_NUM_THREADS=10
         export N_MPI=2
-        mpirun -np ${N_MPI} ${XSP_BUILD_DIR}/exaNBody myinput.msp
+        mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody myinput.msp
         ```
   
     === "Spack"

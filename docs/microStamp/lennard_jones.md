@@ -4,7 +4,7 @@ icon: material/numeric-1-circle
 
 # **LJ potential**
 
-The examples related to the lennard-jones potential are located here:
+The physical examples related to the lennard-jones potential are located here:
 
 ```
 cd ${XNB_SRC_DIR}/contribs/microStamp/samples/lj
