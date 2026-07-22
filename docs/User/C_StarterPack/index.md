@@ -17,5 +17,5 @@ The following pages will guide you through defining each of these blocks, gather
 - [**Simulation domain**](3_domain.md) — defining the simulation domain through `domain`
 - [**Input data**](4_setup_system.md) — creating particles through `setup_system`
 - [**Interatomic potential**](5_force.md) — choosing an interatomic potential through `compute_force`
-- [**Output data**](6_output.md) — writing restart files or snapshots through `dump_data`
+- [**Output data**](6_output.md) — writing restart files or snapshots through `write_restart`/`write_snapshot`
 - [**Working example**](7_example.md) — a complete working example gathering all blocks above

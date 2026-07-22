@@ -17,7 +17,7 @@ compute_all_forces_energy:
   - compute_force_epilog
 ```
 
-Redefining `compute_force` in your input file is enough to select a potential — you don't need to touch `compute_force_prolog`/`compute_force_epilog` or `compute_all_forces_energy`. Three examples are given below: a simple analytical pair potential with no external file ([Lennard-Jones](#lennard-jones)), a tabulated potential read from a file ([EAM alloy](#eam-alloy-tantalum)), and a more complex analytical potential ([MEAM](#meam-tin)).
+Redefining `compute_force` in your input file is enough to select a potential — you don't need to touch `compute_force_prolog`/`compute_force_epilog` or `compute_all_forces_energy`. Three examples are given below: a simple analytical pair potential with no external file ([Lennard-Jones](#lennard-jones-argon)), a tabulated potential read from a file ([EAM alloy](#eam-alloy-tantalum)), and a more complex analytical potential ([MEAM](#meam-tin)).
 
 ## Lennard-Jones (Argon)
 
