@@ -5,9 +5,9 @@ Some operators in a simulation's graph are required and need to be defined by th
 ```yaml
 - global         # Global control of simulation parameters
 - species        # Definition of the particles' species
-- compute_force  # Choice of the interatomic potential
 - domain         # Definition of the simulation's domain
 - setup_system   # Population of the domain with particles
+- compute_force  # Choice of the interatomic potential
 ```
 
 The following pages will guide you through defining each of these blocks, gathered into one working example at the end:
