@@ -59,10 +59,10 @@ setup_system:
   - read_extended_xyz_file:
       filename: my_system.xyz
       bounds_mode: FILE
-      read_velocities: false
+      read_velocities: true
 ```
 
-`bounds_mode` tells `exaStamp` which domain bounds to keep: `FILE` (the cell matrix from the `Lattice=` key), `DOMAIN` (the `bounds:` you gave in `domain`), or `COMPUTED` (the bounding box of the atoms actually read); the domain's `xform` is set from the file's cell matrix accordingly. `grid_dims` doesn't need to be set — it's deduced from the resulting bounds and `cell_size`. Set `read_velocities: true` to also read a `velo` column from the file. If a `species` block was already declared, atom types in the file are matched to it by name; any unmatched name is added as a new species automatically.
+`bounds_mode` tells `exaStamp` which domain bounds to keep: `FILE` (the cell matrix from the `Lattice=` key), `DOMAIN` (the `bounds:` you gave in `domain`), or `COMPUTED` (the bounding box of the atoms actually read); the domain's `xform` is set from the file's cell matrix accordingly. `grid_dims` doesn't need to be set — it's deduced from the resulting bounds and `cell_size`. Set `read_velocities: false` if you do not want to read a `velo` column from the file. If a `species` block was already declared, atom types in the file are matched to it by name; any unmatched name is added as a new species automatically.
 
 !!! note
 
