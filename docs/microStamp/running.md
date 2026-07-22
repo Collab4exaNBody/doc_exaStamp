@@ -25,4 +25,4 @@ Now that you have installed `onika` and `exaNBody`, the `microStamp` MD mini app
 
 !!! note "Examples"
 
-    A lot of examples for `microStamp` are located in the `${XNB_SRC_DIR}/contribs/microStamp/samples` folder. A good start is to inspect these examples to design your first simulation.
+    A lot of examples for `microStamp` are located in the [exaNBody/contribs/microStamp/samples](https://github.com/Collab4exaNBody/exaNBody/tree/main/contribs/microStamp/samples) folder. A good start is to inspect these examples to design your first simulation.

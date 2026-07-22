@@ -9,7 +9,7 @@ A few examples to benchmark MD potentials are available in microStamp. These exa
 - Lennard-Jones (LJ)
 - Spectral Neighbor Atomistic Potential (SNAP)
   
-These examples can be accessed using the following command:
+These examples can be accessed [here](https://github.com/Collab4exaNBody/exaNBody/tree/main/contribs/microStamp/samples/benchmark_lj_snap) or using the following command:
 
 ```
 cd ${XNB_SRC_DIR}/contribs/microStamp/samples/benchmark_lj_snap/
@@ -35,7 +35,6 @@ One example for a LJ potential is available :
 To run this case, do the following:
 
 ```bash
-source ${XNB_INSTALL_DIR}/exaNBody
 export OMP_NUM_THREADS=8
 export N_MPI=1
 mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody input_lj_Ni.msp
@@ -44,7 +43,6 @@ mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody input_lj_Ni.msp
 Two examples for a SNAP potential are available. The first one consists in 8192 BCC Mo atoms that runs for 100 time-steps. To run this case, do the following:
 
 ```bash
-source ${XNB_INSTALL_DIR}/exaNBody
 export OMP_NUM_THREADS=8
 export N_MPI=1
 mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody input_snap_Mo.msp
@@ -53,7 +51,6 @@ mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody input_snap_Mo.msp
 The second one consists in 16384 FCC Ni atoms that run for 100 time-steps. To run this case, do the following:
 
 ```bash
-source ${XNB_INSTALL_DIR}/exaNBody
 export OMP_NUM_THREADS=8
 export N_MPI=1
 mpirun -np ${N_MPI} ${XNB_INSTALL_DIR}/exaNBody input_snap_Ni.msp
