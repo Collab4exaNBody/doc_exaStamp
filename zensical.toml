@@ -33,9 +33,10 @@ nav = [
             "User/C_StarterPack/2_species.md", 
             "User/C_StarterPack/3_domain.md", 
             "User/C_StarterPack/4_setup_system.md", 
-            "User/C_StarterPack/5_force.md", 
-            "User/C_StarterPack/6_output.md",
-            "User/C_StarterPack/7_example.md",                                
+            "User/C_StarterPack/5_force.md",
+            "User/C_StarterPack/6_numerical_scheme.md",
+            "User/C_StarterPack/7_output.md",
+            "User/C_StarterPack/8_example.md",                                
         ]},
         {"Domain & Regions" = [
             "User/D_DomainRegions/domain.md",

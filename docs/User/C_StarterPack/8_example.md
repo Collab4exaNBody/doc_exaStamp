@@ -4,14 +4,14 @@ icon: lucide/square-play
 
 # Working Example
 
-Putting together the blocks introduced in this Starter Pack gives a complete, working `exaStamp` input file. The example below generates a BCC Tantalum crystal with `lattice`, relaxes it under the `eam_alloy_force` potential, and periodically writes `.xyz` snapshots:
+Putting together the blocks introduced in this Starter Pack gives a complete, working `exaStamp` input file. The example below generates a BCC Tantalum crystal at 600 K with `lattice`/`init_temperature_new`, relaxes it towards 300 K under the `eam_alloy_force` potential with a Langevin thermostat, and periodically writes `.xyz` snapshots:
 
 ```yaml linenums="1"
 # --- Particles species (see Particles Species) ---
 species:
   - Ta: { mass: 180.95 Da, z: 73, charge: 0 e- }
 
-# --- Domain + system setup: BCC lattice (see Simulation Domain / Input Data) ---
+# --- Domain + system setup: BCC lattice at 600 K (see Simulation Domain / Input Data) ---
 setup_system:
   - domain:
       cell_size: 3.3 ang
@@ -24,6 +24,8 @@ setup_system:
       structure: BCC
       types: [ Ta, Ta ]
       size: [ 3.3 ang, 3.3 ang, 3.3 ang ]
+  - init_temperature_new:
+      T: 600 K
 
 # --- Interatomic potential: EAM alloy, single pass (see Interatomic Potential) ---
 eam_alloy_force:
@@ -33,6 +35,13 @@ eam_alloy_force:
 
 compute_force:
   - eam_alloy_force
+
+# --- Numerical scheme: Langevin NVT, 300 K target (see Numerical Scheme) ---
+numerical_scheme: verlet_lnvt
+
+langevin_thermostat:
+  T: 300 K
+  gamma: 0.1 ps^-1
 
 # --- Global control (see Global Control) ---
 global:
@@ -58,10 +67,11 @@ Each block maps directly back to the page that introduced it:
 | Block                    | Covered in                                          |
 | :------------------------ | :--------------------------------------------------- |
 | `species`                 | [Particles Species](2_species.md)                    |
-| `setup_system` (`domain`, `init_rcb_grid`, `lattice`) | [Simulation Domain](3_domain.md), [Input Data](4_setup_system.md) |
+| `setup_system` (`domain`, `init_rcb_grid`, `lattice`, `init_temperature_new`) | [Simulation Domain](3_domain.md), [Input Data](4_setup_system.md) |
 | `eam_alloy_force`, `compute_force` | [Interatomic Potential](5_force.md#eam-alloy-tantalum) |
+| `numerical_scheme`, `langevin_thermostat` | [Numerical Scheme](6_numerical_scheme.md#langevin-nvt-verlet_lnvt) |
 | `global`                  | [Global Control](1_global.md)                        |
-| `write_snapshot`          | [Output Data](6_output.md)                           |
+| `write_snapshot`          | [Output Data](7_output.md)                           |
 
 !!! tip
 

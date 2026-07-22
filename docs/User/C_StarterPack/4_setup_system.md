@@ -37,6 +37,8 @@ setup_system:
       structure: BCC
       types: [ Ta, Ta ]
       size: [ 3.3 ang, 3.3 ang, 3.3 ang ]
+  - init_temperature_new:
+      T: 600 K
 ```
 
 `structure` selects a predefined unit cell (`SC`, `BCC`, `2BCT`, `FCC`, `HCP`, `h-DIA`, `c-DIA`, `graphite`, or `CUSTOM` with an explicit `positions:` list), `types` assigns a species name (declared beforehand in `species`) to each atom of the unit cell — the required count depends on `structure` (`SC`: 1, `BCC`: 2, `2BCT`/`FCC`/`HCP`: 4, `c-DIA`/`h-DIA`/`graphite`: 8) — and `size` gives the unit cell's edge lengths, replicated to fill `domain`.
@@ -46,6 +48,8 @@ setup_system:
     `init_rcb_grid` must be called between `domain` and `lattice`: it partitions the grid across MPI ranks so `lattice` can generate particles directly into each rank's own block.
 
 `lattice` also accepts a `region:` (a region name or boolean expression of regions, see [Domain & Regions](../D_DomainRegions/regions.md)) to restrict generation to part of the domain, and `void_mode`/`void_center`/`void_radius`/`void_porosity` to carve out a cavity or a target porosity.
+
+`lattice` only places atoms — it doesn't give them any velocity, so the system starts at 0 K. `init_temperature_new`, called as the last `setup_system` step above, draws random (Maxwell-Boltzmann) velocities and rescales them so the system starts at `T` (here 600 K); it also accepts `override_velocities`/`add_velocities`/`scale_velocities` (mutually exclusive; default is `override_velocities: true`), `distribution` (`"gaussian"` or `"uniform"`), and `zero_linear_momentum` (removes net drift, default `true`).
 
 ## Reading an XYZ file
 
