@@ -1,0 +1,37 @@
+######################################################################################################
+##################################### Default configuration block  ###################################
+######################################################################################################
+
+configuration:
+  physics:
+    units:
+      length: angstrom
+      mass: Dalton
+      time: picosecond
+      charge: elementary_charge
+      temperature: kelvin
+      amount: particle
+      luminosity: candela
+      angle: radian
+      energy: joule
+  logging:
+    parallel: false
+    debug: false
+    profiling: false
+  profiling:
+    exectime: false
+    summary: false
+  debug:
+    plugins: false
+    config: false
+    graph: false
+    graph_lod: 0
+    filter: []
+  mpimt: true
+  pinethreads: false
+  num_threads: {}
+  omp_max_nesting: 2
+
+######################################################################################################
+######################################################################################################
+

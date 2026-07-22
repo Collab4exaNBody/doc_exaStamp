@@ -23,7 +23,8 @@ nav = [
 		{"Getting Started" = [
             "User/B_GettingStarted/building_blocks.md",
             "User/B_GettingStarted/configuration_files.md",
-            "User/B_GettingStarted/yaml_basics.md"
+            "User/B_GettingStarted/yaml_basics.md",
+            "User/B_GettingStarted/yaml_extensions.md"
         ]},
         {"Simulation Starter Pack" = [
             "User/C_StarterPack/0_index.md",            
@@ -228,9 +229,13 @@ next = "fontawesome/solid/angle-right"
 edit = "material/pencil"
 view = "material/eye"
 
+[project.markdown_extensions.zensical.extensions.macros]
+include_dir = "docs/files"
+
 [project.markdown_extensions.attr_list]
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.pymdownx.details]
+[project.markdown_extensions.pymdownx.snippets]
 [project.markdown_extensions.tables]
 
 [project.markdown_extensions.pymdownx.superfences]

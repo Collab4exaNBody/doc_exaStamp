@@ -1,0 +1,156 @@
+######################################################################################################
+############### Default configuration for building neighbor list and updating particles ##############
+######################################################################################################
+
+######################################################################################################
+################################## Include load balancing  ###########################################
+
+includes:
+  - config_load_balance.msp
+
+######################################################################################################
+######################################################################################################
+  
+######################################################################################################
+###################################### Trigger function  #############################################
+  
+# define a test node which outputs a boolean value 'trigger_move_particles'
+# which tells when to move particles across cells and update neighbor lists
+trigger_move_particles:
+  rebind: { threshold: max_displ , threshold_lab: max_displ_lab , result: trigger_move_particles }
+  body:
+    - particle_displ_over
+
+######################################################################################################
+######################################################################################################
+    
+################### AMR ############################
+rebuild_amr:
+  sub_grid_density: 6.5
+  amr_z_curve: false
+  enforced_ordering: 1
+####################################################
+
+######################################################################################################
+############################# Default ghost update configuration  ####################################
+
+update_ghost_config:
+  verbose: true
+  update_ghost_config:
+    mpi_tag: 0
+    gpu_buffer_pack: true
+    async_buffer_pack: true
+    staging_buffer: true
+    serialize_pack_send: true
+    wait_all: false
+    device_side_buffer: false
+
+######################################################################################################
+######################################################################################################
+
+######################################################################################################
+################################### Neighbors list update  ###########################################
+
+chunk_neighbors:
+  config:
+    free_scratch_memory: false
+    build_particle_offset: true
+    subcell_compaction: true
+    scratch_mem_per_cell: 1048576
+    stream_prealloc_factor: 1.05 # standard value to avoid most of dynamic allocations
+    chunk_size: 1
+
+chunk_neighbors_impl: chunk_neighbors
+
+update_particle_neighbors:
+  - amr_grid_pairs
+  - chunk_neighbors_impl
+  - resize_particle_locks
+
+######################################################################################################
+######################################################################################################
+
+######################################################################################################
+############################### Parallell particles migration  #######################################
+
+grid_post_processing: grid_memory_compact
+
+profile_ghost_comm_scheme: nop
+#profile_ghost_comm_scheme: print_ghost_comm_stats # exchange volume stats
+#profile_ghost_comm_scheme: print_ghost_comm_scheme # full print
+
+ghost_update_all_impl: ghost_update_all_no_fv
+
+ghost_full_update:
+  - ghost_comm_scheme
+  - profile_ghost_comm_scheme
+  - ghost_update_all_impl
+
+parallel_update_particles:
+  - migrate_cell_particles
+  - rebuild_amr
+  - backup_r
+  - ghost_full_update
+  - grid_post_processing
+  - update_particle_neighbors
+
+######################################################################################################
+######################################################################################################
+
+######################################################################################################
+################################## Particles Initialization  #########################################
+
+# define actions to initialize particles at startup, just after file read
+init_particles:
+  - move_particles
+  - extend_domain
+  - load_balance
+  - parallel_update_particles
+
+######################################################################################################
+######################################################################################################
+
+######################################################################################################
+################################## Particles Initialization  #########################################
+
+# NOTE : Full update is done when trigger_move_particles is true, i.e. when a particle has displaced
+# more than half the skin size since the last update.
+# NOTE : Fast update is done each time step, except when full update is done.
+
+# Body part of update_particles_full operator
+update_particles_full_body:
+  - move_particles
+  - trigger_load_balance
+  - load_balancing_if_triggered
+  - parallel_update_particles
+
+# Conditional update_particles_full operator  
+update_particles_full:
+  condition: trigger_move_particles
+  body:
+    - update_particles_full_body
+
+# Body part of update_particles_fast operator
+update_particles_fast_body:
+    - ghost_update_r
+
+# Conditional update_particles_fast operator  
+update_particles_fast:
+  condition: not trigger_move_particles
+  body:
+    - update_particles_fast_body
+    
+######################################################################################################
+############################# Main function called in all numerical schemes ##########################
+
+check_and_update_particles:
+  - trigger_move_particles
+  - update_particles_full
+  - update_particles_fast
+  - loadbalance_log_helper:
+      rebind: { lb_flag: trigger_load_balance , move_flag: trigger_move_particles }
+      body: [ lb_event_counter ]
+
+######################################################################################################
+######################################################################################################
+

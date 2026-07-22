@@ -2,3 +2,8 @@ section.justify p {
   text-align: justify;
   hyphens: auto;
 }
+
+.highlight .language-yaml,
+.highlight[class*="yaml"] pre {
+  font-size: .8em;
+}

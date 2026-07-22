@@ -1,0 +1,33 @@
+######################################################################################################
+################################# exaStamp default simulation graph ##################################
+######################################################################################################
+simulation:
+  name: exaStamp_simulation
+  body:
+    - print_logo_banner                                 # Print exaStamp banner
+    - hw_device_init                                    # Hardware setup (communicator + CUDA initialization)
+    - make_empty_grid                                   # Simulation grid setup
+    - grid_flavor                                       # Grid flavor == what mandatory per-particle data is stored
+    - global                                            # Global setup
+    - init_parameters                                   # Additional parameters
+    - generate_default_species                          # Default species
+    - particle_regions                                  # Region initialization
+    - preinit_rcut_max                                  # Automatic cell_size calculation
+    - domain                                            # Domain definition
+    - init_prolog                                       # Init prolog
+    - setup_system                                      # Setup system and populate it with particles
+    - species: { verbose: false , fail_if_empty: true } # Grid memory compaction
+    - grid_post_processing                              # Reduce species
+    - reduce_species_after_read                         # Update particle species 
+    - init_rcut_max                                     # Update cutoff radius + displacement tolerance
+    - print_domain                                      # Print domain
+    - performance_adviser: { verbose: true }            # Print performance recommendations
+    - init_epilog                                       # Init epilog
+    - species: { verbose: true , fail_if_empty: true }  # Species sanity check
+    - first_iteration                                   # Simulation first iteration 
+    - md_trajectory_loop                                # Simulation compute loop
+    - simulation_epilog                                 # Simulation finalization
+    - hw_device_finalize                                # CUDA finalization
+
+######################################################################################################
+######################################################################################################
