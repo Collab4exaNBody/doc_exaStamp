@@ -4,11 +4,7 @@ icon: simple/cmake
   
 # **Installation with CMake**
   
-At the ``exaNBody`` level, a mini MD app is avaiable for benchmark and optimization purposes. That mini app only contains the Lennard-Jones and the SNAP potentials. Below are the minimal instructions to build that mini app.
-
-The following installation consists in first building both the ``ONIKA`` HPC platform and the ``exaNBody`` particle simulation platform. Below are instructions for building both as well as final instruction for running the SNAP case where the initial system is read from a dump file.
-
-For all the codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
+`microStamp` installation first consists in building both the `onika` HPC layout as well as the `exaNBody` particles simulation framework. The `microStamp` mini app only contains the Lennard-Jones and the SNAP potentials. Below are the minimal instructions to build that mini app. Please note that the required minimal `CMake` version is `3.26`. For all the codes, a single installation method through the use of ``CMake`` is provided, dedicated to both users and developer. The use of ``CMake`` allows the full support on both `CPU` and `GPU` architectures.
 
 ## **Minimal requirements**
 
@@ -64,7 +60,6 @@ All three platforms extensively use the ``YAML`` Library. To build ``YAML`` from
 At this point, you should have YAML installed on your system. Please note that the installation procedure of YAML from sources using `CMake` also works on HPC clusters. In the following, remember to add the `-DCMAKE_PREFIX_PATH=${YAML_CPP_INSTALL_DIR} argument to your cmake command.
 
 ### **Onika**
-
 
 `onika` (Object Network Interface for Knit Applications), is a component based HPC software platform to build numerical simulation codes. It is the foundation for the `exaNBody` particle simulation platform but is not bound to N-Body problems nor other domain specific simulation code. `onika` uses industry grade standards and widely adopted technologies such as `CMake` and `C++20` for development and build, `YAML` for user input files, `MPI` and `OpenMP` for parallel programming, `Cuda` and `HIP` for GPU acceleration. To build `onika` from sources, read the following instructions. First, create and go to a directory in which you'll download the sources and declare some environment variables.
 
@@ -123,34 +118,16 @@ export XNB_INSTALL_DIR=${HOME}/local/exaNBody
 
 Finally, build and install `exaNBody` using the following instructions. First sourcing the `onika` environment will automatically update whether `cuda` support is available. To build the support for the microStamp MD miniapp, you need to declare the 
 
-=== "`Linux x GCC`"
-  
-    ```bash linenums="1"
-    mkdir build_exaNBody && cd build_exaNBody
-    source ${ONIKA_INSTALL_DIR}/bin/setup-env.sh
-    cmake -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=${XNB_INSTALL_DIR} \
-          -Donika_DIR=${ONIKA_INSTALL_DIR} \
-          -DEXANB_BUILD_CONTRIB_MD=ON \
-          -DEXANB_BUILD_MICROSTAMP=ON \
-          -DSNAP_CPU_USE_LOCKS=ON \
-          -DSNAP_FP32_MATH=OFF \
-          ${XNB_SRC_DIR}
-    make -j4 install
-    ```
-  
-=== "`Linux x GCC x CUDA`"
-    
-    ```bash linenums="1"
-    mkdir build_exaNBody && cd build_exaNBody
-    source ${ONIKA_INSTALL_DIR}/bin/setup-env.sh
-    cmake -DCMAKE_BUILD_TYPE=Release \
-          -DCMAKE_INSTALL_PREFIX=${XNB_INSTALL_DIR} \
-          -Donika_DIR=${ONIKA_INSTALL_DIR} \
-          -DEXANB_BUILD_CONTRIB_MD=ON \
-          -DEXANB_BUILD_MICROSTAMP=ON \
-          -DSNAP_CPU_USE_LOCKS=ON \
-          -DSNAP_FP32_MATH=OFF \
-          ${XNB_SRC_DIR}
-    make -j4 install
-    ```
+```bash linenums="1"
+mkdir build_exaNBody && cd build_exaNBody
+source ${ONIKA_INSTALL_DIR}/bin/setup-env.sh
+cmake -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=${XNB_INSTALL_DIR} \
+        -Donika_DIR=${ONIKA_INSTALL_DIR} \
+        -DEXANB_BUILD_CONTRIB_MD=ON \
+        -DEXANB_BUILD_MICROSTAMP=ON \
+        -DSNAP_CPU_USE_LOCKS=ON \
+        -DSNAP_FP32_MATH=OFF \
+        ${XNB_SRC_DIR}
+make -j4 install
+```

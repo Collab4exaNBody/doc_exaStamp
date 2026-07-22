@@ -12,62 +12,27 @@ Installation with `Spack` is easy and preferable for users who don't want to dev
 
 Below are instructions to first retrieve spack sources and install it on your system. First, clone the corresponding git repository and source the appropriate environment.
 
-```bash
-cd ${HOME}/dev
+```bash linenums="1" hl_lines="1 7"
+# 1. Retrieve Spack and add the path to your .bashrc
+
+mkdir ${HOME}/dev && cd ${HOME}/dev
 git clone --depth=2 --branch=v1.1.0 https://github.com/spack/spack.git
 export SPACK_ROOT=${HOME}/dev/spack
+
+# 2. Activate the Spack environment
+
 source ${SPACK_ROOT}/share/spack/setup-env.sh
 ```
 
 ### **YAML library**
 
-All three platforms extensively use the ``YAML`` Library. To build ``YAML`` from sources, read the following instructions. Installations procedures using `spack`, `apt-get` or `CMake` are provided.
+All three platforms extensively use the ``YAML`` Library. It can be easily installed through `spack` as follows:
     
-=== "`Spack`"
-
-    ```bash linenums="1"
-    spack install yaml-cpp@0.6.3
-    spack load yaml-cpp@0.6.3
-    ```
-  
-=== "`apt-get`"
-
-    ```bash linenums="1"
-    sudo apt-get install libyaml-cpp-dev
-    ```
-
-=== "`CMake`"
-
-    ```bash linenums="1" hl_lines="1 7 11 25"
-    # 1. Retrieve yaml-cpp-0.6.3 sources into temporary folder
-    
-    YAMLTMPFOLDER=${path_to_tmp_yaml}
-    mkdir ${YAMLTMPFOLDER} && cd ${YAMLTMPFOLDER}
-    git clone --depth 1 --branch yaml-cpp-0.6.3 git@github.com:jbeder/yaml-cpp.git
-
-    # 2. Setup environment variable for installation directory (add this to your .bashrc)
-    
-    export YAML_CPP_INSTALL_DIR=${HOME}/local/yaml-cpp-0.6.3
-
-    # 3. Build and install using CMake
-    
-    cd ${YAMLTMPFOLDER} && mkdir build && cd build
-    cmake -DCMAKE_BUILD_TYPE=Debug \
-          -DCMAKE_INSTALL_PREFIX=${YAML_CPP_INSTALL_DIR} \
-          -DYAML_BUILD_SHARED_LIBS=OFF \
-          -DYAML_CPP_BUILD_CONTRIB=ON \
-          -DYAML_CPP_BUILD_TESTS=OFF \
-          -DYAML_CPP_BUILD_TOOLS=OFF \
-          -DYAML_CPP_INSTALL=ON \
-          -DCMAKE_CXX_FLAGS=-fPIC \
-          ../yaml-cpp
-    make -j4 install
-    
-    # 4. Remove the temporary folder
-    cd ../../
-    rm -r ${YAMLTMPFOLDER}
-    ```
-    
+```bash linenums="1"
+spack install yaml-cpp@0.6.3
+spack load yaml-cpp@0.6.3
+```
+ 
 At this point, you should have YAML installed on your system. Please note that the installation procedure of YAML from sources using `CMake` also works on HPC clusters. In the following, remember to add the `-DCMAKE_PREFIX_PATH=${YAML_CPP_INSTALL_DIR} argument to your cmake command.
 
 ## **exaNBody x microStamp**

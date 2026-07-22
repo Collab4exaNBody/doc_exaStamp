@@ -152,8 +152,8 @@ nav = [
 		   ]},
     {"microStamp MiniApp" = ["microStamp/index.md",
            { "microStamp Installation" = [
+    		     "microStamp/spack_installation.md",        
 			     "microStamp/cmake_installation.md",
-			     "microStamp/spack_installation.md",
 			     "microStamp/running.md"] } ,
            { "microStamp Examples" = [
                 "microStamp/benchmarks.md" ] } ] },

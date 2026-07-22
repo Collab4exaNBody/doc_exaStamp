@@ -9,7 +9,6 @@ Now that you have installed `onika`, `exaNBody` and `exaStamp`, you can create y
 === "`CMake`"
    
     ```bash linenums="1"
-    source ${XSP_INSTALL_DIR}/bin/setup-env.sh
     export exaStamp_exec=${XSP_INSTALL_DIR}/bin/exaStamp
     export OMP_NUM_THREADS=10
     export N_MPI=2

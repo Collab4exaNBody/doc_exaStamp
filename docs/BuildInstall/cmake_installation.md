@@ -124,6 +124,10 @@ source ${ONIKA_INSTALL_DIR}/bin/setup-env.sh
 cmake -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=${XNB_INSTALL_DIR} \
       -Donika_DIR=${ONIKA_INSTALL_DIR} \
+      -DEXANB_BUILD_CONTRIB_MD=ON \
+      -DEXANB_BUILD_MICROSTAMP=ON \
+      -DEXANB_BUILD_CONTRIB_PI=ON \
+      -DEXANB_BUILD_MICROCOSMOS=ON \
       ${XNB_SRC_DIR}
 make -j4 install
 ```
