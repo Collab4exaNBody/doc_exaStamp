@@ -4,6 +4,8 @@ icon: simple/yaml
 
 # YAML basics
 
+.. _yaml_basics:
+  
 The `YAML` format is the only input format supported by `exaStamp` and we recall its basis as well as some extensions developed in the context of the onika/exaNBody HPC platform. `exaStamp` extensively uses `YAML` for its input files as it allows to define blocks and batch operators easily. This way, each YAML block can correspond to an operator or an ensemble of operations. The ensemble of YAML blocks is then interpretated by `onika` in order to build and fill the simulation graph.
 
 ## Generalities

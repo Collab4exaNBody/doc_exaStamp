@@ -59,10 +59,19 @@ spack install exastamp+cuda
 The default version that will be installed systematically corresponds to the latest stable release. If for any reason you wand to install a specific (older) version, you can require it as follows:
   
 ```bash linenums="1"
+spack install exastamp@3.8.0
+spack install exastamp@3.7.5
 spack install exastamp@3.7.4
 spack install exastamp@3.7.3
 spack install exastamp@3.7.2
 spack install exastamp@3.7.0
+```
+
+If you want to use the machine learning potentials `POD` and `PACE`, you can also ask for additional packages to be installed through the following command:
+
+```bash linenums="1"
+spack install exastamp+mlips
+spack install exastamp+cuda+mlips
 ```
 
 Thanks to the `spack` ecosystem, appropriate versions of `cmake`, `yaml-cpp`, `onika` and `exaNBody` will be automatically installed, as well as any package required by `exaStamp`.

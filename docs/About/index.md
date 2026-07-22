@@ -10,7 +10,7 @@ icon: octicons/info-16
 
 ---
   
-**exaStamp** dependes on the **exaNBody** framework[@exanbody] and is designed to run efficiently on supercomputers as well as laptops or workstations. It takes advantage of hybrid parallelism with the ability to run using MPI + X where X is either OpenMP or Cuda/HIP. This code is the result of a long-time effort at CEA/DAM/DIF, France. It is an open-source code, distributed freely under the terms of the Apache Public License version 2.0.
+**exaStamp** dependes on the **exaNBody** framework and is designed to run efficiently on supercomputers as well as laptops or workstations. It takes advantage of hybrid parallelism with the ability to run using MPI + X where X is either OpenMP or Cuda/HIP. This code is the result of a long-time effort at CEA/DAM/DIF, France. It is an open-source code, distributed freely under the terms of the Apache Public License version 2.0.
 
 ## Contributors
 
@@ -21,30 +21,30 @@ icon: octicons/info-16
   
     ---
     - [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en) Paul Lafourcade
-    - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](#) Thierry Carrard
+    - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=2kMei3YAAAAJ&hl=en&oi=ao) Thierry Carrard
     - [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao) Raphaël Prat
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Emmanuel Cieren
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Estelle Dirand
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=6cKgnSYAAAAJ&hl=en&oi=ao) Emmanuel Cieren
+    - Estelle Dirand
   
 -   :material-lightbulb-on:{ .lg} __Scientific team__
   
     ---
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Laurent Soulard  
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Claire Lemarchand
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Nicolas Pineau
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Jean-Bernard Maillet
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Christophe Denoual
+    - Laurent Soulard  
+    - Claire Lemarchand
+    - Nicolas Pineau
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=KaL3RUIAAAAJ&hl=fr) Jean-Bernard Maillet
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=YFHUfuwAAAAJ&hl=fr) Christophe Denoual
 
 -   :fontawesome-solid-user-graduate:{ .lg }  __Students__
 
     ---
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Guillaume Ewald
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Eleonore Duval
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Eliott Dubois
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Killian Babilotte
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Aude Giard
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Gerome Faure
-    - [:octicons-mark-github-16:](#) [:fontawesome-brands-google-scholar:](#) Guillaume Chevrot
+    - Guillaume Ewald
+    - Eleonore Duval
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=fmzMguwAAAAJ&hl=fr) Eliott Dubois
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=RJGd9lAAAAAJ&hl=fr) Killian Babilotte
+    - Aude Giard
+    - Gerome Faure
+    - [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?hl=fr&user=m5KlXI8AAAAJ&view_op=list_works&sortby=pubdate) Guillaume Chevrot
   
 </div>
 

@@ -31,7 +31,7 @@ simulation:
     - preinit_rcut_max                                    # Automatic cell_size calculation
     - domain                                              # Simulation domain definition
     - init_prolog                                         # Initialization prologue
-    - input_data                                          # Populate domain with particles
+    - setup_system                                        # Populate domain with particles
     - species:                                            # Species definition
         verbose: false
         fail_if_empty: true
@@ -40,13 +40,12 @@ simulation:
     - init_rcut_max                                       # Update neighborhood distance and displacement tolerance
     - print_domain                                        # Print Domain information
     - performance_adviser: { verbose: true }              # Print performance advices
-    - do_init_temperature                                 # Initialize temperature if needed
     - init_epilog                                         # Initialization epilogue
     - species:                                            # Species definition recheck
         verbose: true
         fail_if_empty: true
     - first_iteration                                     # Simulation first iteration
-    - compute_loop                                        # Simulation compute loop
+    - md_trajectory_loop                                  # Simulation compute loop
     - simulation_epilog                                   # Simulation finalization
     - hw_device_finalize                                  # CUDA finalization
 ```
@@ -132,18 +131,17 @@ The includes block allows you to include other `YAML` files to your input file. 
 
 ```yaml linenums="1"
 includes:
-  - config_defaults.msp
-  - config_debug.msp
-  - config_move_particles.msp
-  - config_numerical_schemes.msp
-  - config_globals.msp
-  - config_iteration_log.msp
-  - config_iteration_dump.msp
-  - config_end_iteration.msp
-  - config_init_temperature.msp
-  - config_input.msp  
+  - config_defaults.msp                # Configuration block default definition
+  - config_move_particles.msp          # Operators for updating particles/neighbors positions + move across domain + neighbor lists
+  - config_numerical_schemes.msp       # Numerical schemes (NVE, LNVT, BNVT, NHNVT, NHNPT)
+  - config_globals.msp                 # Global block definition with simulation-wide default variables (global control of simulation)
+  - config_thermostate.msp             # Thermodynamic state trigger + print/write operators (screen/file/compute)
+  - config_snapshot.msp                # Snapshots trigger + write operators (for visualization)
+  - config_restart.msp                 # Restarts trigger + write operatos (to continue a stopped simulation)
+  - config_analysis.msp                # Analysis trigger + compute operators (for on-the-fly analysis)
+  - config_setup_system.msp            # Default setup_system operator for setting up the system
 ```
-where all the `config_*` files contain predefined operators and parameters required by an `exaStamp` simulation. These default configuration files are explained in ddetail in the next section.
+where all the `config_*` files contain predefined operators and parameters required by an `exaStamp` simulation. These default configuration files are explained in detail in the next section.
 
 Adding the `includes` block to your input file will not erase that definition but append the `included` files to the list above. Thus, if you want for example to consider an additional file named `my_additional_file.yaml` in which you have defined a specific operator, you can do as follows:
 
@@ -152,9 +150,19 @@ includes:
   - my_additional_file.yaml
 ```
 
-The advantage of this `includes`block is that you can avoid having a very long input file and allow for multiple variations of a simulation parametrization.
+The advantage of this `includes`block is that you can avoid having a very long input file and allow for multiple variations of a simulation parametrization. In addition to the default included files as described above, these files are also always available to the `includes:` strategy:
 
+```yaml
+config_deformation.msp               # Deformation-driven simulations
+config_load_balance.msp              # Load balancing features of heterogenous systems
+config_molecule.msp                  # Flexible molecules trajectories
+config_nose_hoover.msp               # Nosé-Hoover thermostat and/or barostats
+config_rigid_molecule.msp            # Rigid molecules trajectories
+config_update_symmetric_forces.msp   # For reciprocal forces contributions at ghosts boundaries
+```    
 
+They are available in the `data/config` folder located at the root of `exaStamp` code. The behavior of the `includes` block is explained in detail in :ref:`yaml_basics`
+  
 ## Configuration block
 
 The first elementary block for an `exaStamp` simulation is the `configuration` block. This block serves as a placeholder for configuring both physical units to be used, logging properties, profiling and debugging features as well as specific instructions of MPI x OMP and GPU execution. Below is the full `configuration` block with its default values.

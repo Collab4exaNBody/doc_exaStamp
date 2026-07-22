@@ -53,7 +53,7 @@ YAML usage example:
      binary_mode: false
      write_ghost: false
      write_box: true
-     fields: ["type", "vx","vy","vz", "ep"]
+     fields: [ type , vx , vy , vz , ep ]
 
 write_paraview
 --------------
@@ -85,7 +85,7 @@ YAML usage example:
      binary_mode: false
      write_ghost: false
      write_box: true
-     fields: ["type", "vx","vy","vz", "ep"]
+     fields: [ type , vx , vy , vz , ep ]
      
 write_xyz
 ---------

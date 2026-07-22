@@ -18,9 +18,9 @@ The following links will guide and help you to define the building blocks of an 
 
 - Simulation global control through the [`global`](1_global.md) YAML block
 - Defining particles' species through the [`species`](2_species.md) YAML block 
-- Choosing an interatomic potential through the [`compute_force`](3_force.md) YAML block 
-- Defining the simulation domain thorugh the [`domain`](4_domain.md) YAML block 
-- Creating particles through the [`input_data`](5_input.md) YAML block
+- Defining the simulation domain thorugh the [`domain`](3_domain.md) YAML block 
+- Creating particles through the [`input_data`](4_input.md) YAML block
+- Choosing an interatomic potential through the [`compute_force`](5_force.md) YAML block 
 - Writing restart files or snapshots through the [`dump_data`](6_dump.md) YAML block 
 
 All above are then gathered in one file and we provide a very simple working example [here](7_example.md).

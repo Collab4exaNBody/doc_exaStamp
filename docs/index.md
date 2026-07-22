@@ -72,7 +72,7 @@ icon: lucide/braces
   
     - Paul Lafourcade, CEA DAM DIF -  [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en)
     
-    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt)
+    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=2kMei3YAAAAJ&hl=en&oi=ao)
 
     - Raphaël Prat, CEA DES -  [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao)
   

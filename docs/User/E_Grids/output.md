@@ -29,7 +29,7 @@ The user-defined operator `project_data_to_grid` can be defined as follows:
      - resize_grid_cell_values
      - ghost_update_r_v
      - atom_cell_projection:
-         fields: ["mv2", "mass", "vnorm", "f"]
+         fields: [ mv2, mass, vnorm, f ]
          grid_subdiv: 2
          splat_size: 4.5 ang
          
