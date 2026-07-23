@@ -18,6 +18,7 @@ nav = [
 		"BuildInstall/running.md"
     ]},
     {"Beginner Guide" = [
+        "Beginner/index.md",
 		{"Getting Started" = [
             "User/B_GettingStarted/index.md",
             "User/B_GettingStarted/building_blocks.md",
@@ -40,19 +41,22 @@ nav = [
     {"User Guide" = [
     	"User/index.md",
         {"Domain & Regions" = [
+            "User/D_DomainRegions/index.md",
             "User/D_DomainRegions/domain.md",
             "User/D_DomainRegions/regions.md"
         ]},
         {"Grids Features" = [
             "User/E_Grids/flavors.md",
             "User/E_Grids/input.md",
-            "User/E_Grids/output.md",            
+            "User/E_Grids/setters.md",
+            "User/E_Grids/output.md",
             "User/E_Grids/analysis.md"
         ]},
         {"Particles Features" = [
             "User/F_Particles/species.md",
             "User/F_Particles/input.md",
-            "User/F_Particles/output.md",            
+            "User/F_Particles/setters.md",
+            "User/F_Particles/output.md",
             "User/F_Particles/analysis.md",
         ]},
         {"Interatomic Potentials" =  [

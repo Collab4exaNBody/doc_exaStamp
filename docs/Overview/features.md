@@ -42,7 +42,7 @@ icon: material/feature-search
 
     ---
 
-    Grid flavors (minimal, multimat, full, mechanics, rigid molecules) control which per-particle fields — charge, virial, quaternion, molecule id, … — are tracked during the simulation.
+    Grid flavors (minimal, multimat, full, mechanics, rigid molecules) control which per-particle fields — charge, virial, quaternion, molecule id, … — are tracked during the simulation, with setters to assign per-cell field values.
 
     [:octicons-arrow-right-24: Grids Features](../User/E_Grids/flavors.md)
 
@@ -50,7 +50,7 @@ icon: material/feature-search
 
     ---
 
-    Atomic systems, rigid molecules and fully-flexible molecules, defined through the `species` YAML block (mass, atomic number, charge, molecule grouping).
+    Atomic systems, rigid molecules and fully-flexible molecules, defined through the `species` YAML block (mass, atomic number, charge, molecule grouping), with setters to assign or modify per-particle field values.
 
     [:octicons-arrow-right-24: Particles Features](../User/F_Particles/species.md)
 
