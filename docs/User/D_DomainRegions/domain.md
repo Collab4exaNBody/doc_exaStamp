@@ -237,3 +237,38 @@ See [Particles Features → Input](../F_Particles/input.md) for the full set of 
 - `read_dump_rigidmol`: Same as above but for rigid molecules.
 
 See [Particles Features → Input](../F_Particles/input.md) for the full parameter reference of these readers.
+
+## **Modifying the domain**
+
+Beyond the operators above that define the domain, a few operators exist purely to modify an already-defined `domain` later in the simulation graph:
+
+- `domain_override`: Overrides individual `domain` properties (`cell_size`, `bounds`, `grid_dims`, `periodic`, `expandable`, `mirror`) after it has already been set, e.g. from a restart file. Only the properties explicitly given are touched.
+
+    ```yaml
+    domain_override:
+      cell_size: 6.0 ang
+      periodic: [true, true, false]
+      mirror: [z-]
+    ```
+
+- `domain_update`: Recomputes the domain's bounds from the grid's actual current state and re-validates the domain (equivalent to calling `domain` again without changing its other parameters). It takes no parameters.
+
+    ```yaml
+    - domain_update
+    ```
+
+- `extend_domain`: Grows the (non-fully-periodic) domain by up to one cell in each direction to accommodate particles that moved outside its current `bounds`, if `expandable` is set. It reads the out-of-bounds particle list produced by a particle-migration step (`move_particles`) run just before it in the same sequence — the two are linked automatically through their shared `otb_particles` slot, no explicit wiring needed:
+
+    ```yaml
+    repartition_domain:
+      - move_particles
+      - extend_domain
+      - load_balance_rcb
+    ```
+
+- `replicate_domain`: Replicates the current domain and its particles `repeat: [nx, ny, nz]` times.
+
+    ```yaml
+    replicate_domain:
+      repeat: [2, 2, 2]
+    ```
