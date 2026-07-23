@@ -42,8 +42,8 @@ operator as illustrated by the examples below:
     ```
 where `type_1`and `type_2` can be any specific type of bonding potentials as defined in the following items, also accessible in the left panel:
 
-- [**Bond**] (Bond/index.md)
-- [**Bend**] (Bend/index.md)
-- [**Torsion**] (Torsion/index.md)
-- [**Improper**] (Improper/index.md)
+- [**Bond**](Bond/index.md)
+- [**Bend**](Bend/index.md)
+- [**Torsion**](Torsion/index.md)
+- [**Improper**](Improper/index.md)
 

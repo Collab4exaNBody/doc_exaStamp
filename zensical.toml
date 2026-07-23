@@ -17,8 +17,7 @@ nav = [
 		"BuildInstall/cmake_installation.md",
 		"BuildInstall/running.md"
     ]},
-    {"User Guide" = [
-    	"User/index.md",
+    {"Beginner Guide" = [
 		{"Getting Started" = [
             "User/B_GettingStarted/index.md",
             "User/B_GettingStarted/building_blocks.md",
@@ -35,8 +34,11 @@ nav = [
             "User/C_StarterPack/5_force.md",
             "User/C_StarterPack/6_numerical_scheme.md",
             "User/C_StarterPack/7_output.md",
-            "User/C_StarterPack/8_example.md",                                
-        ]},
+            "User/C_StarterPack/8_example.md",
+        ]}
+    ]},
+    {"User Guide" = [
+    	"User/index.md",
         {"Domain & Regions" = [
             "User/D_DomainRegions/domain.md",
             "User/D_DomainRegions/regions.md"

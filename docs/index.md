@@ -18,12 +18,6 @@ icon: lucide/braces
   </div>
 </div>
 
-<!--  
-<div style="display: flex; justify-content: center;">
-  <img src="img/microjet.png" alt="microjet" style="width: 100%; height: auto;">
-</div>
--->
-  
 !!! info "Information"
     
     Direct access to general information about the code features, GitHub repositories and team information can be found below. To access the documentation related to build and install instruction, user guide, tutorials and so on, please use the top menu.
