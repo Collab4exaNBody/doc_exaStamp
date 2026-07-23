@@ -6,109 +6,79 @@ icon: material/feature-search
 
 <div class="grid cards" markdown>
 
--   __General features__
+-   :simple-yaml:{ .lg .middle } __YAML-based input__
 
     ---
 
-    - Shared-memory multithreading (OpenMP)
-    - Message-passing parallelism (MPI)
-    - Graphics Processing Units (GPUs) via CUDA and HIP
-    - Can run on a single processor or with MPI only, though multithreading is recommended
-    - With MPI, spatial decomposition via Recursive Coordinate Bisection (RCB)
-    - Open-source under the Apache License 2.0
-    - Highly portable, modular C++20 code built on the Onika/exaNBody framework
-    - Entire simulation graph can be user-defined in the input file (simulation block)
-    - Easy to extend with new features and functionality
-    - Input files use an extended YAML-based format
-    - Run one or multiple simulations concurrently from a single script
-    - Assign independent resources to run the simulation and perform on-the-fly analysis
-    - Large suite of regression tests
+    The entire simulation graph — the sequence of components that make up a run — is defined in a single extended `YAML` file, with file inclusion and operator overriding to build complex, modular configurations incrementally.
 
--   __Particle Types__
+    [:octicons-arrow-right-24: YAML basics](../User/B_GettingStarted/yaml_basics.md)
+
+-   :fontawesome-solid-microchip:{ .lg .middle } __MPI x OpenMP x GPU__
 
     ---
 
-    - Atomic systems (metals, oxides, ceramics etc...)
+    Hybrid parallelism combining MPI with OpenMP or CUDA/HIP, with RCB spatial decomposition. Built with CMake or Spack.
 
-    - Rigid molecules (H_2 O, TATB etc...)
+    [:octicons-arrow-right-24: Build & Install](../BuildInstall/index.md)
 
-    - Flexible molecules (polymers, molecular crystals etc...)
-
--   __Interatomic potentials__
+-   :simple-microeditor:{ .lg .middle } __microStamp MiniApp__
 
     ---
 
-    - Pair potentials: Buckingham, Exp-6, Lennard-Jones, ZBL, Morse, tabulated
-    - Short-range electrostatics: Coulombic
-    - Long-range electrostatics: Ewald, Wolf, reaction-field
-    - Many-body potentials: EAM, MEAM
-    - Machine-learning interatomic potentials (MLIPs): SNAP, N2P2, ACE
-    - Interface to the OpenKIM repository of potentials
-    - Bond potentials: harmonic, FENE, Morse, nonlinear, Class II (COMPASS), quartic (breakable), tabulated, scripted
-    - Angle potentials:
-    - Dihedral potentials:
-    - Improper potentials:
-    - Hybrid potentials: combine multiple pair, bond, angle, dihedral, and improper terms in a single simulation
-    - Overlay potentials: superposition of multiple pair and many-body potentials
+    A lightweight exaNBody-based mini-app with just the Lennard-Jones and SNAP potentials, for fast benchmarking and for developers integrating new features without building the full exaStamp code.
 
--   __Particles creation__
+    [:octicons-arrow-right-24: microStamp MiniApp](../microStamp/index.md)
+
+-   :lucide-cuboid:{ .lg .middle } __Domain & Regions__
 
     ---
 
-    - Read external files (``.xyz``, ``.data``, ``.mpiio``)
-    - Create atoms on specific spatial regions 
-    - Logical operation to define regions and populate them with particles
-    - Replication of the system
-    - Uniform or gaussian oise on atomic positions, atomic velocities and forces in specific regions
+    General triclinic simulation domains, periodic/mirror boundary conditions, and geometric regions (parallelepipeds, planes, spheres, cylinders, cones) for populating or analyzing subdomains.
 
--   __Thermodynamic and boundary conditions__
+    [:octicons-arrow-right-24: Domain & Regions](../User/D_DomainRegions/domain.md)
+
+-   :lucide-grid-3x3:{ .lg .middle } __Grids Features__
 
     ---
 
-    - General triclinic simulation domain
-    - Isochoric-isoenergetic (NVE) ensemble
-    - Isochoric-isothermal (NVT) ensemble
-    - Isobaric-Isothermal (NPT) ensemble
-    - Two-temperature model (TTM)
-    - Parrinello/Rahman, Nosé-Hoover integrators
-    - Region-wise thermostatting of particles
-    - Pressure or component-wise stress barostats using Nosé/Hoover
-    - Deformation paths formalism for straining the box (any type of deformation can be applied)
-    - Periodic, Free, Mirror boundary conditions
+    Grid flavors (minimal, multimat, full, mechanics, rigid molecules) control which per-particle fields — charge, virial, quaternion, molecule id, … — are tracked during the simulation.
 
--   __Time integration__
+    [:octicons-arrow-right-24: Grids Features](../User/E_Grids/flavors.md)
+
+-   :lucide-atom:{ .lg .middle } __Particles Features__
 
     ---
 
-    - Velocity-Verlet integrator
-    - User-defined time integrator
-    - Rigid body integration for rigid molecules
-    - Energy minimization via conjugate gradient and relaxation dynamics
+    Atomic systems, rigid molecules and fully-flexible molecules, defined through the `species` YAML block (mass, atomic number, charge, molecule grouping).
 
--   __Statistics and diagnostics__
+    [:octicons-arrow-right-24: Particles Features](../User/F_Particles/species.md)
 
-    - Simulation graph
-    - Performance results
-    - Highly customizable configuration
+-   :material-function-variant:{ .lg .middle } __Interatomic Potentials__
 
--   __On-the-fly analysis__
+    ---
 
-    - Particle to grid projection
-    - Local average of per-particle field
-    - Local structural metrics (entropy, number of neighbors, centrosymmetry, crystal structure classification)
-    - Local mechanical metrics (deformation gradient tensor, velocity gradient tensor, slip/twinning system identification)
-    - Connected Component Labelling
-    - Slice projection and longitudinal profile calculation
-    - Histograms
-    - Radial distribution function (type-wise)
+    - Pair potentials (Buckingham, Lennard-Jones, ZBL, tabulated, …)
+    - Short- and long-range electrostatics (Coulombic, Ewald, Wolf, reaction-field)
+    - Many-body potentials (EAM, MEAM) and machine-learning potentials (SNAP, N2P2, ACE)
 
--   __Output__
+    [:octicons-arrow-right-24: Interatomic Potentials](../User/G_ForceFields/index.md)
 
-    - Thermodynamic state and logging file
-    - Dump output on fixed and variable intervals, based on timestep or simulated time
-    - Simulation snapshots (``.xyz``, ``.vtk``, ``.vtp``) for OVITO and ParaView
-    - Binary restart files
-    - Per-atom quantities that can be appended to particles in simulation snapshots
+-   :fontawesome-solid-link:{ .lg .middle } __Bonding Potentials__
+
+    ---
+
+    Intramolecular energy is decomposed into bond, bending, torsion and improper torsion terms, each with its own set of functional forms.
+
+    [:octicons-arrow-right-24: Bonding Potentials](../User/G_ForceFields/Intramolecular/index.md)
+
+-   :fontawesome-solid-chain:{ .lg .middle } __Ensembles & Constraints__
+
+    ---
+
+    Thermodynamic ensembles (NVE, NVT, NPT), thermostats and barostats, and constraints for straining or restraining the simulation box. *(section under construction)*
+
+    [:octicons-arrow-right-24: Ensembles & Constraints](../User/H_EnsemblesConstraints/index.md)
 
 </div>
 

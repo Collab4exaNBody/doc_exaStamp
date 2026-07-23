@@ -8,7 +8,6 @@ nav = [
     {"Home" = "index.md"},
     {"Overview" = [
         "Overview/overview.md",
-		{"Distribution" = "Overview/distribution.md"},
 		{"Code evolution" = "Overview/releases.md"},
 		{"Features" = "Overview/features.md"}
     ]},
@@ -143,9 +142,12 @@ nav = [
                 "User/G_ForceFields/Intramolecular/Improper/opls_improper.md",
                 "User/G_ForceFields/Intramolecular/Improper/no_potential.md"
             ]},
+        ]},
+        {"Ensembles & Constraints" = [
+            "User/H_EnsemblesConstraints/index.md",
+            "User/H_EnsemblesConstraints/Thermostats/index.md"
         ]}
-#        {"Ensemble & Constraints" = "User/EnsemblesConstraints/index.md"}
-		  
+
     ]},
     {"Tutorials" = [
     		   "Tutorials/index.md",

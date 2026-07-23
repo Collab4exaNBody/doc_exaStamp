@@ -2,14 +2,14 @@
 icon: lucide/braces
 ---
 
-# Welcome to the exaStamp online documentation!
+# Welcome to the exaStamp online documentation! { style="color: var(--md-primary-fg-color);" }
 
-<div style="display:flex; justify-content: space-between; align-items: center;">
+<div style="display:flex; justify-content: space-between; align-items: center; background: color-mix(in srgb, var(--md-primary-fg-color) 8%, var(--md-default-bg-color)); border-radius: 12px; padding: 1.5rem 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
   <div style="text-align: left; width: 70%;">
-    <div style="font-size: 1.8rem; font-weight: 700; line-height: 1.2;">
-      <span style="color: teal;">exa</span>scale <span style="color: teal;">S</span>imulation of
-      <span style="color: teal;">T</span>ime-dependent <span style="color: teal;">A</span>tomic and
-      <span style="color: teal;">M</span>olecular systems in <span style="color: teal;">P</span>arallel.
+    <div style="font-size: 1.4rem; font-weight: 700; line-height: 1.2;">
+      <span style="color: var(--md-primary-fg-color);">exa</span>scale <span style="color: var(--md-primary-fg-color);">S</span>imulations of
+      <span style="color: var(--md-primary-fg-color);">T</span>ime-dependent <span style="color: var(--md-primary-fg-color);">A</span>tomistic and
+      <span style="color: var(--md-primary-fg-color);">M</span>olecular systems in <span style="color: var(--md-primary-fg-color);">P</span>arallel
     </div>
   </div>
 
@@ -51,11 +51,11 @@ icon: lucide/braces
 -   :simple-semanticrelease:{ .lg .middle } __Latest Releases__
 
     ---
+    - :octicons-tag-24: [__V3.8.0__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.8.0)
+
+    - :octicons-tag-24: [__V3.7.5__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.5)
+
     - :octicons-tag-24: [__V3.7.4__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.4)
-
-    - :octicons-tag-24: [__V3.7.3__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.3)
-
-    - :octicons-tag-24: [__V3.7.2__](https://github.com/Collab4exaNBody/exaStamp/releases/tag/v3.7.2)
     
 -   :material-scale-balance:{ .lg .middle } __Open Source, Apache 2.0__
 
@@ -69,18 +69,20 @@ icon: lucide/braces
 -   :fontawesome-solid-people-carry:{ .lg .middle } __Team__
 
     ---
-  
-    - Paul Lafourcade, CEA DAM DIF -  [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en)
-    
-    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=2kMei3YAAAAJ&hl=en&oi=ao)
 
+    Core team:
+
+    - Paul Lafourcade, CEA DAM DIF -  [:octicons-mark-github-16:](https://github.com/lafourcadep) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=UVKEf6cAAAAJ&hl=en)
+    - Thierry Carrard, CEA DAM DIF - [:octicons-mark-github-16:](https://github.com/carrardt) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=2kMei3YAAAAJ&hl=en&oi=ao)
     - Raphaël Prat, CEA DES -  [:octicons-mark-github-16:](https://github.com/rprat-pro) [:fontawesome-brands-google-scholar:](https://scholar.google.com/citations?user=krjPnoAAAAAJ&hl=en&oi=ao)
+
+    [:octicons-arrow-right-24: Meet the full team](About/index.md#contributors)
   
 -   :fontawesome-solid-contact-book:{ .lg .middle} __Contact__
 
     ---
 
-    Use the [:octicons-discussion-closed-16: Github discussions](https://github.com/Collab4exaNBody/exaStamp/discussions) to suggest new features, discuss ideas, check annoucements or show what you're doing with the code.
+    Use the [:octicons-discussion-closed-16: Github discussions](https://github.com/Collab4exaNBody/exaStamp/discussions) to suggest new features, discuss ideas, check announcements or show what you're doing with the code.
     
     See the [About](About/index.md) page for contact and license information.
   

@@ -4,7 +4,7 @@ icon: octicons/versions-16
 
 # Code evolution
 
-## Versioning
+## **Versioning**
 
 `exaStamp` releases can be directly accessed through the following **Releases** page as `.zip` or `.tar.gz` compressed files.
 
@@ -38,24 +38,28 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 
     ## Release 3.8.0
 
-    ### ✨ New Features
+    **✨ New Features**
+
     - **REBO2 potential** — [#72](https://github.com/Collab4exaNBody/exaStamp/pull/72) by @lafourcadep
     - **MLIP/POD potential support** — [#70](https://github.com/Collab4exaNBody/exaStamp/pull/70) by @lafourcadep
     - **PACE potential support** — [#71](https://github.com/Collab4exaNBody/exaStamp/pull/71) by @lafourcadep
     - **Force computation from grid cell values** — [#74](https://github.com/Collab4exaNBody/exaStamp/pull/74) by @lafourcadep
     - **EGL render contribution** — [#75](https://github.com/Collab4exaNBody/exaStamp/pull/75) by @lafourcadep
 
-    ### 🧪 Physics & Numerics
+    **🧪 Physics & Numerics**
+
     - **Improved physics for flexible molecules + full reproduction of STAMP4 results** — [#61](https://github.com/Collab4exaNBody/exaStamp/pull/61) by @lafourcadep
     - **Rigid molecule numerical scheme** — [#64](https://github.com/Collab4exaNBody/exaStamp/pull/64) by @lafourcadep
     - **Merge flexible molecule developments into main** — [#65](https://github.com/Collab4exaNBody/exaStamp/pull/65) by @lafourcadep
     - **NPT: remove momentum drift** — [#63](https://github.com/Collab4exaNBody/exaStamp/pull/63) by @lafourcadep
 
-    ### 🔧 Refactoring & Tooling
+    **🔧 Refactoring & Tooling**
+
     - **Refactor configuration files** — [#62](https://github.com/Collab4exaNBody/exaStamp/pull/62) by @lafourcadep
     - **Clean up test suite** — [#68](https://github.com/Collab4exaNBody/exaStamp/pull/68) by @lafourcadep
 
-    ### 📚 Documentation
+    **📚 Documentation**
+
     - **Reorganize documentation structure for summer school course** — [#67](https://github.com/Collab4exaNBody/exaStamp/pull/67) by @lafourcadep
 
     ---
@@ -82,7 +86,7 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 
     ## Release 3.7.4
     
-    ### EAM/alloy generation python script
+    **EAM/alloy generation python script**
 
     **Related PR:**
     
@@ -107,7 +111,7 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 
     ## Release 3.7.3
     
-    ### **Deterministic capabilities for testing and CI**
+    **Deterministic capabilities for testing and CI**
 
     **Related PR:**
 
@@ -131,7 +135,7 @@ Please note that each version of **exaStamp** is compatible with a stable versio
       deterministic_noise: true
     ```
 
-    ### Small changes
+    **Small changes**
 
     **File lencensing for open source release**
 
@@ -153,14 +157,14 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 
     ## Release 3.7.2
 
-    ### **Small changes**
+    **Small changes**
 
     * Use the release mode as default build type mode
     * add CONTRIBUTING.md + update guidelines in README.md 
     * add SUPPORT.md
     * supressed paraview and xyz specific writers as they're obsolete. These operators are now defined in exaNBody directly
 
-    ### **EAM potentials**
+    **EAM potentials**
 
     EAM potentials now use exaNBody's generalized attributes for the local electronic density and embedding functions used in EAM potentials. This now allows to visualize the local electronic density as a per-atom field in OVITO or ParaView for example.  
 
@@ -176,7 +180,7 @@ Please note that each version of **exaStamp** is compatible with a stable versio
       <figcaption>Image caption</figcaption>
     </figure>
 
-    ### **Spatial average**
+    **Spatial average**
 
     Thanks to new functionalities added in exaNBody@v2.0.5, a spatial averaging function is now available in exaStamp. 
 

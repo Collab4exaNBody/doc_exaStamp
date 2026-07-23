@@ -10,7 +10,7 @@ icon: octicons/info-16
 
 ---
   
-**exaStamp** dependes on the **exaNBody** framework and is designed to run efficiently on supercomputers as well as laptops or workstations. It takes advantage of hybrid parallelism with the ability to run using MPI + X where X is either OpenMP or Cuda/HIP. This code is the result of a long-time effort at CEA/DAM/DIF, France. It is an open-source code, distributed freely under the terms of the Apache Public License version 2.0.
+**exaStamp** depends on the **exaNBody** framework and is designed to run efficiently on supercomputers as well as laptops or workstations. It takes advantage of hybrid parallelism with the ability to run using MPI + X where X is either OpenMP or Cuda/HIP. This code is the result of a long-time effort at CEA/DAM/DIF, France. It is an open-source code, distributed freely under the terms of the Apache Public License version 2.0.
 
 ## Contributors
 
@@ -56,7 +56,7 @@ See [LICENSE](img/LICENSE) for details.
 
 ## Contact
 
-Use the [:octicons-discussion-closed-16: Github discussions](https://github.com/Collab4exaNBody/exaStamp/discussions) to suggest new features, discuss ideas, check annoucements or show what you're doing with the code.
+Use the [:octicons-discussion-closed-16: Github discussions](https://github.com/Collab4exaNBody/exaStamp/discussions) to suggest new features, discuss ideas, check announcements or show what you're doing with the code.
 
-In addition, if you identify a malfuncton or a bug, please feel free to open an issue or discussion on [Github](https://github.com/Collab4exaNBody/exaStamp/issues).
+In addition, if you identify a malfunction or a bug, please feel free to open an issue or discussion on [Github](https://github.com/Collab4exaNBody/exaStamp/issues).
     
