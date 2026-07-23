@@ -108,3 +108,5 @@ particle_type_add_properties:
   Al: { lambda: 0.5 }
   Cu: { lambda: 0.2 }
 ```
+
+See [Particles Features → Species](../F_Particles/species.md#lower-level-alternative-particle_types-particle_type_add_properties) for the full parameter reference of both operators.

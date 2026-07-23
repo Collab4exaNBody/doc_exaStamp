@@ -38,6 +38,14 @@ icon: material/feature-search
 
     [:octicons-arrow-right-24: Domain & Regions](../User/D_DomainRegions/domain.md)
 
+-   :lucide-atom:{ .lg .middle } __Particles Features__
+
+    ---
+
+    Atomic systems, rigid molecules and fully-flexible molecules, defined through the `species` YAML block (mass, atomic number, charge, molecule grouping), with setters to assign or modify per-particle field values.
+
+    [:octicons-arrow-right-24: Particles Features](../User/F_Particles/index.md)
+
 -   :lucide-grid-3x3:{ .lg .middle } __Grids Features__
 
     ---
@@ -45,14 +53,6 @@ icon: material/feature-search
     Grid flavors (minimal, multimat, full, mechanics, rigid molecules) control which per-particle fields — charge, virial, quaternion, molecule id, … — are tracked during the simulation, with setters to assign per-cell field values.
 
     [:octicons-arrow-right-24: Grids Features](../User/E_Grids/flavors.md)
-
--   :lucide-atom:{ .lg .middle } __Particles Features__
-
-    ---
-
-    Atomic systems, rigid molecules and fully-flexible molecules, defined through the `species` YAML block (mass, atomic number, charge, molecule grouping), with setters to assign or modify per-particle field values.
-
-    [:octicons-arrow-right-24: Particles Features](../User/F_Particles/species.md)
 
 -   :material-function-variant:{ .lg .middle } __Interatomic Potentials__
 
