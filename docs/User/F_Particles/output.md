@@ -2,158 +2,88 @@
 icon: material/export
 ---
 
-.. _particles-output:
+# **Output**
 
-Output
-======
+To write particles out to disk, generate a filename — usually with `timestep_file`, so each dump gets a name unique to the current iteration — then call one of the writer operators below.
 
+## **Generating an output filename**
 
-In order to post-process or visualize the particles with time, multiple solutions exist in ExaSTAMP. The general operator that defines the output is named `dump_analysis` and can be added as a general YAML block in the simulation input file. In this block, the name of the output files can be defined as well as some log message if needed. These properties are then passed as input to the desired output operator:
+`timestep_file` builds a filename from a printf-style `format` string and the current `timestep`, and outputs it as `filename`, which the writer operators below pick up automatically through same-name slot binding:
 
-.. code-block:: yaml
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `format` | printf-style format string, e.g. `"output_%09d"`. | string | *(required)* |
 
-   dump_analysis:
-     - timestep_file: "folder/output_%010d"
-     - message: { mesg: "Write FILE_OUPTUT " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - discrete_output_operator
+```yaml
+- timestep_file: "paraview/output_%09d"
+- write_paraview: { fields: [ mass, vz ] }
+```
 
-It is to be noted that in the block `dump_analysis` the operator `timestep_file` is called. This operator takes format as an input and automatically generates the variable `filename` that is systematically required by all output operators. If the operator `timestep_file` is not called prior to the output operator, thne the latter requires the `filename` variable to be defined. We define in the following the different solutions available to replace the `discrete_output_operator` above. The solutions described here only concern discrete output operators, i.e. operators that outputs explicitely the particles positions with their attached properties. Other operators, that allow to project particles properties onto regular grids will be described in the section `Continuum output operators`.
+!!! note "Logging what was written"
 
-write_paraview_generic
-----------------------
+    `exaStamp`'s own default snapshot configuration (`data/config/config_snapshot.msp`) additionally logs the filename to the console right before writing, using the generic `message` operator (`mesg`/`endl`) with its `mesg` slot rebound to the `filename` that `timestep_file` just produced:
 
-This is a generic operator common to all applications, i.e. ExaDEM, ExaSTAMP and ExaSPH. It allows to dump particles positions and attached properties in parallel using the vtp format that can be read and processed using ParaView. It takes the following arguments:
+    ```yaml
+    - timestep_file: "paraview/output_%09d"
+    - message: { mesg: "Write paraview file", endl: false }
+    - print_dump_file:
+        rebind: { mesg: filename }
+        body:
+          - message: { endl: true }
+    - write_paraview
+    ```
 
-* `binary_mode` = allows to write the paraview files in binary mode with a certain compression level. default value: true
-* `compression` = compression level for the binary_mode, default value: 'default'. default value: 'default'
-* `write_box` = outputs the paraview file that contains the box associated to the domain. default value: 'false'
-* `write_ghost` = outputs the ghost particles around the domain. default value: 'false'
-* `fields` =  List of strings corresponding to grid fields to dump as particle's attributes. Particles positions and ids are dumped by default.
+    `print_dump_file` isn't a distinct operator here — it's just a locally-chosen aggregate name wrapping `message` with a `rebind`, using the generic aggregate/`rebind` mechanism (see [YAML extensions](../B_GettingStarted/yaml_extensions.md)). The simple form above (just `timestep_file` + the writer) is enough for everyday use.
 
-YAML usage example:
+## **Writers**
 
-.. code-block:: yaml
+### `write_paraview`
 
-   # General dump_analysis operator, called each timestep defined with the anaysis_dump_frequency keyword
-   dump_analysis:
-     - timestep_file: "paraview/output_%010d"
-     - message: { mesg: "Write paraview " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - write_paraview_generic
+Writes particle positions and attached fields in parallel, in ParaView-readable `.vtp` format.
 
-   # Definition of the write_paraview_generic operator
-   write_paraview_generic:
-     binary_mode: false
-     write_ghost: false
-     write_box: true
-     fields: [ type , vx , vy , vz , ep ]
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Output file name. | string | `"output"` |
+| `fields` | List of regular expressions selecting which fields to write. | list of strings | `[".*"]` (everything) |
+| `binary_mode` | Write in binary mode (with `compression`) rather than ASCII. | bool | `true` |
+| `compression` | Compression level for binary mode. | string | `"default"` |
+| `write_box` | Also write the domain box. | bool | `true` |
+| `write_ghost` | Also write ghost particles. | bool | `false` |
 
-write_paraview
---------------
+```yaml
+write_paraview:
+  fields: [ type, vx, vy, vz, ep ]
+  write_ghost: false
+```
 
-This is an operator specific to ExaSTAMP and very similar to the operator `write_paraview_generic` that might be deleted soon. It allows to dump particles positions and attached properties in parallel using the vtp format that can be read and processed using ParaView. It takes the following arguments:
+### `write_xyz`
 
-* `binary_mode` = allows to write the paraview files in binary mode with a certain compression level. default value: true
-* `compression` = compression level for the binary_mode, default value: 'default'. default value: 'default'
-* `write_box` = outputs the paraview file that contains the box associated to the domain. default value: 'false'
-* `write_ghost` = outputs the ghost particles around the domain. default value: 'false'
-* `fields` =  List of strings corresponding to grid fields to dump as particle's attributes. Particles positions and ids are dumped by default.
+`exaNBody`'s generic `.xyz` writer — despite the format's usual reputation, it isn't limited to positions/types/ids: any field can be selected the same way as `write_paraview`.
 
-YAML usage example:
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Output file name. | string | `"output"` |
+| `fields` | List of regular expressions selecting which fields to write. | list of strings | `[".*"]` (everything) |
+| `units` | Units to use for specific fields. | map | `{position: m, velocity: m/s, force: m/s/kg}` |
+| `field_alias` | Shorter output-header names for specific fields. | map | `{position: pos, velocity: vel}` |
+| `ghost` | Also write ghost particles. | bool | `false` |
 
-.. code-block:: yaml
+### `write_xyz_file`
 
-   # General dump_analysis operator, called each timestep defined with the anaysis_dump_frequency keyword
-   dump_analysis:
-     - timestep_file: "paraview/output_%010d"
-     - message: { mesg: "Write paraview " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - write_paraview
+`exaStamp`'s own `.xyz` writer, used by its default snapshot configuration. Unlike `write_xyz` above, it integrates directly with the on-the-fly local-metrics analysis operators (`compute_local_metrics`, `compute_local_mechanical_metrics`, `compute_local_structural_metrics` — see [Analysis](analysis.md)), writing out their computed per-atom values alongside positions whenever those operators ran earlier in the graph.
 
-   # Definition of the write_paraview_generic operator
-   write_paraview:
-     binary_mode: false
-     write_ghost: false
-     write_box: true
-     fields: [ type , vx , vy , vz , ep ]
-     
-write_xyz
----------
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Output file name. | string | *(required)* |
+| `is_ghosts` | Also write ghost particles. | bool | `false` |
+| `use_filtered_positions` | Write the [filtered position](setters.md#mechanics-specific-filtered-position) (`rxf`/`ryf`/`rzf`) instead of the raw position. | bool | `false` |
 
-Allows to dump particles positions, types and ids in a .xyz file. This operator does not allow to dump other attached properties. A Generic xyz file writer will added soon to exaNBody such that all variants ExaDEM, ExaSTAMP, ExaSPH can beneficiate from it.
+### `write_lmp`
 
-* Operator name =  `write_xyz`
+Writes a LAMMPS `.data`-style file.
 
-YAML usage example:
-
-.. code-block:: yaml
-
-   # General dump_analysis operator, called each timestep defined with the anaysis_dump_frequency keyword
-   dump_analysis:
-     - timestep_file: "xyz/output_%010d"
-     - message: { mesg: "Write xyz " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - write_xyz
-
-write_lmp
----------
-
-Allows to dump particles positions, types and ids in a .lmp file. This operator does not allow to dump other attached properties. A Generic LMP file writer will added soon to exaNBody such that all variants ExaDEM, ExaSTAMP, ExaSPH can beneficiate from it.
-
-* Operator name =  `write_lmp`
-
-YAML usage example:
-
-.. code-block:: yaml
-
-   # General dump_analysis operator, called each timestep defined with the anaysis_dump_frequency keyword
-   dump_analysis:
-     - timestep_file: "xyz/output_%010d"
-     - message: { mesg: "Write xyz " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - write_lmp
-       
-
-write_vtklegacy
----------------
-
-This is a generic operator common to all applications, i.e. ExaDEM, ExaSTAMP and ExaSPH. It allows to dump particles positions and all attached grid properties in parallel using the vtp format that can be read and processed using ParaView. It takes the following arguments:
-
-* `ghost` = outputs the ghost particles around the domain. default value: 'false'
-* `ascii` = outputs the data in ascii format. default value: 'false'
-
-YAML usage example:
-
-.. code-block:: yaml
-
-   # General dump_analysis operator, called each timestep defined with the anaysis_dump_frequency keyword
-   dump_analysis:
-     - timestep_file: "paraview/output_%010d"
-     - message: { mesg: "Write paraview " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-     - write_vtklegacy
-
-   # Definition of the write_paraview_generic operator
-   write_vtklegacy:
-     ascii: true
-     ghost: false
-       
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Output file name. | string | `"output.lmp"` |
+| `triclinic` | Write the box as triclinic (`xy`/`xz`/`yz` tilt factors) instead of orthogonal. | bool | `false` |
+| `write_velocities` | Include the Velocities section. | bool | `true` |

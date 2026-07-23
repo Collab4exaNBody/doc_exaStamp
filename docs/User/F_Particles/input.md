@@ -2,141 +2,176 @@
 icon: material/import
 ---
 
+# Input
 
-.. _particles-input:
+Particles can be created in a simulation two ways: replicated from a crystal lattice (or packed via Random Sequential Addition) directly by `exaStamp`, or read from an external file. See [Domain & Regions](../D_DomainRegions/domain.md#built-in-particles-creators) for how each of these interacts with the `domain` definition.
 
-Input
-=====
+## Built-in particle creation
 
-The present section describes in details the different operators used for simulation's setup, post-analysis, visualization and I/O operations in Molecular Dynamics simulations using exaStamp.
+### `lattice` and `bulk_lattice`
 
-.. code-block:: yaml
-                
-   input_data:
-     - domain
-     - init_rcb_grid
-     - particle_regions
-     - lattice
+Both replicate a crystallographic unit cell into 3D space and share the parameters below. See [Domain & Regions](../D_DomainRegions/domain.md#built-in-particles-creators) for the key difference between the two: `lattice` needs a pre-defined `domain` and a preceding `init_rcb_grid`, while `bulk_lattice` derives the domain from `repeat` and manages its own grid partitioning internally (and unconditionally forces full 3D periodicity).
 
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `structure` | Crystal structure: `SC`, `BCC`, `FCC`, `2BCT`, `HCP`, `h-DIA`, `c-DIA`, `graphite`, or `CUSTOM`. | string | *(required)* |
+| `types` | Particle type name(s) for each atom in the unit cell — the required count depends on `structure` (see below). | list of strings | *(required)* |
+| `size` | Unit cell edge lengths. | Vec3d | *(required)* |
+| `positions` | Fractional atom positions within the unit cell — only used (and required) when `structure: CUSTOM`. | list of Vec3d | *(none)* |
+| `shift` | Shifts all generated atomic positions. | Vec3d | `[0,0,0]` |
+| `deterministic_noise` | Use a deterministic seed for any random noise, so results don't depend on the MPI/OpenMP decomposition. | bool | `false` |
+| `repeat` *(`bulk_lattice` only)* | Number of unit-cell replications along x, y, z — also drives the derived domain size. | IJK | `[1,1,1]` |
 
-.. _builtin-particles:
+Required `types` length per `structure`:
 
-Built-in particle creation
---------------------------
+| `structure` | atoms per unit cell |
+|---|---|
+| `SC` | 1 |
+| `BCC` | 2 |
+| `FCC`, `2BCT`, `HCP` | 4 |
+| `c-DIA`, `h-DIA`, `graphite` | 8 |
+| `CUSTOM` | as given (must match `positions`) |
 
-.. _input-lattice:
+```yaml
+lattice:
+  structure: BCC
+  types: [ Ta, Ta ]
+  size: [ 3.3 ang, 3.3 ang, 3.3 ang ]
+```
 
-Lattice generator
-*****************
+#### Cutting voids
 
-.. _input-bulk-lattice:
+`void_mode` carves particles out of the generated lattice:
 
-Bulk lattice generator
-**********************
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `void_mode` | `none`, `simple` (a single spherical void) or `porosity` (randomly-placed voids to a target porosity). | string | `"none"` |
+| `void_center` | Center of the void — `simple` mode only. | Vec3d | `[0,0,0]` |
+| `void_radius` | Radius of the void — `simple` mode only. | float | `0.` |
+| `void_porosity` | Target porosity fraction — `porosity` mode only. | float | `0.` |
+| `void_mean_diameter` | Mean void diameter — `porosity` mode only. | float | `0.` |
 
-.. _external-readers:
+#### Restricting where particles are placed
 
-Reading external files
-----------------------
+By default, `lattice`/`bulk_lattice` fill the entire domain. Three independent, combinable filters can restrict that — a particle is only generated where *all* of the filters that were given agree:
 
-.. _input-read-dump-atoms:
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `region` | A single region name, or a boolean expression of names (`and`/`or`/`not`, parentheses) referencing regions declared in a `particle_regions` block. | string | *(none)* |
+| `grid_cell_values` / `grid_cell_mask_name` / `grid_cell_mask_value` | Restrict to grid (sub)cells whose named field — built with `set_cell_values` or `read_cell_values` — is exactly equal to `grid_cell_mask_value`. | GridCellValues / string / float | *(none)* |
+| `user_function` / `user_threshold` | Restrict to points where a scalar source-term function (`wavefront`, `sphere`, `constant`) evaluates to at least `user_threshold`. | source term / float | *(none)* / `0.0` |
 
-Readers of restart files for atomic systems
-*******************************************
+```yaml
+particle_regions:
+  - HALFSPACE:
+      quadric: { shape: { plane: [ 1, 0, 0, 0 ] } }
 
-.. _input-read-dump-mol:
+lattice:
+  structure: BCC
+  types: [ Ta, Ta ]
+  size: [ 3.3 ang, 3.3 ang, 3.3 ang ]
+  region: HALFSPACE
+  grid_cell_mask_name: POROSITY_MASK
+  grid_cell_mask_value: 1
+```
 
-Readers of restart files for flexible molecules systems
-*******************************************************
+See [Domain & Regions → Spatial Regions](../D_DomainRegions/regions.md) for how `region` expressions and quadric shapes work, [Grid mask defined regions](../D_DomainRegions/regions.md#grid-mask-defined-regions) for building/using a `grid_cell_mask`, and [User-defined source term](../D_DomainRegions/regions.md#user-defined-source-term) for `user_function`.
 
-.. _input-read-dump-rigidmol:
+### `init_rsa`
 
-Readers of restart files for rigid molecules systems
-****************************************************
+Packs particles via Random Sequential Addition (randomly-placed, non-overlapping spheres) rather than a crystal lattice.
 
-.. _input-read-xyz-xform:
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `bounds` | Region to pack. If the domain is already defined, only the intersection of `bounds` with it is filled; if not, the domain is built from `bounds`. | AABB | *(none)* |
+| `type` | Single-species particle type — an integer id or a species name (resolved via `particle_type_map`). Ignored if `rsa_species` is set. | int or string | *(none)* |
+| `radius` | Single-species particle radius. Ignored if `rsa_species` is set. | float | *(none)* |
+| `nb_particles` | Single-species exact number of particles to place; if unset, packs as densely as possible. Ignored if `rsa_species` is set. | int | *(none)* |
+| `rsa_species` | Multi-species packing: list of `[radius, nb_particles, type]` entries — overrides `radius`/`type`/`nb_particles`. | list | *(none)* |
+| `enlarge_bounds` | Enlarges the packing region beyond `bounds`. | float | `0.` |
+| `pbc_adjust_xform` | Adjust the domain's `xform` to identity before packing (needed for periodicity to work correctly). | bool | `true` |
+| `seed` | Seed for the RSA pseudo-random generator. | int | `0` |
+| `verbose` | Print per-round packing diagnostics (miss rate, shot counts). | bool | `false` |
 
-Readers of xyz File
-*******************
+```yaml
+init_rsa:
+  bounds: [[0 ang,0 ang,0 ang],[200 ang,200 ang,200 ang]]
+  rsa_species:
+    - [ 0.5 ang, 100, Ta ]
+    - [ 0.25 ang, 200, Cu ]
+```
 
-- Name: `read_xyz`
-- Description: This operator reads a file written according to the xyz format.
-- Parameters:
-   * `bounds_mode` : default mode corresponde to ReadBoundsSelectionMode.
-   * `enlarge_bounds` : Define a layer around the volume size in the xyz file. Default size is 0.
-   * `file` : File name, this parameter is required.
-   * `pbc_adjust_xform` : Ajust the form.
+### `grid_insert_particles`
 
-Reading external file formats
-*****************************
+Inserts an explicit, hand-written list of particles directly into the grid — useful for a handful of manually-placed particles rather than a generated system. Each entry needs a `pos`; `vel` and `type` are optional (`type` defaults to `"0"`).
 
-.. warning::
-    Only supported for atomic systems
+```yaml
+grid_insert_particles:
+  particles:
+    - { pos: [0. ang, 0. ang, 0. ang], type: Ta }
+    - { pos: [5. ang, 0. ang, 0. ang], type: Ta, vel: [0.1 ang/ps, 0., 0.] }
+```
 
-.. warning::
-    If multiple structures are present in the file, the operator will always read the first one.
+## Reading external files
 
-In addition to :ref:`builtin-particles creation <builtin-particles>` and :ref:`restart files<input-read-dump-atoms>`, ``ExaStamp`` can read external file formats though the ``read_external_file_format`` operator.
+Two different needs fall under "reading files": resuming a simulation from `exaStamp`'s own binary checkpoint, and reading a system built or exported by another tool.
 
-.. code-block:: yaml
+### Restart files (binary dumps)
 
-   read_external_file_format:
-     file: /path/to/example-file.xyz.gz
-     format: xyz
-     compression: gz
-     units_style: metal
-     style_style: full
+`read_dump_atoms`, `read_dump_molecule`, `read_dump_rigidmol` resume a simulation from `exaStamp`'s own binary restart/dump file — for atomic systems, flexible molecules, and rigid molecules respectively. All three share the same core parameters:
 
-.. list-table::
-   :widths: 10 40 10
-   :header-rows: 1
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Path to the restart file. | string | *(required)* |
+| `timestep` | Overwritten with the iteration number stored in the file. | int | *(none)* |
+| `physical_time` | Overwritten with the physical time stored in the file. | float | *(none)* |
+| `scale_cell_size` | If set, rescales the cell size stored in the file by this factor. | float | *(none)* |
+| `periodic` | If set, overrides the domain's periodicity stored in the file. | 3 booleans | *(none)* |
+| `mirror` | If set, overrides the domain's mirror flags stored in the file (same string codes as [`domain`](../D_DomainRegions/domain.md)). | list of strings | *(none)* |
+| `expandable` | If set, overrides the domain's expandability stored in the file. | bool | *(none)* |
+| `bounds` | If set, overrides the domain's bounds, filtering out particles that fall outside the new bounds. | AABB | *(none)* |
+| `shrink_to_fit` | If `true` (and `bounds` was given), shrinks the domain's grid to the minimum size enclosing the new `bounds`. | bool | *(none)* |
 
-   * - Property
-     - Description
-     - Data Type
-   * - ``file``
-     - File name
-     - string
-   * - ``format``
-     - File format extension (see :ref:`supported format<input-supported-ext-format>`)
-     - string
-   * - ``compression``
-     - File compression extension (``gz`` , ``bz2`` , ``xz``)
-     - string
-   * - ``units_style``
-     - LAMMPS units style (only used for LAMMPS format)
-     - string
-   * - ``atom_style``
-     - LAMMPS atom style (only used for LAMMPS format)
-     - string
+```yaml
+read_dump_atoms:
+  filename: "checkpoint_000100.dump"
+```
 
-Only the ``file`` parameters is required. By default, ``format`` and ``compression`` are deduced from the file's extension. The ``units_style`` and ``atom_style`` parametyers are used only with LAMMPS format to define the unit system and the atom style.
+`read_dump_molecule` additionally restores every intramolecular force-field parameter (`potentials_for_bonds`, `potentials_for_angles`, `potentials_for_torsions`, `potentials_for_impropers`, …) — see [Bonding Potentials](../G_ForceFields/Intramolecular/index.md).
 
-.. _input-supported-ext-format:
+### Files generated by external tools
 
-**Supported file formats**
+`read_xyz_file` and `read_xyz_file_with_xform` read a plain `.xyz` file — typically a system built or converted by an external tool (e.g. Atomsk, OVITO) rather than written by `exaStamp` itself.
 
-Currently ``ExaStamp`` support the following external file formats:
+#### `read_xyz_file`
 
-.. list-table::
-   :widths: 40 40 40
-   :header-rows: 1
+Reads particle positions from a plain `.xyz` file.
 
-   * - Name
-     - Description
-     - Extension
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `file` | Path to the `.xyz` file. | string | *(required)* |
+| `species` | Species list used to validate/assign particle types. If omitted, type IDs are allocated automatically from the types found in the file. | list | *(none)* |
+| `bounds_mode` | How the domain bounds are determined: `FILE` (bounds stored in the file), `COMPUTED` (min/max of all particle positions read), or `DOMAIN` (use the `domain:` block's own bounds, ignoring the file). | string | `"FILE"` |
+| `enlarge_bounds` | Enlarges the computed/file bounds by this amount on every side. | float | `0.` |
+| `pbc_adjust_xform` | Reset the domain's `xform` to identity before applying periodic-boundary adjustments (the `xform` must already be identity). | bool | `false` |
 
-   * - LAMMPS data
-     - File format used by `LAMMPS <https://docs.lammps.org/Run_formats.html#input-file>`_
-     - ``lmp``, ``lmp-data``, ``data``
+```yaml
+read_xyz_file:
+  file: input.xyz
+  bounds_mode: COMPUTED
+```
 
-   * - LAMMPS Dump
-     - File format used by `LAMMPS <https://docs.lammps.org/Run_formats.html#input-file>`_
-     - ``dump``, ``lmp-dump``
+#### `read_xyz_file_with_xform`
 
-   * - XYZ
-     - `Extended XYZ <https://github.com/libAtoms/extxyz?tab=readme-ov-file#xyz-file>`_ format.
-     - ``xyz``
+Like `read_xyz_file`, but also reads a transformation matrix from the file — used when the system's cell shape/orientation is stored alongside the positions, not just its size.
 
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `filename` | Path to the `.xyz` file. | string | *(required)* |
+| `species` | Species list used to validate/assign particle types. | list | *(none)* |
+| `bounds_mode` | Same as `read_xyz_file` above. | string | `"FILE"` |
+| `read_velocities` | Also read per-particle velocities from the file. | bool | `false` |
 
-       
+### Other formats
+
+A few more readers exist for specific molecule and legacy formats — `read_xyz_molecules`, `read_xyz_rigidmol`, `read_fatomes_mol`, `read_stamp_v3`, `read_stamp_v4`. These aren't part of the common workflow above and see comparatively little use; some cover formats specific to older, predecessor codes and may eventually be retired.

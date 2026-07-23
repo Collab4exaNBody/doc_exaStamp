@@ -7,6 +7,25 @@ icon: simple/moleculer
 Analysis
 ========
 
+## Neighbor-averaged fields
+
+`average_neighbors_scalar` writes a new per-particle scalar field that's a distance-weighted average of another field over neighboring particles within a cutoff.
+
+| Property | Description | Data Type | Default |
+|---|---|---|---|
+| `nbh_field` | Name of the field to average over neighbors. | string | *(required)* |
+| `avg_field` | Name of the resulting averaged field. | string | *(required)* |
+| `rcut` | Cutoff distance for the average. | float | `0.` |
+| `weight_function` | Polynomial distance-weighting coefficients `[a0, a1, ..., an]` → $a_0 + a_1 r + ... + a_n r^n$. | list of floats | `[1.0]` |
+
+```yaml
+average_neighbors_scalar:
+  nbh_field: mass
+  avg_field: avg_mass
+  rcut: 8.0 ang
+  weight_function: [ 1.0, 0.0, -0.01 ]  # 1 + 0·r - 0.01·r²
+```
+
 Local entropy
 -------------
 
