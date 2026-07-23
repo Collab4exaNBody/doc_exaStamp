@@ -223,6 +223,10 @@ In some cases, the simulation domain does not need to be fully defined through t
 
 - `bulk_lattice`: The system shape and size is created according to the replication in the 3D space of a unit cell chosen by the user, from which a matching `domain` is derived (`grid_dims`, `xform`, `bounds` are computed from the lattice and the repeat count). It performs its own grid partitioning internally, so it does **not** need a separate `init_rcb_grid` step.
 
+    !!! warning
+
+        `bulk_lattice` unconditionally sets the domain's `periodic` flag to `[true, true, true]` — it is designed to generate a perfectly commensurate, fully 3D-periodic domain, and this cannot be overridden through the operator's parameters. If you need non-periodic or mixed boundary conditions, use `lattice` with a pre-defined `domain` instead.
+
 See [Particles Features → Input](../F_Particles/input.md) for the full set of built-in particle generators.
 
 ### External file readers
