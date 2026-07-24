@@ -2,65 +2,65 @@
 icon: lucide/atom
 ---
 
-# Species
+# **Species**
 
 `exaStamp` supports three particle formalisms — atoms, rigid molecules, and fully-flexible molecules — all built on the same underlying species type. Every particle type used in a simulation, whatever its formalism, must first be declared in the `species` YAML block.
 
-## The `species` operator
+## **`species`**
 
-The simplest form is a bare list of named species:
+```{ .yaml title="Syntax" .syntax-block }
+species:
+  verbose: <bool>
+  fail_if_empty: <bool>
+  species:
+    - <name>: { mass: <float>, z: <int>, charge: <float> }
+```
 
-```yaml
+```{ .yaml title="Parameters" .params-block }
+verbose:        bool, default true    # Print the resolved species list to the log.
+fail_if_empty:  bool, default false   # Abort if no species are defined.
+```
+
+`species` declares every particle type used in a simulation. A bare list of named species is the common shorthand; the full form above additionally exposes the operator's own parameters, with the species list nested under its own `species` key.
+
+```yaml title="Usage example"
 species:
   - O: { mass: 15.9994 Da, z: 8, charge: -1.1104 e- }
   - U: { mass: 238.02891 Da, z: 92, charge: 2.2208 e- }
 ```
 
-The full form additionally exposes the operator's own parameters, with the species list nested under its own `species` key:
-
-```yaml
-species:
-  verbose: true
-  fail_if_empty: true
-  species:
-    - O: { mass: 15.9994 Da, z: 8, charge: -1.1104 e- }
-```
-
-| Property | Description | Data Type | Default |
-|---|---|---|---|
-| `verbose` | Print the resolved species list to the log. | bool | `true` |
-| `fail_if_empty` | Abort if no species are defined. | bool | `false` |
-
 !!! warning
 
-    Species names used here must be consistent with any other place that references particle types by name — [`lattice`/`bulk_lattice`'s `types`](../D_DomainRegions/domain.md#built-in-particles-creators), external file readers, etc.
+    Species names used here must be consistent with any other place that references particle types by name — [`lattice`/`bulk_lattice`'s `types`](../D_DomainRegions/domain/alternative.md#built-in-particles-creators), external file readers, etc.
 
-## Per-species properties
+## **Per-species properties**
 
 Each entry in the `species` list is a single-key map `name: { ... }`:
 
-| Property | Description | Data Type | Default |
-|---|---|---|---|
-| `mass` | Particle mass. | float (physical quantity) | *(required)* |
-| `z` | Atomic number. | int | `0` |
-| `charge` | Particle charge. | float (physical quantity) | `0` |
-| `molecule` | Name of the flexible molecule this atom belongs to — see [Bonding Potentials](../G_ForceFields/Intramolecular/index.md) for the bond/bend/torsion/improper terms connecting them. Omit for standalone atoms. | string | *(none)* |
-| `rigid_molecule` | Defines this species as a rigid molecule made of other, already-declared single-atom species (see below), instead of a plain atom. | sequence | *(none)* |
+```{ .yaml title="Parameters" .params-block }
+mass:            float, required     # Particle mass.
+z:               int, default 0      # Atomic number.
+charge:          float, default 0    # Particle charge.
+molecule:        string, optional    # Name of the flexible molecule this atom belongs to. Omit for standalone atoms.
+rigid_molecule:  sequence, optional  # Defines this species as a rigid molecule instead of a plain atom — see below.
+```
 
-```yaml
+`molecule` links this atom into a flexible molecule — see [Bonding Potentials](../G_ForceFields/Intramolecular/index.md) for the bond/bend/torsion/improper terms connecting them.
+
+```yaml title="Usage example"
 species:
   - h2o_H: { mass: 1.008 Da, z: 1, charge: 0.5564 e-, molecule: molH2O }
   - h2o_O: { mass: 15.999 Da, z: 8, charge: -1.1128 e-, molecule: molH2O }
   - o2_O:  { mass: 15.999 Da, z: 8, charge: 0.0 e-, molecule: molO2 }
 ```
 
-## Rigid molecules
+## **Rigid molecules**
 
 A species can instead be defined as a **rigid molecule**: a fixed assembly of 2 to 4 previously-declared single-atom species (4 is the default compile-time limit, `XSTAMP_MAX_RIGID_MOLECULE_ATOMS`), each placed at a fixed position relative to the molecule's own frame via `rigid_molecule`. `mass`, `z` and `charge` are still required keys on a rigid-molecule entry, but their values are ignored — they get automatically recomputed as the sum over the constituent atoms.
 
 A rigid O₂ molecule:
 
-```yaml
+```yaml title="Usage example"
 species:
   - O: { mass: 15.999 Da, z: 8, charge: 0.0 e- }
   - O2:
@@ -74,7 +74,7 @@ species:
 
 A rigid, TIP4P-style water model with a fourth massless charge site `M`:
 
-```yaml
+```yaml title="Usage example"
 species:
   - H: { mass: 1.007 Da, z: 1, charge: 0.5564 e- }
   - O: { mass: 16 Da, z: 8, charge: 0.0 e- }
@@ -94,7 +94,7 @@ species:
 
     All plain (single-atom) species must come before any rigid-molecule species in the `species` list — `exaStamp` aborts at startup if a single atom is declared after the first rigid molecule.
 
-## Lower-level alternative: `particle_types` / `particle_type_add_properties`
+## **Lower-level alternative: `particle_types` / `particle_type_add_properties`**
 
 `species` is `exaStamp`'s high-level way of declaring atomic species. Internally, it populates two generic `onika`/`exaNBody` slots: `particle_type_map` (name → integer type ID) and `particle_type_properties` (arbitrary named scalar/vector properties per type). These two slots can also be populated directly, which is useful when:
 
@@ -103,15 +103,23 @@ species:
 
 ### `particle_types`
 
-Defines the type-name-to-ID mapping and, optionally, per-type properties in one go:
+```{ .yaml title="Syntax" .syntax-block }
+particle_types:
+  verbose: <bool>
+  particle_type_map: { <name>: <int>, ... }
+  particle_type_properties:
+    <name>: { <property>: <value>, ... }
+```
 
-| Property | Description | Data Type | Default |
-|---|---|---|---|
-| `particle_type_map` | Maps each type name to an integer type ID. | dict (string → int) | `{}` |
-| `particle_type_properties` | Per-type scalar/vector properties. Each key is a type name from `particle_type_map`; a property left undefined for some types is created and set to `0` for those. | dict | `{}` |
-| `verbose` | Log the resolved type map/properties. | bool | `true` |
+```{ .yaml title="Parameters" .params-block }
+particle_type_map:         dict (string -> int), default {}  # Maps each type name to an integer type ID.
+particle_type_properties:  dict, default {}                  # Per-type scalar/vector properties.
+verbose:                   bool, default true                # Log the resolved type map/properties.
+```
 
-```yaml
+Defines the type-name-to-ID mapping and, optionally, per-type properties in one go. A property left undefined for some types is created and set to `0` for those.
+
+```yaml title="Usage example"
 particle_types:
   verbose: true
   particle_type_map: { A: 0, B: 1, C: 2 }
@@ -123,16 +131,21 @@ particle_types:
 
 ### `particle_type_add_properties`
 
-Attaches additional properties to particle types that already exist in `particle_type_map` — from `species` or a prior `particle_types` call. It fails with a fatal error if a given type name isn't already registered.
+```{ .yaml title="Syntax" .syntax-block }
+particle_type_add_properties:
+  <name>: { <property>: <value>, ... }
+```
 
-| Property | Description | Data Type | Default |
-|---|---|---|---|
-| `properties` | Per-type properties to add, same shape as `particle_type_properties` above. Can also be given directly as the operator's whole value, without the `properties:` wrapper — see the second example below. | dict | *(required)* |
-| `verbose` | Log the resulting properties. | bool | `true` |
+```{ .yaml title="Parameters" .params-block }
+properties:  dict, required     # Per-type properties to add, same shape as `particle_type_properties` above.
+verbose:     bool, default true # Log the resulting properties.
+```
+
+Attaches additional properties to particle types that already exist in `particle_type_map` — from `species` or a prior `particle_types` call. It fails with a fatal error if a given type name isn't already registered. `properties` can also be given directly as the operator's whole value, without the `properties:` wrapper — see the second example below.
 
 Split across two steps of `setup_system` — `particle_types` for the map, `particle_type_add_properties` for the properties:
 
-```yaml
+```yaml title="Usage example"
 setup_system:
   - particle_types:
       particle_type_map: { Al: 0, Cu: 1 }
@@ -148,7 +161,7 @@ setup_system:
 
 Adding extra custom properties on top of types already defined by `species` or `particle_types`:
 
-```yaml
+```yaml title="Usage example"
 particle_type_add_properties:
   Al: { lambda: 0.5 }
   Cu: { lambda: 0.2 }

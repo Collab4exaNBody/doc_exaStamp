@@ -36,7 +36,7 @@ icon: material/feature-search
 
     General triclinic simulation domains, periodic/mirror boundary conditions, and geometric regions (parallelepipeds, planes, spheres, cylinders, cones) for populating or analyzing subdomains.
 
-    [:octicons-arrow-right-24: Domain & Regions](../User/D_DomainRegions/domain.md)
+    [:octicons-arrow-right-24: Domain & Regions](../User/D_DomainRegions/domain/index.md)
 
 -   :lucide-atom:{ .lg .middle } __Particles Features__
 

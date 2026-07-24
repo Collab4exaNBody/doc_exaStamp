@@ -7,3 +7,27 @@ section.justify p {
 .highlight[class*="yaml"] pre {
   font-size: .8em;
 }
+
+.highlight[class*="text"] pre {
+  font-size: .8em;
+}
+
+.compact-code, .compact-code pre, .compact-code code {
+  font-size: .75em;
+}
+
+.syntax-block, .syntax-block pre, .syntax-block code {
+  background-color: rgba(100, 150, 255, 0.08);
+}
+
+.params-block, .params-block pre, .params-block code {
+  background-color: rgba(100, 200, 130, 0.08);
+}
+
+.md-typeset h1 code,
+.md-typeset h2 code,
+.md-typeset h3 code,
+.md-typeset h4 code {
+  background-color: var(--md-accent-fg-color--transparent);
+  color: var(--md-accent-fg-color);
+}
