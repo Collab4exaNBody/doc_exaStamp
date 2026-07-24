@@ -42,8 +42,19 @@ nav = [
     	"User/index.md",
         {"Domain & Regions" = [
             "User/D_DomainRegions/index.md",
-            "User/D_DomainRegions/domain.md",
-            "User/D_DomainRegions/regions.md"
+            {"Simulation Domain" = [
+                "User/D_DomainRegions/domain/index.md",
+                "User/D_DomainRegions/domain/physical_grid_space.md",
+                "User/D_DomainRegions/domain/defining.md",
+                "User/D_DomainRegions/domain/alternative.md",
+                "User/D_DomainRegions/domain/modifying.md"
+            ]},
+            {"Spatial Regions" = [
+                "User/D_DomainRegions/regions/index.md",
+                "User/D_DomainRegions/regions/geometric.md",
+                "User/D_DomainRegions/regions/restricting.md",
+                "User/D_DomainRegions/regions/tracking.md"
+            ]}
         ]},
         {"Particles Features" = [
             "User/F_Particles/index.md",
