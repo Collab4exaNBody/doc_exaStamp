@@ -208,7 +208,8 @@ features = [
     "navigation.indexes"
 ]
 logo = "img/xsp_logo.png"
-
+custom_dir = "overrides"
+  
 # Palette toggle for automatic mode
 [[project.theme.palette]]
 media = "(prefers-color-scheme)"

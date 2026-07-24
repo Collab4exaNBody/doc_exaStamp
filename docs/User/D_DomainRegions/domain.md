@@ -107,7 +107,7 @@ Multiple examples of domain definitions are provided below with, for each case, 
 
 #### Cubic domain
 
-The first example creates a cubic physical domain with 100 $\AA$ side length, with 20 cells in each direction. In grid space, the domain also is cubic with the same dimensions.
+The first example creates a cubic physical domain with 100 Å side length, with 20 cells in each direction. In grid space, the domain also is cubic with the same dimensions.
 
 ```yaml
 domain:
@@ -127,7 +127,7 @@ In that case, the $\mathbf{X_f}$ matrix equal the identity matrix and the grid s
 
 #### Orthorhombic domain
 
-In that second example, an orthorhombic physical domain with 80 $\AA$, 100 $\AA$ and 120 $\AA$ side lengths is created, with 16, 20 and 25 cells in each direction. In grid space, the domain is also orthorhombic with the same dimensions since the physical size exactly equals a finite number of cells in each direction.
+In that second example, an orthorhombic physical domain with 80 Å, 100 Å and 120 Å side lengths is created, with 16, 20 and 25 cells in each direction. In grid space, the domain is also orthorhombic with the same dimensions since the physical size exactly equals a finite number of cells in each direction.
 
 ```yaml
 # 1st solution
