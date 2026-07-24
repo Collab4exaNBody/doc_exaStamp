@@ -37,7 +37,7 @@ format:  string, required  # printf-style format string, e.g. "output_%09d".
     - write_paraview
     ```
 
-    `print_dump_file` isn't a distinct operator here — it's just a locally-chosen aggregate name wrapping `message` with a `rebind`, using the generic aggregate/`rebind` mechanism (see [YAML extensions](../B_GettingStarted/yaml_extensions.md)). The simple form above (just `timestep_file` + the writer) is enough for everyday use.
+    `print_dump_file` isn't a distinct operator here — it's just a locally-chosen aggregate name wrapping `message` with a `rebind`, using the generic aggregate/`rebind` mechanism (see [YAML extensions](../../Beginner/GettingStarted/yaml_extensions.md)). The simple form above (just `timestep_file` + the writer) is enough for everyday use.
 
 ## **Writers**
 

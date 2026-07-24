@@ -22,7 +22,7 @@ global:
 
 ## Binary restart file
 
-`write_restart` is `nop` by default; assign it one of the predefined aggregates from `config_restart.msp` (see [Restarts](../B_GettingStarted/configuration_files.md#restarts)) to activate restart writing, at the frequency set by `simulation_restart_frequency`:
+`write_restart` is `nop` by default; assign it one of the predefined aggregates from `config_restart.msp` (see [Restarts](../GettingStarted/configuration_files.md#restarts)) to activate restart writing, at the frequency set by `simulation_restart_frequency`:
 
 ```yaml linenums="1"
 global:
@@ -93,4 +93,4 @@ write_snapshot: write_snapshot_paraview
 
 !!! tip
 
-    Both writers above output raw particle data. `exaNBody` can also project particle properties onto the parallelization grid and write that out instead (`write_grid_vtk`), which is much cheaper for large-scale, on-the-fly visualization — see [Output](../E_Grids/output.md) in the Grids Features section.
+    Both writers above output raw particle data. `exaNBody` can also project particle properties onto the parallelization grid and write that out instead (`write_grid_vtk`), which is much cheaper for large-scale, on-the-fly visualization — see [Output](../../User/E_Grids/output.md) in the Grids Features section.

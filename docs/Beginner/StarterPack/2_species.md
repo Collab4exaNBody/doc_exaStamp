@@ -17,7 +17,7 @@ simulation:
     - [...]
 ```
 
-If no `species` block is provided, `exaStamp` falls back to `generate_default_species`, which populates the full periodic table (H to Og) documented in [Configuration files](../B_GettingStarted/configuration_files.md#particle-species).
+If no `species` block is provided, `exaStamp` falls back to `generate_default_species`, which populates the full periodic table (H to Og) documented in [Configuration files](../GettingStarted/configuration_files.md#particle-species).
 
 ## Defining atomic species
 
@@ -37,7 +37,7 @@ species:
   - U: { mass: 238.02891 Da, z: 92, charge: 2.2208 e- }
 ```
 
-Tagging atoms with a `molecule` name groups them for bonded, flexible-molecule force fields (see [Flexible molecules](../B_GettingStarted/configuration_files.md#flexible-molecules)), without changing how each atom itself is declared:
+Tagging atoms with a `molecule` name groups them for bonded, flexible-molecule force fields (see [Flexible molecules](../GettingStarted/configuration_files.md#flexible-molecules)), without changing how each atom itself is declared:
 
 ```yaml linenums="1"
 species:
@@ -51,7 +51,7 @@ species:
 
 ## Rigid molecules
 
-A rigid, multi-atom species (treated as a single rigid body, see [Rigid molecules](../B_GettingStarted/configuration_files.md#rigid-molecules)) is declared with `rigid_molecule` instead of `mass`/`z`/`charge`, listing the relative position of each constituent atom (at least 2 are required):
+A rigid, multi-atom species (treated as a single rigid body, see [Rigid molecules](../GettingStarted/configuration_files.md#rigid-molecules)) is declared with `rigid_molecule` instead of `mass`/`z`/`charge`, listing the relative position of each constituent atom (at least 2 are required):
 
 ```yaml linenums="1"
 species:
@@ -109,4 +109,4 @@ particle_type_add_properties:
   Cu: { lambda: 0.2 }
 ```
 
-See [Particles Features → Species](../F_Particles/species.md#lower-level-alternative-particle_types-particle_type_add_properties) for the full parameter reference of both operators.
+See [Particles Features → Species](../../User/F_Particles/species.md#lower-level-alternative-particle_types-particle_type_add_properties) for the full parameter reference of both operators.

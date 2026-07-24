@@ -36,7 +36,7 @@ compute_force: lj_compute_force
 
 !!! tip
 
-    For a system with multiple species, `lj_multi_force` takes a `common_parameters` fallback plus a per-pair `parameters` list keyed by `type_a`/`type_b` — see [Lennard-Jones](../G_ForceFields/Pair/Models/lj.md) for details.
+    For a system with multiple species, `lj_multi_force` takes a `common_parameters` fallback plus a per-pair `parameters` list keyed by `type_a`/`type_b` — see [Lennard-Jones](../../User/G_ForceFields/Pair/Models/lj.md) for details.
 
 ## EAM alloy (Tantalum)
 
@@ -57,7 +57,7 @@ compute_force:
 
 !!! tip
 
-    More complex scenarios (multi-species alloys, the multi-pass/optimized variant with a separate ghost exchange of the embedding derivative, etc.) can also be set up — see the reference [EAM alloy](../G_ForceFields/EAM/alloy.md) section (still being written).
+    More complex scenarios (multi-species alloys, the multi-pass/optimized variant with a separate ghost exchange of the embedding derivative, etc.) can also be set up — see the reference [EAM alloy](../../User/G_ForceFields/EAM/alloy.md) section (still being written).
 
 ## MEAM (Tin)
 
@@ -101,4 +101,4 @@ compute_force: meam_force
 
 !!! tip
 
-    `rcut`/`rmax`/`rmin`/`rc`/`rp` are cutoff-related distances, `Ecoh`/`E0`/`A`/`r0`/`alpha`/`delta` describe the universal energy curve, `beta0-3`/`t0-3` control the electron density contributions, `s0-3` are screening-related, and `Cmin`/`Cmax`/`Z` set the angular screening function — see the reference [MEAM potentials](../G_ForceFields/MEAM/meam.md) section (still being written) for the full formalism.
+    `rcut`/`rmax`/`rmin`/`rc`/`rp` are cutoff-related distances, `Ecoh`/`E0`/`A`/`r0`/`alpha`/`delta` describe the universal energy curve, `beta0-3`/`t0-3` control the electron density contributions, `s0-3` are screening-related, and `Cmin`/`Cmax`/`Z` set the angular screening function — see the reference [MEAM potentials](../../User/G_ForceFields/MEAM/meam.md) section (still being written) for the full formalism.

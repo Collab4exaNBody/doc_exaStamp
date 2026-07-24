@@ -12,7 +12,7 @@ icon: material/feature-search
 
     The entire simulation graph — the sequence of components that make up a run — is defined in a single extended `YAML` file, with file inclusion and operator overriding to build complex, modular configurations incrementally.
 
-    [:octicons-arrow-right-24: YAML basics](../User/B_GettingStarted/yaml_basics.md)
+    [:octicons-arrow-right-24: YAML basics](../Beginner/GettingStarted/yaml_basics.md)
 
 -   :fontawesome-solid-microchip:{ .lg .middle } __MPI x OpenMP x GPU__
 

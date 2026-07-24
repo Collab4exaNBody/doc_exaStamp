@@ -60,7 +60,7 @@ write_snapshot: write_snapshot_xyz
 
 !!! note
 
-    For compactness, `domain` and `init_rcb_grid` are nested directly inside `setup_system` above instead of being declared as separate top-level keys. This is not a problem: the [`simulation` block](../B_GettingStarted/building_blocks.md#simulation-block) already calls `domain` once, earlier in its `body`, before `setup_system` runs — nesting a fresh `domain:` step inside `setup_system` simply re-invokes that same operator with the full lattice-ready parameters right before `init_rcb_grid`/`lattice` need them, overwriting the earlier, auto-deduced values. Both forms are equivalent; keeping everything needed to populate the domain in one place is just easier to read.
+    For compactness, `domain` and `init_rcb_grid` are nested directly inside `setup_system` above instead of being declared as separate top-level keys. This is not a problem: the [`simulation` block](../GettingStarted/building_blocks.md#simulation-block) already calls `domain` once, earlier in its `body`, before `setup_system` runs — nesting a fresh `domain:` step inside `setup_system` simply re-invokes that same operator with the full lattice-ready parameters right before `init_rcb_grid`/`lattice` need them, overwriting the earlier, auto-deduced values. Both forms are equivalent; keeping everything needed to populate the domain in one place is just easier to read.
 
 Each block maps directly back to the page that introduced it:
 

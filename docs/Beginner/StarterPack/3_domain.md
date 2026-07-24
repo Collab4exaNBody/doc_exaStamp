@@ -50,7 +50,7 @@ domain:
 
 `exaStamp`'s own default (in `main-config.msp`) leaves `cell_size`/`grid_dims` at `0`, so they are automatically deduced from the interatomic potential's cutoff radius, and sets `expandable: false`.
 
-For the full derivation of the physical-space/grid-space transform, more `xform` examples (orthorhombic, triclinic domains) and alternative ways of defining a domain (from a lattice template, an external file, or a restart), see [Simulation Domain](../D_DomainRegions/domain/index.md) in the Domain & Regions reference section.
+For the full derivation of the physical-space/grid-space transform, more `xform` examples (orthorhombic, triclinic domains) and alternative ways of defining a domain (from a lattice template, an external file, or a restart), see [Simulation Domain](../../User/D_DomainRegions/domain/index.md) in the Domain & Regions reference section.
 
 ## Expandable domains
 

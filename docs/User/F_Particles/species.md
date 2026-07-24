@@ -167,4 +167,4 @@ particle_type_add_properties:
   Cu: { lambda: 0.2 }
 ```
 
-See [Simulation Starter Pack → Particles Species](../C_StarterPack/2_species.md#lower-level-alternative-particle_types-particle_type_add_properties) for a guided walkthrough of when to reach for this instead of `species`.
+See [Simulation Starter Pack → Particles Species](../../Beginner/StarterPack/2_species.md#lower-level-alternative-particle_types-particle_type_add_properties) for a guided walkthrough of when to reach for this instead of `species`.

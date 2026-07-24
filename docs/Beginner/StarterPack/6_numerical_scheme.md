@@ -4,7 +4,7 @@ icon: lucide/waypoints
 
 # Numerical Scheme
 
-The time-integration scheme is chosen through the `numerical_scheme` block. Unlike `compute_force`/`species`/`domain`/`setup_system`, it isn't strictly mandatory: it already defaults to `verlet_nve` (see [Numerical schemes](../B_GettingStarted/configuration_files.md#numerical-schemes)), so a minimal input deck works without touching it at all. Redefine it when you need temperature control.
+The time-integration scheme is chosen through the `numerical_scheme` block. Unlike `compute_force`/`species`/`domain`/`setup_system`, it isn't strictly mandatory: it already defaults to `verlet_nve` (see [Numerical schemes](../GettingStarted/configuration_files.md#numerical-schemes)), so a minimal input deck works without touching it at all. Redefine it when you need temperature control.
 
 ## NVE (default)
 

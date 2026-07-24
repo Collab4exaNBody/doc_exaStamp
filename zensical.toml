@@ -20,22 +20,22 @@ nav = [
     {"Beginner Guide" = [
         "Beginner/index.md",
 		{"Getting Started" = [
-            "User/B_GettingStarted/index.md",
-            "User/B_GettingStarted/building_blocks.md",
-            "User/B_GettingStarted/configuration_files.md",
-            "User/B_GettingStarted/yaml_basics.md",
-            "User/B_GettingStarted/yaml_extensions.md"
+            "Beginner/GettingStarted/index.md",
+            "Beginner/GettingStarted/building_blocks.md",
+            "Beginner/GettingStarted/configuration_files.md",
+            "Beginner/GettingStarted/yaml_basics.md",
+            "Beginner/GettingStarted/yaml_extensions.md"
         ]},
         {"Simulation Starter Pack" = [
-            "User/C_StarterPack/index.md",            
-            "User/C_StarterPack/1_global.md",   
-            "User/C_StarterPack/2_species.md", 
-            "User/C_StarterPack/3_domain.md", 
-            "User/C_StarterPack/4_setup_system.md", 
-            "User/C_StarterPack/5_force.md",
-            "User/C_StarterPack/6_numerical_scheme.md",
-            "User/C_StarterPack/7_output.md",
-            "User/C_StarterPack/8_example.md",
+            "Beginner/StarterPack/index.md",            
+            "Beginner/StarterPack/1_global.md",   
+            "Beginner/StarterPack/2_species.md", 
+            "Beginner/StarterPack/3_domain.md", 
+            "Beginner/StarterPack/4_setup_system.md", 
+            "Beginner/StarterPack/5_force.md",
+            "Beginner/StarterPack/6_numerical_scheme.md",
+            "Beginner/StarterPack/7_output.md",
+            "Beginner/StarterPack/8_example.md",
         ]}
     ]},
     {"User Guide" = [

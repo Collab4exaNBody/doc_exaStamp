@@ -123,7 +123,7 @@ region:                string, optional          # Restrict to a geometric regio
 atom_type:             string, optional          # Restrict to one named species; falls back to all atoms (with a warning) if the name isn't found.
 ```
 
-The modern, general way to draw an initial Maxwell-Boltzmann velocity distribution at a target temperature. Exactly one of `override_velocities`/`add_velocities`/`scale_velocities` may be true — `add_velocities` and `scale_velocities` both skip the momentum-zeroing step even if `zero_linear_momentum` is set; only `override_velocities` applies it. See [Simulation Starter Pack → Input Data](../C_StarterPack/4_setup_system.md#generating-a-crystal-lattice) for a full walkthrough.
+The modern, general way to draw an initial Maxwell-Boltzmann velocity distribution at a target temperature. Exactly one of `override_velocities`/`add_velocities`/`scale_velocities` may be true — `add_velocities` and `scale_velocities` both skip the momentum-zeroing step even if `zero_linear_momentum` is set; only `override_velocities` applies it. See [Simulation Starter Pack → Input Data](../../Beginner/StarterPack/4_setup_system.md#generating-a-crystal-lattice) for a full walkthrough.
 
 ```yaml title="Usage example"
 init_temperature_new: 300. K
