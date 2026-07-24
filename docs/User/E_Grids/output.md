@@ -2,81 +2,54 @@
 icon: material/export
 ---
 
-Output
-======
-     
-When it comes to large scale MD simulations it can be very costly to output the entire system to the disk in order to perform post-analysis. ExaNBody offers a way to project particles properties to a regular grid, built on the grid used for paralellism defined by the `cell_size` parameter. One the properties are projected, a few output operators allow to dump the data using ImageData or UnstructuredGrid VTK formats. As for the discrete output operators, everything can be performed in the block `dump_analysis` :
+# **Output**
 
-.. code-block:: yaml
+Writes grid-projected data (built via [Analysis](analysis.md)) to disk as VTK ImageData, for visualization in ParaView or similar tools.
 
-   dump_analysis:
-     - project_data_to_grid
-     - define_timestep_file
-     - continuum_output_operator
+## **`write_grid_vtk`**
 
-Here, the `dump_analysis` block contains three distinct operators. The first one allows to perform the data projection using the `atom_cell_projection` operator which takes the following arguments:
+```{ .yaml title="Syntax" .syntax-block }
+write_grid_vtk:
+  filename: <string>
+  use_point_data: <bool>
+  adjust_spacing: <bool>
+```
 
-* fields = List of strings corresponding to the projected fields onto the regular grid
-* grid_subdiv = Subdivision of the parallelism grid
-* splat_size = Distance used to project the data onto the regular grid and calculate each particle's contribution to neighboring cells
+```{ .yaml title="Parameters" .params-block }
+filename:        string, default "grid"  # Output base name — produces <filename>.pvti plus a <filename>/ directory of per-rank .vti pieces.
+use_point_data:  bool, default true      # Attach values to grid vertices (true, smooth interpolation) or to voxel cells (false, blocky/faceted) — see note below.
+adjust_spacing:  bool, default false     # Use the domain's real physical spacing instead of one grid cell = one VTK unit.
+```
 
-The user-defined operator `project_data_to_grid` can be defined as follows:
+Exports every field in `grid_cell_values` to VTK ImageData format: a parallel `.pvti` master file referencing one `.vti` piece per MPI rank. Ghost layers are excluded automatically. Open the `.pvti` file in ParaView (not the individual pieces) to see the whole system.
 
-.. code-block:: yaml
+!!! note "What `use_point_data` actually changes"
 
-   project_data_to_grid:
-     - grid_flavor
-     - resize_grid_cell_values
-     - ghost_update_r_v
-     - atom_cell_projection:
-         fields: [ mv2, mass, vnorm, f ]
-         grid_subdiv: 2
-         splat_size: 4.5 ang
-         
-Where `grid_flavor` sets the type of grid_flavor to use, `resize_grid_cell_values` allows to resize the data structure to the existing grid size to perform properties projections and where `ghost_update_r_v` allows to transfer both positions and velocities to the ghost layers at the domain boundaries and between MPI domains to ensure fields continuity on the projection grid.
+    `true` attaches the arrays to grid vertices (N cells → N+1 points per axis), so ParaView interpolates smoothly across cells — this is what Contour/Slice/iso-surface filters expect, and gives smooth color gradients. `false` attaches them to voxel cells instead (exact per-cell count, no +1), giving one flat color per cell — better suited to exact per-voxel inspection or a Threshold filter. Confirmed directly from the operator's own extent-computation code and embedded documentation string, resolving what older documentation left as "check what it means."
 
-The user-defined operator `define_timestep_file` corresponds to the block in which the output file name is defined base on the current iteration as well as some messages that will be printed to the screen when the operator `dump_analysis` is triggered :
+```yaml title="Usage example"
+- grid_flavor
+- resize_grid_cell_values
+- atom_cell_projection:
+    fields: [ mv2, mass, vnorm ]
+    grid_subdiv: 2
+    splat_size: 1.5 ang
+- timestep_file: "grid_%09d"
+- write_grid_vtk
+```
 
-.. code-block:: yaml
+## **The full analysis-to-output pipeline**
 
-   define_timestep_file:                
-     - timestep_file: "folder/output_%010d"
-     - message: { mesg: "Write FILE_OUPTUT " , endl: false }
-     - print_dump_file:
-         rebind: { mesg: filename }
-         body:
-           - message: { endl: true }
-       
-Finally, we define in the following the different solutions available to replace the `continuum_output_operator` above. The solutions described here only concern continuum output operators, i.e. operators that outputs particles' properties projected onto a regular grid.
+The real, working end-to-end pattern (from `exaStamp/data/config/config_analysis.msp` and `exaStamp/data/regression_new/analytics/*.msp`):
 
-write_grid_vtk
---------------
-
-This is a generic operator common to all applications, i.e. ExaDEM, ExaSTAMP and ExaSPH. It allows to dump particles attached properties on a regular grid that covers the entire simulation domain. Beware, this operator outputs a grid that is not scaled on the real simulation domain lengths. It uses the ImageData structure of VTK and therefore consists in a regular parallelepiped. It takes the unique following argument :
-
-* use_point_data = Check what it means.
-
-.. code-block:: yaml
-
-   # Definition of the write_grid_vtk operator
-   write_grid_vtk:
-     use_point_data: true
-
-write_deformed_grid_vtk
------------------------
-
-This is also a generic operator common to all applications, i.e. ExaDEM, ExaSTAMP and ExaSPH. It allows to dump particles attached properties on a regular grid that covers the entire simulation domain. This operator generalizes the `write_grid_vtk` operator to dynamically evolving simulation domains. Indeed, it uses the UnstructuredGrid format from VTK and therefore outputs a non-regular parallelepiped that follows the simulation domain shape with time. It is particularly usefull when applyging dynamic deformations to the simulation domain. The units of the output regular grid are the real units of the simulation domain. It takes the unique following argument :
-
-* use_point_data = Check what it means.
-
-.. code-block:: yaml
-
-   # Definition of the write_deformed_grid_vtk operator
-   write_deformed_grid_vtk:
-     use_point_data: true
-
-Usage examples
---------------
-
-Let's take a simple case of a voided sample.
-
+```yaml title="Usage example"
+simulation_epilog:
+  - grid_flavor
+  - resize_grid_cell_values
+  - atom_cell_projection:
+      fields: [ "mv2", "mass" ]
+      grid_subdiv: 2
+      splat_size: 1.5 ang
+  - timestep_file: "grid_%09d"
+  - write_grid_vtk
+```

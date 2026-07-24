@@ -2,11 +2,11 @@
 icon: material/import
 ---
 
-# Input
+# **Input**
 
 Reads external per-cell data onto the simulation grid.
 
-## `read_cell_values`
+## **`read_cell_values`**
 
 ```{ .yaml title="Syntax" .syntax-block }
 read_cell_values:

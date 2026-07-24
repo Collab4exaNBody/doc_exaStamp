@@ -93,4 +93,4 @@ write_snapshot: write_snapshot_paraview
 
 !!! tip
 
-    Both writers above output raw particle data. `exaNBody` can also project particle properties onto the parallelization grid and write that out instead (`write_grid_vtk`/`write_deformed_grid_vtk`), which is much cheaper for large-scale, on-the-fly visualization — see [Output](../E_Grids/output.md) in the Grids Features section.
+    Both writers above output raw particle data. `exaNBody` can also project particle properties onto the parallelization grid and write that out instead (`write_grid_vtk`), which is much cheaper for large-scale, on-the-fly visualization — see [Output](../E_Grids/output.md) in the Grids Features section.

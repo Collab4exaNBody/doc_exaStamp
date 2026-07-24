@@ -2,11 +2,11 @@
 icon: material/tune
 ---
 
-# Setters
+# **Setters**
 
-Writes per-cell data onto the simulation grid.
+Writes or resizes per-cell data on the simulation grid.
 
-## `set_cell_values`
+## **`set_cell_values`**
 
 ```{ .yaml title="Syntax" .syntax-block }
 set_cell_values:
@@ -43,4 +43,21 @@ set_cell_values:
   region: CYLX
   value: [1]
   grid_subdiv: 10
+```
+
+## **`resize_grid_cell_values`**
+
+```{ .yaml title="Syntax" .syntax-block }
+- resize_grid_cell_values
+```
+
+No parameters — it syncs `grid_cell_values`'s dimensions, ghost layers and offset to match the current particle grid. Run it before any projection or write operator that populates `grid_cell_values`, whenever the underlying grid may have changed size (e.g. after `replicate_domain`, or before the first projection of a run).
+
+```yaml title="Usage example"
+- grid_flavor
+- resize_grid_cell_values
+- atom_cell_projection:
+    fields: [ mv2, mass, vnorm ]
+    grid_subdiv: 2
+    splat_size: 1.5 ang
 ```

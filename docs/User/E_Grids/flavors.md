@@ -2,165 +2,73 @@
 icon: material/shaker-outline
 ---
 
-Grid Flavor
-===========
+# **Grid Flavor**
 
-In ``ExaStamp``, the grid flavor pre-defines the data attached to particles during the simulation, meaning that such data is stored anyway along the entire trajectory. Some fields can evolve with time such as positions or velocity while some can be fixed such as the particle identifiers or partial charges.
+`exaStamp` stores per-particle data in a fixed memory-layout "flavor" — chosen once via the `grid_flavor` operator, before any particles are created. The flavor determines which fields exist on every particle for the rest of the simulation; using an operator later that needs a field the chosen flavor doesn't have is an error, not a warning.
 
-General Concept
----------------
+## **`grid_flavor`**
 
-To define the grid flavor to be used in the simulation, a ``YAML`` block can be used in the input file. Below are exemples of definitions for all grid flavors available in ``ExaStamp``.
+```{ .yaml title="Syntax" .syntax-block }
+grid_flavor: <grid_flavor_name>
+```
 
-.. code-block:: yaml
+```{ .yaml title="Parameters" .params-block }
+grid_flavor:  enum, default grid_flavor_full   # One of the six registered grid_flavor_* operators — see table below.
+```
 
-   # Minimal
-   grid_flavor: grid_flavor_minimal
-   
-   # Multimat
-   grid_flavor: grid_flavor_multimat
+`grid_flavor` is the actual operator invoked in `exaStamp`'s framework pipeline (e.g. inside `main-config.msp`'s `simulation` body). The top-level `grid_flavor: <name>` entry isn't a bespoke "flavor selector" key — it's ONIKA's generic operator-alias mechanism: any top-level YAML entry whose name matches an operator being instantiated, and whose value is a plain string, redirects that operator to whichever name the string names. So `grid_flavor: grid_flavor_multimat` really means "the operator named `grid_flavor` is an alias for `grid_flavor_multimat`" — the same generic idiom works for overriding any operator's default elsewhere, not something specific to grids. Each of the six names below is itself a complete, parameterless operator that `grid_flavor` can alias to.
 
-   # Full
-   grid_flavor: grid_flavor_full
+| Operator | Field set (source) |
+|---|---|
+| `grid_flavor_minimal` | `MultiMatFieldSet`  |
+| `grid_flavor_multimat` | `MultiMatFieldSet` |
+| `grid_flavor_full` | `MoleculeFieldSet` |
+| `grid_flavor_full_mechanics` | `FullFieldMechSet` |
+| `grid_flavor_multimat_mechanics` | `MultimatMechFieldSet` |
+| `grid_flavor_rigidmol` | `RigidMoleculeFieldSet` |
 
-   # Mechanics
-   grid_flavor: grid_flavor_mechanics
+```yaml title="Usage example"
+grid_flavor: grid_flavor_multimat
+```
 
-   # Multimat Mechanics
-   grid_flavor: grid_flavor_multimat_mechanics
+!!! warning "`grid_flavor_minimal` isn't actually minimal"
 
-   # Rigid Molecules
-   grid_flavor: grid_flavor_rigidmol
+    In the current source (`exaStamp/src/setup_system/grid_flavor.cpp`), `grid_flavor_minimal` registers the exact same field set as `grid_flavor_multimat` — the source comment literally calls it "just an alias to multimat". There is no reduced-field flavor beneath `multimat` today, despite the name — only 5 distinct field sets exist across the 6 registered names. Also note: the real name is `grid_flavor_full_mechanics` — there is no `grid_flavor_mechanics` (a shorter name older documentation used).
 
-.. warning::
+    `grid_flavor_full`/`grid_flavor_rigidmol` require `exaStamp` to have been built with `EXASTAMP_ENABLE_MOLECULE`, and `grid_flavor_full_mechanics`/`grid_flavor_multimat_mechanics` require `EXASTAMP_ENABLE_MECHANICAL` — these flavors aren't available in a build without the corresponding option.
 
-   Depending on the grid flavor chosen by the user, some fields won't be available for output. For example if one needs the global stress tensor computed by the `thermodynamic_state` operator, an appropriate `grid_flavor` to use would be the `grid_flavor_full`.
-                
+## **Per-particle fields by flavor**
 
-Amongst these grid flavors, mutliple fields are attached to particles. The following table lists the fields common to all grid flavors
+Position, velocity, force and potential energy are present on every flavor. Beyond that:
 
-.. list-table:: Common fields to all grid flavors
-   :widths: 30 30
-   :header-rows: 1
-   :align: center
+| Field | minimal | multimat | full | full_mechanics | multimat_mechanics | rigidmol |
+|---|---|---|---|---|---|---|
+| Particle Identifier (`id`) | YES | YES | YES | YES | YES | YES |
+| Particle Type (`type`) | YES | YES | YES | YES | YES | YES |
+| Virial (`virial`) | NO | NO | YES | YES | YES | NO |
+| Particle Charge (`charge`) | NO | NO | YES | NO | NO | NO |
+| Molecule Identifier (`idmol`) | NO | NO | YES | NO | NO | NO |
+| Cmol (`cmol`) | NO | NO | YES | NO | NO | NO |
+| Filtered Position (`rxf`/`ryf`/`rzf`) | NO | NO | NO | YES | NO | NO |
+| Quaternion (`orient`) | NO | NO | NO | NO | NO | YES |
+| Angular Momentum (`angmom`) | NO | NO | NO | NO | NO | YES |
+| Torque (`couple`) | NO | NO | NO | NO | NO | YES |
 
-   * - Field
-     - Type
-   * - Potential Energy
-     - float
-   * - Position
-     - Vec3d
-   * - Velocity
-     - Vec3d
-   * - Force
-     - Vec3d
-     
-Below is another table listing the additional per-particle fields in the different grid flavors. Depending on the application you're thinking about, you may choose the appropriate grid_flavor for your simulation.
+!!! warning
 
-.. list-table:: Per-particle fields available in the different grid flavors
-   :widths: 30 30 30 30 30 30 30
-   :header-rows: 1
-   :align: center
+    Depending on the grid flavor chosen, some fields won't be available for output or for operators that read them — e.g. the global stress tensor from `thermodynamic_state` needs `virial`, so use `grid_flavor_full` (or one of the `_mechanics` flavors) for that.
 
-   * - Field \\ Grid Flavor
-     - mimimal
-     - multimat
-     - multimat_mechanics
-     - full
-     - full_mechanics
-     - rigidmol
-   * - Filtered Position
-     - NO
-     - NO
-     - YES
-     - NO
-     - YES
-     - NO
-   * - Particle Identifier
-     - NO
-     - YES
-     - YES 
-     - YES
-     - YES 
-     - YES
-   * - Particle Type
-     - NO
-     - YES
-     - YES
-     - YES
-     - YES 
-     - YES
-   * - Virial
-     - NO
-     - NO
-     - YES  
-     - YES
-     - YES    
-     - NO
-   * - Particle Charge
-     - NO
-     - NO
-     - NO  
-     - YES
-     - NO 
-     - YES
-   * - Molecule Identifier
-     - NO
-     - NO
-     - NO  
-     - YES
-     - NO 
-     - YES
-   * - Cmol
-     - NO
-     - NO
-     - NO  
-     - YES
-     - NO 
-     - YES
-   * - Quaternion
-     - NO
-     - NO
-     - NO  
-     - NO
-     - NO 
-     - YES
-   * - Angular Momentum
-     - NO
-     - NO
-     - NO  
-     - NO
-     - NO 
-     - YES
-   * - Torque
-     - NO
-     - NO
-     - NO  
-     - NO
-     - NO 
-     - YES
+## **Recommendations**
 
-Recommendations
----------------
+### Mono-species and multi-species atomic systems
 
-Below are some recommendations on using the different grid flavors, depending on the particle types involved in your simulation.
+- `grid_flavor_multimat` (or the identical `grid_flavor_minimal`) for minimal per-particle data — not compatible with charged systems (no `charge` field).
+- `grid_flavor_full` for multi-species systems with per-particle charges and virial.
 
-Mono-specy and Multi-species Atomic Systems
--------------------------------------------
+### Rigid molecule systems
 
-For mono-species and multi-species atomic systems, the different grid flavors that can be used are the following:
+The only usable flavor is `grid_flavor_rigidmol`.
 
-- ``grid_flavor_minimal`` to model system with minimal per-particle data. Not compatible with charged systems.
-- ``grid_flavor_multimat`` to model multi-species systems and analyse the system using particle identifiers.
-- ``grid_flavor_full`` to model multi-species systems with per-particle charges and virial.
-  
-Rigid Molecules Systems
------------------------
+### Flexible molecule systems
 
-For rigid molecules system, the only grid flavor that can be used is the ``grid_flavor_rigidmol``.  
-
-Flexible Molecules Systems
---------------------------
-
-For systems containing fully flexible molecules, the only grid flavor that can be used is the ``grid_flavor_full``.
-
+The only usable flavor is `grid_flavor_full`.

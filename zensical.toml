@@ -65,6 +65,7 @@ nav = [
             "User/F_Particles/output.md",
         ]},
         {"Grids Features" = [
+            "User/E_Grids/index.md",
             "User/E_Grids/flavors.md",
             "User/E_Grids/input.md",
             "User/E_Grids/setters.md",
@@ -219,7 +220,7 @@ features = [
     "navigation.indexes"
 ]
 logo = "img/xsp_logo.png"
-custom_dir = "overrides"
+#custom_dir = "overrides"
   
 # Palette toggle for automatic mode
 [[project.theme.palette]]

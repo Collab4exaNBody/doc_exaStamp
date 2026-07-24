@@ -52,7 +52,7 @@ icon: material/feature-search
 
     Grid flavors (minimal, multimat, full, mechanics, rigid molecules) control which per-particle fields — charge, virial, quaternion, molecule id, … — are tracked during the simulation, with setters to assign per-cell field values.
 
-    [:octicons-arrow-right-24: Grids Features](../User/E_Grids/flavors.md)
+    [:octicons-arrow-right-24: Grids Features](../User/E_Grids/index.md)
 
 -   :material-function-variant:{ .lg .middle } __Interatomic Potentials__
 
