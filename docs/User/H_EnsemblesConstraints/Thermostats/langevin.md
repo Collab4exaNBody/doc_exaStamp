@@ -1,107 +1,85 @@
-## Langevin Thermostat
+---
+icon: material/dice-multiple
+---
 
-Apply a Langevin thermostat to the system to model an interaction with a background implicit solvent. Using a Langevin thermostat, the total force on each atom of the system reads:
+# **Langevin Thermostat**
 
-.. math::
+Models an implicit solvent bath: the total force on each particle gains a viscous damping term and a random term, on top of the usual interatomic force.
 
-   F = F_c + F_f + F_r
+$$
+F = F_c + F_f + F_r, \qquad
+F_f = -\frac{m}{\gamma} v, \qquad
+F_r \propto \sqrt{\frac{m \, k_B \, T}{dt \cdot \gamma}}
+$$
 
-where \\(F_c\\) is the classical force computed via the interatomic potential and \\(F_f\\) corresponds to the first term added by the Langevin thermostat. This first therm is a viscous damping therm directly proportional to the particle's velocity:
+$F_c$ is the classical interatomic force; $F_f$ is a damping force proportional to velocity (damping parameter $\gamma$, user-defined); $F_r$ is a random force whose magnitude follows from the fluctuation-dissipation theorem, at target temperature $T$.
 
-.. math::
-   
-   F_f = - \frac{m}{\gamma} v
+```{ .yaml title="Syntax" .syntax-block }
+langevin_thermostat:
+  T: <float>
+  Tstart: <float>
+  Tstop: <float>
+  tserie: [<float>, ...]
+  Tserie: [<float>, ...]
+  gamma: <float>
+  seed: <int>
+  region: <string>
+  deterministic_noise: <bool>
+```
 
-with the prefacto defined as the ratio between the particle's mass and the damping parameter \\(\\gamma\\) defined by the user. The second term added by the Langevin thermostat mimics a force due to solvent atoms at a temperature \\(T\\) randomly bumping the particle. From the fluctuation/dissipation theorem, the magnitude of this term is
+```{ .yaml title="Parameters" .params-block }
+T:                    float, optional          # Constant target temperature — mutually exclusive with Tstart/Tstop and tserie/Tserie.
+Tstart:               float, optional          # Starting target temperature (linear ramp with Tstop).
+Tstop:                float, optional          # Final target temperature (linear ramp with Tstart).
+tserie:               list of floats, optional  # Physical times for a piecewise-interpolated target temperature.
+Tserie:               list of floats, optional  # Target temperatures at each tserie time — same length as tserie.
+gamma:                float, default 0.1        # Damping constant, in ps^-1.
+seed:                 int, optional              # RNG seed.
+region:               string, optional           # Restrict the thermostat to a geometric region.
+deterministic_noise:  bool, default false        # Force a single-threaded, deterministic RNG path.
+```
 
-.. math::
-   
-   F_r \propto \sqrt{\frac{m k_b T}{dt \gamma}}
+A bare scalar is accepted as shorthand for `T`: `langevin_thermostat: 500 K`. Exactly one of the three target-temperature forms (`T` / `Tstart`+`Tstop` / `tserie`+`Tserie`) may be given.
 
-with \\(m\\) the mass of the particle, \\(k_b\\) the Boltzman constant, \\(T\\) the target temperature, \\(dt\\) the timestep and \\(\\gamma\\) the damping parameter. The proportionality of this term is ensured by random numbers generation using a uniform distribution.
+```yaml title="Usage example"
+numerical_scheme: verlet_lnvt
 
-.. warning::
+# constant target temperature
+langevin_thermostat: { T: 300. K, gamma: 0.1 ps^-1 }
 
-   This thermostat has to be appended to the ``compute_force`` YAML block since no time integration is performed by this operator, contrarily to the Nosé-Hoover thermostat (See :ref:`nose_hoover_thermostat`).
-   
-The Langevin thermostat can be defined in the input file using three ways that are presented in the following ``YAML`` block:
+# linear ramp
+langevin_thermostat: { Tstart: 5. K, Tstop: 1000. K, gamma: 0.1 ps^-1 }
 
-.. code-block:: yaml
-   :caption: **Different ways of defining a Langevin thermostat**
+# piecewise-interpolated
+langevin_thermostat:
+  tserie: [0, 10., 20.]
+  Tserie: [5., 500., 500.]
+  gamma: 0.1 ps^-1
+```
 
-   # 1st solution: constant target temperature
-   langevin_thermostat:
-     T: 300. K
-     gamma: 0.1 ps^-1
+Like Berendsen, `langevin_thermostat` performs no time integration itself — but unlike Berendsen, which rescales velocities *after* the position/velocity push, Langevin applies a force term directly, so it slots into the force-computation stage of the scheme instead.
 
-   # 2nd solution: linear target temperature     
-   langevin_thermostat:
-     Tstart: 5. K
-     Tstop: 1000. K
-     gamma: 0.1 ps^-1
+!!! warning
 
-   # 3rd solution: linearly interpolated target temperature
-   langevin_thermostat:
-      tserie: [0, 10., 20.]
-      Tserie: [5., 500., 500.]
-      gamma: 0.1 ps^-1
+    `verlet_lnvt` inserts `langevin_thermostat` between `compute_force` and `compute_force_epilog` — the force-computation phase, not the position/velocity push phase — so describing it as "added to `compute_force`" is directionally right but not literal: it's a distinct step in the scheme body, not nested inside the `compute_force` block itself. `exaStamp` already ships this wiring as the `verlet_lnvt` scheme below, so in practice you don't need to build the body yourself — just point `numerical_scheme` at it.
 
-Finally, since the Langevin thermostat directly operates on atomic forces, it can be added to the ``compute_force`` YAML block as follows:
+## **The `verlet_lnvt` scheme**
 
-.. code-block:: yaml
-   :caption: **Extending the force operator with a Langevin thermostat**
-             
-   compute_force:
-     - interatomic_force_operator_1
-     - langevin_thermostat
+`verlet_lnvt` (`exaStamp/data/config/config_numerical_schemes.msp`) expands to:
 
-Below are displayed the different parameters of ``langevin_thermostat`` as well as their types and corresponding examples.
+```yaml title="Usage example"
+verlet_lnvt:
+  name: LNVT_scheme
+  body:
+    - verlet_first_half
+    - check_and_update_particles
+    - load_balance_auto_tune_start
+    - compute_force_prolog
+    - compute_force
+    - langevin_thermostat
+    - compute_force_epilog
+    - verlet_second_half
+    - load_balance_auto_tune_end
+```
 
-.. list-table:: **Properties for the Langevin thermostat**
-   :widths: 40 40 40 40
-   :header-rows: 1
-
-   * - Property
-     - Denomination
-     - Data Type
-     - Example
-   * - ``T``
-     - target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          T: 300 K
-   * - ``Tstart``
-     - starting target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tstart: 300 K
-   * - ``Tstop``
-     - final target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tstop: 1000 K
-   * - ``Tserie``
-     - serie of target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tserie: [5, 200, 1000, 100]
-   * - ``tserie``
-     - serie of physical times (ps)
-     - float
-     - .. code-block:: yaml
-             
-          tserie: [0,10,20,30]
-   * - ``gamma``
-     - damping constant (ps^-1)
-     - float
-     - .. code-block:: yaml
-             
-          gamma: 0.1 ps^-1
-
-.. warning::
-
-   When using a Langevin thermostat, the target temperature must be defined by one of the three ways presented above. If it is misdefined, the simulation will be aborted.
+Identical to [`verlet_nve`](../nve_ensemble.md#the-verlet_nve-scheme) except for the single `langevin_thermostat` step inserted between `compute_force` and `compute_force_epilog` — consistent with it applying a force term rather than integrating anything itself.

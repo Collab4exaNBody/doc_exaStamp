@@ -1,54 +1,66 @@
-.. _nve_ensemble:
+---
+icon: lucide/waypoints
+---
 
-NVE ensemble
-============
+# **NVE ensemble**
 
-The time integration in ``ExaStamp`` is performed using the velocity form of the Störmer-Verlet time integration algorithm, well-known as the `velocity-Verlet` algorithm. It is advantageous for atomistic simulations due to its simplicity, stability, and accuracy. It provides a straightforward method for integrating Newton's equations of motion, efficiently calculating both positions and velocities. This algorithm is symplectic, preserving the system's energy over long simulation times, which is crucial for accurately modeling physical systems. Additionally, its second-order accuracy in both time and energy ensures precise trajectory calculations, making it a preferred choice for molecular dynamics simulations where the conservation of physical properties and computational efficiency are essential. The `velocity-verlet` algorithm is integrated using the following scheme at each time step:
+Time integration in `exaStamp` is performed using the velocity form of the Störmer-Verlet algorithm, better known as **velocity-Verlet**. It's a good fit for atomistic simulations because it's symplectic (it preserves the system's energy over long trajectories) and second-order accurate in both time and energy, at the cost of only one force evaluation per step:
 
-1. Calculate position vector at full time-step:
+!!! tip "Velocity-Verlet steps"
 
-.. math::
+    1. Position at the full step:
 
-    \mathbf{x} \left( t + \Delta t \right) = \mathbf{x} \left( t \right) + \mathbf{v} \left( t \right) \Delta t + \mathbf{a} \left(t\right)\frac{\Delta t}{2}
+    $$
+    \mathbf{x}(t + \Delta t) = \mathbf{x}(t) + \mathbf{v}(t) \Delta t + \mathbf{a}(t) \frac{\Delta t^2}{2}
+    $$
 
-2. Calculate velocity vector at half time-step:
+    2. Velocity at the half step:
 
-.. math::
+    $$
+    \mathbf{v}\left(t + \frac{\Delta t}{2}\right) = \mathbf{v}(t) + \mathbf{a}(t) \frac{\Delta t}{2}
+    $$
 
-    \mathbf{v} \left( t + \frac{\Delta t}{2} \right) = \mathbf{v} \left( t \right) + \mathbf{a} \left( t \right) \frac{\Delta t}{2}
-   
+    3. Recompute the acceleration $\mathbf{a}(t + \Delta t)$ from the interatomic potential, using the position from step 1.
 
-3. Compute the acceleration vector at full time-step \\( \\mathbf{a} \\left( t + \\Delta t\\right) \\) from the interatomic potential using the position at full time-step \\( \\mathbf{x} \\left( t + \\Delta t\\right) \\)
+    4. Velocity at the full step:
 
-4. Finally, calculate the velocity vector at full time-step:
-   
-.. math::
+    $$
+    \mathbf{v}(t + \Delta t) = \mathbf{v}\left(t + \frac{\Delta t}{2}\right) + \mathbf{a}(t + \Delta t) \frac{\Delta t}{2}
+    $$
 
-    \mathbf{v} \left( t + \Delta t \right) = \mathbf{v} \left( t + \frac{\Delta t}{2} \right) + \frac{1}{2} \mathbf{a} \left( t + \Delta t\right) \Delta t
+## **The `verlet_nve` scheme**
 
-In ``ExaStamp``, the numerical scheme definition can be found in ``exaStamp/data/config/config_numerical_scheme.msp`` and the YAML block for the Velocity-Verlet scheme reads
+`verlet_nve` is `exaStamp`'s default value for [`numerical_scheme`](numerical_scheme.md) — plain velocity-Verlet, no thermostat or barostat attached:
 
-.. code-block:: yaml
+```yaml title="Usage example"
+numerical_scheme: verlet_nve
+```
 
-   numerical_scheme: numerical_scheme_verlet
-   
-   numerical_scheme_verlet:
-     name: scheme
-     body:
-       - push_f_v_r: { dt_scale: 1.0  , xform_mode: INV_XFORM }
-       - push_f_v: { dt_scale: 0.5  , xform_mode: IDENTITY }  
-       - check_and_update_particles
-       - compute_all_forces_energy
-       - push_f_v: { dt_scale: 0.5 , xform_mode: IDENTITY }
+`verlet_nve` (`exaStamp/data/config/config_numerical_schemes.msp`) expands to:
 
-The ``exaNBody`` code provides a generic operator for 1st order time-integration purposes. For example, the file ``exaNBody/src/exanb/push_vec3_1st_order_xform.cpp`` provides 3 different variants:
+```yaml title="Usage example"
+verlet_nve:
+  name: NVE_scheme
+  body:
+    - verlet_first_half
+    - check_and_update_particles
+    - load_balance_auto_tune_start
+    - compute_all_forces_energy
+    - verlet_second_half
+    - load_balance_auto_tune_end
 
-- ``push_v_r`` : for updating positions from velocities
-- ``push_f_v`` : for updating velocities from forces (i.e. acceleration)
-- ``push_f_r`` : for udpdating positions from forces (i.e. acceleration)
+verlet_first_half:
+  - push_f_v_r: { dt_scale: 1.0, xform_mode: INV_XFORM }
+  - push_f_v: { dt_scale: 0.5, xform_mode: IDENTITY }
 
-In addition, the ``exaNBody`` code also provides a generic operator for 2nd order time-integration purposes. For example, the file ``exaNBody/src/exanb/push_vec3_2nd_order_xform.cpp`` provides the following variant:
+verlet_second_half:
+  - push_f_v: { dt_scale: 0.5, xform_mode: IDENTITY }
+```
 
-- ``push_f_v_r`` : for updating positions from both velocities and forces (i.e. accelerations)
+`verlet_first_half`/`verlet_second_half` are themselves named `body:` lists — the same batch-label mechanism as `verlet_nve` itself, just one level down, wrapping the [generic push operators](push_operators.md); `check_and_update_particles` and `compute_all_forces_energy` are conventional batch labels (not standalone operators) that decide whether ghost cells/domain decomposition need rebuilding, and run the potential-specific force computation, respectively. Every other ensemble/thermostat/barostat on this site works by pointing `numerical_scheme` at a *different* named scheme instead of `verlet_nve` — see the [full list of schemes](numerical_scheme.md).
 
-Since in ``ExaStamp`` positions are expressed in a reduced frame, the argument ``xform_mode: INV_XFORM`` is mandatory when using any operator that updates the particles positions.
+This is steps 1–2 and step 4 of the velocity-Verlet steps above, expressed directly in terms of the [generic push operators](push_operators.md):
+
+- `verlet_first_half` calls [`push_f_v_r`](push_operators.md#push_f_v_r) at `dt_scale: 1.0` — step 1, the full position update from $\mathbf{v}(t)$ and $\mathbf{a}(t)$ — immediately followed by [`push_f_v`](push_operators.md#push_f_v) at `dt_scale: 0.5` — step 2, the half-step velocity kick.
+- `compute_all_forces_energy` (step 3) then recomputes $\mathbf{a}(t + \Delta t)$ at the new position.
+- `verlet_second_half` calls `push_f_v` again, at `dt_scale: 0.5` — step 4, completing the velocity kick with the freshly recomputed acceleration.

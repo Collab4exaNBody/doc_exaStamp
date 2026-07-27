@@ -72,6 +72,22 @@ nav = [
             "User/E_Grids/analysis.md",
             "User/E_Grids/output.md"
         ]},
+        {"Ensembles & Constraints" = [
+            "User/H_EnsemblesConstraints/index.md",
+            "User/H_EnsemblesConstraints/numerical_scheme.md",
+            "User/H_EnsemblesConstraints/push_operators.md",
+            "User/H_EnsemblesConstraints/nve_ensemble.md",
+            "User/H_EnsemblesConstraints/nvt_ensemble.md",
+            "User/H_EnsemblesConstraints/npt_ensemble.md",
+            {"Thermostats" = [
+                "User/H_EnsemblesConstraints/Thermostats/index.md",
+                "User/H_EnsemblesConstraints/Thermostats/berendsen.md",
+                "User/H_EnsemblesConstraints/Thermostats/langevin.md"
+            ]},
+            "User/H_EnsemblesConstraints/deformation.md",
+            "User/H_EnsemblesConstraints/minimization.md",
+            "User/H_EnsemblesConstraints/pistons.md"
+        ]},
         {"Interatomic Potentials" =  [
             "User/G_ForceFields/index.md",
             "User/G_ForceFields/general.md",
@@ -162,10 +178,6 @@ nav = [
                 "User/G_ForceFields/Intramolecular/Improper/no_potential.md"
             ]},
         ]},
-        {"Ensembles & Constraints" = [
-            "User/H_EnsemblesConstraints/index.md",
-            "User/H_EnsemblesConstraints/Thermostats/index.md"
-        ]}
 
     ]},
     {"Tutorials" = [

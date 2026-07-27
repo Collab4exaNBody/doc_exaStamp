@@ -1,114 +1,82 @@
-## Berendsen Thermostat
+---
+icon: material/waves
+---
 
-Apply a Berendsen thermostat to the system by rescaling the atoms velocities at each timestep. This thermostatting method is a weak coupling between the system and a heat bath with the target temperature. Kinetic energy fluctuations are suppressed with the Berendsen thermostat which cannot produce trajectories consistent with the canonical ensemble. Atoms velocities are rescaled at each timestep such that the rate of change exponentially decays with some characteristic time \\(\\tau\\). This thermostat has to b
+# **Berendsen Thermostat**
 
-.. math::
+A weak-coupling thermostat: atom velocities are rescaled every step so the system's temperature relaxes exponentially toward the target, with characteristic time $\tau$. It suppresses kinetic-energy fluctuations rather than sampling them correctly, so it does **not** produce trajectories consistent with the canonical ensemble — unlike Nosé-Hoover, this is a rescaling shortcut, not a real thermostat in the statistical-mechanics sense.
 
-   \frac{dT}{dt} = \frac{1}{\tau} \left( T^* - T \right)
+$$
+\frac{dT}{dt} = \frac{1}{\tau}\left(T^* - T\right)
+\quad\Rightarrow\quad
+\Delta T = \frac{dt}{\tau}\left(T^* - T\right)
+\quad\Rightarrow\quad
+\lambda = \sqrt{1 + \frac{dt}{\tau}\left(\frac{T^*}{T} - 1\right)}
+$$
 
-with \\(T^*\\) the target temperature and  \\(T\\) the current system's temperature. The increase in temperature between two time steps reads
+where $T^*$ is the target temperature, $T$ the instantaneous temperature, and $\lambda$ the velocity-scaling factor applied each step.
 
-.. math::
+```{ .yaml title="Syntax" .syntax-block }
+berendsen_thermostat:
+  T: <float>
+  Tstart: <float>
+  Tstop: <float>
+  tserie: [<float>, ...]
+  Tserie: [<float>, ...]
+  tau: <float>
+  region: <string>
+```
 
-   \Delta T = \frac{dt}{\tau} \left( T^* - T \right)
+```{ .yaml title="Parameters" .params-block }
+T:       float, optional              # Constant target temperature — mutually exclusive with Tstart/Tstop and tserie/Tserie.
+Tstart:  float, optional              # Starting target temperature (linear ramp with Tstop).
+Tstop:   float, optional              # Final target temperature (linear ramp with Tstart).
+tserie:  list of floats, optional     # Physical times for a piecewise-interpolated target temperature.
+Tserie:  list of floats, optional     # Target temperatures at each tserie time — same length as tserie.
+tau:     float, default 0.1           # Coupling characteristic time.
+region:  string, optional             # Restrict to a geometric region.
+```
 
-leading to the following scaling factor of atoms velocities:
+Exactly one of the three target-temperature forms (`T` / `Tstart`+`Tstop` / `tserie`+`Tserie`) must be given — the simulation aborts if none or more than one is set.
 
-.. math::
+```yaml title="Usage example"
+numerical_scheme: verlet_bnvt
 
-   \lambda = \sqrt{1 + \frac{dt}{\tau} \left( \frac{T^*}{T} - 1\right)}
+# constant target temperature
+berendsen_thermostat: { T: 300. K, tau: 0.1 ps }
 
-.. warning::
+# linear ramp
+berendsen_thermostat: { Tstart: 5. K, Tstop: 1000. K, tau: 0.1 ps }
 
-   This thermostat has to be appended to the end of the numerical scheme ``numerical_scheme`` YAML block since no time integration is performed by this operator and it needs the instantaneous temperature, contrarily to the Nosé-Hoover thermostat (See :ref:`nose_hoover_thermostat`). In addition, prior to this operator, the ``thermodynamic_state`` operator has to be called since the instantaneous temperature is required by the thermostat.
-   
-The Berendsen thermostat can be defined in the input file using three ways that are presented in the following ``YAML`` block:
+# piecewise-interpolated
+berendsen_thermostat:
+  tserie: [0, 10., 20.]
+  Tserie: [5., 500., 500.]
+  tau: 0.1 ps
+```
 
-.. code-block:: yaml
-   :caption: **Different ways of defining a Berendsen thermostat**
+!!! warning
 
-   # 1st solution: constant target temperature
-   berendsen_thermostat:
-     T: 300. K
-     tau: 0.1 ps
-     
-   # 2nd solution: linear target temperature     
-   berendsen_thermostat:
-     Tstart: 5. K
-     Tstop: 1000. K
-     tau: 0.1 ps
+    `berendsen_thermostat` performs no time integration itself and needs the instantaneous temperature — it must come *after* `simulation_thermodynamic_state` in the scheme body, unlike Nosé-Hoover which replaces the scheme entirely. `exaStamp` already ships this wiring as the `verlet_bnvt` scheme below, so in practice you don't need to build the body yourself — just point `numerical_scheme` at it.
 
-   # 3rd solution: linearly interpolated target temperature
-   berendsen_thermostat:
-     tserie: [0, 10., 20.]
-     Tserie: [5., 500., 500.]
-     tau: 0.1 ps
+## **The `verlet_bnvt` scheme**
 
-Finally, since the Berendsen thermostat directly operates on atomic forces and needs the instantaneous temperature to be calculated by the ``thermodynamic_state`` operator, both must be added to the ``numerical_scheme`` YAML block as follows:
+`verlet_bnvt` (`exaStamp/data/config/config_numerical_schemes.msp`) expands to:
 
-.. code-block:: yaml
+```yaml title="Usage example"
+verlet_bnvt:
+  name: BNVT_scheme
+  body:
+    - verlet_first_half
+    - check_and_update_particles
+    - load_balance_auto_tune_start
+    - compute_force_prolog
+    - compute_force
+    - compute_force_epilog
+    - verlet_second_half
+    - simulation_thermodynamic_state
+    - berendsen_thermostat
+    - load_balance_auto_tune_end
+```
 
-   thermostat: berendsen_thermostat
-   
-   compute_force:
-     - interatomic_force_operator_1
-                
-   numerical_scheme:
-     verlet_first_half
-     check_and_update_particles
-     compute_all_forces_energy
-     verlet_second_half
-     simulation_thermodynamic_state
-     thermostat
-
-
-Below are displayed the different parameters of ``langevin_thermostat`` as well as their types and corresponding examples.
-
-.. list-table:: **Properties for the Berendsen thermostat**
-   :widths: 40 40 40 40
-   :header-rows: 1
-
-   * - Property
-     - Denomination
-     - Data Type
-     - Example
-   * - ``T``
-     - target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          T: 300 K
-   * - ``Tstart``
-     - starting target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tstart: 300 K
-   * - ``Tstop``
-     - final target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tstop: 1000 K
-   * - ``Tserie``
-     - serie of target temperature (K)
-     - float
-     - .. code-block:: yaml
-             
-          Tserie: [5, 200, 1000, 100]
-   * - ``tserie``
-     - serie of physical times (ps)
-     - float
-     - .. code-block:: yaml
-             
-          tserie: [0,10,20,30]
-   * - ``tau``
-     - coupling characteristic time (ps)
-     - float
-     - .. code-block:: yaml
-             
-          tau: 0.1 ps
-   
-.. warning::
-
-   When using a Berendsen thermostat, the target temperature must be defined by one of the three ways presented above. If it is misdefined, the simulation will be aborted.
+Plain velocity-Verlet (identical to [`verlet_nve`](../nve_ensemble.md#the-verlet_nve-scheme)) with `simulation_thermodynamic_state` + `berendsen_thermostat` appended after `verlet_second_half` — exactly why `berendsen_thermostat` needs the instantaneous temperature to already be available at that point in the body.

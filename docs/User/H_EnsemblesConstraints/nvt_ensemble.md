@@ -1,72 +1,126 @@
-.. _nose_hoover_thermostat:
+---
+icon: material/thermometer
+---
 
-Nosé-Hoover thermostat
-----------------------
+# **NVT ensemble**
 
-Apply a Nosé-Hoover thermostat to the system. This thermostat actually performs the time integration of the particles so the numerical scheme YAML block is replaced in exaStamp by the one provided below. We first describe the general process of the Nosé-Hoover thermostat.
+## **Nosé-Hoover thermostat**
 
-1. Initialization at the beginning of the simulation:
+Unlike [Berendsen](Thermostats/berendsen.md) or [Langevin](Thermostats/langevin.md), the Nosé-Hoover thermostat doesn't bolt onto an existing integration scheme — it *replaces* the time-integration scheme itself, extending the equations of motion with an extra thermostat degree of freedom $\eta$ that couples the system to a target temperature.
 
-   - Set thermostat variables and derivatives to 0:
+!!! tip "Nosé-Hoover thermostat equations"
 
-   .. math::
+    At initialization, the thermostat variable and its derivatives start at zero, and the coupling frequency is set from the user-provided coupling period $t_{period}$ (`Tdamp`):
 
-      \eta = \dot{\eta} = \ddot{\eta} = 0.0
+    $$
+    \eta = \dot{\eta} = \ddot{\eta} = 0, \qquad t_{freq} = \frac{1}{t_{period}}
+    $$
 
-   - Set thermostat mass to 0:
+    At each step, given the target temperature $T^*$ (which may itself be constant, linearly ramped, or piecewise-interpolated over time — same three modes as the other thermostats), the target kinetic energy is:
 
-   .. math::
+    $$
+    N_{dof} = 3 N_{atoms} - 3, \qquad KE^* = N_{dof} \, k_B \, T^*
+    $$
 
-      \eta_M = 0.0
+    and the thermostat's own mass and acceleration are:
 
-   - Set the thermostat coupling frequency:
+    $$
+    \eta_M = \frac{KE^*}{t_{freq}^2}, \qquad \ddot{\eta} = t_{freq}^2 \left( \frac{KE_{cur}}{KE^*} - 1 \right)
+    $$
 
+This feeds a velocity-scaling factor applied to every atom alongside the usual position/velocity integration steps, keeping the measured kinetic energy oscillating around $KE^*$ rather than being rescaled to it exactly every step (unlike Berendsen).
 
-   .. math::
+```{ .yaml title="Syntax" .syntax-block }
+init_nose_hoover:
+  algo: NVT
+  Tstart: <float>
+  Tend: <float>
+  Tdamp: <float>
+  tchain: <int>
+```
 
-      t_{freq} = \frac{1}{t_{period}}
+```{ .yaml title="Parameters" .params-block }
+algo:    string, default "NVT"    # "NVT" here — "NPT" adds a barostat, see NPT ensemble.
+Tstart:  float, required          # Target temperature at the start of the run.
+Tend:    float, optional          # Target temperature at the end of the run (linear ramp); defaults to Tstart if omitted.
+Tdamp:   float, default 0.1       # Thermostat coupling time.
+tchain:  int, default 3           # Length of the Nosé-Hoover chain.
+```
 
-   where \\(t_{period}\\) is the coupling period between the system and the thermostat, provided by the user.
-      
-2. Setup the thermostat parameters at the beginning of the simulation:
-      
-   - Compute the current target temperature \\(T^*\\) and the corresponding degrees of freedom and target kinetic energy:
+This is a genuinely different parameter set from Berendsen/Langevin — there's no `T`/`Tstart`+`Tstop`/`tserie`+`Tserie` three-way choice here, just `Tstart` (required) and an optional `Tend` for a linear ramp.
 
-   .. math::
+`init_nose_hoover` only sets up the thermostat context; the actual per-step integration is done by a handful of companion operators (`setup_nose_hoover`, `nhc_temp_integrate`, …) wired automatically once `config_nose_hoover.msp` is included and `numerical_scheme` points at `verlet_nhnvt`:
 
-     N_{dof} = 3 N_{atoms} - 3
-   
-   .. math::
+```yaml title="Usage example"
+includes:
+  - config_nose_hoover.msp
 
-     KE^* = N_{dof} k_B T^*
+init_nose_hoover:
+  algo: NVT
+  Tstart: 150. K
+  Tend:   150. K
+  Tdamp:  0.05 ps
+  tchain: 3
 
-   where the \\(^*\\) upperscript denotes the target value of either kinetic energy or temperature. Note that the target temperature can evolved with time depending if the user has provided a single temperature (constant target temperature), two temperatures (linear ramp) or a list of times and temperatures greater than 2, meaning that an interpolation by parts is done to compute the target temperature at each time-step.
-   
-   - Initialize masses and initial forces on thermostat variables:
+numerical_scheme: verlet_nhnvt
+```
 
-   .. math::
+!!! warning
 
-      \eta_M = \frac{N_{dof} \cdot k_B \cdot T^*}{t_f^2} = \frac{KE^*}{t_f^2}
+    `config_nose_hoover.msp` must be included — it's what wires the per-step Nosé-Hoover operators into `+init_epilog`/`numerical_scheme`. Without it, `init_nose_hoover`'s output context isn't consumed by anything. Its full content (`exaStamp/data/config/config_nose_hoover.msp`):
 
-3. During each time-step, supposing that the positions, velocities and forces are up-to-date, the folowing steps are performed:
+    ```yaml
+    +init_prolog:
+      - deformation_xform:
+          defbox: { extension: [ 1.0 , 1.0 , 1.0 ] }
 
-   a. Compute target temperature \\(T^*\\) and kinetic energy \\(KE^*\\)
-   b. Compute current temperature \\(T_{cur}\\) and kinetic energy \\(KE_{cur}\\)      
-   c. Compute thermostat mass :
+    +init_epilog:
+      - init_nose_hoover
 
-      .. math::
+    nose_hoover_additional_step:
+      - setup_nose_hoover
+      - couple_npt
+    ```
 
-         \eta_M = \frac{N_{dof} \cdot k_B \cdot T^*}{t_f^2} = \frac{KE^*}{t_f^2}
+## **The `verlet_nhnvt` scheme**
 
-   d. Compute acceleration and velocity of thermostat variable as well as scaling factors for atoms velocities:
+`verlet_nhnvt` (`exaStamp/data/config/config_numerical_schemes.msp`) expands to:
 
-      .. math::
+```yaml title="Usage example"
+verlet_nhnvt:
+  name: NHNVT_scheme
+  body:
+    - simulation_thermodynamic_state
+    - nhc_temp_integrate
+    - nh_v_temp:
+        rebind: { value: vscale }
+        body: [ scale_v ]
+    - compute_vel_bias:
+        rebind: { out: vbias }
+        body: [ avg_v_m ]
+    - remove_vel_bias:
+        rebind: { value: vbias }
+        body: [ shift_v ]
+    - push_f_v: { dt_scale: 0.5, xform_mode: IDENTITY }
+    - push_v_r: { dt_scale: 1.0, xform_mode: INV_XFORM }
+    - check_and_update_particles
+    - load_balance_auto_tune_start
+    - compute_all_forces_energy
+    - push_f_v: { dt_scale: 0.5, xform_mode: IDENTITY }
+    - simulation_thermodynamic_state
+    - nhc_temp_integrate
+    - nh_v_temp:
+        rebind: { value: vscale }
+        body: [ scale_v ]
+    - load_balance_auto_tune_end
+```
 
-         \ddot{\eta} = t_f^2 \left( \frac{KE_{cur}}{KE^*} - 1 \right)
+Unlike the plain-Verlet schemes, this isn't `verlet_first_half`/`verlet_second_half` plus a bolted-on thermostat step — the thermostat integration is interleaved with the position/velocity pushes on both half-steps, LAMMPS-`fix nvt`-style:
 
-      .. math::
+- `nhc_temp_integrate` (`exaStamp/src/npt/nhc_temp_integrate.cpp`) advances the Nosé-Hoover chain (length `tchain`) from the current kinetic energy and target `KE^*`, and produces a uniform velocity-scaling factor on its `vscale` output.
+- `nh_v_temp` isn't a standalone operator — it's a named batch that runs `scale_v` (`exaNBody/src/compute/generic_op_vec3.cu`) with its `value` input slot rebound to `vscale`, i.e. it multiplies every particle's velocity by the chain's scaling factor.
+- `compute_vel_bias` batches `avg_v_m` (`exaStamp/src/compute/avg_v_m.cu`), rebinding its `out` output to `vbias` — a mass-weighted average velocity of the whole system, negated.
+- `remove_vel_bias` batches `shift_v`, rebinding its `value` input to `vbias` — adding that negated average to every particle's velocity, which cancels out the system's net (center-of-mass) drift after the thermostat scaling.
+- The thermostat/bias block runs *twice* per step (once before the position push, once after the force recomputation) — the same Nosé-Hoover chain half-step pattern used by `verlet_nhnpt` below.
 
-         \gamma_e = e^{\left( -\right)}
-         
-   e. Perform one Nosé-Hoover integration step
-   f. Perform velocity update with half a 
+`rebind`/`body` here is the same generic ONIKA batch mechanism as `numerical_scheme` itself: a named block (`nh_v_temp`, `compute_vel_bias`, `remove_vel_bias`) that wraps one or more operators and renames one of their slots for that particular use, rather than a distinct operator type.
