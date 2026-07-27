@@ -27,7 +27,7 @@ Three operators prescribe a time-varying deformation of the simulation box, each
       - config_deformation.msp
     ```
 
-## **Constant Strain-Rate**
+## **`xform_constant_strain_rate`**
 
 ```{ .yaml title="Syntax" .syntax-block }
 xform_constant_strain_rate:
@@ -67,7 +67,7 @@ xform_constant_strain_rate:
 xform_function: xform_constant_strain_rate
 ```
 
-## **Interpolated**
+## **`xform_time_interpolate`**
 
 ```{ .yaml title="Syntax" .syntax-block }
 xform_time_interpolate:
@@ -95,7 +95,7 @@ xform_time_interpolate:
 xform_function: xform_time_interpolate
 ```
 
-## **Interpolated By Parts**
+## **`xform_time_interpolate_byparts`**
 
 ```{ .yaml title="Syntax" .syntax-block }
 xform_time_interpolate_byparts:
@@ -109,7 +109,7 @@ time_serie:   list of floats, required   # Physical times at each control point.
 xform_serie:  list of Mat3d, required    # Box transform matrix at each control point — same length as time_serie.
 ```
 
-Same idea as [Interpolated](#interpolated) above, but piecewise-**linear** between consecutive control points instead of a cubic spline — use this when a smooth curve through the control points isn't what you want (e.g. genuinely piecewise-constant-rate segments).
+Same idea as [`xform_time_interpolate`](#xform_time_interpolate) above, but piecewise-**linear** between consecutive control points instead of a cubic spline — use this when a smooth curve through the control points isn't what you want (e.g. genuinely piecewise-constant-rate segments).
 
 !!! note
 

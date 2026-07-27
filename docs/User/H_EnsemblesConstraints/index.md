@@ -10,4 +10,4 @@ This section covers how the simulation is integrated in time, how temperature an
 - [**Thermostats**](Thermostats/index.md) — Berendsen and Langevin, which couple to temperature without replacing the integration scheme
 - [**Deformation Paths**](deformation.md) — prescribing a time-varying box deformation (constant strain-rate, interpolated, or piecewise-interpolated)
 - [**Energy Minimization**](minimization.md) — not yet implemented in the current source
-- [**Pistons**](pistons.md) — planar, cylindrical and spherical confining/impacting walls
+- [**Repulsive Walls**](pistons.md) — planar, cylindrical and spherical confining/impacting walls
