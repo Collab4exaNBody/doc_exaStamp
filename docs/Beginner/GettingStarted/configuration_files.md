@@ -168,6 +168,24 @@ Whenever you want the load-balancing cost model to be fitted automatically from 
     ```yaml linenums="1"
     --8<-- "docs/files/config_load_balance_auto_tune.msp"
     ```
+
+### Conjugate-gradient energy minimization
+
+Whenever you want to relax a structure to a local energy minimum instead of running time-integrated dynamics, include the `config_conjugate_gradient.msp` file. It replaces the whole `simulation:` scenario with a Fletcher-Reeves conjugate-gradient loop plus an Armijo backtracking line search — see [Energy Minimization](../../User/H_EnsemblesConstraints/minimization.md#conjugate-gradient) for the full tunable/algorithm reference.
+
+??? note "`config_conjugate_gradient.msp` content"
+    ```yaml linenums="1"
+    --8<-- "docs/files/config_conjugate_gradient.msp"
+    ```
+
+### FIRE 2.0 energy minimization
+
+Whenever you want a faster, inertia-based relaxation to a local energy minimum, include the `config_fire.msp` file. It replaces the whole `simulation:` scenario with the FIRE 2.0 algorithm (Bitzek et al. 2006 / Guénolé et al. 2020) — see [Energy Minimization](../../User/H_EnsemblesConstraints/minimization.md#fire-20) for the full tunable/algorithm reference.
+
+??? note "`config_fire.msp` content"
+    ```yaml linenums="1"
+    --8<-- "docs/files/config_fire.msp"
+    ```
 <!-- 
 ### Parrinello-Rahman barostat
 

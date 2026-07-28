@@ -9,5 +9,5 @@ This section covers how the simulation is integrated in time, how temperature an
 - [**NPT ensemble**](npt_ensemble.md) — Nosé-Hoover barostat
 - [**Thermostats**](Thermostats/index.md) — Berendsen and Langevin, which couple to temperature without replacing the integration scheme
 - [**Deformation Paths**](deformation.md) — prescribing a time-varying box deformation (constant strain-rate, interpolated, or piecewise-interpolated)
-- [**Energy Minimization**](minimization.md) — not yet implemented in the current source
+- [**Energy Minimization**](minimization.md) — Conjugate Gradient and FIRE 2.0 static/inertial minimizers
 - [**Repulsive Walls**](pistons.md) — planar, cylindrical and spherical confining/impacting walls
