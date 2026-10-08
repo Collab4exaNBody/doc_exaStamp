@@ -1,4 +1,5 @@
 [project]
+dev_addr = "127.0.0.1:8000"
 site_name = "exaStamp"
 repo_url = "https://github.com/Collab4exaNBody/exaStamp"
 repo_name = "Collab4exaNBody/exaStamp"
@@ -98,7 +99,8 @@ nav = [
                     "User/G_ForceFields/Pair/Models/index.md",
                     "User/G_ForceFields/Pair/Models/buckingham.md",
                     "User/G_ForceFields/Pair/Models/coul_cut.md",
-                    "User/G_ForceFields/Pair/Models/coul_wolf_pair.md",
+                    "User/G_ForceFields/Pair/Models/coul_dsf.md",
+                    "User/G_ForceFields/Pair/Models/coul_wolf.md",
                     "User/G_ForceFields/Pair/Models/exp6.md",    
                     "User/G_ForceFields/Pair/Models/exp6rf.md",
                     "User/G_ForceFields/Pair/Models/lj.md",
@@ -106,7 +108,7 @@ nav = [
                     "User/G_ForceFields/Pair/Models/ljexp6rf_lj.md",
                     "User/G_ForceFields/Pair/Models/ljrf.md",
                     "User/G_ForceFields/Pair/Models/ljwolf.md",
-                    "User/G_ForceFields/Pair/Models/reaction_field.md",
+                    "User/G_ForceFields/Pair/Models/coul_rf.md",
                     "User/G_ForceFields/Pair/Models/relax.md",
                     "User/G_ForceFields/Pair/Models/tabpair.md",
                     "User/G_ForceFields/Pair/Models/zbl.md",
@@ -136,6 +138,7 @@ nav = [
                 "User/G_ForceFields/MLIP/ace.md",
             ]},                 
             {"Electrostatics Potentials" = [
+                "User/G_ForceFields/Electrostatics/index.md",
                 "User/G_ForceFields/Electrostatics/short.md",
                 "User/G_ForceFields/Electrostatics/long.md",
             ]},    
