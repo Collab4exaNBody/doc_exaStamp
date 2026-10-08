@@ -52,7 +52,15 @@ Below is the default definition of the `global` block as defined in `data/config
     | `init_temperature`                        | Initial temperature (disabled if negative)         | `float`  | `-1.0`                      | 
     | `scale_temperature`                       | Temperature scaling factor (disabled if negative)  | `float`  | `-1.0`                      | 
     | `md_loop_continue`                        | Needed for the simulation loop to start            | `bool`   | `true`                      | 
-    | `trigger_thermo_state`                    | Needed to get the initial thermodynamic state      | `bool`   | `true`                      | 
+    | `trigger_thermo_state`                    | Force operators compute energies and virial (set at each iteration, see below) | `bool`   | `true`                      | 
+    | `thermo_state_every_step`                 | Compute energies and virial at every step, not only when used | `bool`   | `false`                     | 
+
+!!! note "Energies and virial are computed only when used"
+    Force operators compute per-atom energies and the virial only on the steps where they are used: when the
+    thermodynamic state is printed or written, or when a restart, a snapshot or an analysis is due. On the other
+    steps they compute forces only, which is faster. Schemes that need energies or the virial at every step (Nosé-Hoover
+    NPT, Parrinello-Rahman, FIRE and conjugate gradient minimizations) request them automatically. If a custom operator
+    reads per-atom energies or the virial at every step, set `thermo_state_every_step: true`.
 
 In practice, the user doesn't need to think about some of these variables as they only serve as input for the simulation initialization. Here's a minimal `global` block you can use to start your simulation with.
 
