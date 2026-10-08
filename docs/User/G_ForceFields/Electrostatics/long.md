@@ -35,10 +35,19 @@ Both methods have the following properties:
 - [x] When the cell changes (NPT, deformation), the reciprocal space data is updated automatically at the next call of the initialization operator. Place that operator in `compute_force` when the cell changes during the run.
 
 !!! warning "Required inputs"
-    Both initialization operators need the total charge, the sum of squared charges and the number of atoms. These
-    come from the `sum_charges` operator, which must run before `coulombic_ewald_init` or `coulombic_pppm_init`
-    (typically at the end of `setup_system`). With species charges, call `copy_charge_specy_to_particle` before
-    `sum_charges`.
+    Both initialization operators need the total charge, the sum of squared charges and the number of atoms. They
+    come from one of two operators, which must run before `coulombic_ewald_init` or `coulombic_pppm_init` (typically
+    at the end of `setup_system`):
+
+    - `sum_charges` sums the **species** charges. Use it when every particle carries the charge of its species.
+    - `sum_charges_pc` sums the per-particle **`charge` field**. Use it when charges really differ per particle
+      (read from a file, charge equilibration...).
+
+    When the charges come from the species and the force operators read the `charge` field (`per_atom_charge: true`,
+    the default), also call `copy_charge_species_to_particle` to fill that field.
+
+    A non-neutral system gives a warning. Ewald and PPPM then add the energy of a uniform neutralizing background,
+    as LAMMPS does.
 
 All accuracies are **relative**: `accuracy_relative` is the target RMS force error divided by the force between two
 unit charges 1 Å apart (14.399645 eV/Å). This is the same convention as the LAMMPS `kspace_style <style> <accuracy>`
@@ -55,10 +64,10 @@ vectors are $\mathbf{k} = 2\pi H^{-T}\mathbf{n}$.
 
 | Parameter | Units | Default | Description |
 | :-------- | :---: | :-----: | :---------- |
-| `accuracy_relative` | — | required | Relative RMS force accuracy. Used to choose `g_ewald` and `kmax` when they are automatic. |
-| `g_ewald` | 1/distance | required | Ewald splitting parameter. `0` = automatic, from `accuracy_relative` and `radius`. |
+| `accuracy_relative` | — | `1.0e-5` | Relative RMS force accuracy. Used to choose `g_ewald` and `kmax` when they are automatic. |
+| `g_ewald` | 1/distance | `0.0` | Ewald splitting parameter. `0` = automatic, from `accuracy_relative` and `radius`. |
 | `radius` | distance | required | Real space cutoff $r_c$. |
-| `kmax` | — | required | Maximum k vector index, the same in the 3 directions (LAMMPS `kspace_modify kmax/ewald`). `0` = automatic, per direction. |
+| `kmax` | — | `0` | Maximum k vector index, the same in the 3 directions (LAMMPS `kspace_modify kmax/ewald`). `0` = automatic, per direction. |
 
 </div>
 
@@ -78,7 +87,7 @@ compute_force:
 
 setup_system:
   # ... domain, particles ...
-  - copy_charge_specy_to_particle
+  - copy_charge_species_to_particle
   - sum_charges
   - coulombic_ewald_init
 ```
@@ -111,7 +120,7 @@ by `coulombic_ewald_short_range`, so the real space part is shared with the Ewal
 | `diff` | — | `ik` | Differentiation scheme: `ik` or `ad` (see below). |
 | `slab` | — | `0.0` | Slab correction: z extension factor of the cell (> 1). `0` = no slab correction. |
 | `slab_auto` | — | `false` | Slab correction with the z extension factor computed automatically. |
-| `mesh_decomposition` | — | `distributed` | `distributed`, `replicated` or `auto` (see below). |
+| `mesh_decomposition` | — | `distributed` | `distributed` (replicated path on 1 rank), `replicated` or `auto` (see below). |
 
 </div>
 
@@ -132,7 +141,7 @@ compute_force:
 
 setup_system:
   # ... domain, particles ...
-  - copy_charge_specy_to_particle
+  - copy_charge_species_to_particle
   - sum_charges
   - coulombic_pppm_init
 ```
@@ -188,9 +197,9 @@ setup_system:
 
 | `mesh_decomposition` | Behaviour |
 | :------------------- | :-------- |
-| `distributed` (default) | The mesh is split into z slabs among ranks. Each rank spreads its particles onto a local brick (the stencils of its particles), exchanges bricks with `MPI_Alltoallv`, and runs a distributed FFT (2D planes then 1D columns). |
+| `distributed` (default) | The mesh is split into z slabs among ranks. Each rank spreads its particles onto a local brick (the stencils of its particles), exchanges bricks with `MPI_Alltoallv`, and runs a distributed FFT (2D planes then 1D columns). On a single rank, the replicated path is used. |
 | `replicated` | Every rank holds the whole mesh. Charge densities are summed with one `MPI_Allreduce`, and each rank runs the FFTs on the full mesh. |
-| `auto` | `distributed` when running on more than one rank, `replicated` otherwise. |
+| `auto` | Same as `distributed` (kept for compatibility). |
 
 </div>
 
@@ -209,7 +218,9 @@ rank runs the full FFTs and the whole mesh is summed over all ranks. Time per st
 
 </div>
 
-On 1 rank, `replicated` (or `auto`) is faster; on 2 ranks the two are close; from 4 ranks on, `distributed` is faster.
+On 2 ranks the two are close; from 4 ranks on, `distributed` is faster. On 1 rank the distributed layout only adds
+data transposes (30.0 vs 20.9 ms above), so the default `distributed` runs the replicated path on a single rank. The
+`PPPM configuration` block printed at initialization shows the decomposition actually used.
 
 ## **Real space part**
 

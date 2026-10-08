@@ -7,7 +7,7 @@ The present section contains all pair potentials available in **exaStamp**. Comp
 
     - [**Buckingham**](Models/buckingham.md)
     - [**Coul cut**](Models/coul_cut.md)
-    - [**Coul wolf**](Models/coul_wolf_pair.md)
+    - [**Coul wolf**](Models/coul_wolf.md)
     - [**Exp-6**](Models/exp6.md)
     - [**Exp-6 + Reaction Field**](Models/exp6rf.md)
     - [**Lennard-Jones**](Models/lj.md)
@@ -15,7 +15,7 @@ The present section contains all pair potentials available in **exaStamp**. Comp
     - [**Lennard-Jones + exp6 + RF + LJ**](Models/ljexp6rf_lj.md)
     - [**Lennard-Jones + RF**](Models/ljrf.md)
     - [**Lennard-Jones + Wolf**](Models/ljwolf.md)
-    - [**Reaction Field**](Models/reaction_field.md)
+    - [**Coul RF (reaction field)**](Models/coul_rf.md)
     - [**Relax**](Models/relax.md)
     - [**Tabulated pair**](Models/tabpair.md)
     - [**ZBL**](Models/zbl.md)
