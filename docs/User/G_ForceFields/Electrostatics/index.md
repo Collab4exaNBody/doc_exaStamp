@@ -1,7 +1,7 @@
 # **Electrostatic potentials**
 
 exaStamp computes Coulomb interactions either with a cutoff (short range methods) or with the full periodic sum
-(long range methods). All methods follow the LAMMPS formulas and were validated against LAMMPS.
+(long range methods).
 
 <div class="center-table" markdown>
 

@@ -2,7 +2,7 @@
 
 ## **Description**
 
-The `coul_dsf_compute_force` operator calculates the damped shifted force Coulomb pair potential (Fennell and Gezelter), as LAMMPS `pair_style coul/dsf`:
+The `coul_dsf_compute_force` operator calculates the damped shifted force Coulomb pair potential (Fennell and Gezelter):
 
 $$
 E(r) = \frac{q_i q_j}{4\pi\varepsilon_0}\left[\frac{\operatorname{erfc}(\alpha r)}{r} - \frac{\operatorname{erfc}(\alpha r_c)}{r_c}
@@ -12,7 +12,7 @@ $$
 
 with damping parameter $\alpha$ and cutoff $r_c$. Both the energy and the force vanish at $r_c$. The charges are the species charges.
 
-As in LAMMPS, $\operatorname{erfc}(\alpha r)$ uses the Abramowitz–Stegun approximation, so $E(r_c)$ is about $1.8\times10^{-7}$ eV per unit charge product instead of 0. The pair template subtracts this value from every pair: energies differ from LAMMPS by this constant per pair, forces are identical.
+$\operatorname{erfc}(\alpha r)$ uses the Abramowitz–Stegun approximation, so $E(r_c)$ is about $1.8\times10^{-7}$ eV per unit charge product instead of 0. The pair template subtracts this value from every pair: energies differ from `coulombic_dsf` (which does not shift) by this constant per pair, forces are identical.
 
 The self energy of each particle is not included: add the `coulombic_dsf_self` operator with `per_atom_charge: false`. For per-atom charges, use `coulombic_dsf`. Both are described in [Short range electrostatics](../../Electrostatics/short.md#damped-shifted-force).
 

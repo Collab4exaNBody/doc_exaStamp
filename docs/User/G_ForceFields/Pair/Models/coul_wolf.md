@@ -2,7 +2,7 @@
 
 ## **Description**
 
-The `coul_wolf_compute_force` operator calculates the damped, shifted Coulomb (Wolf) pair potential, as LAMMPS `pair_style coul/wolf`:
+The `coul_wolf_compute_force` operator calculates the damped, shifted Coulomb (Wolf) pair potential:
 
 $$
 E(r) = \frac{1}{4\pi \varepsilon_0} \, q_i q_j \left[\frac{\operatorname{erfc}(\alpha r)}{r} - \frac{\operatorname{erfc}(\alpha r_c)}{r_c}\right] \quad \text{for} \quad r<r_c

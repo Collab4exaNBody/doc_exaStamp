@@ -17,16 +17,16 @@ Both families share the same kernels: a Wolf, DSF or reaction field run gives th
 
 <div class="center-table" markdown>
 
-| Method | Per-atom charge operators | Pair style | LAMMPS equivalent |
-| :----- | :------------------------ | :--------- | :---------------- |
-| Plain cutoff | — | `coul_cut` | `pair_style coul/cut` |
-| Damped shifted force | `coulombic_dsf` | `coul_dsf` (+ `coulombic_dsf_self`) | `pair_style coul/dsf` |
-| Wolf summation | `coulombic_wolf` | `coul_wolf` (+ `coulombic_wolf_self`) | `pair_style coul/wolf` |
-| Reaction field | `coulombic_rf` | `coul_rf` | — |
+| Method | Per-atom charge operators | Pair style |
+| :----- | :------------------------ | :--------- |
+| Plain cutoff | — | `coul_cut` |
+| Damped shifted force | `coulombic_dsf` | `coul_dsf` (+ `coulombic_dsf_self`) |
+| Wolf summation | `coulombic_wolf` | `coul_wolf` (+ `coulombic_wolf_self`) |
+| Reaction field | `coulombic_rf` | `coul_rf` |
 
 </div>
 
-The Coulomb constant is the LAMMPS metal units value, $1/(4\pi\varepsilon_0) = 14.399645$ eV·Å/e², except for the
+The Coulomb constant is $1/(4\pi\varepsilon_0) = 14.399645$ eV·Å/e², except for the
 reaction field, which uses the CODATA value of $\varepsilon_0$ (relative difference $1.6\times10^{-5}$).
 
 ## **Common options of the per-atom charge operators**
@@ -116,8 +116,8 @@ $$
 The self energy does not depend on positions, so it adds no force. `coulombic_dsf` adds it to the per-atom energies
 when `trigger_thermo_state` is true (slot `self_energy`, default `true`).
 
-As in LAMMPS, $\operatorname{erfc}(\alpha r)$ in the pair term uses the Abramowitz–Stegun approximation, and the
-shifts are computed once with the exact $\operatorname{erfc}$.
+$\operatorname{erfc}(\alpha r)$ in the pair term uses the Abramowitz–Stegun approximation, and the shifts are
+computed once with the exact $\operatorname{erfc}$.
 
 <div class="center-table" markdown>
 
@@ -147,15 +147,13 @@ compute_force:
 
     The pair template subtracts $E(r_{\text{cut}})$ from every pair. With the approximate $\operatorname{erfc}$,
     $E(r_c)$ is about $1.8\times10^{-7}$ eV per unit charge product instead of 0, so `coul_dsf` energies differ from
-    LAMMPS by this constant per pair (forces are identical). `coulombic_dsf` does not shift, and matches LAMMPS
-    energies. The self energy is not included in the pair style: add the `coulombic_dsf_self` operator, with the same
+    `coulombic_dsf` (which does not shift) by this constant per pair. Forces are identical. The self energy is not included in the pair style: add the `coulombic_dsf_self` operator, with the same
     parameters and `per_atom_charge: false`. See [Coul DSF](../Pair/Models/coul_dsf.md).
 
 ## **Wolf Summation**
 
 The Wolf method (Wolf *et al.*, *J. Chem. Phys.* 110, 8254, 1999) damps the Coulomb interaction with
-$\operatorname{erfc}(\alpha r)$ and shifts the energy so that it vanishes at the cutoff. The implementation follows
-LAMMPS `pair_style coul/wolf`:
+$\operatorname{erfc}(\alpha r)$ and shifts the energy so that it vanishes at the cutoff:
 
 $$
 E(r) = \frac{q_i q_j}{4\pi\varepsilon_0}\left[\frac{\operatorname{erfc}(\alpha r)}{r} - \frac{\operatorname{erfc}(\alpha r_c)}{r_c}\right]
@@ -167,7 +165,7 @@ F(r) = \frac{q_i q_j}{4\pi\varepsilon_0}\left[\frac{\operatorname{erfc}(\alpha r
 - \frac{\operatorname{erfc}(\alpha r_c)}{r_c^2} - \frac{2\alpha}{\sqrt{\pi}}\frac{e^{-\alpha^2 r_c^2}}{r_c}\right]
 $$
 
-As in LAMMPS, the force is shifted to vanish at $r_c$ while the energy is only shifted, so $F \neq -\mathrm{d}E/\mathrm{d}r$.
+The force is shifted to vanish at $r_c$ while the energy is only shifted, so $F \neq -\mathrm{d}E/\mathrm{d}r$.
 The total energy is therefore not exactly conserved in NVE. Use DSF when energy conservation matters.
 
 The self energy is the same expression as for DSF, with $e_{\text{shift}} = \operatorname{erfc}(\alpha r_c)/r_c$. It is
@@ -234,29 +232,12 @@ compute_force:
 The same kernel is used by the pair styles `coul_rf`, `ljrf`, `exp6rf` and `ljexp6rf`, see
 [Coul RF](../Pair/Models/coul_rf.md).
 
-## **Validation against LAMMPS**
+## **Tests**
 
-DSF and Wolf were compared with LAMMPS `pair_style coul/dsf` and `coul/wolf` on 12000 atoms of disturbed UO2
-($\alpha$ = 0.2 Å⁻¹, $r_c$ = 10 Å, coulomb only) over 10 NVE steps. The inputs are in
-`data/regression_new/potentials/coulombic/lammps_validation/` of the exaStamp repository
-(`exastamp_wolf*.msp`, `exastamp_dsf*.msp`, `in.coul`, `compare.py`).
-
-<div class="center-table" markdown>
-
-| Quantity | Max. difference vs LAMMPS |
-| :------- | :------------------------ |
-| Total energy (pair + self) | 10⁻⁶ eV (precision of the thermo output) |
-| Forces | 3 × 10⁻⁸ eV/Å |
-| Per-atom energies | 3 × 10⁻⁸ eV |
-| Pressure | 8 × 10⁻⁸ relative (unit conversion constant) |
-| Positions after 10 steps | 2.4 × 10⁻⁹ Å |
-
-</div>
-
-These differences hold for both methods with per-atom and species charges, `use_symmetry`, and 2 MPI ranks. Wolf
-was also checked with `ghost_fold_back`, with 2 MPI ranks × 2 OpenMP threads, and on GPU.
-The pair styles `coul_wolf` and `coul_dsf` give the same forces; their energies follow the cutoff shift
-described above. LAMMPS has no reaction field pair style, so `coulombic_rf` is covered only by the regression tests.
+DSF and Wolf were checked on 12000 atoms of disturbed UO2 ($\alpha$ = 0.2 Å⁻¹, $r_c$ = 10 Å, coulomb only) with
+per-atom and species charges, `use_symmetry`, and 2 MPI ranks. Wolf was also checked with `ghost_fold_back`, with
+2 MPI ranks × 2 OpenMP threads, and on GPU. The pair styles `coul_wolf` and `coul_dsf` give the same forces as
+`coulombic_wolf` and `coulombic_dsf`; their energies follow the cutoff shift described above.
 
 The ctest regression cases in `data/regression_new/potentials/coulombic/` (`wolf*`, `dsf`, `rf`) run the same
 operators on a smaller generated system (768 atoms).
