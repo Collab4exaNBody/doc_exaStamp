@@ -58,7 +58,31 @@ compute_force:
   - pod_force
 ```
 
-Examples are in `exaStamp/data/regression_new/mliaps/pod/`: `Ta_pod.msp`, `Ta_pod_nClusters_2.msp` (two environment clusters) and `Ta_enhanced_pod.msp`.
+Examples are in `exaStamp/data/regression_new/mliaps/pod/`: `Ta_pod.msp`, `Ta_pod_nClusters_2.msp` (two environment clusters) and `Ta_enhanced_pod.msp` (short-range options below).
+
+## **Short-range options**
+
+The parameter file accepts optional keywords that control the radial basis at short distances:
+
+<div class="center-table" markdown>
+
+| Keyword | Default | Description |
+|---|---|---|
+| `rin` | 0.5 | Inner cutoff: the radial basis functions are evaluated on $r = r_{ij} - r_{in}$. |
+| `fadein_mu`, `fadein_delta` | 0, 0 | When both are positive, every radial basis function is multiplied by the fade-in function $f_{in}(r_{ij}) = 1/\left(1+e^{2(\mu-r_{ij})/\delta}\right)$, which goes from 0 below $\mu$ to 1 above it over a width of about $\delta$. |
+| `use_scaled_lj` | 0 | When set, the inverse-power radial functions use $(r_{ij}/r_{in})^{-k}$ instead of $r_{ij}^{-k}$. |
+
+</div>
+
+```yaml title="Short-range part of a parameter file (Ta_param_enhanced.pod)"
+rin 0.4
+rcut 5.0
+fadein_mu 0.4
+fadein_delta 0.04
+use_scaled_lj 1
+```
+
+The fade-in function enters both the projection of the descriptors and the radial basis used for energies, forces and descriptors. It only changes the results for pair distances within a few $\delta$ of $\mu$ or below.
 
 ## **Descriptors**
 
