@@ -58,9 +58,10 @@ icon: material/feature-search
 
     ---
 
-    - Pair potentials (Buckingham, Lennard-Jones, ZBL, tabulated, …)
-    - Short- and long-range electrostatics (Coulombic, Ewald, Wolf, reaction-field)
-    - Many-body potentials (EAM, MEAM) and machine-learning potentials (SNAP, N2P2, ACE)
+    - Pair potentials (Buckingham, Lennard-Jones, Exp-6, ZBL, tabulated, …), with multi-species mixing
+    - Short-range (Wolf, damped shifted force, reaction field) and long-range (Ewald, PPPM) electrostatics
+    - Many-body potentials (EAM, MEAM) and reactive potentials (REBO)
+    - Machine-learning potentials (SNAP, POD, MTP, ACE, n2p2), with descriptor computation for training databases
 
     [:octicons-arrow-right-24: Interatomic Potentials](../User/G_ForceFields/index.md)
 
@@ -76,9 +77,16 @@ icon: material/feature-search
 
     ---
 
-    Thermodynamic ensembles (NVE, NVT, NPT), thermostats and barostats, and constraints for straining or restraining the simulation box. *(section under construction)*
+    Thermodynamic ensembles (NVE, NVT, NPT), thermostats and barostats, energy minimization (FIRE 2.0, conjugate gradient), walls and pistons, and constraints for straining or restraining the simulation box.
+
+    [:octicons-arrow-right-24: Ensembles & Constraints](../User/H_EnsemblesConstraints/index.md)
+
+-   :material-thermometer-lines:{ .lg .middle } __Two-Temperature Model__
+
+    ---
+
+    Coupling of the atomic system with an electronic temperature field defined on the simulation grid, with electron-ion energy exchange, electronic heat diffusion and electronic-temperature dependent SNAP potentials.
 
     [:octicons-arrow-right-24: Ensembles & Constraints](../User/H_EnsemblesConstraints/index.md)
 
 </div>
-

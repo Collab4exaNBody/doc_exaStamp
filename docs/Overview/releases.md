@@ -34,6 +34,32 @@ Please note that each version of **exaStamp** is compatible with a stable versio
 
 ## **Release Notes**
 
+??? note "Upcoming release (development branches)"
+
+    ## Upcoming release
+
+    These features are available on the development branches and will be part of the next release.
+
+    **✨ New Features**
+
+    - **Unified descriptor computation for SNAP, POD, MTP and k2b**: per-atom descriptors and their derivatives, global energy/force/virial design matrices for fitting, text or `.npy` output, and loops over a database of configurations.
+    - **MTP potential** (`mtp_init`, `mtp_force`).
+    - **Double precision SNAP force operator** (`snap_force_fp64`) and **electronic-temperature dependent SNAP coefficients** (`snap_ttm_coefficients`).
+    - **Fast global virial** computation from the forces (`compute_sum_fdotr`).
+    - **Long-range electrostatics rewrite**: Ewald and PPPM (`coulombic_ewald_*`, `coulombic_pppm*`) with triclinic cells, slab correction, distributed or replicated FFT mesh and GPU FFTs (cuFFT, hipFFT); unified short-range Wolf, DSF and reaction-field operators.
+
+    **🧪 Physics & Numerics**
+
+    - **Two-temperature model rewrite**: Langevin electron-ion coupling with electronic stopping, electronic heat diffusion with sub-stepping, multi-rank initialization fixes and GPU kernels.
+    - **Temperature with 3N-3 degrees of freedom** in thermodynamic output and thermostats.
+    - **Energies and virial computed only when needed** (`thermo_state_every_step`).
+
+    **🔧 Refactoring & Tooling**
+
+    - **Unified thermodynamic output** for screen and file (`log_mode`, `log_format`), with the full stress tensor and the pure virial available separately. The pressure tensor keywords were renamed from `prx`/`pry`/`prz` to `pxx`/`pyy`/`pzz`.
+    - **Machine learning potential build options** renamed to `EXASTAMP_MLIP_<NAME>_BUILD` (see [build options](../BuildInstall/cmake_installation.md#build-options-and-optional-packages)).
+    - **Electrostatics operators renamed**; old names are kept as aliases or abort with a migration message.
+
 ??? note "Release 3.8.0"
 
     ## Release 3.8.0
