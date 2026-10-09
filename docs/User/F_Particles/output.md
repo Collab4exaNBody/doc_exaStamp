@@ -72,7 +72,7 @@ write_paraview:
 
 !!! note
 
-    `filename` names a **directory**, not a single file: the operator writes one `.vtp` piece per MPI rank under `<filename>/`, a master `<filename>.pvtp` tying them together, and (if `write_box`) a `<filename>/box.vtp`. Unlike `write_xyz` below, there's no `units`/`field_alias` equivalent here, and no simulation-time metadata is written into the file at all (confirmed unimplemented in the source, not just undocumented). A separate, distinct operator `mechanical_write_paraview` exists for mechanics fields specifically — don't confuse the two.
+    `filename` names a **directory**, not a single file: the operator writes one `.vtp` piece per MPI rank under `<filename>/`, a master `<filename>.pvtp` tying them together, and (if `write_box`) a `<filename>/box.vtp`. Unlike `write_xyz` below, there's no `units`/`field_alias` equivalent here, and no simulation-time metadata is written into the file at all (confirmed unimplemented in the source, not just undocumented).
 
 ### `write_xyz`
 
@@ -96,34 +96,6 @@ physical_time:  float, default 0.0                                       # Stamp
 
 `exaNBody`'s generic `.xyz` writer, in extended-XYZ format — despite the format's usual reputation, it isn't limited to positions/types/ids: any field can be selected the same way as `write_paraview`. Unlike `write_paraview`, it does write simulation-time metadata (`Time=<physical_time>`) into the file's header line, alongside a `Properties=` spec built from `units`/`field_alias`.
 
-### `write_xyz_file`
-
-```{ .yaml title="Syntax" .syntax-block }
-write_xyz_file:
-  filename: <string>
-  is_ghosts: <bool>
-  use_filtered_positions: <bool>
-  per_atom_data: [<string>, ...]
-```
-
-```{ .yaml title="Parameters" .params-block }
-filename:                string, required     # Output file name.
-species:                 required             # Must already be declared — used for the type-name column and, for `f`, mass-based unit conversion.
-is_ghosts:               bool, default false  # Also write ghost particles.
-use_filtered_positions:  bool, default false  # Write the filtered position (rxf/ryf/rzf) instead of the raw position.
-per_atom_data:           list of strings, optional  # Which computed local-metrics values to append as extra columns — see below.
-```
-
-`exaStamp`'s own `.xyz` writer, used by its default snapshot configuration. Each line is just `type x y z` by default — **no particle `id` column is written**, contrary to what a plain `.xyz` reader might assume.
-
-Its integration with the on-the-fly local-metrics operators (`compute_local_metrics`, `compute_local_mechanical_metrics`, `compute_local_structural_metrics` — see [Analysis](analysis.md)) is **not automatic just because those operators ran earlier**: it additionally requires the same `per_atom_data` list of value names (e.g. `"pe"`, `"f"`, `"v"`, `"F"`, `"L"`, `"bispectrum"`) to be given to *both* the compute operator and `write_xyz_file` — only the names present in `per_atom_data` get appended as extra columns (and to the header line).
-
-```yaml title="Usage example"
-simulation_epilog:
-  - compute_local_metrics: { per_atom_data: ["pe","f"] }
-  - write_xyz_file: { per_atom_data: ["pe","f"], filename: xstamp.xyz }
-```
-
 ### `write_lmp`
 
 ```{ .yaml title="Syntax" .syntax-block }
@@ -140,7 +112,7 @@ triclinic:         bool, default false            # false doesn't force orthogon
 write_velocities:  bool, default true             # Include the Velocities section.
 ```
 
-Writes a LAMMPS `.data`-style file, atom style `atomic` (fixed — there's no `atom_style` selection).
+Writes a `.data` file with an `Atoms` section in `atomic` style (fixed, the style cannot be selected).
 
 !!! note
 
