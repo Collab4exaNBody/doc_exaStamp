@@ -7,7 +7,9 @@ This section covers how the simulation is integrated in time, how temperature an
 - [**NVE ensemble**](nve_ensemble.md) — velocity-Verlet time integration
 - [**NVT ensemble**](nvt_ensemble.md) — the Nosé-Hoover thermostat, which replaces the integration scheme itself
 - [**NPT ensemble**](npt_ensemble.md) — Nosé-Hoover barostat
+- [**Parrinello-Rahman barostat**](parrinello_rahman.md) — legacy NPT scheme with a deformable cell (unmaintained)
 - [**Thermostats**](Thermostats/index.md) — Berendsen and Langevin, which couple to temperature without replacing the integration scheme
 - [**Deformation Paths**](deformation.md) — prescribing a time-varying box deformation (constant strain-rate, interpolated, or piecewise-interpolated)
 - [**Energy Minimization**](minimization.md) — Conjugate Gradient and FIRE 2.0 static/inertial minimizers
 - [**Repulsive Walls**](pistons.md) — planar, cylindrical and spherical confining/impacting walls
+- [**Two-Temperature Model**](ttm.md) — electron-ion energy exchange with an electronic temperature field on a mesh

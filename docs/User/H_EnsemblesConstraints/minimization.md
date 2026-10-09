@@ -225,7 +225,7 @@ fire_pneg_max:       int, default 2000         # vdfmax: give up after this many
 fire_initial_delay:  bool, default true        # Skip the very first dt-shrinks during the startup grace period.
 ```
 
-Defaults mirror FIRE 2.0's published/LAMMPS defaults (Guénolé et al. 2020, Table 1).
+Defaults follow the published FIRE 2.0 parameters (Guénolé et al. 2020, Table 1).
 
 ```yaml title="Usage example (exaStamp/data/regression_new/numerical_schemes/fire/scheme_FIRE.msp)"
 includes:

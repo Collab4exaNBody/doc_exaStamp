@@ -4,6 +4,15 @@ icon: material/thermometer
 
 # **NVT ensemble**
 
+!!! note "Temperature and degrees of freedom"
+    The instantaneous temperature is computed from the kinetic energy after removal of the center-of-mass motion, divided by $N_{dof} = 3N_{atoms} - 3$ degrees of freedom (the three center-of-mass translations are excluded):
+
+    $$
+    T = \frac{2\, KE}{N_{dof}\, k_B}, \qquad N_{dof} = 3 N_{atoms} - 3
+    $$
+
+    The same definition is used for the printed and dumped temperature (`tmp`, `tmx`, `tmy`, `tmz`), by the Berendsen, Nosé-Hoover and Parrinello-Rahman schemes, and by `init_temperature`/`init_temperature_new` when rescaling to a target temperature.
+
 ## **Nosé-Hoover thermostat**
 
 Unlike [Berendsen](Thermostats/berendsen.md) or [Langevin](Thermostats/langevin.md), the Nosé-Hoover thermostat doesn't bolt onto an existing integration scheme — it *replaces* the time-integration scheme itself, extending the equations of motion with an extra thermostat degree of freedom $\eta$ that couples the system to a target temperature.
@@ -115,7 +124,7 @@ verlet_nhnvt:
     - load_balance_auto_tune_end
 ```
 
-Unlike the plain-Verlet schemes, this isn't `verlet_first_half`/`verlet_second_half` plus a bolted-on thermostat step — the thermostat integration is interleaved with the position/velocity pushes on both half-steps, LAMMPS-`fix nvt`-style:
+Unlike the plain-Verlet schemes, this isn't `verlet_first_half`/`verlet_second_half` plus a bolted-on thermostat step — the thermostat integration is interleaved with the position/velocity pushes on both half-steps:
 
 - `nhc_temp_integrate` (`exaStamp/src/npt/nhc_temp_integrate.cpp`) advances the Nosé-Hoover chain (length `tchain`) from the current kinetic energy and target `KE^*`, and produces a uniform velocity-scaling factor on its `vscale` output.
 - `nh_v_temp` isn't a standalone operator — it's a named batch that runs `scale_v` (`exaNBody/src/compute/generic_op_vec3.cu`) with its `value` input slot rebound to `vscale`, i.e. it multiplies every particle's velocity by the chain's scaling factor.
