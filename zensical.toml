@@ -80,6 +80,7 @@ nav = [
             "User/H_EnsemblesConstraints/nve_ensemble.md",
             "User/H_EnsemblesConstraints/nvt_ensemble.md",
             "User/H_EnsemblesConstraints/npt_ensemble.md",
+            "User/H_EnsemblesConstraints/parrinello_rahman.md",
             {"Thermostats" = [
                 "User/H_EnsemblesConstraints/Thermostats/index.md",
                 "User/H_EnsemblesConstraints/Thermostats/berendsen.md",
@@ -87,7 +88,8 @@ nav = [
             ]},
             "User/H_EnsemblesConstraints/deformation.md",
             "User/H_EnsemblesConstraints/minimization.md",
-            "User/H_EnsemblesConstraints/pistons.md"
+            "User/H_EnsemblesConstraints/pistons.md",
+            "User/H_EnsemblesConstraints/ttm.md"
         ]},
         {"Interatomic Potentials" =  [
             "User/G_ForceFields/index.md",
@@ -100,9 +102,11 @@ nav = [
                     "User/G_ForceFields/Pair/Models/buckingham.md",
                     "User/G_ForceFields/Pair/Models/coul_cut.md",
                     "User/G_ForceFields/Pair/Models/coul_dsf.md",
+                    "User/G_ForceFields/Pair/Models/coul_dsf.md",
                     "User/G_ForceFields/Pair/Models/coul_wolf.md",
                     "User/G_ForceFields/Pair/Models/exp6.md",    
                     "User/G_ForceFields/Pair/Models/exp6rf.md",
+                    "User/G_ForceFields/Pair/Models/k2b.md",
                     "User/G_ForceFields/Pair/Models/lj.md",
                     "User/G_ForceFields/Pair/Models/ljexp6rf_exp6.md",
                     "User/G_ForceFields/Pair/Models/ljexp6rf_lj.md",
@@ -111,6 +115,7 @@ nav = [
                     "User/G_ForceFields/Pair/Models/coul_rf.md",
                     "User/G_ForceFields/Pair/Models/relax.md",
                     "User/G_ForceFields/Pair/Models/tabpair.md",
+                    "User/G_ForceFields/Pair/Models/yukawa.md",
                     "User/G_ForceFields/Pair/Models/zbl.md",
                     "User/G_ForceFields/Pair/Models/zero.md"                                   
                 ]}
@@ -125,17 +130,23 @@ nav = [
                 "User/G_ForceFields/EAM/tab.md",
             ]},
             {"MEAM Potentials" = [
+                "User/G_ForceFields/MEAM/index.md",
                 "User/G_ForceFields/MEAM/meam.md",
                 "User/G_ForceFields/MEAM/meam_lj.md",
             ]},
             {"Reactive Potentials" = [
+                "User/G_ForceFields/Reactive/index.md",
                 "User/G_ForceFields/Reactive/lchbop.md",
                 "User/G_ForceFields/Reactive/rebo.md",
             ]},
             {"Machine Learning Potentials" = [
+                "User/G_ForceFields/MLIP/index.md",
                 "User/G_ForceFields/MLIP/snap.md",
+                "User/G_ForceFields/MLIP/pod.md",
+                "User/G_ForceFields/MLIP/mtp.md",
+                "User/G_ForceFields/MLIP/pace.md",
                 "User/G_ForceFields/MLIP/nnp.md",
-                "User/G_ForceFields/MLIP/ace.md",
+                "User/G_ForceFields/MLIP/descriptors.md",
             ]},                 
             {"Electrostatics Potentials" = [
                 "User/G_ForceFields/Electrostatics/index.md",

@@ -13,8 +13,8 @@ If you're looking for a guided introduction instead, see the **Beginner Guide** 
 - [**Grids Features**](E_Grids/index.md) — grid flavors and the per-particle fields they track
 - [**Interatomic Potentials**](G_ForceFields/index.md) — pair, many-body, electrostatic and machine-learning potentials
 - [**Bonding Potentials**](G_ForceFields/Intramolecular/index.md) — bond, bending, torsion and improper torsion potentials
-- [**Ensembles & Constraints**](H_EnsemblesConstraints/index.md) — thermodynamic ensembles, thermostats and barostats
+- [**Ensembles & Constraints**](H_EnsemblesConstraints/index.md) — thermodynamic ensembles, thermostats and barostats, minimization, walls
 
-!!! warning
+!!! note
 
-    This section is under active construction. Description of all available operators will be gradually added to this documentation's section.
+    Not every operator is described here yet. The complete list of operators available in your build, with their parameters, is printed by `exaStamp --help plugins` and `exaStamp --help <operator_name>`.
