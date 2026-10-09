@@ -22,7 +22,7 @@
 ######################################################################################################
 ############################################ Tunables #################################################
 
-# Defaults mirror FIRE 2.0's published/LAMMPS defaults (Guenole et al. 2020, Table 1): tmax=10,
+# Defaults mirror FIRE 2.0's published defaults (Guenole et al. 2020, Table 1): tmax=10,
 # tmin=0.02, delaystep=20, dtgrow=1.1, dtshrink=0.5, alpha0=0.25, alphashrink=0.99, vdfmax=2000.
 global:
   fire_tolerance: 1.0e-4          # convergence threshold on max atomic force magnitude

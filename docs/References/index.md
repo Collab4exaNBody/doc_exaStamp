@@ -11,7 +11,7 @@ A reference paper for `exaStamp` is currently under preparation. It will provide
   author  = {Paul Lafourcade, Thierry Carrard},
   title   = {exaStamp : a portable HPC solution on GPU architectures for MD simulations of shock physics},
   year    = {2025},
-  version = {3.7.4},
+  version = {3.8.0},
   url     = {https://github.com/Collab4exaNBody/exaStamp},
   license = {Apache-2.0}
 }

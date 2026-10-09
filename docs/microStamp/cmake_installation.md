@@ -116,7 +116,7 @@ export XNB_SRC_DIR=${HOME}/dev/exaNBody
 export XNB_INSTALL_DIR=${HOME}/local/exaNBody
 ```
 
-Finally, build and install `exaNBody` using the following instructions. First sourcing the `onika` environment will automatically update whether `cuda` support is available. To build the support for the microStamp MD miniapp, you need to declare the 
+Finally, build and install `exaNBody` using the following instructions. First sourcing the `onika` environment will automatically update whether `cuda` support is available. To build the support for the microStamp MD miniapp, you need to enable the molecular dynamics contribs (`EXANB_BUILD_CONTRIB_MD=ON`) and the miniapp itself (`EXANB_BUILD_MICROSTAMP=ON`). `SNAP_CPU_USE_LOCKS` and `SNAP_FP32_MATH` tune the SNAP kernels (CPU spin locks, single precision math).
 
 ```bash linenums="1"
 mkdir build_exaNBody && cd build_exaNBody
