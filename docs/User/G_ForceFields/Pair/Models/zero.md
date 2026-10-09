@@ -1,39 +1,58 @@
-# Zero
+# **Zero**
 
-The Zero pair potential zeros out the energy and forces contribution between two atoms.
+## **Description**
 
-.. list-table:: Lennard-Jones Parameters
-   :widths: 40 40
-   :header-rows: 1
-   :align: center
+The `zero_compute_force` operator defines a pair interaction with zero energy and zero force:
 
-   * - Denomination
-     - Units
-   * - $\\epsilon$
-     - energy
-   * - $\\sigma$
-     - distance
-   * - $r_c$
-     - distance
+$$
+E(r) = 0
+$$
 
-Below is a usage example for a system containing one single atomic specy
+It has no parameter. It is used to declare a cutoff for a pair of species without any interaction, for instance to make sure the neighbor lists are built up to a given distance, or as a placeholder in a multi-species setup.
 
-.. code-block:: yaml
+<div class="center-table" markdown>
 
-   # Basic force computation
-   zero_compute_force:
-     rcut: 7.0 ang
+| Parameter | Units    | Description                         |
+| :-------- | :------: | :---------------------------------- |
+| `rcut`    | distance | Cutoff radius of the pair potential |
 
-   # General force calculation block called in the integration scheme
-   compute_force:
-     - zero_compute_force
+</div>
 
-In the case of a system with multiple species, the force operator can be defined as follows
+## **YAML syntax**
 
-.. code-block:: yaml
+```yaml
+zero_compute_force:
+  rcut: VALUE UNITS
+  parameters: {}
+```
 
-   # Basic force computation
-   compute_force_pair_multimat:
-     potentials:
-       - { type_a: Si , type_b: Si , potential: zero , rcut: 8.47 ang }
-       - { type_a: Si , type_b:  O , potential: zero , rcut: 5.00 ang }
+- [x] VALUE = Physical value of the intended parameter.
+- [x] UNITS = Units of the provided value that will be passed to the conversion helper for internal units conversion.
+
+## **Usage examples**
+
+!!! example "**Systems with a single atomic specy**"
+    ```yaml
+    # Default variant
+    zero_compute_force:
+      rcut: 7.0 ang
+      parameters: {}
+
+    # Symetric variant
+    zero_compute_force_symetric:
+      rcut: 7.0 ang
+      parameters: {}
+    ```
+
+!!! example "**Systems with multiple atomic species**"
+
+    ```yaml
+    compute_force_pair_multimat:
+      potentials:
+        - { type_a: Si , type_b: Si , potential: zero , rcut: 8.47 ang , parameters: {} }
+        - { type_a: Si , type_b: O  , potential: zero , rcut: 5.00 ang , parameters: {} }
+    ```
+
+!!! note
+
+    In `compute_force_pair_multimat`, species pairs that are not listed automatically get a zero potential.

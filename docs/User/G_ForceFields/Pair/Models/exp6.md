@@ -2,22 +2,23 @@
 
 ## **Description**
 
-The `exp6_compute_force` operator calculates the normalized exponential-6 pair potential parameterized by well depth, equilibrium distance, and hardness:
+The `exp6_compute_force` operator calculates the Buckingham exponential-6 pair potential with an additional short-range repulsive wall:
 
 $$
-E(r) = \varepsilon \left[ \frac{6}{\alpha-6}\,\exp\!\big(\alpha(1 - r/r_m)\big) - \frac{\alpha}{\alpha-6}\left(\frac{r_m}{r}\right)^{6} \right] \quad \text{for} \quad r<r_c
+E(r) = A\,e^{-Br} - \frac{C}{r^{6}} + D\left(\frac{12}{B\,r}\right)^{12} \quad \text{for} \quad r<r_c
 $$
 
-with $r_c$ the cutoff and $(\varepsilon,r_m,\alpha)$ as defined below.
+The last term is a steep $r^{-12}$ wall that prevents the collapse of the $-C/r^6$ term at very short distances (the "Buckingham catastrophe"). Set $D=0$ to recover the plain exponential-6 form.
 
 <div class="center-table" markdown>
 
-| Parameter     | Units    | Description                                              |
-| :------------ | :------: | :------------------------------------------------------- |
-| $\varepsilon$ | energy   | Well depth                                               |
-| $r_m$         | distance | Distance at potential minimum                            |
-| $\alpha$      | —        | Repulsion steepness (dimensionless)                      |
-| $r_c$         | distance | Cutoff radius                                            |
+| Parameter | Units                 | Description                              |
+| :-------- | :-------------------: | :--------------------------------------- |
+| `A`       | energy                | Amplitude of the exponential repulsion   |
+| `B`       | 1/distance            | Inverse range of the exponential         |
+| `C`       | energy·distance$^6$   | Dispersion coefficient                   |
+| `D`       | energy                | Amplitude of the short-range wall        |
+| `rcut`    | distance              | Cutoff radius                            |
 
 </div>
 
@@ -26,7 +27,7 @@ with $r_c$ the cutoff and $(\varepsilon,r_m,\alpha)$ as defined below.
 ```yaml
 exp6_compute_force:
   rcut: VALUE UNITS
-  parameters: { epsilon: VALUE UNITS , r_m: VALUE UNITS , alpha: VALUE }
+  parameters: { A: VALUE UNITS , B: VALUE UNITS , C: VALUE UNITS , D: VALUE UNITS }
 ```
 
 - [x] VALUE = Physical value of the intended parameter.
@@ -38,24 +39,26 @@ exp6_compute_force:
     ```yaml
     # Default variant
     exp6_compute_force:
-      parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 }
-      rcut: 8.0 ang
+      parameters: { A: 107023.9 Da*kcal/g , B: 3.6405 1/ang , C: 554.01 Da*kcal*ang^6/g , D: 5.0e-5 Da*kcal/g }
+      rcut: 12.5 ang
 
     # Symetric variant
     exp6_compute_force_symetric:
-      parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 }
-      rcut: 8.0 ang  
+      parameters: { A: 107023.9 Da*kcal/g , B: 3.6405 1/ang , C: 554.01 Da*kcal*ang^6/g , D: 5.0e-5 Da*kcal/g }
+      rcut: 12.5 ang
     ```
 
 !!! example "**Systems with multiple atomic species**"
 
     ```yaml
     exp6_multi_force:
-      rcut: 8.0 ang
-      common_parameters: { epsilon: 0.0 , r_m: 0.0 , alpha: 0.0 }
+      rcut: 12.5 ang
+      common_parameters: { A: 107023.9 Da*kcal/g , B: 3.6405 1/ang , C: 554.01 Da*kcal*ang^6/g , D: 5.0e-5 Da*kcal/g }
       parameters:
-        - { type_a: Ar , type_b: Ar , rcut: 8.0 ang , parameters: { epsilon: 0.0100 eV , r_m: 3.80 ang , alpha: 13.0 } }
-        - { type_a: Kr , type_b: Ar , rcut: 8.0 ang , parameters: { epsilon: 0.0120 eV , r_m: 4.00 ang , alpha: 12.5 } }
+        - { type_a: C , type_b: C , rcut: 12.5 ang , parameters: { A: 107023.9 Da*kcal/g , B: 3.6405 1/ang ,     C: 554.01 Da*kcal*ang^6/g ,      D: 5.0e-5 Da*kcal/g } }
+        - { type_a: C , type_b: N , rcut: 12.5 ang , parameters: { A: 37111.29 Da*kcal/g , B: 3.46350030 1/ang , C: 484.2991571 Da*kcal*ang^6/g , D: 5.0e-5 Da*kcal/g } }
     ```
 
-  
+!!! note
+
+    `Da*kcal/g` is kcal/mol expressed per particle (1 Da = 1 g/mol).
