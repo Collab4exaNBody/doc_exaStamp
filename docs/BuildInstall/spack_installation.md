@@ -4,7 +4,7 @@ icon: simple/linux
 
 # **Installation with Spack**
 
-Installation with `Spack` is easy and preferable for users who don't want to develop in `exaStamp`. Only stable versions are added when you install `exaStamp` with `Spack` (version `1.1.0`), meaning that it doesn't provide you access to the development branches. In addition, the main branch of `exaStamp` will never be directly accessible via this installation method.
+Installation with `Spack` is easy and preferable for users who don't want to develop in `exaStamp`. Only stable releases of `exaStamp` are available through `Spack` (the instructions below use `Spack` version `1.1.0`), meaning that it doesn't provide you access to the development branches. In addition, the main branch of `exaStamp` will never be directly accessible via this installation method.
 
 ## **Minimal requirements**
 
@@ -33,7 +33,7 @@ spack install yaml-cpp@0.6.3
 spack load yaml-cpp@0.6.3
 ```
     
-At this point, you should have YAML installed on your system. Please note that the installation procedure of YAML from sources using `CMake` also works on HPC clusters. In the following, remember to add the `-DCMAKE_PREFIX_PATH=${YAML_CPP_INSTALL_DIR} argument to your cmake command.
+At this point, you should have YAML installed on your system. Please note that the installation procedure of YAML from sources using `CMake` also works on HPC clusters. In the following, remember to add the `-DCMAKE_PREFIX_PATH=${YAML_CPP_INSTALL_DIR}` argument to your cmake command.
 
 ## **exaStamp installation**
 
@@ -56,7 +56,7 @@ If you are lucky enough to have a `GPU` on your machine, you can also ask for a 
 spack install exastamp+cuda
 ```
 
-The default version that will be installed systematically corresponds to the latest stable release. If for any reason you wand to install a specific (older) version, you can require it as follows:
+The default version that will be installed systematically corresponds to the latest stable release. If for any reason you want to install a specific (older) version, you can require it as follows:
   
 ```bash linenums="1"
 spack install exastamp@3.8.0
@@ -73,5 +73,7 @@ If you want to use the machine learning potentials `POD` and `PACE`, you can als
 spack install exastamp+mlips
 spack install exastamp+cuda+mlips
 ```
+
+Other optional packages (MTP, SNAP, n2p2, compile-time limits, ...) are only available through the [CMake installation](cmake_installation.md#build-options-and-optional-packages).
 
 Thanks to the `spack` ecosystem, appropriate versions of `cmake`, `yaml-cpp`, `onika` and `exaNBody` will be automatically installed, as well as any package required by `exaStamp`.
