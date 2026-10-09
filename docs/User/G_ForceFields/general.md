@@ -1,6 +1,6 @@
 # **Defining the interatomic potential**
     
-In **exaStamp**, the interatomic potential or force field to be user during the simulation is simply defined by the `compute_force` operator. This operator is by definition a list of operators associated to a single or multiple instances of interatomic potentials. See a generic usage example below.
+In **exaStamp**, the interatomic potential or force field to be used during the simulation is simply defined by the `compute_force` operator. This operator is by definition a list of operators associated to a single or multiple instances of interatomic potentials. See a generic usage example below.
 
 !!! example
       
