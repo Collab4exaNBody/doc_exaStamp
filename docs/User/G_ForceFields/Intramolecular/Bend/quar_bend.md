@@ -25,7 +25,7 @@ with $k_2$, $k_3$, $k_4$ and $\theta_0$ the potential parameters decribed in the
 
 ```yaml
 compute_force_bend:
-  potentials_for_bends:
+  potentials_for_angles:
     - types: [STRING, STRING, STRING]
       potential: quar_bend
       parameters:
@@ -44,7 +44,7 @@ compute_force_bend:
 !!! example "**Systems with a single atom type (specie)**"
     ```yaml
     compute_force_bend:
-      potentials_for_bends:
+      potentials_for_angles:
         - types: [CA, CA, CA]
           potential: quar_bend
           parameters:
@@ -58,7 +58,7 @@ compute_force_bend:
 
     ```yaml
     compute_force_bend:
-      potentials_for_bends:
+      potentials_for_angles:
         - types: [CA, CA, CA]
           potential: quar_bend
           parameters:
