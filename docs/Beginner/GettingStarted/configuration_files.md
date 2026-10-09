@@ -72,7 +72,7 @@ The `config_thermostate.msp` file defines the trigger, compute, screen-print and
 
 ### Snapshots
 
-The `config_snapshot.msp` file defines the trigger and write operators for simulation snapshots, along with a collection of predefined writers (Paraview, grid VTK, XYZ, LAMMPS data) used for visualization.
+The `config_snapshot.msp` file defines the trigger and write operators for simulation snapshots, along with a collection of predefined writers (Paraview, grid VTK, XYZ, `.data` files) used for visualization.
 
 ??? note "`config_snapshot.msp` content"
     ```yaml linenums="1"

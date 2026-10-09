@@ -37,12 +37,13 @@ Below is the default definition of the `global` block as defined in `data/config
     | `timestep`                                | Starting time-step value                           | `int`    | `0`                         |
     | `physical_time`                           | Starting physical time                             | `float`  | `0.`                        | 
     | `dt`                                      | Time-step                                          | `float`  | `1.0e-3 ps`                 | 
-    | `log_mode`                                | Log mode                                           | `string` | `mechanical` (other choices are `default` or `chemistry`) | 
+    | `log_mode`                                | Columns of the thermodynamic state (preset name or `;`-separated keyword list, see [Output](7_output.md#thermo-output)) | `string` | `mechanical` | 
     | `simulation_restart_frequency`            | Restart file write frequency                       | `int`    | `1000`                      | 
     | `simulation_snapshot_frequency`           | Snapshot file write frequency                      | `int`    | `1000`                      | 
     | `simulation_analysis_frequency`           | On-the-fly analysis frequency                      | `int`    | `1000`                      | 
     | `simulation_thermostate_file_frequency`   | Thermodynamic state file write frequency           | `int`    | `10`                        | 
     | `thermostate_file`                        | Name of the thermodynamic state `.csv` file        | `string` | `"thermodynamic_state.csv"` | 
+    | `log_format`                              | Optional `;`-separated printf formats for the thermodynamic state columns (not set by default, see [Output](7_output.md#log-format)) | `string` | — |
     | `simulation_thermostate_screen_frequency` | Thermodynamic state screen-print frequency         | `int`    | `10`                        | 
     | `simulation_load_balance_frequency`       | Load balancing frequency                           | `int`    | `100`                       | 
     | `enable_load_balance`                     | Enables load balancing                             | `bool`   | `true`                      | 

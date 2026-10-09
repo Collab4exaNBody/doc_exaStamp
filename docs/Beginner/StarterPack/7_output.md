@@ -6,19 +6,90 @@ icon: lucide/folder-up
 
 Output is controlled by the frequency variables already introduced in [Global Control](1_global.md), together with the writer operators below. This page only covers particle-level output (the `species`/positions/velocities you defined earlier) — see the tip at the end for grid-level output.
 
-## Thermodynamic state (screen & file)
+## Thermodynamic state (screen & file) { #thermo-output }
 
-Printing the thermodynamic state to the screen and writing it to a `.csv` file are both enabled by default; only their frequency and format need to be set from `global`:
+Printing the thermodynamic state to the screen (`print_thermodynamic_state`) and writing it to a `.csv` file (`dump_thermodynamic_state`) are both enabled by default; only their frequency and columns need to be set from `global`:
 
 ```yaml linenums="1"
 global:
   simulation_thermostate_screen_frequency: 10   # print to screen every 10 steps
   simulation_thermostate_file_frequency: 10     # append to file every 10 steps
   thermostate_file: "thermodynamic_state.csv"
-  log_mode: mechanical
+  log_mode: mechanical                          # preset name, or a ';'-separated list of keywords
+  # log_format: "%9.0f;%.6e"                    # optional printf formats, applied column by column
 ```
 
-`log_mode` selects which columns `print_thermodynamic_state` prints to screen (`mechanical`, `default`/`thermo_basic`, `thermo`/`thermo_full`, `vol_fluct_ortho[_basic]`, `vol_fluct_tricl[_basic]`, or a custom `;`-separated list of item names). The file writer (`dump_thermodynamic_state`) always writes the same fixed set of columns (step, time, energies, temperature, stress tensor, box, volume, density) to `thermostate_file`.
+`log_mode` and `log_format` set in `global` are read by both the screen printer and the file writer, so the screen and the `.csv` file show the same columns. The file uses more significant digits by default.
+
+### Presets
+
+| `log_mode` | Columns |
+| :--- | :--- |
+| `default`, `thermo_basic` | `stp pht toe kie poe tmp pre sta` |
+| `thermo`, `thermo_full` | `stp pht toe kie poe tmp tmx tmy tmz pre pxx pyy pzz sta` |
+| `vol_fluct_ortho_basic` | `stp pht toe kie poe tmp pre vol bxa bxb bxc rho sta` |
+| `vol_fluct_ortho`, `vol_fluct_ortho_full` | `stp pht toe kie poe tmp tmx tmy tmz pre pxx pyy pzz vol bxa bxb bxc rho sta` |
+| `vol_fluct_tricl_basic` | `stp pht toe kie poe tmp pre vol bxa bxb bxc baa bab bag rho sta` |
+| `vol_fluct_tricl`, `vol_fluct_tricl_full` | `stp pht toe kie poe tmp tmx tmy tmz pre pxx pyy pzz pxy pxz pyz vol bxa bxb bxc baa bab bag rho sta` |
+| `mechanical` (default in `config_globals.msp`) | `stp pht prt sta toe kie poe tmp pre smi vol mas` |
+| `dump_default` | `stp pht prt toe kie poe tmp pxx pyy pzz pxy pxz pyz bxa bxb bxc baa bab bag vol rho` |
+
+### Keywords
+
+Instead of a preset, `log_mode` accepts any `;`-separated list of the keywords below, printed in the given order, e.g. `log_mode: "stp;pht;tmp;pxx;pyy;pzz;vol"`. An unknown keyword stops the run and prints the list of valid keywords.
+
+| Keyword | Column | Description |
+| :---: | :--- | :--- |
+| `stp` | Step | Timestep |
+| `pht` | Time (ps) | Physical time |
+| `prt` | Particles | Number of particles |
+| `sta` | Mv/Ext/Imb. | Run status: particle migration (`m`, or a count), domain extension (`d`, or a count) and load imbalance |
+| `toe` | Tot. E. (eV/part) | Total energy per particle (kinetic + potential + electronic, if any) |
+| `kie` | Kin. E. (eV/part) | Kinetic energy per particle |
+| `poe` | Pot. E. (eV/part) | Potential energy per particle |
+| `ele` | Elec. E. (eV) | Total electronic energy of the [two-temperature model](../../User/H_EnsemblesConstraints/ttm.md) |
+| `ite` | Ion Transf. E. (eV) | Energy transferred from the electrons to the ions during the step (two-temperature model) |
+| `tmp` | Temp. (K) | Temperature, computed with $3N-3$ degrees of freedom |
+| `tmx`, `tmy`, `tmz` | Tx, Ty, Tz (K) | Temperature components |
+| `pre` | Press. (Pa) | Scalar pressure |
+| `pxx`, `pyy`, `pzz`, `pxy`, `pxz`, `pyz` | Pxx ... Pyz (Pa) | Stress tensor components, kinetic contribution included |
+| `vxx`, `vyy`, `vzz`, `vxy`, `vxz`, `vyz` | Vxx ... Vyz (Pa) | Virial tensor components, without the kinetic contribution |
+| `smi` | sMises (Pa) | Von Mises equivalent stress |
+| `vol` | Vol. (ang^3) | Simulation box volume |
+| `mas` | Mass | Total mass |
+| `bxa`, `bxb`, `bxc` | A, B, C (ang) | Box vector lengths |
+| `baa`, `bab`, `bag` | alpha, beta, gamma (deg) | Box angles |
+| `rho` | Rho (g/cm^3) | Density |
+
+When a two-temperature model is active, the `ele` and `ite` columns are added at the end automatically if they are not already in the list.
+
+!!! warning "Renamed keywords"
+    The diagonal stress components are now `pxx`, `pyy`, `pzz` (formerly `prx`, `pry`, `prz`). Input files using the old names stop with an "unrecognized log_mode keyword" error.
+
+### Column formats (`log_format`) { #log-format }
+
+`log_format` is an optional `;`-separated list of printf-style formats, applied in order to the active columns. Fewer formats than columns only change the first columns, and an empty entry keeps the default format of that column:
+
+```yaml linenums="1"
+global:
+  log_mode: "stp;pht;tmp;pre"
+  log_format: "%9.0f;;%12.4f"     # step as integer, default time format, temperature with 4 decimals
+```
+
+### File writer options
+
+`dump_thermodynamic_state` also accepts:
+
+```{ .yaml title="Parameters" .params-block }
+thermostate_file:     string, default "thermodynamic_state.csv"  # Output file (also settable in global).
+print_header:         bool, default true          # Write the column header line.
+internal_units:       bool, default false         # Write values in internal units instead of eV, K, Pa, g/cm^3.
+force_flush_file:     bool, default false         # Flush the file after every write.
+force_append_thermo:  bool, default false         # Append to an existing file instead of overwriting it.
+is_dump_virial:       bool, default false         # Append the 9 raw virial components S11 ... S33 (Pa).
+```
+
+`print_thermodynamic_state` accepts `print_header` and `internal_units` (default `false` for both).
 
 ## Binary restart file
 
