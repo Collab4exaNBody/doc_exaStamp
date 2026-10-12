@@ -361,17 +361,6 @@ operator migrate_cell_particles_int
 operator move_particles_double
 operator move_particles_int
 
-exaStampMechanical
-------------------
-
-operator compute_local_mechanical_metrics
-operator compute_local_metrics
-operator compute_local_structural_metrics
-operator mechanical_cell_projection
-operator mechanical_write_paraview
-operator supervised_learning_classifier
-operator write_xyz_file
-
 exaStampCoulWolfParticleCharge
 ------------------------------
 

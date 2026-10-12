@@ -673,7 +673,7 @@ The ``config_defaults.msp`` file contains the ``configuration`` YAML block that 
          rebind: { mesg: filename }
          body:
            - message: { endl: true }
-     - write_xyz_file
+     - write_xyz
    
    dump_data_lmp:
      - timestep_file: "exaStamp_%09d.lmp"
@@ -682,7 +682,7 @@ The ``config_defaults.msp`` file contains the ``configuration`` YAML block that 
          rebind: { mesg: filename }
          body:
            - message: { endl: true }
-     - write_lmp_file
+     - write_lmp
    
    dump_analysis: dump_data_grid_vtk
    

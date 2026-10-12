@@ -127,7 +127,7 @@ global:
 write_snapshot: write_snapshot_xyz
 ```
 
-`write_snapshot_xyz` writes a plain-text `.xyz` file (species name and position per atom) through `write_xyz_file`.
+`write_snapshot_xyz` writes a plain-text `.xyz` file (species name and position per atom) through `write_xyz`.
 
 ??? note "`write_snapshot_xyz` definition (`config_snapshot.msp`)"
     ```yaml linenums="1"
@@ -138,7 +138,7 @@ write_snapshot: write_snapshot_xyz
           rebind: { mesg: filename }
           body:
             - message: { endl: true }
-      - write_xyz_file
+      - write_xyz
     ```
 
 ```yaml linenums="1"
