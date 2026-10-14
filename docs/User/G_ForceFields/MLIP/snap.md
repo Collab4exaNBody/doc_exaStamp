@@ -31,14 +31,14 @@ Two operators evaluate SNAP energies, forces and virial:
 
 | Operator | Precision |
 | :------- | :-------- |
-| `snap_force` | set at exaNBody build time by `SNAP_FP32_MATH` (default **ON**, i.e. single-precision bispectrum) |
-| `snap_force_fp64` | always double precision |
+| `snap_force_fp32` | single precision |
+| `snap_force_fp64` | double precision |
 
 </div>
 
 !!! tip
 
-    Because exaNBody is built with `SNAP_FP32_MATH=ON` by default, `snap_force` runs in mixed/single precision. That is faster, especially on GPU, but energies and forces carry single-precision round-off. Use `snap_force_fp64` when you need accurate energies, energy conservation over long NVE runs, or comparisons with reference data.
+    `snap_force_fp32` is faster, especially on GPU, but energies and forces carry single-precision round-off. Use `snap_force_fp64` when you need accurate energies, energy conservation over long NVE runs, or comparisons with reference data. The precision of both operators does not depend on how exaNBody was built.
 
 ```{ .yaml title="Syntax" .syntax-block }
 snap_force_fp64:
@@ -115,7 +115,7 @@ With `snap_ttm_coefficients`, the SNAP coefficients depend on the local electron
 - $\beta_0(T_e)$: a polynomial of order $P$,
 - $\beta_1(T_e) \dots \beta_K(T_e)$: natural cubic splines through tabulated values, extrapolated with the end-interval cubics outside the tabulated range.
 
-The resulting per-atom coefficients replace the per-species coefficients of the `.snapcoeff` file. They are consumed by **`snap_force_fp64`** (not `snap_force`), so `snap_ttm_coefficients` must be placed **right before** `snap_force_fp64` in `compute_force`.
+The resulting per-atom coefficients replace the per-species coefficients of the `.snapcoeff` file. They are consumed by **`snap_force_fp64`** (not `snap_force_fp32`), so `snap_ttm_coefficients` must be placed **right before** `snap_force_fp64` in `compute_force`.
 
 ```{ .yaml title="Syntax" .syntax-block }
 snap_ttm_coefficients:
@@ -171,4 +171,4 @@ Examples are in `exaStamp/data/regression_new/mliaps/snap_ttm/` (`constant_te`, 
 
 ## **Other SNAP implementations**
 
-`snaplegacy_force` (built with `EXASTAMP_MLIP_SNAP_BUILD`) and `snaplmp_force` (built with `EXASTAMP_MLIP_SNAPLMP_BUILD`, requires an external reference SNAP source tree given by `EXASTAMP_MLIP_SNAPLMP_LMP_SRC_DIR`) are older CPU implementations kept for validation. They take the same `parameters` block. Use `snap_force` / `snap_force_fp64` for production runs.
+`snaplegacy_force` (built with `EXASTAMP_MLIP_SNAP_BUILD`) and `snaplmp_force` (built with `EXASTAMP_MLIP_SNAPLMP_BUILD`, requires an external reference SNAP source tree given by `EXASTAMP_MLIP_SNAPLMP_LMP_SRC_DIR`) are older CPU implementations kept for validation. They take the same `parameters` block. Use `snap_force_fp32` / `snap_force_fp64` for production runs.

@@ -156,7 +156,7 @@ make -j4 install
 
 !!! note "SNAP potentials"
 
-    `-DEXANB_BUILD_CONTRIB_MD=ON` builds the molecular dynamics contribs of `exaNBody`, which provide the SNAP kernels used by `exaStamp`. Keep it `ON` to be able to build SNAP in `exaStamp` (see [machine learning potentials](#machine-learning-potentials)). The `exaNBody` option `SNAP_FP32_MATH` (default `ON`) selects single precision for the `snap_force` operator.
+    `-DEXANB_BUILD_CONTRIB_MD=ON` builds the molecular dynamics contribs of `exaNBody`, which provide the SNAP kernels used by `exaStamp`. Keep it `ON` to be able to build SNAP in `exaStamp` (see [machine learning potentials](#machine-learning-potentials)). The SNAP force operators of `exaStamp` have an explicit precision (`snap_force_fp32`, `snap_force_fp64`), independent of the `exaNBody` option `SNAP_FP32_MATH`.
 
 ## **exaStamp installation**
 
@@ -247,7 +247,7 @@ Each machine learning potential lives in its own plugin and is disabled by defau
     -DEXASTAMP_MLIP_SNAP_BUILD=ON
     ```
 
-    The SNAP kernels are provided by `exaNBody`, which must be built with `-DEXANB_BUILD_CONTRIB_MD=ON`. If they are not available, the option has no effect. The `exaNBody` option `SNAP_FP32_MATH` (default `ON`) makes the `snap_force` operator compute in single precision; the `snap_force_fp64` operator always computes in double precision.
+    The SNAP kernels are provided by `exaNBody`, which must be built with `-DEXANB_BUILD_CONTRIB_MD=ON`. If they are not available, the option has no effect. Both precisions are always available: `snap_force_fp32` computes in single precision and `snap_force_fp64` in double precision, whatever the `exaNBody` option `SNAP_FP32_MATH`.
 
 === "POD"
 

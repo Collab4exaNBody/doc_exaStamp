@@ -576,7 +576,8 @@ operator snaplegacy_force
 exaStampSnap
 ------------
 
-operator snap_force
+operator snap_force_fp32
+operator snap_force_fp64
 
 zbl
 ---
