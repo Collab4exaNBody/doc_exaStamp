@@ -10,6 +10,7 @@ In the present section, we explain in detail the different interatomic potential
 - [**Pair Potentials**](Pair/index.md)
 - [**Embedded Atom Model (EAM)**](EAM/index.md)
 - [**Modified EAM**](MEAM/index.md)
+- [**Three-body potentials**](ThreeBody/index.md)
 - [**Reactive potentials**](Reactive/index.md)
 - [**Machine Learning Interatomic potentials (MLIP)**](MLIP/index.md)
 - [**Electrostatic potentials**](Electrostatics/index.md)

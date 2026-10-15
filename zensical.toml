@@ -134,6 +134,10 @@ nav = [
                 "User/G_ForceFields/MEAM/meam.md",
                 "User/G_ForceFields/MEAM/meam_lj.md",
             ]},
+            {"Three-body Potentials" = [
+                "User/G_ForceFields/ThreeBody/index.md",
+                "User/G_ForceFields/ThreeBody/sw.md",
+            ]},
             {"Reactive Potentials" = [
                 "User/G_ForceFields/Reactive/index.md",
                 "User/G_ForceFields/Reactive/lchbop.md",
