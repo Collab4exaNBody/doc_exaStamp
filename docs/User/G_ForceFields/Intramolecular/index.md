@@ -47,3 +47,10 @@ where `type_1`and `type_2` can be any specific type of bonding potentials as def
 - [**Torsion**](Torsion/index.md)
 - [**Improper**](Improper/index.md)
 
+!!! note "Terms without parameters"
+
+    Bonds, bending angles, torsions and improper torsions are deduced from the connectivity of the molecules. A term whose
+    atom types match no entry of the corresponding potential list contributes no force and no energy. The number of such
+    terms is reported once, in a warning at the beginning of the simulation. To switch a term off on purpose, give it
+    the [no_potential](Bond/no_potential.md) type: these terms are not counted in the warning.
+

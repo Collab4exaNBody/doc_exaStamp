@@ -5,7 +5,7 @@
 The `opls_improper` type of improper torsion potential calculates the improper torsion potential of the OPLS force field:
 
 $$
-E = \frac{1}{2}k_1 \left ( 1 + \cos{\phi}\right ) +  \frac{1}{2}k_2 \left ( 1 - \cos{2\phi}\right ) + \frac{1}{2}k_3 \left ( 1 + \cos{3\phi}\right )
+E = \frac{1}{2}k_1 \left ( 1 + \cos{\chi}\right ) +  \frac{1}{2}k_2 \left ( 1 - \cos{2\chi}\right ) + \frac{1}{2}k_3 \left ( 1 + \cos{3\chi}\right )
 $$
 
 with $k_1$, $k_2$ and $k_3$ the potential parameters decribed in the following table.
@@ -33,7 +33,7 @@ compute_force_improper:
         k3: VALUE UNITS
 ```
 
-- [x] STRING = Name of the atom type (specie) involved in the bending angle.
+- [x] STRING = Name of the atom type (specie) involved in the improper torsion angle.
 - [x] VALUE  = Physical value of the intended parameter.
 - [x] UNITS  = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 
@@ -42,8 +42,8 @@ compute_force_improper:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_bond:
-      potentials_for_bonds:
+    compute_force_improper:
+      potentials_for_impropers:
         - types: [CA, CA, CA, CT]
           potential: opls_improper
           parameters:

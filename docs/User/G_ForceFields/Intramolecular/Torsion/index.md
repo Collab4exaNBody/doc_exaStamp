@@ -29,6 +29,9 @@ $$
 $$
 
 
+In practice $\phi$ is computed with $\operatorname{atan2}$, which is accurate for all angles, including 0 and 180 degrees.
+When atoms 1, 2, 3 or atoms 2, 3, 4 are (almost) aligned, the torsion angle is undefined and the torsion term gives no force.
+
 The following types of torsion potentials are defined in **exastamp**:
 
 - [**harm_torsion**](harm_torsion.md)

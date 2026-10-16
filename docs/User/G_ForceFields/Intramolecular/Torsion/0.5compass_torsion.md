@@ -33,7 +33,7 @@ compute_force_torsion:
         k3: VALUE UNITS
 ```
 
-- [x] STRING = Name of the atom type (specie) involved in the bending angle.
+- [x] STRING = Name of the atom type (specie) involved in the torsion angle.
 - [x] VALUE  = Physical value of the intended parameter.
 - [x] UNITS  = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 

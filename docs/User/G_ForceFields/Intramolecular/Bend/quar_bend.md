@@ -2,7 +2,7 @@
 
 ## **Description**
 
-The `quar_bond` type of bending potential calculates a quartic bending potential given by:
+The `quar_bend` type of bending potential calculates a quartic bending potential given by:
 
 $$
 E = k_2 \left ( \theta -\theta_0 \right )^2 + k_3 \left ( \theta -\theta_0 \right )^3 + k_4 \left ( \theta -\theta_0 \right )^4
@@ -35,7 +35,7 @@ compute_force_bend:
         k4: VALUE UNITS
 ```
 
-- [x] STRING = Name of the atom type (specie) involved in the bond.
+- [x] STRING = Name of the atom type (specie) involved in the bending angle.
 - [x] VALUE  = Physical value of the intended parameter.
 - [x] UNITS  = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 

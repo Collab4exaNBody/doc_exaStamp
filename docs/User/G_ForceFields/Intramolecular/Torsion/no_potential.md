@@ -17,7 +17,7 @@ compute_force_torsion:
       potential: no_potential
 ```
 
-- [x] STRING = Name of the atom type (specie) involved in the bond.
+- [x] STRING = Name of the atom type (specie) involved in the torsion angle.
 
 ## **Usage examples**
 

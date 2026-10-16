@@ -12,7 +12,7 @@ E(r) = 4\varepsilon\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma
 \quad \text{for} \quad r<r_{\mathrm{cut}}
 $$
 
-$E_{\mathrm{shift}}$ is the Lennard-Jones energy at the distance given by `parameters.rcut`, so that the short-range term is zero there. $k_{\mathrm{rf}}$ and $C_{\mathrm{rf}}$ are computed from `rf.epsilon` and `rf.rc` as described on the [reaction field page](coul_rf.md). Both terms are evaluated up to the operator cutoff `rcut`, so use the same value for `rcut`, `parameters.rcut` and `rf.rc`. The charges $q_i$, $q_j$ are the species charges.
+$E_{\mathrm{shift}}$ is the Lennard-Jones energy at the distance given by `parameters.rcut`, so that the short-range term is zero there. $k_{\mathrm{rf}}$ and $C_{\mathrm{rf}}$ are computed from `rf.epsilon` and `rf.rc` as described on the [reaction field page](coul_rf.md). Each term only contributes below its own cutoff: the Lennard-Jones term below `parameters.rcut` and the reaction field below `rf.rc`. The operator cutoff `rcut` must be at least the larger of the two. The charges $q_i$, $q_j$ are the species charges.
 
 <div class="center-table" markdown>
 

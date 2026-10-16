@@ -8,14 +8,14 @@ $$
 E = \frac{1}{2} k \left ( \chi -\chi_0 \right )^2
 $$
 
-with $k$ and $\phi_0$ the potential parameters decribed in the following table.
+with $k$ and $\chi_0$ the potential parameters decribed in the following table.
   
 <div class="center-table" markdown>
 
 | Parameter     | Units           | Description                |
 | :------------ | :-------------: | :------------------------- |
 | $k$           | energy          | force constant             |
-| $\phi_0$      | angle           | equilibrium improper angle |
+| $\chi_0$      | angle           | equilibrium improper angle |
 
 </div>
 
@@ -27,11 +27,11 @@ compute_force_improper:
     - types: [STRING, STRING, STRING, STRING]
       potential: harm_improper
       parameters:
-        phi0: VALUE UNITS
+        chi0: VALUE UNITS
         k: VALUE UNITS
 ```
 
-- [x] STRING = Name of the atom type (specie) involved in the bending angle.
+- [x] STRING = Name of the atom type (specie) involved in the improper torsion angle.
 - [x] VALUE  = Physical value of the intended parameter.
 - [x] UNITS  = Units of the provided value that will be passed to the conversion helper for internal units conversion.
 
@@ -44,7 +44,7 @@ compute_force_improper:
         - types: [CA, CA, CA, CT]
           potential: harm_improper
           parameters:
-            phi0: 0.0 degree
+            chi0: 0.0 degree
             k: 8.0e-19 J
     ```
 
@@ -56,12 +56,12 @@ compute_force_improper:
         - types: [CA, CA, CA, CT]
           potential: harm_improper
           parameters:
-            phi0: 0.0 degree
+            chi0: 0.0 degree
             k: 8.0e-19 J
         - types: [CA, CA, CA, H]
           potential: harm_improper
           parameters:
-            phi0: 0.0 degree
+            chi0: 0.0 degree
             k: 8.0e-19 J
     ```
 

@@ -15,6 +15,10 @@ $$
 $$
 
 
+The angle is computed as $\theta = \operatorname{atan2}(\lVert \mathbf{r}_{21}\times\mathbf{r}_{23}\rVert, \mathbf{r}_{21}\cdot\mathbf{r}_{23})$,
+which gives the same value but stays accurate close to 0 and 180 degrees. Linear (or almost linear) angles are allowed:
+the force is then computed with $\sin\theta$ bounded below by $10^{-3}$.
+
 The following types of bending potentials are defined in **exastamp**:
 
 - [**harm_bend**](harm_bend.md)
