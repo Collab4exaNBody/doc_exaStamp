@@ -8,6 +8,11 @@ The order of the atom types in the quadruplet is that of the figure.
   <figcaption>A torsion angle between atoms 1, 2, 3 and 4.  </figcaption>
 </figure>
 
+<figure markdown="span">
+  ![Animation](img/torsion_anim.gif){ width="640" }
+  <figcaption>Atom 4 rotates around the 2-3 axis: the torsion angle $\phi$ is the angle between the planes 1-2-3 (yellow) and 2-3-4 (green). Energy of an OPLS torsion with the parameters of the butane backbone.</figcaption>
+</figure>
+
 To express the torsion angle $\phi$, it is useful to define first the vectors $\mathbf{V}$ and $\mathbf{W}$:
 
 $$

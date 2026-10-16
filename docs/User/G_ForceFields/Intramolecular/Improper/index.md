@@ -14,6 +14,11 @@ The value of the angle depends on which neighbor comes last (atom 4), so this or
   <figcaption>An improper torsion angle between atoms 1, 2, 3 and 4.  </figcaption>
 </figure>
 
+<figure markdown="span">
+  ![Animation](img/improper_anim.gif){ width="640" }
+  <figcaption>The central atom 1 moves out of the plane of its three neighbors: the improper angle $\chi$ is the angle between the planes 1-2-3 (yellow) and 2-3-4 (green), zero when the four atoms are coplanar (here with a harmonic potential).</figcaption>
+</figure>
+
 The expression of the improper torsion angle $\chi$ is the exact same as that of the "proper" torsion angle, with
 atoms 1, 2, 3 and 4 in the order specified above.
 It is useful to define first the vectors $\mathbf{V}$ and $\mathbf{W}$:

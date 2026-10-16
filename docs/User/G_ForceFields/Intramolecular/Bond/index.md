@@ -7,6 +7,11 @@ A bond type is defined by a pair of two atom types, between which the bond can e
   <figcaption>A bond of length r between atoms 1 and 2  </figcaption>
 </figure>
 
+<figure markdown="span">
+  ![Animation](img/bond_anim.gif){ width="640" }
+  <figcaption>The bond length $r$ oscillates around its equilibrium value $r_0$ (here with a harmonic potential).</figcaption>
+</figure>
+
 The length of a bond is defined as:
 
 $$

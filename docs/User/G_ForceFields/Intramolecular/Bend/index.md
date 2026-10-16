@@ -8,6 +8,11 @@ The order of the atom types correspond to the numerical order of the figure.
   <figcaption>A bending angle between atoms 1, 2 and 3  </figcaption>
 </figure>
 
+<figure markdown="span">
+  ![Animation](img/bend_anim.gif){ width="640" }
+  <figcaption>The bending angle $\theta$ oscillates around its equilibrium value $\theta_0$ (here with a harmonic potential).</figcaption>
+</figure>
+
 The bending angle $\theta$ is defined by:
 
 $$
