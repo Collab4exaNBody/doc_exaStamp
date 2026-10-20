@@ -363,6 +363,69 @@ read_xyz_file_with_xform:
 
 `read_xyz_file_with_xform` is also registered under the alias `read_extended_xyz_file` — same class, same slots, same behavior, just a second name (not currently used by any real config in the repo, but valid to use).
 
+### Flexible molecules
+
+Inputs for flexible molecules include `config_molecule.msp`, which sets the molecule-specific neighbor lists, force
+operators and restart files, and provides `replicate_molecule_domain` (see below). For the choice of the grid cell size, see
+[Choosing `cell_size`](../D_DomainRegions/domain/defining.md#choosing-cell_size).
+
+#### `read_fatomes_mol`
+
+```yaml
+read_fatomes_mol:
+  filename: required     # FAtomes file : species, force field, cell, positions, velocities, bonds, pair weights.
+  stampinput: optional   # DONNEES file : reaction field and long range correction settings.
+```
+
+Reads a complete flexible-molecule system, force field included. Positions outside the cell are wrapped along
+periodic axes. Molecules are numbered from the bonds (`idmol` field, see `molecule_numbering`).
+
+#### `read_xyz_molecules`
+
+```yaml
+read_xyz_molecules:
+  filename: required       # system file, format below.
+  molecule_name: optional  # molecule type of all atoms, instead of the first column of the file.
+```
+
+Reads atoms and bonds, without force field: give it with
+[`molecule_force_field`](../G_ForceFields/Intramolecular/index.md) after the reader. Species must be declared. The file
+holds the number of atoms, the cell matrix (9 values, row major, the cell vectors are the columns), then one line
+per atom:
+
+```
+<molecule type> <species> <molecule id> <atom id> <x> <y> <z> <b1> <b2> <b3> <b4> <b5> <charge>
+```
+
+`b1` to `b5` are the ids of bonded atoms (`-1` for none, 4 bonds at most) and positions are in Å. The molecule id
+column is not used: molecules are numbered from the bonds. `scripts/python/fatomes_to_yaml.py --xyz` writes a system
+read from an FAtomes file in this format, with its force field.
+
+#### Flexible molecule tools
+
+- `replicate_molecule_domain` (defined in `config_molecule.msp`): replicates the system read in `setup_system`,
+  `replicate_domain_cmol: { repeat: [ 2, 2, 1 ] }` setting the number of copies. Molecules are unfolded first (a bond
+  crossing a periodic boundary would otherwise join two atoms of the same copy), and renumbered after.
+- `molecule_numbering`: sets `idmol` to the molecule index, `0 <= idmol <` number of molecules, molecules (groups of
+  bonded atoms, across MPI processes) being numbered in increasing order of their smallest atom id. Readers already
+  number molecules; use it after a replication done by hand, or after reading an older dump.
+- `molecule_unfold`: moves bonded atoms to their periodic images closest to each other, so that each molecule is
+  whole. With `continuous: true` (default) each molecule is placed at the image closest to its previous unfolding
+  (kept in restart files), so that successive unfolded outputs form a continuous trajectory. Use
+  `molecule_restore_positions` after the output to restore the folded positions before the simulation goes on.
+- `molecule_check_numbering`: stops with an error if the molecule numbering is wrong (`expected_molecules`
+  optionally checks the number of molecules). For tests.
+
+!!! example "Unwrapped trajectory output of flexible molecules"
+
+    ```yaml
+    write_snapshot:
+      - molecule_unfold
+      - timestep_file: "unwrapped_%05d.xyz"
+      - write_xyz: { fields: [ "id" , "idmol" ] , units: { position: "ang" } }
+      - molecule_restore_positions
+    ```
+
 ### Other formats
 
-A few more readers exist for specific molecule and legacy formats — `read_xyz_molecules`, `read_xyz_rigidmol`, `read_fatomes_mol`, `read_stamp_v3`, `read_stamp_v4`. These aren't part of the common workflow above and see comparatively little use; some cover formats specific to older, predecessor codes and may eventually be retired.
+A few more readers exist for specific legacy formats — `read_xyz_rigidmol`, `read_stamp_v3`, `read_stamp_v4`. These aren't part of the common workflow above and see comparatively little use; some cover formats specific to older, predecessor codes and may eventually be retired.

@@ -22,7 +22,7 @@ with $k$ and $\theta_0$ the potential parameters decribed in the following table
 ## **YAML syntax**
 
 ```yaml
-compute_force_bend:
+molecule_force_field:
   potentials_for_angles:
     - types: [STRING, STRING, STRING]
       potential: harm_bend
@@ -39,7 +39,7 @@ compute_force_bend:
 
 !!! example "**Systems with a single atom type (specie)**"
     ```yaml
-    compute_force_bend:
+    molecule_force_field:
       potentials_for_angles:
         - types: [CA, CA, CA]
           potential: harm_bend
@@ -51,7 +51,7 @@ compute_force_bend:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_bond:
+    molecule_force_field:
       potentials_for_bonds:
         - types: [CA, CA, CA]
           potential: harm_bond

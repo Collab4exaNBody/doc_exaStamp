@@ -42,10 +42,13 @@ mass:            float, required     # Particle mass.
 z:               int, default 0      # Atomic number.
 charge:          float, default 0    # Particle charge.
 molecule:        string, optional    # Name of the flexible molecule this atom belongs to. Omit for standalone atoms.
+ff:              string, optional    # Force field type of a flexible molecule atom, default: the species name.
 rigid_molecule:  sequence, optional  # Defines this species as a rigid molecule instead of a plain atom — see below.
 ```
 
 `molecule` links this atom into a flexible molecule — see [Bonding Potentials](../G_ForceFields/Intramolecular/index.md) for the bond/bend/torsion/improper terms connecting them.
+
+`ff` is the force field type used to match the atom with the `types` of bond, bend, torsion and improper potentials. Several species may share a force field type, e.g. two hydrogen species with different charges but the same bonded parameters. Pair potentials and intramolecular pair weights use species names, not force field types.
 
 ```yaml title="Usage example"
 species:

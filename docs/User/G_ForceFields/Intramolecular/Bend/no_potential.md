@@ -11,7 +11,7 @@ $$
 ## **YAML syntax**
 
 ```yaml
-compute_force_bend:
+molecule_force_field:
   potentials_for_angles:
     - types: [STRING, STRING, STRING]
       potential: no_potential
@@ -23,7 +23,7 @@ compute_force_bend:
 
 !!! example "**Systems with a single atom type (specie)**"
     ```yaml
-    compute_force_bend:
+    molecule_force_field:
       potentials_for_angles:
         - types: [CA, CA, CA]
           potential: no_potential
@@ -32,7 +32,7 @@ compute_force_bend:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_bend:
+    molecule_force_field:
       potentials_for_angles:
         - types: [CA, CA, CA]
           potential: no_potential

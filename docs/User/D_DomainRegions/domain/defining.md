@@ -39,6 +39,22 @@ The `domain` operator fully defines the simulation domain in one block: `cell_si
 
     All properties must be consistent with each other. In particular, `cell_size` multiplied by `grid_dims` must be equal to max(`bounds`) - min(`bounds`).
 
+### Choosing `cell_size`
+
+`cell_size` does not change the results, only the cost. On GPU, pair forces are computed with one block of threads per
+grid cell and one thread per particle of the cell: with too few particles per cell, most threads of a block are idle.
+On the other hand, larger cells give more candidate pairs per particle when neighbor lists are built.
+
+!!! tip "Flexible molecules and long cutoffs"
+
+    For molecular systems at liquid or solid density with cutoffs around 10-12 Å, take cells about as large as the
+    pair potential cutoff, around 9 to 13 Å (`config_molecule.msp` uses 8 Å by default). With 4 or 5 Å cells, a cell
+    holds 6 to 12 atoms and most GPU threads are idle: on a 12288-atom TATB crystal, going from 4 Å to 8.9 Å cells
+    makes the pair forces 6 times faster on GPU, with the same results.
+
+    Readers of periodic systems may adjust `cell_size` to a whole number of cells across the box: the value used is
+    printed at startup (`cell size =`).
+
 ## **Usage examples**
 
 For each case below, a `domain` YAML block is shown alongside a visualization of the resulting physical-space and grid-space boxes.

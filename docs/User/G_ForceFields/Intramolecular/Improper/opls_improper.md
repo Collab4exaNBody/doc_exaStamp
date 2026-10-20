@@ -23,7 +23,7 @@ with $k_1$, $k_2$ and $k_3$ the potential parameters decribed in the following t
 ## **YAML syntax**
 
 ```yaml
-compute_force_improper:
+molecule_force_field:
   potentials_for_impropers:
     - types: [STRING, STRING, STRING, STRING]
       potential: opls_improper
@@ -42,7 +42,7 @@ compute_force_improper:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_improper:
+    molecule_force_field:
       potentials_for_impropers:
         - types: [CA, CA, CA, CT]
           potential: opls_improper

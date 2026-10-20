@@ -23,7 +23,7 @@ with $k_1$, $k_2$ and $k_3$ the potential parameters decribed in the following t
 ## **YAML syntax**
 
 ```yaml
-compute_force_torsion:
+molecule_force_field:
   potentials_for_torsions:
     - types: [STRING, STRING, STRING, STRING]
       potential: compass_torsion
@@ -41,7 +41,7 @@ compute_force_torsion:
 
 !!! example "**Systems with a single atom type (specie)**"
     ```yaml
-    compute_force_torsion:
+    molecule_force_field:
       potentials_for_torsions:
         - types: [CA, CA, CA, CA]
           potential: compass_torsion
@@ -54,7 +54,7 @@ compute_force_torsion:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_bond:
+    molecule_force_field:
       potentials_for_bonds:
         - types: [CA, CA, CA, CA]
           potential: compass_torsion

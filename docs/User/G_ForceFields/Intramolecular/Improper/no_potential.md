@@ -11,7 +11,7 @@ $$
 ## **YAML syntax**
 
 ```yaml
-compute_force_improper:
+molecule_force_field:
   potentials_for_impropers:
     - types: [STRING, STRING, STRING, STRING]
       potential: no_potential
@@ -24,7 +24,7 @@ compute_force_improper:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_improper:
+    molecule_force_field:
       potentials_for_impropers:
         - types: [CA, CA, CA, CT]
           potential: no_potential

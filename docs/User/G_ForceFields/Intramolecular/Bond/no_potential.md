@@ -11,7 +11,7 @@ $$
 ## **YAML syntax**
 
 ```yaml
-compute_force_bond:
+molecule_force_field:
   potentials_for_bonds:
     - types: [STRING, STRING]
       potential: no_potential
@@ -23,7 +23,7 @@ compute_force_bond:
 
 !!! example "**Systems with a single atom type (specie)**"
     ```yaml
-    compute_force_bond:
+    molecule_force_field:
       potentials_for_bonds:
         - types: [CA, CA]
           potential: no_potential
@@ -32,7 +32,7 @@ compute_force_bond:
 !!! example "**Systems with several atom types (species)**"
 
     ```yaml
-    compute_force_bond:
+    molecule_force_field:
       potentials_for_bonds:
         - types: [CA, CA]
           potential: no_potential
