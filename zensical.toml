@@ -156,7 +156,11 @@ nav = [
                 "User/G_ForceFields/Electrostatics/index.md",
                 "User/G_ForceFields/Electrostatics/short.md",
                 "User/G_ForceFields/Electrostatics/long.md",
-            ]},    
+            ]},
+            {"Field Potentials" = [
+                "User/G_ForceFields/Field/index.md",
+                "User/G_ForceFields/Field/igar.md",
+            ]},
             #{"Intramolecular Potentials" = [
             #    "User/G_ForceFields/Intramolecular/bonds.md",
             #    "User/G_ForceFields/Intramolecular/torsions.md",

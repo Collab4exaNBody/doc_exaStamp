@@ -54,7 +54,7 @@ If particle positions/velocities are shared across MPI ranks or updated between 
 
 !!! note "Found in source, out of scope for this page"
 
-    A handful of other operators also read or write per-cell `grid_cell_values` data but belong to more specific subsystems rather than core Grids Features, and aren't documented in depth on this page: `igar_force_interp` (forces from an energy field stored on the grid), `fluid_friction` (a drag-force model driven by a cell-centered velocity field), `cc_label` (connected-component clustering on a thresholded cell field), `grid_stats` (a debug/diagnostic operator), and the `migrate_cell_particles*` family (keeps `grid_cell_values` consistent across MPI load-balancing events). Flagged here so they aren't mistaken for missing or unknown — they exist, just outside this page's scope for now.
+    A handful of other operators also read or write per-cell `grid_cell_values` data but belong to more specific subsystems rather than core Grids Features, and aren't documented in depth on this page: `fluid_friction` (a drag-force model driven by a cell-centered velocity field), `cc_label` (connected-component clustering on a thresholded cell field), `grid_stats` (a debug/diagnostic operator), and the `migrate_cell_particles*` family (keeps `grid_cell_values` consistent across MPI load-balancing events). Flagged here so they aren't mistaken for missing or unknown — they exist, just outside this page's scope for now.
 
 !!! tip "Two-temperature model"
     The two-temperature model stores the electronic temperature in a `te` grid field (one value per subcell) and evolves it with `init_ttm` and `ionic_eletronic_heat_transfer`. See [Two-Temperature Model](../H_EnsemblesConstraints/ttm.md).
