@@ -148,7 +148,7 @@ nav = [
                 "User/G_ForceFields/MLIP/snap.md",
                 "User/G_ForceFields/MLIP/pod.md",
                 "User/G_ForceFields/MLIP/mtp.md",
-                "User/G_ForceFields/MLIP/pace.md",
+                #"User/G_ForceFields/MLIP/pace.md",
                 "User/G_ForceFields/MLIP/nnp.md",
                 "User/G_ForceFields/MLIP/descriptors.md",
             ]},                 
