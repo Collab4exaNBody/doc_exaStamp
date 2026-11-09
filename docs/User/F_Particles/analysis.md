@@ -276,6 +276,61 @@ crystal_structure_field:  string, default "crystal_structure" # Name of the outp
 
 A complete example with trained coefficients is given in `exaStamp/data/regression_new/analysis_particle/compute_slcsa.msp`.
 
+## **Strain functional descriptors**
+
+Strain Functional Descriptors (SFD; E. M. Kober, J. P. Tavenner, C. M. Adams, N. Mathew, *Strain functionals: a complete and symmetry-adapted set of descriptors to characterize atomistic configurations*, arXiv:2402.04191) describe the local arrangement of the neighbors of each particle by rotational invariants of their position moments. They need no reference lattice and are suited as inputs of classifiers or regression models. GPU compatible.
+
+For a particle $i$, the neighbors $j$ within `rcut` and the particle itself (weight 1) are weighted by $w_j = \exp(-r_{ij}^2 / 2\sigma^2)$, with $\mathbf{r}_{ij} = \mathbf{r}_i - \mathbf{r}_j$. With $W = \sum_j w_j$, the weighted centroid $\mathbf{c} = \sum_j w_j \mathbf{r}_{ij} / W$ and $\mathbf{u}_j = (\mathbf{r}_{ij} - \mathbf{c})/\sigma$, the Cartesian moments
+
+$$
+M^{(n)} = \frac{1}{W} \sum_j w_j\, \mathbf{u}_j^{\otimes n}, \qquad n = 2, 3, 4
+$$
+
+are split into their SO(3) irreducible parts (spherical tensors of rank $l$, solid-harmonic normalization):
+
+| Order | Parts |
+| :--- | :--- |
+| 1 | $\mathbf{c}/\sigma$: rank 1 |
+| 2 | scalar (trace, isotropic Gaussian value removed), rank 2 |
+| 3 | rank 1 (trace vector), rank 3 |
+| 4 | scalar (double trace, isotropic Gaussian value removed), rank 2 (order 2 contribution removed), rank 4 |
+
+Rotational invariants are built from these parts with Clebsch-Gordan couplings: norms, skewness-like contractions, and cross terms between the parts of the same order. Orientation factors project the rank 1 to 4 parts on the lab $z$, $x$ and $y$ axes. All moments are in units of $\sigma$. A cutoff `rcut` of about $5.6\,\sigma$ neglects weights below $1.6 \times 10^{-7}$.
+
+`compute_strain_functional` writes flat per-particle buffers; `strain_functional_fields` copies selected columns into grid fields named `sfd_<column>`, for the owned particles only. Set `rcut_max` in `global` to at least `rcut`.
+
+| Columns (`sfd_invariants`, 36 per particle) | Meaning |
+| :--- | :--- |
+| `w` | total weight $W$ (local density) |
+| `P1_I0` | norm of the centroid offset |
+| `P2_I0`, `P2_I1`, `P2_I2` | order 2: norm and skewness of the rank 2 part, scalar part |
+| `P3_I0` ... `P3_I6` | order 3: norm and three self-contractions of the rank 3 part, norm of the rank 1 part, two rank 3 / rank 1 cross terms |
+| `P4_I0` ... `P4_I11` | order 4: norm and five self-contractions of the rank 4 part, norm and skewness of the rank 2 part, scalar part, three rank 4 / rank 2 cross terms |
+| `O1_I0..2` ... `O4_I0..2` | orientation factors of the rank 1 to 4 parts on $z$, $x$, $y$ |
+
+With `spherical_tensors: true`, the 35 lab-frame spherical tensor components are also stored in `sfd_spherical_tensors`: `P00_0` (= $W$), `P11_0`, `P11_1r`, `P11_1i`, `P20_0`, `P22_0` ... `P22_2i`, `P31a_0` ... `P31a_1i`, `P33a_0` ... `P33a_3i`, `P40_0`, `P42a_0` ... `P42a_2i`, `P44a_0` ... `P44a_4i` (`r`/`i`: real and imaginary parts of the $m > 0$ components).
+
+### `compute_strain_functional`
+
+```{ .yaml title="Parameters" .params-block }
+rcut:               float, required        # Neighbor cutoff.
+sigma:              float, required        # Width of the Gaussian neighbor weight; moments are in units of sigma.
+spherical_tensors:  bool, default false    # Also store the 35 spherical tensor components.
+```
+
+```{ .yaml title="Parameters of strain_functional_fields" .params-block }
+fields:  list of strings, default all 36 invariant columns   # Columns to copy, invariant or spherical tensor names.
+prefix:  string, default "sfd_"                               # Field name = prefix + column name.
+```
+
+```yaml title="Usage example"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- strain_functional_fields: { fields: [ w, P2_I0, P3_I0, P4_I0 ] }
+- write_xyz: { fields: [ id, type, sfd_w, sfd_P2_I0, sfd_P3_I0, sfd_P4_I0 ] }
+```
+
+Examples are given in `exaStamp/data/regression_new/analysis_particle/strain_functional/`.
+
 ## **Grain segmentation**
 
 Groups the crystalline atoms of a polycrystal into grains from the PTM orientations, and gives every atom a grain id. It runs in two passes, after `compute_ptm` and `ptm_fields`, and works with any number of MPI ranks (the grain ids are global).
