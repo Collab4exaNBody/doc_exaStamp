@@ -331,6 +331,62 @@ prefix:  string, default "sfd_"                               # Field name = pre
 
 Examples are given in `exaStamp/data/regression_new/analysis_particle/strain_functional/`.
 
+### Classification with a Gaussian mixture model
+
+Kober et al. (section 3.6) classify the particles of a deformed crystal without supervision: a Gaussian mixture model (GMM) is fitted to the invariants of all particles, and each particle is assigned to its most probable component. In compressed copper, the components separate dislocation cores, stacking faults, twins, deformed FCC and regions of strong strain gradients. The class numbers carry no meaning by themselves: they are interpreted by looking at the particles of each class. The paper uses the 4th order invariants without the orientation factors, no feature scaling, and positions averaged over 20 to 40 MD snapshots to reduce thermal noise. It scans 2 to 10 components and keeps the number for which the Calinski-Harabasz (CHI) and Davies-Bouldin (DBI) scores are both at a local extremum.
+
+Two operators implement it:
+
+- `sfd_gmm_fit` fits the GMM on the current configuration by expectation-maximization (full covariances). The algorithm and defaults are those of scikit-learn's `GaussianMixture`, and a fit started from the same initial model gives the same result. The k-means initialization uses a sample of particles chosen from their ids, so the fit does not depend on the number of MPI ranks. Several numbers of components can be fitted in one call: BIC, CHI and DBI are printed for each, and the best one according to `select_by` is kept (lowest DBI by default; BIC tends to split the thermally broadened bulk into several components). Components are sorted by decreasing weight, so class 0 is the most populated one (usually the bulk). Host only (OpenMP + MPI).
+- `sfd_gmm_classify` assigns each particle to its most probable component, and writes the class and its posterior probability to per-particle fields. GPU compatible.
+
+The model is kept in memory between the two operators, and can be saved to a YAML file (`model_file` of `sfd_gmm_fit`) and read back by `sfd_gmm_classify`. A model fitted on each snapshot can number its classes differently from one snapshot to the next. To keep the same classes over a run, fit once (on one snapshot, or offline) and classify every snapshot with the saved model.
+
+The script `exaStamp/scripts/python/sfd_gmm_train.py` trains the same model with scikit-learn from xyz files written with `sfd_<column>` fields (several snapshots can be combined), and writes the same YAML format:
+
+```bash
+python sfd_gmm_train.py snap_*.xyz -k 2 3 4 5 6 --select dbi -o gmm_model.yaml
+```
+
+```{ .yaml title="Parameters of sfd_gmm_fit" .params-block }
+features:         list of strings, default the 23 invariants P1_I0 ... P4_I11   # Descriptor columns used as features (at most 36).
+n_components:     list of ints, default [ 2 ]     # Numbers of components to fit (at most 16 each).
+select_by:        string, default "dbi"           # dbi (lowest), chi (highest) or bic (lowest), when several n_components are given.
+standardize:      bool, default false             # Center and scale each feature by its mean and standard deviation.
+max_iter:         int, default 100                # Maximum number of EM iterations.
+tol:              float, default 1e-3             # Convergence threshold on the change of the mean log-likelihood.
+reg_covar:        float, default 1e-6             # Added to the covariance diagonals.
+init_sample:      int, default 20000              # Number of particles used by the k-means initialization.
+n_init:           int, default 1                  # Number of initializations; the most likely fit is kept.
+seed:             int, default 0                  # Seed of the initialization.
+model_file:       string, default ""              # If set, the selected model is written to this YAML file.
+init_model_file:  string, default ""              # If set, the initial model (before EM) is written to this YAML file.
+scores_file:      string, default ""              # If set, the scores of all fits are written to this CSV file.
+```
+
+```{ .yaml title="Parameters of sfd_gmm_classify" .params-block }
+model_file:         string, default ""                  # YAML model; if empty, the model of sfd_gmm_fit is used.
+class_field:        string, default "sfd_class"         # Output class (component index).
+probability_field:  string, default "sfd_class_prob"    # Output posterior probability of the class.
+min_probability:    float, default 0                    # Below this probability the class is -1.
+```
+
+Grid field names are limited to 15 characters.
+
+```yaml title="Usage example: fit and classify each snapshot"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- sfd_gmm_fit: { n_components: [ 2, 3, 4, 5, 6 ], select_by: dbi, model_file: gmm_model.yaml }
+- sfd_gmm_classify: {}
+- write_xyz: { fields: [ id, type, sfd_class, sfd_class_prob ] }
+```
+
+```yaml title="Usage example: classify with a saved model"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- sfd_gmm_classify: { model_file: gmm_model.yaml, min_probability: 0.9 }
+```
+
+The YAML model holds `features`, `center` and `scale` (standardization, 0 and 1 if unused), `weights`, `means` (one list per component) and `covariances` (one matrix per component), in the standardized feature space. Examples are given in `exaStamp/data/regression_new/analysis_particle/strain_functional/`, on a periodic FCC copper crystal with two twin planes, a stacking fault and 24 vacancies (`fcc_planar_defects.py`). With `select_by: dbi`, `sfd_gmm_planar_defects.msp` finds 2 classes: the bulk, and the atoms of the twin and stacking-fault planes and around the vacancies. `sfd_gmm_classify_from_file.msp` uses a 3-component model trained by the script, which separates bulk, planar defects and vacancy neighbors.
+
 ## **Grain segmentation**
 
 Groups the crystalline atoms of a polycrystal into grains from the PTM orientations, and gives every atom a grain id. It runs in two passes, after `compute_ptm` and `ptm_fields`, and works with any number of MPI ranks (the grain ids are global).
