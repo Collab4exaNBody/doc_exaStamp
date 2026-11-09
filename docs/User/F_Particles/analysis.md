@@ -165,6 +165,82 @@ Other examples are available in `exaStamp/data/regression_new/analysis_particle/
 
 ## **Local structure classification**
 
+Three classifiers are available: Common Neighbor Analysis (`compute_cna`), Polyhedral Template Matching (`compute_ptm`, which also gives the local lattice orientation) and a supervised-learning classifier on bispectrum descriptors (`compute_slcsa`). CNA and PTM use the same structure numbering:
+
+| Value | 0 | 1 | 2 | 3 | 4 | 5 |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Structure | none | FCC | HCP | BCC | ICO | SC (PTM only) |
+
+CNA and PTM write flat per-particle buffers; a second operator (`cna_fields`, `ptm_fields`) copies them into named grid fields, for the owned particles only. Both need neighbor lists with `chunk_size: 1`:
+
+```yaml
+chunk_neighbors:
+  config:
+    chunk_size: 1
+    build_particle_offset: true
+```
+
+Any `rcut` is accepted: only the nearest neighbors needed by the method (16 for CNA, 18 for PTM) are kept, so a larger `rcut` gives the same result. Set `rcut_max` in `global` to at least `rcut`.
+
+### `compute_cna`
+
+Adaptive-cutoff Common Neighbor Analysis: FCC, HCP and ICO are recognized from the 12 nearest neighbors, BCC from the 14 nearest. The local cutoff is derived from the mean distance of the nearest neighbors, so no lattice parameter is needed.
+
+```{ .yaml title="Parameters" .params-block }
+rcut:  float, required   # Neighbor search cutoff: must include 13 neighbors (FCC/HCP/ICO) or 15 (BCC).
+```
+
+```{ .yaml title="Parameters of cna_fields" .params-block }
+struct_field:  string, default "cna_type"   # Name of the output structure-type field.
+```
+
+```yaml title="Usage example"
+- compute_cna: { rcut: 5.0 ang }
+- cna_fields: { struct_field: cna_type }
+- write_xyz: { fields: [ id, type, cna_type ] }
+```
+
+### `compute_ptm`
+
+Polyhedral Template Matching (P. M. Larsen, S. Schmidt, J. Schiøtz, *Modelling Simul. Mater. Sci. Eng.* 24, 055007, 2016): the neighbors of each particle are matched against the FCC, HCP, BCC, ICO and SC templates. It gives the structure type, the lattice orientation and the RMSD of the best match. The PTM library (MIT license) is included in exaStamp. Host only (OpenMP, no GPU).
+
+```{ .yaml title="Parameters" .params-block }
+rcut:         float, required     # Neighbor search cutoff: must include 14 neighbors for BCC (12 FCC/HCP/ICO, 6 SC). Only the 18 nearest are used.
+rmsd_cutoff:  float, default 0.1  # A match with a larger RMSD is reported as structure 0 (RMSD and orientation still written). <= 0 disables it.
+```
+
+```{ .yaml title="Parameters of ptm_fields" .params-block }
+struct_field:  string, default "ptm_type"          # Output structure-type field (scalar).
+orient_field:  string, default "ptm_orientation"   # Output lattice orientation, as a rotation matrix (Mat3d).
+rmsd_field:    string, default "ptm_rmsd"          # Output RMSD (negative if no match).
+```
+
+```yaml title="Usage example"
+- compute_ptm: { rcut: 3.6 ang, rmsd_cutoff: 0.1 }
+- ptm_fields: { struct_field: ptm_type, orient_field: ptm_orientation, rmsd_field: ptm_rmsd }
+- write_xyz: { fields: [ id, type, ptm_type, ptm_rmsd ] }
+```
+
+### `ptm_shrink_disorder`
+
+Runs between `compute_ptm` and `ptm_fields`. An atom left with no structure takes the structure type shared by at least `min_neighbor_fraction` of its neighbors within `rcut`; the pass is repeated `n_iterations` times, each one using the previous result. This keeps the strained lattice around defects crystalline, while defect cores, whose neighbors are disordered too, stay unmatched.
+
+```{ .yaml title="Parameters" .params-block }
+rcut:                   float, required    # Neighbor cutoff of the vote, usually the rcut of compute_ptm.
+min_neighbor_fraction:  float, default 0.5 # Fraction of the neighbors that must share a structure type.
+n_iterations:           int, default 3     # Number of passes.
+```
+
+Unlike `compute_ptm`, the vote uses every neighbor within `rcut`: a too large `rcut` stops with an explicit error.
+
+```yaml title="Usage example"
+- compute_ptm: { rcut: 5.0 ang, rmsd_cutoff: 0.2 }
+- ptm_shrink_disorder: { rcut: 5.0 ang, min_neighbor_fraction: 0.5, n_iterations: 3 }
+- ptm_fields: {}
+```
+
+Examples are given in `exaStamp/data/regression_new/analysis_particle/ptm_cna/`.
+
 ### `compute_slcsa`
 
 Supervised-learning crystal structure analysis: classifies each particle as BCC (0), FCC (1), HCP (2), SC (3) or other (4) from its per-particle bispectrum descriptors, computed beforehand by `compute_descriptor_snap` (see [Descriptors](../G_ForceFields/MLIP/descriptors.md)). A pretrained linear discriminant analysis reduces the bispectrum to 3 components, a softmax gives the most probable class, and a Mahalanobis-distance test against the reference distribution of that class sends outliers back to "other".
@@ -199,6 +275,152 @@ crystal_structure_field:  string, default "crystal_structure" # Name of the outp
 ```
 
 A complete example with trained coefficients is given in `exaStamp/data/regression_new/analysis_particle/compute_slcsa.msp`.
+
+## **Grain segmentation**
+
+Groups the crystalline atoms of a polycrystal into grains from the PTM orientations, and gives every atom a grain id. It runs in two passes, after `compute_ptm` and `ptm_fields`, and works with any number of MPI ranks (the grain ids are global).
+
+1. `compute_grain_bond_misorientation` records, for every bond of an owned atom (at most 24 nearest bonds), the neighbor id, the bond length and, when both atoms have the same cubic or hexagonal structure, their disorientation $\theta$: the smallest misorientation angle over the symmetry group of the crystal (24 rotations for cubic, 12 for hexagonal). Bonds above `misorientation_threshold` are not candidates. GPU compatible.
+2. `compute_grain_clusters` builds a graph whose nodes are the crystalline atoms and whose edges are the candidate bonds to their PTM template neighbors (12 FCC/HCP/ICO, 14 BCC, 6 SC), with weight $w = \exp(-\theta^2/3)$, $\theta$ in degrees. The graph is clustered hierarchically by Node-Pair-Sampling (T. Bonald et al., *Hierarchical graph clustering using node pair sampling*, MLG 2018): the two clusters $a$, $b$ that are mutual nearest neighbors for the distance $d(a,b) = w_a w_b / w(a,b)$, with $w_a$ the summed edge weight of $a$, are merged first. The resulting dendrogram is cut at a threshold chosen automatically: a robust fit of $\log d$ against the log of the merge size gives the trend of merges inside grains, and merges far above it are grain boundaries. Clusters smaller than `min_grain_atom_count` are dissolved. Atoms left without a grain (grain boundaries, defect cores, non-crystalline atoms) can then be adopted by the grain closest to them along the bond network (`orphan_adoption`). Last, the mean lattice orientation of each grain is computed from its clustered atoms: each atom orientation is replaced by its symmetry equivalent closest to the grain orientation before averaging.
+
+With several MPI ranks, systems of up to `serial_max_atoms` atoms (default 2 million; rank 0 needs about 1 kB per atom) are clustered exactly: the candidate-bond graph is gathered on rank 0 and clustered there as a whole, so the grains do not depend on the number of ranks. Larger systems use a two-level scheme: each rank first clusters its own atoms into fragments of at most `fragment_max_atoms` atoms, the fragment graph, with the bonds across ranks, is clustered on rank 0, and the grain ids are sent back. The two-level scheme needs less memory on rank 0 but its result depends on the domain decomposition (a grain can be split when its pieces only touch across thin rank boundaries). Orphan adoption gives the same result for any number of ranks in both modes.
+
+**Coherent interfaces.** Stacking faults and coherent twin planes in an FCC crystal are HCP layers. Without special treatment they form their own HCP grains, and a stacking fault that crosses a whole grain cuts it in two FCC grains with the same orientation. With `handle_coherent_interfaces` (default), the bonds between an HCP atom and its FCC template neighbors are checked for coherence: the HCP orientation is mapped onto the two FCC orientations that share its close-packed plane, and the bond is coherent when one of them is within `misorientation_threshold` of the FCC atom. After the dendrogram cut, each HCP grain with coherent bonds joins the FCC grains next to it:
+
+- FCC grains with matching mean orientations (within `misorientation_threshold`), such as the two sides of a stacking fault, are merged together with the HCP grain: the stacking fault belongs to the grain;
+- FCC grains in twin orientation (60° about $\langle 111 \rangle$) are not merged: the HCP plane joins the side with the most coherent bonds (ties: the side holding the smallest atom id), and the twin boundary stays a grain boundary.
+
+HCP layers smaller than `min_grain_atom_count` are not grains and are handled by orphan adoption. Only hexagonal-into-cubic interfaces are handled: FCC layers in an HCP crystal stay separate grains. Merged grains are reported as FCC in the per-grain table, and their mean orientation is that of their FCC atoms.
+
+!!! note
+    OVITO's grain segmentation splits a twin plane atom by atom between the two twins; here the whole HCP plane goes to one side.
+
+### `compute_grain_bond_misorientation`
+
+```{ .yaml title="Parameters" .params-block }
+rcut:                      float, required                    # Neighbor cutoff, at least the rcut of compute_ptm.
+misorientation_threshold:  float, default 4.0                 # Largest disorientation (degrees) of a candidate bond.
+struct_field:              string, default "ptm_type"         # PTM structure-type field (from ptm_fields).
+orient_field:              string, default "ptm_orientation"  # PTM orientation field (from ptm_fields).
+```
+
+The PTM fields of the ghost particles must be up to date: call `ghost_update_opt: { opt_fields: [ ptm_type, ptm_orientation ] }` before.
+
+### `compute_grain_clusters`
+
+```{ .yaml title="Parameters" .params-block }
+auto_threshold:        bool, default true             # Choose the merge threshold automatically.
+manual_threshold_log:  float, default 0.0             # Merge threshold when auto_threshold is false: log of the clustering distance d (not an angle).
+min_grain_atom_count:  int, default 100               # Smaller clusters are not grains.
+orphan_adoption:       bool, default true             # Give atoms with no grain the grain of the closest grain atom along the bonds.
+serial_max_atoms:      int, default 2000000           # Up to this many atoms, exact clustering of the whole graph on rank 0 (same result for any number of ranks); above it, two-level clustering.
+fragment_max_atoms:    int, default 1000              # Largest fragment of the two-level clustering. Smaller: closer to the exact result; larger: fewer fragments gathered on rank 0.
+handle_coherent_interfaces: bool, default true        # Merge HCP stacking faults and twin planes into the adjacent FCC grains (see above).
+misorientation_threshold:   float, default 4.0        # Largest disorientation (degrees) of a coherent FCC-HCP bond, and of two FCC grains merged through a stacking fault.
+color_seed:            int, default 1                 # Seed of the random grain colors.
+struct_field:          string, default "ptm_type"         # PTM structure-type field.
+orient_field:          string, default "ptm_orientation"  # PTM orientation field, for the mean grain orientations.
+grain_id_field:        string, default "grain_id"         # Output grain id (0, 1, ... by decreasing size; -1 = no grain).
+grain_color_field:     string, default "grain_color"      # Output RGB color of the grain (Vec3d, gray for no grain).
+grains_file:           string, default ""                 # CSV file with one line per grain and per call, written by rank 0. Empty: no file.
+```
+
+Grain ids are sorted by decreasing number of atoms, adopted orphans included (ties: smallest atom id), so they do not depend on the number of MPI ranks. Both per-atom fields are also written on the ghost particles. The number of grains is printed and available in the `n_grains` slot, and the per-grain table in the output slots below:
+
+```{ .yaml title="Outputs" .params-block }
+n_grains:           int                # Number of grains.
+n_orphans_adopted:  int                # Number of adopted orphan atoms.
+grain_atom_count:   list of ints       # Atoms of each grain, adopted orphans included, indexed by grain id.
+grain_structure:    list of ints       # PTM structure type of each grain.
+grain_orientation:  list of floats     # Mean lattice orientation of each grain: quaternion (w, x, y, z), 4 values per grain.
+```
+
+The `grains_file` CSV has the columns `timestep, grain_id, atoms, structure, qw, qx, qy, qz, r, g, b`. The file is started anew (header included) at the first call of a run, and each later call (e.g. at every snapshot) appends its table, so a whole run fits in one file:
+
+```python
+import pandas as pd
+grains = pd.read_csv("grains.csv")
+grains.groupby("timestep").size()   # number of grains at each timestep
+```
+
+ The orientation quaternion rotates the reference lattice of the PTM template onto the grain, and is given in the fundamental zone (the symmetry equivalent closest to the identity). It is computed for cubic (FCC, BCC, SC) and hexagonal (HCP) grains; ICO grains get the identity.
+
+```yaml title="Usage example (exaStamp/data/regression_new/grains/compute_grain_segmentation.msp)"
+chunk_neighbors:
+  config:
+    chunk_size: 1
+    build_particle_offset: true
+
+compute_ptm:
+  rcut: 6.0 ang
+  rmsd_cutoff: 0.5
+
+ptm_fields:
+  struct_field: ptm_type
+  orient_field: ptm_orientation
+  rmsd_field: ptm_rmsd
+
+compute_grain_bond_misorientation:
+  rcut: 6.0 ang
+
+compute_grain_clusters:
+  min_grain_atom_count: 100
+  orphan_adoption: true
+  grains_file: grains.csv
+
+simulation_epilog:
+  - remove_close_particles: { distance: 1.5 ang, seed: 42 }
+  - parallel_update_particles   # rebuild ghosts and neighbor lists after the removal
+  - compute_ptm
+  - ptm_fields
+  - ghost_update_opt: { opt_fields: [ ptm_type, ptm_orientation ] }
+  - compute_grain_bond_misorientation
+  - compute_grain_clusters
+  - timestep_file: "result_polycrystal_large.xyz"
+  - write_xyz: { fields: [ id, type, ptm_type, grain_id ] }
+```
+
+The input polycrystal of this example is built with [Atomsk](https://atomsk.univ-lille.fr/) (24 random Ta grains in a 200 Å box, about 445k atoms); the commands are given at the top of the `.msp` file. Atomsk leaves overlapping atom pairs at the grain boundaries, which `remove_close_particles` deletes before the analysis.
+
+A second example, `compute_grain_segmentation_twins.msp` in the same folder, checks the coherent interfaces: two Cu twins along [111] with an intrinsic stacking fault in one of them (7896 atoms, written by `fcc_twins_stacking_faults.py`). It finds 2 grains, the two twins at 60° about $\langle 111 \rangle$, and 6 grains (three FCC slabs and three HCP planes) with `handle_coherent_interfaces: false`.
+
+## **Delaunay tessellation**
+
+!!! warning "Optional plugin"
+    `compute_delaunay` and `write_delaunay_vtk` are in the `exaStampDelaunay` plugin, built only when [Geogram](https://github.com/BrunoLevy/geogram) is found. Add `-DGEOGRAM_INSTALL_PREFIX=<geogram install prefix>` to the exaStamp `cmake` command; the CMake output says `Geogram found` or `exaStampDelaunay plugin disabled`.
+
+### `compute_delaunay`
+
+Computes the 3D Delaunay tessellation of the owned and ghost particles of each rank. A tetrahedron is kept only if its centroid lies in a cell owned by the rank, so the pieces of all ranks fit together with no gaps or duplicates, and the unreliable tetrahedra at the edge of the ghost layer are dropped. The ghost layer must be thick enough to contain the tetrahedra of the owned cells (`rcut_max` of a few interatomic distances).
+
+```{ .yaml title="Parameters" .params-block }
+keep_ghost_tets:  bool, default false   # Also keep the tetrahedra whose centroid lies in a ghost cell (they overlap with the neighbor ranks).
+```
+
+### `write_delaunay_vtk`
+
+Writes the tessellation as VTK unstructured grids: one `<filename>/piece<rank>.vtu` file per rank and a `<filename>.pvtu` master file (the one to open in ParaView).
+
+```{ .yaml title="Parameters" .params-block }
+filename:      string, default "delaunay"   # Output name, without extension (timestep_file sets it).
+color_fields:  list of strings, default []  # Per-particle scalar fields averaged over each tetrahedron, one CellData array each.
+```
+
+For exact `color_fields` values at the rank boundaries, update the ghosts of these fields first (`ghost_update_opt`).
+
+```yaml title="Usage example (exaStamp/data/regression_new/delaunay/compute_delaunay.msp)"
+write_snapshot:
+  - compute_delaunay
+  - timestep_file: "paraview/delaunay_%09d"
+  - write_delaunay_vtk
+```
+
+```yaml title="Usage example with fields"
+- compute_ptm: { rcut: 3.6 ang }
+- ptm_fields: {}
+- compute_delaunay: {}
+- write_delaunay_vtk: { filename: "paraview/delaunay", color_fields: [ ptm_type, ptm_rmsd ] }
+```
 
 ## **Global virial**
 
