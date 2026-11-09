@@ -276,6 +276,117 @@ crystal_structure_field:  string, default "crystal_structure" # Name of the outp
 
 A complete example with trained coefficients is given in `exaStamp/data/regression_new/analysis_particle/compute_slcsa.msp`.
 
+## **Strain functional descriptors**
+
+Strain Functional Descriptors (SFD; E. M. Kober, J. P. Tavenner, C. M. Adams, N. Mathew, *Strain functionals: a complete and symmetry-adapted set of descriptors to characterize atomistic configurations*, arXiv:2402.04191) describe the local arrangement of the neighbors of each particle by rotational invariants of their position moments. They need no reference lattice and are suited as inputs of classifiers or regression models. GPU compatible.
+
+For a particle $i$, the neighbors $j$ within `rcut` and the particle itself (weight 1) are weighted by $w_j = \exp(-r_{ij}^2 / 2\sigma^2)$, with $\mathbf{r}_{ij} = \mathbf{r}_i - \mathbf{r}_j$. With $W = \sum_j w_j$, the weighted centroid $\mathbf{c} = \sum_j w_j \mathbf{r}_{ij} / W$ and $\mathbf{u}_j = (\mathbf{r}_{ij} - \mathbf{c})/\sigma$, the Cartesian moments
+
+$$
+M^{(n)} = \frac{1}{W} \sum_j w_j\, \mathbf{u}_j^{\otimes n}, \qquad n = 2, 3, 4
+$$
+
+are split into their SO(3) irreducible parts (spherical tensors of rank $l$, solid-harmonic normalization):
+
+| Order | Parts |
+| :--- | :--- |
+| 1 | $\mathbf{c}/\sigma$: rank 1 |
+| 2 | scalar (trace, isotropic Gaussian value removed), rank 2 |
+| 3 | rank 1 (trace vector), rank 3 |
+| 4 | scalar (double trace, isotropic Gaussian value removed), rank 2 (order 2 contribution removed), rank 4 |
+
+Rotational invariants are built from these parts with Clebsch-Gordan couplings: norms, skewness-like contractions, and cross terms between the parts of the same order. Orientation factors project the rank 1 to 4 parts on the lab $z$, $x$ and $y$ axes. All moments are in units of $\sigma$. A cutoff `rcut` of about $5.6\,\sigma$ neglects weights below $1.6 \times 10^{-7}$.
+
+`compute_strain_functional` writes flat per-particle buffers; `strain_functional_fields` copies selected columns into grid fields named `sfd_<column>`, for the owned particles only. Set `rcut_max` in `global` to at least `rcut`.
+
+| Columns (`sfd_invariants`, 36 per particle) | Meaning |
+| :--- | :--- |
+| `w` | total weight $W$ (local density) |
+| `P1_I0` | norm of the centroid offset |
+| `P2_I0`, `P2_I1`, `P2_I2` | order 2: norm and skewness of the rank 2 part, scalar part |
+| `P3_I0` ... `P3_I6` | order 3: norm and three self-contractions of the rank 3 part, norm of the rank 1 part, two rank 3 / rank 1 cross terms |
+| `P4_I0` ... `P4_I11` | order 4: norm and five self-contractions of the rank 4 part, norm and skewness of the rank 2 part, scalar part, three rank 4 / rank 2 cross terms |
+| `O1_I0..2` ... `O4_I0..2` | orientation factors of the rank 1 to 4 parts on $z$, $x$, $y$ |
+
+With `spherical_tensors: true`, the 35 lab-frame spherical tensor components are also stored in `sfd_spherical_tensors`: `P00_0` (= $W$), `P11_0`, `P11_1r`, `P11_1i`, `P20_0`, `P22_0` ... `P22_2i`, `P31a_0` ... `P31a_1i`, `P33a_0` ... `P33a_3i`, `P40_0`, `P42a_0` ... `P42a_2i`, `P44a_0` ... `P44a_4i` (`r`/`i`: real and imaginary parts of the $m > 0$ components).
+
+### `compute_strain_functional`
+
+```{ .yaml title="Parameters" .params-block }
+rcut:               float, required        # Neighbor cutoff.
+sigma:              float, required        # Width of the Gaussian neighbor weight; moments are in units of sigma.
+spherical_tensors:  bool, default false    # Also store the 35 spherical tensor components.
+```
+
+```{ .yaml title="Parameters of strain_functional_fields" .params-block }
+fields:  list of strings, default all 36 invariant columns   # Columns to copy, invariant or spherical tensor names.
+prefix:  string, default "sfd_"                               # Field name = prefix + column name.
+```
+
+```yaml title="Usage example"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- strain_functional_fields: { fields: [ w, P2_I0, P3_I0, P4_I0 ] }
+- write_xyz: { fields: [ id, type, sfd_w, sfd_P2_I0, sfd_P3_I0, sfd_P4_I0 ] }
+```
+
+Examples are given in `exaStamp/data/regression_new/analysis_particle/strain_functional/`.
+
+### Classification with a Gaussian mixture model
+
+Kober et al. (section 3.6) classify the particles of a deformed crystal without supervision: a Gaussian mixture model (GMM) is fitted to the invariants of all particles, and each particle is assigned to its most probable component. In compressed copper, the components separate dislocation cores, stacking faults, twins, deformed FCC and regions of strong strain gradients. The class numbers carry no meaning by themselves: they are interpreted by looking at the particles of each class. The paper uses the 4th order invariants without the orientation factors, no feature scaling, and positions averaged over 20 to 40 MD snapshots to reduce thermal noise. It scans 2 to 10 components and keeps the number for which the Calinski-Harabasz (CHI) and Davies-Bouldin (DBI) scores are both at a local extremum.
+
+Two operators implement it:
+
+- `sfd_gmm_fit` fits the GMM on the current configuration by expectation-maximization (full covariances). The algorithm and defaults are those of scikit-learn's `GaussianMixture`, and a fit started from the same initial model gives the same result. The k-means initialization uses a sample of particles chosen from their ids, so the fit does not depend on the number of MPI ranks. Several numbers of components can be fitted in one call: BIC, CHI and DBI are printed for each, and the best one according to `select_by` is kept (lowest DBI by default; BIC tends to split the thermally broadened bulk into several components). Components are sorted by decreasing weight, so class 0 is the most populated one (usually the bulk). Host only (OpenMP + MPI).
+- `sfd_gmm_classify` assigns each particle to its most probable component, and writes the class and its posterior probability to per-particle fields. GPU compatible.
+
+The model is kept in memory between the two operators, and can be saved to a YAML file (`model_file` of `sfd_gmm_fit`) and read back by `sfd_gmm_classify`. A model fitted on each snapshot can number its classes differently from one snapshot to the next. To keep the same classes over a run, fit once (on one snapshot, or offline) and classify every snapshot with the saved model.
+
+The script `exaStamp/scripts/python/sfd_gmm_train.py` trains the same model with scikit-learn from xyz files written with `sfd_<column>` fields (several snapshots can be combined), and writes the same YAML format:
+
+```bash
+python sfd_gmm_train.py snap_*.xyz -k 2 3 4 5 6 --select dbi -o gmm_model.yaml
+```
+
+```{ .yaml title="Parameters of sfd_gmm_fit" .params-block }
+features:         list of strings, default the 23 invariants P1_I0 ... P4_I11   # Descriptor columns used as features (at most 36).
+n_components:     list of ints, default [ 2 ]     # Numbers of components to fit (at most 16 each).
+select_by:        string, default "dbi"           # dbi (lowest), chi (highest) or bic (lowest), when several n_components are given.
+standardize:      bool, default false             # Center and scale each feature by its mean and standard deviation.
+max_iter:         int, default 100                # Maximum number of EM iterations.
+tol:              float, default 1e-3             # Convergence threshold on the change of the mean log-likelihood.
+reg_covar:        float, default 1e-6             # Added to the covariance diagonals.
+init_sample:      int, default 20000              # Number of particles used by the k-means initialization.
+n_init:           int, default 1                  # Number of initializations; the most likely fit is kept.
+seed:             int, default 0                  # Seed of the initialization.
+model_file:       string, default ""              # If set, the selected model is written to this YAML file.
+init_model_file:  string, default ""              # If set, the initial model (before EM) is written to this YAML file.
+scores_file:      string, default ""              # If set, the scores of all fits are written to this CSV file.
+```
+
+```{ .yaml title="Parameters of sfd_gmm_classify" .params-block }
+model_file:         string, default ""                  # YAML model; if empty, the model of sfd_gmm_fit is used.
+class_field:        string, default "sfd_class"         # Output class (component index).
+probability_field:  string, default "sfd_class_prob"    # Output posterior probability of the class.
+min_probability:    float, default 0                    # Below this probability the class is -1.
+```
+
+Grid field names are limited to 15 characters.
+
+```yaml title="Usage example: fit and classify each snapshot"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- sfd_gmm_fit: { n_components: [ 2, 3, 4, 5, 6 ], select_by: dbi, model_file: gmm_model.yaml }
+- sfd_gmm_classify: {}
+- write_xyz: { fields: [ id, type, sfd_class, sfd_class_prob ] }
+```
+
+```yaml title="Usage example: classify with a saved model"
+- compute_strain_functional: { rcut: 5.1 ang, sigma: 0.91 ang }
+- sfd_gmm_classify: { model_file: gmm_model.yaml, min_probability: 0.9 }
+```
+
+The YAML model holds `features`, `center` and `scale` (standardization, 0 and 1 if unused), `weights`, `means` (one list per component) and `covariances` (one matrix per component), in the standardized feature space. Examples are given in `exaStamp/data/regression_new/analysis_particle/strain_functional/`, on a periodic FCC copper crystal with two twin planes, a stacking fault and 24 vacancies (`fcc_planar_defects.py`). With `select_by: dbi`, `sfd_gmm_planar_defects.msp` finds 2 classes: the bulk, and the atoms of the twin and stacking-fault planes and around the vacancies. `sfd_gmm_classify_from_file.msp` uses a 3-component model trained by the script, which separates bulk, planar defects and vacancy neighbors.
+
 ## **Grain segmentation**
 
 Groups the crystalline atoms of a polycrystal into grains from the PTM orientations, and gives every atom a grain id. It runs in two passes, after `compute_ptm` and `ptm_fields`, and works with any number of MPI ranks (the grain ids are global).
