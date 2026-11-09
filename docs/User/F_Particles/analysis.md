@@ -283,10 +283,17 @@ Groups the crystalline atoms of a polycrystal into grains from the PTM orientati
 1. `compute_grain_bond_misorientation` records, for every bond of an owned atom (at most 24 nearest bonds), the neighbor id, the bond length and, when both atoms have the same cubic or hexagonal structure, their disorientation $\theta$: the smallest misorientation angle over the symmetry group of the crystal (24 rotations for cubic, 12 for hexagonal). Bonds above `misorientation_threshold` are not candidates. GPU compatible.
 2. `compute_grain_clusters` builds a graph whose nodes are the crystalline atoms and whose edges are the candidate bonds to their PTM template neighbors (12 FCC/HCP/ICO, 14 BCC, 6 SC), with weight $w = \exp(-\theta^2/3)$, $\theta$ in degrees. The graph is clustered hierarchically by Node-Pair-Sampling (T. Bonald et al., *Hierarchical graph clustering using node pair sampling*, MLG 2018): the two clusters $a$, $b$ that are mutual nearest neighbors for the distance $d(a,b) = w_a w_b / w(a,b)$, with $w_a$ the summed edge weight of $a$, are merged first. The resulting dendrogram is cut at a threshold chosen automatically: a robust fit of $\log d$ against the log of the merge size gives the trend of merges inside grains, and merges far above it are grain boundaries. Clusters smaller than `min_grain_atom_count` are dissolved. Atoms left without a grain (grain boundaries, defect cores, non-crystalline atoms) can then be adopted by the grain closest to them along the bond network (`orphan_adoption`). Last, the mean lattice orientation of each grain is computed from its clustered atoms: each atom orientation is replaced by its symmetry equivalent closest to the grain orientation before averaging.
 
-With several MPI ranks, each rank first clusters its own atoms into fragments of at most `fragment_max_atoms` atoms; the fragment graph, with the bonds across ranks, is clustered on rank 0, and the grain ids are sent back.
+With several MPI ranks, systems of up to `serial_max_atoms` atoms (default 2 million; rank 0 needs about 1 kB per atom) are clustered exactly: the candidate-bond graph is gathered on rank 0 and clustered there as a whole, so the grains do not depend on the number of ranks. Larger systems use a two-level scheme: each rank first clusters its own atoms into fragments of at most `fragment_max_atoms` atoms, the fragment graph, with the bonds across ranks, is clustered on rank 0, and the grain ids are sent back. The two-level scheme needs less memory on rank 0 but its result depends on the domain decomposition (a grain can be split when its pieces only touch across thin rank boundaries). Orphan adoption gives the same result for any number of ranks in both modes.
+
+**Coherent interfaces.** Stacking faults and coherent twin planes in an FCC crystal are HCP layers. Without special treatment they form their own HCP grains, and a stacking fault that crosses a whole grain cuts it in two FCC grains with the same orientation. With `handle_coherent_interfaces` (default), the bonds between an HCP atom and its FCC template neighbors are checked for coherence: the HCP orientation is mapped onto the two FCC orientations that share its close-packed plane, and the bond is coherent when one of them is within `misorientation_threshold` of the FCC atom. After the dendrogram cut, each HCP grain with coherent bonds joins the FCC grains next to it:
+
+- FCC grains with matching mean orientations (within `misorientation_threshold`), such as the two sides of a stacking fault, are merged together with the HCP grain: the stacking fault belongs to the grain;
+- FCC grains in twin orientation (60° about $\langle 111 \rangle$) are not merged: the HCP plane joins the side with the most coherent bonds (ties: the side holding the smallest atom id), and the twin boundary stays a grain boundary.
+
+HCP layers smaller than `min_grain_atom_count` are not grains and are handled by orphan adoption. Only hexagonal-into-cubic interfaces are handled: FCC layers in an HCP crystal stay separate grains. Merged grains are reported as FCC in the per-grain table, and their mean orientation is that of their FCC atoms.
 
 !!! note
-    Coherent twin boundaries and stacking faults (HCP layers in an FCC matrix, for example) are not merged into the surrounding grain: they are treated as grain boundaries.
+    OVITO's grain segmentation splits a twin plane atom by atom between the two twins; here the whole HCP plane goes to one side.
 
 ### `compute_grain_bond_misorientation`
 
@@ -306,7 +313,10 @@ auto_threshold:        bool, default true             # Choose the merge thresho
 manual_threshold_log:  float, default 0.0             # Merge threshold when auto_threshold is false: log of the clustering distance d (not an angle).
 min_grain_atom_count:  int, default 100               # Smaller clusters are not grains.
 orphan_adoption:       bool, default true             # Give atoms with no grain the grain of the closest grain atom along the bonds.
-fragment_max_atoms:    int, default 1000              # Largest fragment of the per-rank clustering (MPI). Smaller: closer to the 1-rank result; larger: fewer fragments gathered on rank 0.
+serial_max_atoms:      int, default 2000000           # Up to this many atoms, exact clustering of the whole graph on rank 0 (same result for any number of ranks); above it, two-level clustering.
+fragment_max_atoms:    int, default 1000              # Largest fragment of the two-level clustering. Smaller: closer to the exact result; larger: fewer fragments gathered on rank 0.
+handle_coherent_interfaces: bool, default true        # Merge HCP stacking faults and twin planes into the adjacent FCC grains (see above).
+misorientation_threshold:   float, default 4.0        # Largest disorientation (degrees) of a coherent FCC-HCP bond, and of two FCC grains merged through a stacking fault.
 color_seed:            int, default 1                 # Seed of the random grain colors.
 struct_field:          string, default "ptm_type"         # PTM structure-type field.
 orient_field:          string, default "ptm_orientation"  # PTM orientation field, for the mean grain orientations.
@@ -371,6 +381,8 @@ simulation_epilog:
 ```
 
 The input polycrystal of this example is built with [Atomsk](https://atomsk.univ-lille.fr/) (24 random Ta grains in a 200 Å box, about 445k atoms); the commands are given at the top of the `.msp` file. Atomsk leaves overlapping atom pairs at the grain boundaries, which `remove_close_particles` deletes before the analysis.
+
+A second example, `compute_grain_segmentation_twins.msp` in the same folder, checks the coherent interfaces: two Cu twins along [111] with an intrinsic stacking fault in one of them (7896 atoms, written by `fcc_twins_stacking_faults.py`). It finds 2 grains, the two twins at 60° about $\langle 111 \rangle$, and 6 grains (three FCC slabs and three HCP planes) with `handle_coherent_interfaces: false`.
 
 ## **Delaunay tessellation**
 
