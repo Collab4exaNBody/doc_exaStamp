@@ -281,7 +281,7 @@ A complete example with trained coefficients is given in `exaStamp/data/regressi
 Groups the crystalline atoms of a polycrystal into grains from the PTM orientations, and gives every atom a grain id. It runs in two passes, after `compute_ptm` and `ptm_fields`, and works with any number of MPI ranks (the grain ids are global).
 
 1. `compute_grain_bond_misorientation` records, for every bond of an owned atom (at most 24 nearest bonds), the neighbor id, the bond length and, when both atoms have the same cubic or hexagonal structure, their disorientation $\theta$: the smallest misorientation angle over the symmetry group of the crystal (24 rotations for cubic, 12 for hexagonal). Bonds above `misorientation_threshold` are not candidates. GPU compatible.
-2. `compute_grain_clusters` builds a graph whose nodes are the crystalline atoms and whose edges are the candidate bonds to their PTM template neighbors (12 FCC/HCP/ICO, 14 BCC, 6 SC), with weight $w = \exp(-\theta^2/3)$, $\theta$ in degrees. The graph is clustered hierarchically by Node-Pair-Sampling (T. Bonald et al., *Hierarchical graph clustering using node pair sampling*, MLG 2018): the two clusters $a$, $b$ that are mutual nearest neighbors for the distance $d(a,b) = w_a w_b / w(a,b)$, with $w_a$ the summed edge weight of $a$, are merged first. The resulting dendrogram is cut at a threshold chosen automatically: a robust fit of $\log d$ against the log of the merge size gives the trend of merges inside grains, and merges far above it are grain boundaries. Clusters smaller than `min_grain_atom_count` are dissolved. Atoms left without a grain (grain boundaries, defect cores, non-crystalline atoms) can then be adopted by the grain closest to them along the bond network (`orphan_adoption`).
+2. `compute_grain_clusters` builds a graph whose nodes are the crystalline atoms and whose edges are the candidate bonds to their PTM template neighbors (12 FCC/HCP/ICO, 14 BCC, 6 SC), with weight $w = \exp(-\theta^2/3)$, $\theta$ in degrees. The graph is clustered hierarchically by Node-Pair-Sampling (T. Bonald et al., *Hierarchical graph clustering using node pair sampling*, MLG 2018): the two clusters $a$, $b$ that are mutual nearest neighbors for the distance $d(a,b) = w_a w_b / w(a,b)$, with $w_a$ the summed edge weight of $a$, are merged first. The resulting dendrogram is cut at a threshold chosen automatically: a robust fit of $\log d$ against the log of the merge size gives the trend of merges inside grains, and merges far above it are grain boundaries. Clusters smaller than `min_grain_atom_count` are dissolved. Atoms left without a grain (grain boundaries, defect cores, non-crystalline atoms) can then be adopted by the grain closest to them along the bond network (`orphan_adoption`). Last, the mean lattice orientation of each grain is computed from its clustered atoms: each atom orientation is replaced by its symmetry equivalent closest to the grain orientation before averaging.
 
 With several MPI ranks, each rank first clusters its own atoms into fragments of at most `fragment_max_atoms` atoms; the fragment graph, with the bonds across ranks, is clustered on rank 0, and the grain ids are sent back.
 
@@ -308,12 +308,32 @@ min_grain_atom_count:  int, default 100               # Smaller clusters are not
 orphan_adoption:       bool, default true             # Give atoms with no grain the grain of the closest grain atom along the bonds.
 fragment_max_atoms:    int, default 1000              # Largest fragment of the per-rank clustering (MPI). Smaller: closer to the 1-rank result; larger: fewer fragments gathered on rank 0.
 color_seed:            int, default 1                 # Seed of the random grain colors.
-struct_field:          string, default "ptm_type"     # PTM structure-type field.
-grain_id_field:        string, default "grain_id"     # Output grain id (0, 1, ... by decreasing size; -1 = no grain).
-grain_color_field:     string, default "grain_color"  # Output RGB color of the grain (Vec3d, gray for no grain).
+struct_field:          string, default "ptm_type"         # PTM structure-type field.
+orient_field:          string, default "ptm_orientation"  # PTM orientation field, for the mean grain orientations.
+grain_id_field:        string, default "grain_id"         # Output grain id (0, 1, ... by decreasing size; -1 = no grain).
+grain_color_field:     string, default "grain_color"      # Output RGB color of the grain (Vec3d, gray for no grain).
+grains_file:           string, default ""                 # CSV file with one line per grain and per call, written by rank 0. Empty: no file.
 ```
 
-Both output fields are also written on the ghost particles. The number of grains is printed and available in the `n_grains` slot.
+Grain ids are sorted by decreasing number of atoms, adopted orphans included (ties: smallest atom id), so they do not depend on the number of MPI ranks. Both per-atom fields are also written on the ghost particles. The number of grains is printed and available in the `n_grains` slot, and the per-grain table in the output slots below:
+
+```{ .yaml title="Outputs" .params-block }
+n_grains:           int                # Number of grains.
+n_orphans_adopted:  int                # Number of adopted orphan atoms.
+grain_atom_count:   list of ints       # Atoms of each grain, adopted orphans included, indexed by grain id.
+grain_structure:    list of ints       # PTM structure type of each grain.
+grain_orientation:  list of floats     # Mean lattice orientation of each grain: quaternion (w, x, y, z), 4 values per grain.
+```
+
+The `grains_file` CSV has the columns `timestep, grain_id, atoms, structure, qw, qx, qy, qz, r, g, b`. The file is started anew (header included) at the first call of a run, and each later call (e.g. at every snapshot) appends its table, so a whole run fits in one file:
+
+```python
+import pandas as pd
+grains = pd.read_csv("grains.csv")
+grains.groupby("timestep").size()   # number of grains at each timestep
+```
+
+ The orientation quaternion rotates the reference lattice of the PTM template onto the grain, and is given in the fundamental zone (the symmetry equivalent closest to the identity). It is computed for cubic (FCC, BCC, SC) and hexagonal (HCP) grains; ICO grains get the identity.
 
 ```yaml title="Usage example (exaStamp/data/regression_new/grains/compute_grain_segmentation.msp)"
 chunk_neighbors:
@@ -336,6 +356,7 @@ compute_grain_bond_misorientation:
 compute_grain_clusters:
   min_grain_atom_count: 100
   orphan_adoption: true
+  grains_file: grains.csv
 
 simulation_epilog:
   - remove_close_particles: { distance: 1.5 ang, seed: 42 }
