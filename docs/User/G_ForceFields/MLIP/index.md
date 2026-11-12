@@ -4,7 +4,7 @@ icon: material/brain
 
 # **Machine Learning Interatomic Potentials**
 
-`exaStamp` ships several machine-learning interatomic potentials (MLIPs). Each one lives in its own plugin under `src/potential/mlip-<name>` and is **disabled by default**: turn it on at configure time with the matching CMake option (see [Build & Install](../../../BuildInstall/cmake_installation.md)).
+`exaStamp` ships several machine-learning interatomic potentials (MLIPs). Each one lives in its own plugin under `src/potential/mlip-<name>`; most are **disabled by default** (YE3T and polymlp, which need no external library, are built by default): turn them on at configure time with the matching CMake option (see [Build & Install](../../../BuildInstall/cmake_installation.md)).
 
 <div class="center-table" markdown>
 
@@ -13,6 +13,8 @@ icon: material/brain
 | SNAP  | [SNAP](snap.md) | `snap_force_fp32`, `snap_force_fp64` | `snap_init` (descriptors only) | `EXASTAMP_MLIP_SNAP_BUILD` | exaNBody built with `EXANB_BUILD_CONTRIB_MD=ON` |
 | POD   | [POD](pod.md) | `pod_force` | `pod_init` | `EXASTAMP_MLIP_POD_BUILD` | BLAS / LAPACK |
 | MTP   | [MTP](mtp.md) | `mtp_force` | `mtp_init` | `EXASTAMP_MLIP_MTP_BUILD` | none |
+| YE3T (linear ACE, `.yace`) | [YE3T](ye3t.md) | `ye3t_force` | `ye3t_init` | `EXASTAMP_MLIP_YE3T_BUILD` (default ON) | none (CPU / GPU) |
+| Polynomial MLP | [polymlp](polymlp.md) | `polymlp_force` | `polymlp_init` | `EXASTAMP_MLIP_POLYMLP_BUILD` (default ON) | none (exporter: pypolymlp) |
 | NNP   | [NNP (n2p2)](nnp.md) | `n2p2_force` | — | `EXASTAMP_MLIP_N2P2_BUILD` | n2p2 installation |
 | k2b   | [k2b](../Pair/Models/k2b.md) | `k2b_compute_force`, `k2b_multi_force`, ... | `k2b_init` | always built | none |
 
