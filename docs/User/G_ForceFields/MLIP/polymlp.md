@@ -32,7 +32,12 @@ cd exaStamp/scripts/polymlp_export && make -j4 POLYMLP_SRC=$(python -c "import p
 ./polymlp_export polymlp.lammps polymlp.exastamp.yaml
 ```
 
-Hybrid potentials (sums of several polymlp files) are not supported yet.
+**Hybrid potentials** (the energy is a sum of several polynomial MLPs fitted together, pypolymlp files `polymlp.yaml.1`, `polymlp.yaml.2`, ...; `pair_style hybrid polymlp polymlp` in LAMMPS): export each part, then give `polymlp_init` the list of files. The parts must have the same elements in the same order; each keeps its own cutoff and radial functions.
+
+```bash
+./polymlp_export polymlp.yaml.1 polymlp.1.exastamp.yaml
+./polymlp_export polymlp.yaml.2 polymlp.2.exastamp.yaml
+```
 
 ## **Operators**
 
@@ -50,12 +55,12 @@ compute_force:
 ```
 
 ```{ .yaml title="Parameters" .params-block }
-parameters.file:      string, required        # model exported by polymlp_export.
+parameters.file:      string or list, required   # model exported by polymlp_export; a list of files for a hybrid model.
 parameters.mem_gb:    float, default 1.0      # memory budget of the per-chunk work arrays (GB).
 parameters.emulate:   int, default 0          # debug: N > 0 runs the GPU code paths on the CPU with blocks of N threads (slow).
 ```
 
-The exaStamp species are matched to the elements of the model **by name**. `polymlp_init` raises `rcut_max` to the model cutoff. As for every MLIP, ghost forces must be zeroed before and folded back after `polymlp_force` (see [MLIP](index.md)). Per-atom energy: $E_i$. Per-atom virial: the whole virial of each bond on its central atom.
+The exaStamp species are matched to the elements of the model **by name**. `polymlp_init` raises `rcut_max` to the model cutoff (the largest cutoff of the parts of a hybrid model). As for every MLIP, ghost forces must be zeroed before and folded back after `polymlp_force` (see [MLIP](index.md)). Per-atom energy: $E_i$. Per-atom virial: the whole virial of each bond on its central atom.
 
 ```yaml title="Usage example"
 includes:
@@ -74,8 +79,8 @@ compute_force:
   - polymlp_force
 ```
 
-A complete example is the regression case `exaStamp/data/regression_new/physics_regression/mlip_polymlp_tial` (Ti-Al potential of the repository, CC-BY-4.0).
+A complete example is the regression case `exaStamp/data/regression_new/physics_regression/mlip_polymlp_tial` (Ti-Al potential of the repository, CC-BY-4.0); hybrid: `mlip_polymlp_tial_hybrid` (`file: [ "tial_hybrid.1.polymlp.yaml", "tial_hybrid.2.polymlp.yaml" ]`, a two-part Ti-Al test model).
 
 ## **Validation and performance**
 
-Against pypolymlp on repository potentials (Al, Ta up to $l_{max} = 16$ and invariant order 6, Ti-Al): energies $\le 4\times10^{-10}$ eV, forces $5\times10^{-11}$ eV/Å, virials to round-off, identical for any MPI / OpenMP decomposition (pypolymlp and the LAMMPS package run on one MPI process only) and for the emulated GPU code path. On an Apple M4 Pro (3456 Ta atoms, per evaluation): small Ta model 228 ms on 1 core / 60 ms on 4 threads (pypolymlp 642 / 178 ms), largest Ta model 2.7 s / 0.70 s (pypolymlp 7.05 / 2.05 s).
+Against pypolymlp on repository potentials (Al, Ta up to $l_{max} = 16$ and invariant order 6, Ti-Al): energies $\le 4\times10^{-10}$ eV, forces $5\times10^{-11}$ eV/Å, virials to round-off, identical for any MPI / OpenMP decomposition (pypolymlp and the LAMMPS package run on one MPI process only) and for the emulated GPU code path. On an Apple M4 Pro (3456 Ta atoms, per evaluation): small Ta model 228 ms on 1 core / 60 ms on 4 threads (pypolymlp 642 / 178 ms), largest Ta model 2.7 s / 0.70 s (pypolymlp 7.05 / 2.05 s). Hybrid (two-part Ti-Al test model, gtinv cutoff 6 Å + pair cutoff 4.5 Å) against pypolymlp: energies $2\times10^{-10}$ eV, forces $5\times10^{-11}$ eV/Å, any decomposition and the emulated GPU path.
