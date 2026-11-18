@@ -10,7 +10,7 @@ $$
 C_e \, \rho_e \, \frac{\partial T_e}{\partial t} = \kappa_e \, \nabla^2 T_e \;-\; G_{e \to i} \;+\; S_e(\mathbf{r},t)
 $$
 
-where $C_e$ is the electronic specific heat, $\rho_e$ the electronic density, $\kappa_e$ the electronic thermal conductivity, $G_{e \to i}$ the power density transferred from the electrons to the ions in each mesh cell, and $S_e$ an optional external source (e.g. a laser deposition).
+where $C_e$ is the electronic specific heat, $\rho_e$ the electronic density, $\kappa_e$ the electronic thermal conductivity, $G_{e \to i}$ the power density transferred from the electrons to the ions in each mesh cell, and $S_e$ an optional external source (e.g. a laser deposition). The volumetric heat capacity $C_e \rho_e$ and the electron-phonon coupling can also be given as functions of $T_e$ (see [Te-dependent electron parameters](#te-dependent-electron-parameters)).
 
 Each particle feels an additional Langevin force built from the local electronic temperature:
 
@@ -58,7 +58,7 @@ ti_source:    source term               # Not used by init_ttm; usually set to "
 At each timestep the operator:
 
 1. applies the Langevin force above to every particle, using a local $T_e$ averaged over the subcells overlapped by the particle footprint (a cube of side `splat_size`), and deposits the corresponding work back on the same subcells;
-2. solves the heat equation for $T_e$ on the local cells with an explicit scheme: conduction $\kappa_e \nabla^2 T_e$, the coupling sink and the source $S_e$. If `substep_diffusion` is enabled and one timestep exceeds the stability limit of the explicit scheme, the diffusion step is split into several smaller substeps, with an exchange of the ghost $T_e$ values between them;
+2. solves the heat equation for $T_e$ on the local cells with an explicit scheme: conduction $\kappa_e \nabla^2 T_e$, the coupling sink and the source $S_e$. If `substep_diffusion` is enabled and one timestep exceeds the stability limit of the explicit scheme, the diffusion step is split into several smaller substeps, with an exchange of the ghost $T_e$ values between them. With a $T_e$-dependent heat capacity, the stability limit uses the smallest $C_e$ on the mesh at the start of the step;
 3. updates the total electronic energy and the energy transferred to the ions during the step.
 
 On the first step (`timestep` 0), only the electronic energy is computed: the coupling and the diffusion start at step 1.
@@ -78,6 +78,11 @@ ionic_eletronic_heat_transfer:
   splat_size: <float>
   substep_diffusion: <bool>
   copy_ti_te: <bool>
+  Ce_te: <piecewise polynomial>
+  Gei_te: <piecewise polynomial>
+  n_ion: <float>
+  te_valid_min: <float>
+  te_valid_max: <float>
 ```
 
 ```{ .yaml title="Parameters" .params-block }
@@ -94,6 +99,11 @@ grid_subdiv:        int, default 3         # Subdivisions per grid cell and dire
 splat_size:         float, default 1.0     # Size of the particle footprint on the Te mesh; must not exceed the subcell size.
 substep_diffusion:  bool, default false    # Split the diffusion step when the explicit-scheme stability limit is exceeded.
 copy_ti_te:         bool, default false    # Debug: set Te to the local ionic temperature and skip the coupling and diffusion.
+Ce_te:              piecewise polynomial   # Optional. Volumetric electron heat capacity C_e(Te), replaces Ce*rho_e (see below).
+Gei_te:             piecewise polynomial   # Optional. Electron-phonon coupling factor G_ei(Te), replaces gamma_p (see below).
+n_ion:              float                  # Ionic number density (e.g. 1/ang^3). Required with Gei_te.
+te_valid_min:       float, default 0.0     # Validity range of the Te-dependent fits [K]: a warning is printed when
+te_valid_max:       float, default 1.0e4   #   Te leaves it. Values are not clipped.
 ```
 
 !!! warning "Units"
@@ -104,6 +114,84 @@ copy_ti_te:         bool, default false    # Debug: set Te to the local ionic te
 
 !!! note "Mesh and cutoff"
     The $T_e$ mesh is made of the simulation grid cells, each divided into `grid_subdiv`$^3$ subcells, so the mesh spacing is `cell_size / grid_subdiv`. Ghost cells must exist (the Laplacian needs them). The operator increases `rcut_max` if needed so that the ghost region covers `splat_size / 2`.
+
+### Te-dependent electron parameters
+
+The electronic heat capacity and the electron-phonon coupling of most metals vary strongly with $T_e$ at the temperatures reached after a laser or ion irradiation. `Ce_te` and `Gei_te` give them as piecewise polynomials of $T_e$, evaluated in every subcell at every step:
+
+$$
+y(T_e) = y_{scale} \; P_k(x_{scale} \, T_e), \qquad P_k(x) = \sum_i c_{k,i} \, x^i
+$$
+
+where piece $k$ is used while $T_e$ is below breakpoint $k$, and the last piece is used above the last breakpoint. Each one replaces a constant parameter:
+
+- `Ce_te` is the volumetric electron heat capacity $C_e(T_e)$ (energy per volume per kelvin, e.g. J/m³/K). It replaces the product `Ce*rho_e`, which is then ignored.
+- `Gei_te` is the electron-phonon coupling factor $G_{ei}(T_e)$ (power per volume per kelvin, e.g. W/m³/K). It replaces `gamma_p` through the friction coefficient of each particle of mass $m$:
+
+$$
+\gamma_p(T_e) = \frac{m \, G_{ei}(T_e)}{3 \, n_{ion} \, k_B}
+$$
+
+with $n_{ion}$ the ionic number density (`n_ion`). The two parameters are independent: either one can be used alone, with the constant form of the other.
+
+With a $T_e$-dependent heat capacity, $T_e$ is advanced in energy form. The electronic energy density
+
+$$
+E(T_e) = \int_0^{T_e} C_e(T) \, dT
+$$
+
+receives the conduction, coupling and source power over the step, and the new $T_e$ is obtained by inverting $E(T_e)$ (Newton iteration). The electronic energy therefore changes by exactly the energy exchanged with the ions and injected by the source, as with a constant heat capacity. The total electronic energy reported in the thermodynamic output is the sum of $E(T_e)$ over the mesh.
+
+```{ .yaml title="Piecewise polynomial syntax" .syntax-block }
+Ce_te:
+  unit: <unit string>
+  x_scale: <float>
+  y_scale: <float>
+  breakpoints: [ <float>, ... ]
+  coefficients: [ [ <float>, ... ], ... ]
+```
+
+```{ .yaml title="Piecewise polynomial parameters" .params-block }
+unit:          string, required      # Unit of y_scale*P(x), converted to internal units (e.g. J/m^3/K, J/s/m^3/K).
+x_scale:       float, default 1.0    # The polynomials are evaluated at x = x_scale*Te (Te in K).
+y_scale:       float, default 1.0    # Scale factor applied to the polynomial value.
+breakpoints:   list of floats        # Temperatures [K] between the pieces, positive and strictly increasing.
+                                     #   One less than the number of pieces; omitted for a single piece.
+coefficients:  list of lists         # One list per piece, constant term first. Up to 4 pieces, 8 coefficients each.
+```
+
+!!! warning "Validity range"
+    The fits are only valid over the temperature range they were made for. A warning is printed when $T_e$ leaves [`te_valid_min`, `te_valid_max`]. The polynomials are still evaluated there (values are not clipped). The run stops if the heat capacity becomes non-positive, or if a subcell loses all its electronic energy.
+
+Example for gold, with $C_e$ in J/m³/K and $G_{ei}$ fitted in $x = T_e \times 10^{-4}$ and in units of $10^{17}$ W/m³/K:
+
+```yaml title="Te-dependent parameters (gold)"
+ionic_eletronic_heat_transfer:
+  Ke: 0.01 eV/ps/ang/K
+  splat_size: 0.1 ang
+  grid_subdiv: 2
+  ti_source: "null"
+  te_source: "null"
+  substep_diffusion: true
+  Ce_te:                                   # 67.6*Te below 2200 K, then quadratic, then degree 5 above 5500 K
+    unit: J/m^3/K
+    breakpoints: [ 2200.0, 5500.0 ]
+    coefficients:
+      - [ 0.0, 67.6 ]
+      - [ 22135.0, 12.685, 1.8962e-2 ]
+      - [ -4.027e5, 210.74, -3.0463e-3, 4.0076e-8, 0.0, 1.0652e-18 ]
+  Gei_te:
+    unit: J/s/m^3/K
+    x_scale: 1.0e-4
+    y_scale: 1.0e17
+    breakpoints: [ 2100.0, 4400.0 ]
+    coefficients:
+      - [ 0.251 ]
+      - [ 0.25353, 0.042859, -0.92027, 3.1317 ]
+      - [ -0.53893, 2.3867, -0.83833, 0.15177, -0.013335, -4.5018e-4 ]
+  n_ion: 0.058983 1/ang^3                  # FCC gold, 4 atoms / (4.078 ang)^3
+  te_valid_max: 1.0e4
+```
 
 ### Source terms
 
@@ -186,7 +274,7 @@ global:
   log_mode: "stp;tmp;toe;poe;ele;ite"
 ```
 
-Other examples are available in `exaStamp/data/regression_new/ttm/` (spherical and constant sources, diffusion substeps).
+Other examples are available in `exaStamp/data/regression_new/ttm/` (spherical and constant sources, diffusion substeps, $T_e$-dependent parameters for gold in `ttm_Au_te_dep.msp`) and in the `ttm_*` cases of `exaStamp/data/regression_new/physics_regression/`.
 
 !!! tip "Electronic-temperature-dependent SNAP"
     The $T_e$ field can also drive an interatomic potential whose coefficients depend on the local electronic temperature. See the SNAP-TTM section of the [SNAP page](../G_ForceFields/MLIP/snap.md).
