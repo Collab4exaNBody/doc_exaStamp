@@ -69,6 +69,41 @@ from one of three sources:
 file and its DONNEES file (mixing rules applied). Both ways of reading the system then give the same forces and
 energies.
 
+## **Non-bonding forces and precision**
+
+The non-bonding forces (`potentials_for_pairs`, with the intramolecular pair weights) are computed by one of two
+operators:
+
+<div class="center-table" markdown>
+
+| Operator | Precision |
+| :------- | :-------- |
+| `ljexp6rf_pc` | double precision (default) |
+| `ljexp6rf_pc_fp32` | pair terms in single precision, sums of forces, energies and virial in double precision |
+
+</div>
+
+`data/config/config_molecule.msp` uses `ljexp6rf_pc`. To use the mixed precision operator, replace it in
+`compute_nonbonding_forces`:
+
+```{ .yaml title="Syntax" .syntax-block }
+ljexp6rf_pc_fp32:
+  enable_pair_weights: false
+  per_atom_charge: true
+  use_symmetry: false
+
+compute_nonbonding_forces:
+  rebind: { parameters: potentials_for_pairs }
+  body: [ ljexp6rf_pc_fp32 ]
+```
+
+!!! tip
+
+    `ljexp6rf_pc_fp32` is faster on GPUs with a low double precision throughput (2.4 to 2.9 times faster for the
+    non-bonding forces of condensed polybutadiene and TATB on a laptop GPU); it brings almost nothing on CPU. Atomic
+    forces differ from double precision by about 1e-7 (relative, up to 1e-6), the potential energy by about 1e-6.
+    Use `ljexp6rf_pc` for accurate energies or comparisons with reference data.
+
 ## **Potential types**
 
 where `type_1` and `type_2` stand for bonded potentials of the types described in the following pages, also accessible in the left panel:
