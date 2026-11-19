@@ -26,6 +26,7 @@ so that $E(r_c)=0$. For $r>r_c$, $E=0$. The charges are the species charges. For
 | :----------------- | :------: | :------------------------------------------------ |
 | `epsilon` | — | Dielectric constant $\varepsilon_{\mathrm{rf}}$ of the surrounding continuum |
 | `rc`               | distance | Cutoff radius $r_c$ of the reaction field (use the same value as `rcut`) |
+| `cutoff_mode`      | —        | Treatment of the force at $r_c$: `truncated` (default), `shifted_force` or `{ mode: switching, rs: VALUE UNITS }`, see [Force at the cutoff](../../Electrostatics/short.md#force-at-the-cutoff) |
 
 </div>
 

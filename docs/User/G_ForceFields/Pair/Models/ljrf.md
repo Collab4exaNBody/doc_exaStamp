@@ -36,6 +36,7 @@ $E_{\mathrm{shift}}$ is the Lennard-Jones energy at $r_{\mathrm{LJ}}$ when `shif
 | `shiftlj`        | —        | Shift the Lennard-Jones energy to zero at `lj_rcut` (default `true`) |
 | `rf.epsilon`     | —        | Dielectric constant of the surrounding continuum                   |
 | `rf.rc`          | distance | Cutoff $r_{\mathrm{rf}}$ of the reaction field                     |
+| `rf.cutoff_mode` | —        | Force at the reaction field cutoff, see [Force at the cutoff](../../Electrostatics/short.md#force-at-the-cutoff) |
 | `rcut`           | distance | Cutoff radius of the pair potential, at least $\max(r_{\mathrm{LJ}}, r_{\mathrm{rf}})$ |
 
 </div>

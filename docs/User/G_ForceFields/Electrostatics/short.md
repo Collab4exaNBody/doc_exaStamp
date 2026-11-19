@@ -218,6 +218,7 @@ so that $E(r_c) = 0$. There is no separate self term.
 | :-------- | :---: | :---------- |
 | `epsilon` | — | Dielectric constant $\varepsilon_{\text{rf}}$ of the continuum. `epsilon: 1` gives the plain shifted Coulomb potential; large values approach the conducting limit. |
 | `rc` | distance | Cutoff radius $r_c$. |
+| `cutoff_mode` | — | Treatment of the force at $r_c$: `truncated` (default), `shifted_force` or `{ mode: switching, rs: VALUE UNITS }`, see below. |
 
 </div>
 
@@ -229,8 +230,54 @@ compute_force:
   - coulombic_rf
 ```
 
-The same kernel is used by the pair styles `coul_rf`, `ljrf`, `exp6rf` and `ljexp6rf`, see
-[Coul RF](../Pair/Models/coul_rf.md).
+The same kernel is used by the pair styles `coul_rf`, `ljrf`, `exp6rf` and `ljexp6rf`, and by the molecular force
+field (`ljexp6rf_pc`, `ljexp6rf_pc_fp32` and `intramolecular_pair_force`), see
+[Coul RF](../Pair/Models/coul_rf.md) and [Bonding potentials](../Intramolecular/index.md#reaction-field-at-the-cutoff).
+
+### **Force at the cutoff**
+
+The energy is zero at $r_c$, but the force is not, unless $\varepsilon_{\text{rf}}$ is infinite:
+
+$$
+F(r_c) = -E'(r_c) = \frac{q_i q_j}{4\pi\varepsilon_0}\,\frac{3}{2\varepsilon_{\text{rf}} + 1}\,\frac{1}{r_c^2}
+$$
+
+When a pair crosses the cutoff, its force drops from this value to zero within one time step, and the total energy is
+not conserved: it changes by a small step each time. `cutoff_mode` selects how the force is brought to zero:
+
+- `truncated` (default): the reaction field above, the force drops to zero at $r_c$.
+- `shifted_force`: the force at $r_c$ is subtracted at every distance,
+
+    $$
+    E_{\text{sf}}(r) = E(r) - (r - r_c)\,E'(r_c)
+    $$
+
+    Energy and force are both zero at $r_c$. All forces change, by a constant term for each pair, and so does the
+    potential energy.
+
+- `switching`: the energy is multiplied by a switching function between $r_s$ (key `rs`) and $r_c$,
+
+    $$
+    E_{\text{sw}}(r) = S(x)\,E(r), \qquad x = \frac{r - r_s}{r_c - r_s}, \qquad S(x) = 1 - 10x^3 + 15x^4 - 6x^5
+    $$
+
+    with $S = 1$ for $r \le r_s$. $S$, $S'$ and $S''$ are continuous at $r_s$ and $r_c$, so energy and force go
+    smoothly to zero at $r_c$. Forces below $r_s$ are unchanged. The force between $r_s$ and $r_c$ includes the
+    term $-S'(x)\,E(r)/(r_c - r_s)$ and can be larger than without switching.
+
+```yaml
+coulombic_rf:
+  parameters: { epsilon: 2.2 , rc: 12.5 ang , cutoff_mode: { mode: switching , rs: 11.5 ang } }
+```
+
+!!! tip
+    On condensed TATB ($\varepsilon_{\text{rf}} = 2.2$, $r_c$ = 12.5 Å), the force of an O–H pair at the cutoff
+    is 0.012 eV/Å, 56% of the bare Coulomb force at that distance. Two runs whose time steps differ by $10^{-7}$
+    have total energies that differ by $10^{-5}$ eV/atom after a pair crosses the cutoff in one run and not in the
+    other. With `shifted_force` or `switching`, they stay within $6\times10^{-9}$ eV/atom. On two TATB inputs,
+    switching from 11.5 Å changes the potential energy by $-4\times10^{-4}$ to $-3\times10^{-3}$ eV/atom, and the
+    shifted force by $-0.1$ to $-0.2$ eV/atom (up to one third), since its constant force term acts on every pair
+    inside $r_c$.
 
 ## **Tests**
 

@@ -25,6 +25,7 @@ $E_{\mathrm{shift}}$ is the exponential-6 energy at the distance given by `param
 | `exp6.D`         | energy                | Amplitude of the short-range wall                           |
 | `rf.epsilon`     | —                     | Dielectric constant of the surrounding continuum            |
 | `rf.rc`          | distance              | Reaction field cutoff $r_c$ used in $k_{\mathrm{rf}}$ and $C_{\mathrm{rf}}$ |
+| `rf.cutoff_mode` | —                     | Force at the reaction field cutoff, see [Force at the cutoff](../../Electrostatics/short.md#force-at-the-cutoff) |
 | `rcut`           | distance              | Cutoff radius of the pair potential                         |
 
 </div>

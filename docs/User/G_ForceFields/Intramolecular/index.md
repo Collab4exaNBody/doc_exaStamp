@@ -104,6 +104,36 @@ compute_nonbonding_forces:
     forces differ from double precision by about 1e-7 (relative, up to 1e-6), the potential energy by about 1e-6.
     Use `ljexp6rf_pc` for accurate energies or comparisons with reference data.
 
+## **Reaction field at the cutoff**
+
+The reaction field energy is zero at its cutoff, but its force is not (see
+[Force at the cutoff](../Electrostatics/short.md#force-at-the-cutoff)). The `reaction_field_cutoff_mode` operator
+sets the treatment of the force at the cutoff for all pair potentials of the force field, whatever their origin
+(FAtomes and DONNEES files, molecule dump, `molecule_force_field`). Put it in `setup_system`, after the reader:
+
+```{ .yaml title="Syntax" .syntax-block }
+setup_system:
+  - read_fatomes_mol: { filename: "FAtomes_tatb_condensed" , stampinput: "DONNEES_tatb_condensed" }
+  - reaction_field_cutoff_mode: { mode: switching , rs: 11.5 ang }   # or { mode: shifted_force }
+```
+
+<div class="center-table" markdown>
+
+| Parameter | Default | Description |
+| :-------- | :-----: | :---------- |
+| `mode` | required | `truncated` (plain reaction field), `shifted_force` or `switching` |
+| `rs` | — | Distance where switching starts, below the reaction field cutoff (`switching` only) |
+
+</div>
+
+The cutoff mode applies to `ljexp6rf_pc`, `ljexp6rf_pc_fp32` and `intramolecular_pair_force`. With
+`molecule_force_field`, it can also be given in each `rf` block of `potentials_for_pairs`
+(`rf: { epsilon: 2.2, rc: 12.5 ang, cutoff_mode: shifted_force }`).
+
+!!! warning
+    The cutoff mode is not stored in molecule dumps. When restarting from a dump, call `reaction_field_cutoff_mode`
+    again after `read_dump_molecule`.
+
 ## **Potential types**
 
 where `type_1` and `type_2` stand for bonded potentials of the types described in the following pages, also accessible in the left panel:
